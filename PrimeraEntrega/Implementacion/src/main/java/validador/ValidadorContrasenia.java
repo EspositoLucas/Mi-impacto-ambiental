@@ -1,90 +1,85 @@
 package validador;
+
 import java.util.*;
 import java.util.Scanner;
-import java.util.regex.Matcher ;
+import java.util.concurrent.ConcurrentNavigableMap;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ValidadorContrasenia {
-    public static void main(String []args){
+    private static final int MIN_CARACTERES = 8;
+    private static final int MIN_MINUSCULAS = 2;
+    private static final int MIN_MAYUSCULAS = 2;
+    private static final int MIN_DIGITOS = 2;
+    private static final int MIN_ESPECIALES = 2;
 
-        // Cantidad maxima de letras permitidas
-        final int MAX=8;
+    private static final Set<Character> CARACTERES_ESPECIALES = new HashSet<>(Arrays.asList(
+            '!',
+            '"',
+            '#',
+            '$',
+            '%',
+            '&',
+            '\'',
+            '(',
+            ')',
+            '*',
+            '+',
+            ',',
+            '-',
+            '.',
+            '/',
+            ':',
+            ';',
+            '<',
+            '=',
+            '>',
+            '?',
+            '@',
+            '[',
+            '\\',
+            ']',
+            '^',
+            '_',
+            '`',
+            '{',
+            '|',
+            '}',
+            '~'
+    ));
 
+    public ResultadoDeValidacion validar(String contrasenia) {
+        int uppercaseCounter = 0, lowercaseCounter = 0, digitCounter = 0, specialCounter = 0;
 
-        // Cantidad minima de mayusculas
-        final int MIN_Uppercase=2;
-        // Cantidad minima de minusculas
-        final int MIN_Lowercase=2;
-        // Cantidad de digitos
-        final int NUM_Digits=2;
-        // cantidad minima de caracteres especiales
-        final int Special=2;
-        // Cantidad de letras mayusculas en la contrasenia
-        int uppercaseCounter=0;
-        // Cantidad de letras minusculas en la contrasenia
-        int lowercaseCounter=0;
-        // cantidad de digitos en la contrasenia
-        int digitCounter=0;
-        // cantidad de caracteres especiales en la contrasenia
-        int specialCounter=0;
-        int contadorDeIntentos = 0 ;
+        int lengthContra = contrasenia.length();
+        for (int i = 0; i < lengthContra; i++) {
+            char c = contrasenia.charAt(i);
 
-        // Tomar desde consola el input del usuario
-
-        System.out.println("Ingrese la contraseña : \n");
-
-        Scanner input_usuario = new Scanner(System.in);
-
-        // Tomar desde consola el input del usuario a y guardarlo como una contraseña en un string
-
-        String contraseña = input_usuario.nextLine();
-
-        for (int i=0; i < contraseña.length(); i++ ) {
-            char c = contraseña.charAt(i);
-            if(Character.isUpperCase(c))
+            if (Character.isUpperCase(c))
                 uppercaseCounter++;
-            else if(Character.isLowerCase(c))
+            else if (Character.isLowerCase(c))
                 lowercaseCounter++;
-            else if(Character.isDigit(c))
+            else if (Character.isDigit(c))
                 digitCounter++;
-            if(c>=33&&c<=46||c==64){
+
+            if (CARACTERES_ESPECIALES.contains(c))
                 specialCounter++;
-            }
-
         }
 
-        if (contraseña.length() >= MAX && uppercaseCounter >= MIN_Uppercase
-                && lowercaseCounter >= MIN_Lowercase && digitCounter >= NUM_Digits && specialCounter >= Special) {
-            System.out.println("Contaseña valida");
-        }
-        else {
-            System.out.println("Su contraseña no cumple con los parametros:");
-            if(contraseña.length() < MAX)
-                System.out.println(" Al menos 8 caracteres");
-            if (lowercaseCounter < MIN_Lowercase)
-                System.out.println("Minima cantidad de letras en minsucula");
-            if (uppercaseCounter < MIN_Uppercase)
-                System.out.println("Minima cantidad de letras en mayuscula");
-            if(digitCounter < NUM_Digits)
-                System.out.println("Minima cantidad de digitos");
-            if(specialCounter < Special)
-                System.out.println("La Contaseña debe contener al menos 3 caracteres especiales");
+        List<String> errores = new ArrayList<>();
+        if (contrasenia.length() < MIN_CARACTERES)
+            errores.add("Su contrasenia debe tener al menos " + MIN_CARACTERES + " caracteres");
+        if (lowercaseCounter < MIN_MINUSCULAS)
+            errores.add("Su contrasenia debe tener al menos " + MIN_MINUSCULAS + " letras minusculas");
+        if (uppercaseCounter < MIN_MAYUSCULAS)
+            errores.add("Su contrasenia debe tener al menos " + MIN_MAYUSCULAS + " letras mayusculas");
+        if (digitCounter < MIN_DIGITOS)
+            errores.add("Su contrasenia debe tener al menos " + MIN_DIGITOS + " digitos");
+        if (specialCounter < MIN_ESPECIALES)
+            errores.add("Su contrasenia debe tener al menos " + MIN_ESPECIALES + " caracteres especiales");
 
-            while(!contraseña.equals(input_usuario) && contadorDeIntentos < 3) {
-                contadorDeIntentos ++ ;
-                contraseña = input_usuario.nextLine();
-                if (contraseña.equals(input_usuario)) {
-                    System.out.println("Contaseña valida");
-                    break;
-                }
-
-            }
-            System.out.println("Contaseña Bloqueada");
-        }
-
-
-
-
+        boolean contraseniaValida = errores.isEmpty();
+        return new ResultadoDeValidacion(contraseniaValida, errores);
     }
 }
 
