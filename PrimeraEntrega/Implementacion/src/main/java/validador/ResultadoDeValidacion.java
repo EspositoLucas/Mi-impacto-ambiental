@@ -1,5 +1,6 @@
 package validador;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -10,6 +11,10 @@ public class ResultadoDeValidacion {
     public ResultadoDeValidacion(boolean esValido, List<String> errores) {
         this.esValido = esValido;
         this.errores = errores;
+    }
+
+    public ResultadoDeValidacion(boolean esValido, String error) {
+        this(esValido, Arrays.asList(error));
     }
 
     public boolean esValido() {
