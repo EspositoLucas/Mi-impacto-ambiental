@@ -71,7 +71,7 @@ public class ValidadorContrasenia {
 
     public ResultadoDeValidacion validar(String contrasenia) {
         if (contraseniasInseguras.contains(contrasenia))
-            return new ResultadoDeValidacion(false, "Su contrasenia es muy utilizada");
+            return new ResultadoDeValidacion(false, "Su contrasenia se encuentra dentro de la lista del Top 10.000 peores contraseñas");
 
         int uppercaseCounter = 0, lowercaseCounter = 0, digitCounter = 0, specialCounter = 0;
 
