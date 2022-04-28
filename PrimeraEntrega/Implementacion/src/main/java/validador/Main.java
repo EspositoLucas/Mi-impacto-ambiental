@@ -1,6 +1,7 @@
 package validador;
 
 import java.util.Scanner;
+import java.util.Timer;
 
 public class Main {
     private static final int MAX_INTENTOS = 3;
