@@ -1,6 +1,8 @@
 package validador;
 
 import java.util.Scanner;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Main {
     private static final int MAX_INTENTOS = 3;
@@ -9,6 +11,7 @@ public class Main {
         System.out.print("Ingrese la contraseña: ");
 
         Scanner scanner = new Scanner(System.in);
+
 
         String contrasenia = scanner.nextLine();
 
@@ -21,16 +24,23 @@ public class Main {
                 System.out.println("Contrasenia valida!");
             } else {
                 System.out.println("Contrasenia invalida:");
+                int formula = intentosFallidos + 5;
                 System.out.println(resultado.getErroresEnLineas());
 
                 intentosFallidos++;
-                if (intentosFallidos >= MAX_INTENTOS) {
-                    System.out.println("Cuenta bloqueada por haber hecho demasiados intentos fallidos");
-                } else {
-                    System.out.print("\nIngrese otra contrasenia: ");
-                    contrasenia = scanner.nextLine();
+
+                Timer timer = new Timer();
+                if(formula >= 5){
+                    timer.schedule(new NewLine(), 0, formula*1000);
+                    System.out.println("Cuenta bloqueada por "+ formula + " segundos");
+                    //contrasenia = scanner.nextLine();
                 }
             }
-        } while (!resultado.esValido() && intentosFallidos < MAX_INTENTOS);
+        } while (!resultado.esValido());
+    }
+}
+class NewLine extends TimerTask {
+    public void run() {
+        System.out.print("\nIngrese otra contrasenia: ");
     }
 }
