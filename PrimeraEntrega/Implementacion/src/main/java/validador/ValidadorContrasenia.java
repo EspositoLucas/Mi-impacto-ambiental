@@ -90,6 +90,7 @@ public class ValidadorContrasenia {
                 specialCounter++;
         }
 
+        // Parametros de Validacion
         List<String> errores = new ArrayList<>();
         if (contrasenia.length() < MIN_CARACTERES)
             errores.add("Su contrasenia debe tener al menos " + MIN_CARACTERES + " caracteres");
