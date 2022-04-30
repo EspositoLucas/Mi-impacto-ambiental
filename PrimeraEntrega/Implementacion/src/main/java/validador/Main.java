@@ -31,9 +31,8 @@ public class Main {
 
                 Timer timer = new Timer();
                 if(formula >= 5){
-                    timer.schedule(new NewLine(), 0, formula*1000);
-                    System.out.println("Cuenta bloqueada por "+ formula + " segundos");
-                    //contrasenia = scanner.nextLine();
+                    timer.schedule(new NewLine(), 0, formula * 1000);
+                    contrasenia = scanner.nextLine();
                 }
             }
         } while (!resultado.esValido());
@@ -41,6 +40,8 @@ public class Main {
 }
 class NewLine extends TimerTask {
     public void run() {
-        System.out.print("\nIngrese otra contrasenia: ");
+        int formula = 5;
+        System.out.println("Cuenta bloqueada por "+ formula + " segundos");
+        //System.out.print("\nIngrese otra contrasenia: ");
     }
 }
