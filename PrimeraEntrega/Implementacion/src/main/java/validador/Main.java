@@ -1,19 +1,62 @@
 package validador;
 
-import java.util.Scanner;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
+
 public class Main {
+
     private static final int MAX_INTENTOS = 3;
 
-    public static void main(String[] args) throws Exception {
-        System.out.print("Ingrese la contraseña: ");
+    private static final List<Usuario> usuariosRegistrados = Arrays.asList(
+            new Usuario("echito", "!echito!"),
+            new Usuario("milita", "!milita!"),
+            new Usuario("ronito", "!ronito!"),
+            new Usuario("lukitas", "!lukitas!"),
+            new Usuario("zirito", "!zirito!"),
+            new Usuario("agus", "!agus!")
+    );
 
+    public static void main(String[] args) throws Exception {
+
+        boolean usuarioLogeado = false;
         Scanner scanner = new Scanner(System.in);
 
+        do {
 
-        String contrasenia = scanner.nextLine();
+            System.out.print("Ingrese su usuario: ");
+            final String username = scanner.nextLine();
 
+            final Optional<Usuario> optionalUser = getUsuarioPorUsername(username);
+            if (!optionalUser.isPresent()) {
+                System.out.println("Usuario incorrecto!\n\n");
+                continue;
+            }
+
+            final Usuario user = optionalUser.get();
+            if (user.estaBloqueado()) {
+                System.out.println("Estas bloqueado hasta la fecha " + formatearBloqueadoHasta(user.getBloqueadoHasta()));
+                continue;
+            }
+
+            System.out.print("Ingrese la contraseña: ");
+            final String password = scanner.nextLine();
+            if (user.validarContrasenia(password)) {
+                System.out.println("Usuario " + user.getUsername() + " logeado de perlitass!");
+                user.logeoCorrecto();
+                usuarioLogeado = true;
+            } else {
+                System.out.println("Contrasenia incorrecta!");
+                user.logeoIncorrecto();
+                if (user.estaBloqueado()) {
+                    System.out.println("Estas bloqueado hasta la fecha " + formatearBloqueadoHasta(user.getBloqueadoHasta()));
+                    continue;
+                }
+            }
+
+        } while (!usuarioLogeado);
+
+        /*
         ValidadorContrasenia validador = new ValidadorContrasenia();
         ResultadoDeValidacion resultado;
         int intentosFallidos = 0;
@@ -29,18 +72,24 @@ public class Main {
                 intentosFallidos++;
 
                 Timer timer = new Timer();
-                if(formula >= 5){
+                if (formula >= 5) {
                     timer.schedule(new NewLine(), 0, formula * 1000);
                     contrasenia = scanner.nextLine();
                 }
             }
         } while (!resultado.esValido());
+        */
     }
-}
-class NewLine extends TimerTask {
-    public void run() {
-        int formula = 5;
-        System.out.println("Cuenta bloqueada por "+ formula + " segundos");
-        //System.out.print("\nIngrese otra contrasenia: ");
+
+    public static Optional<Usuario> getUsuarioPorUsername(String username) {
+        return usuariosRegistrados.stream()
+                .filter(u -> u.getUsername().equals(username))
+                .findFirst();
     }
+
+    public static String formatearBloqueadoHasta(LocalDateTime bloqueadoHasta) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        return bloqueadoHasta.format(formatter);
+    }
+
 }
