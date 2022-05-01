@@ -4,12 +4,12 @@ import java.time.LocalDateTime;
 
 public class Usuario {
 
-    private static final int INTENTOS_PERMITIDOS = 1;
+    private static final int INTENTOS_PERMITIDOS = 3; // Cuantas veces puede poner mal su password antes de que empiecen a correr los bloqueos
 
     private final String username;
     private final String password;
-    private LocalDateTime bloqueadoHasta;
-    private int cantidadIntentosIncorrectos = 0;
+    private LocalDateTime bloqueadoHasta; // Hasta que fecha esta bloqueado
+    private int cantidadIntentosIncorrectos = 0; // Cuantos logeos incorrectos seguidos hizo
 
     public Usuario(String username, String password) {
         this.username = username;
@@ -39,6 +39,7 @@ public class Usuario {
     }
 
     public void logeoCorrecto() {
+        // Si se logeo correctamente reseteo los campos, para que la proxima vez que se logea mal los campos empiecen desde cero
         cantidadIntentosIncorrectos = 0;
         bloqueadoHasta = null;
     }
