@@ -9,11 +9,11 @@ public class Main {
     private static final int MAX_INTENTOS_REGISTRO = 3;
 
     private static final List<Usuario> usuariosRegistrados = new ArrayList<>(Arrays.asList(
-            new Usuario("echito", "!echito!"),
-            new Usuario("milita", "!milita!"),
-            new Usuario("ronito", "!ronito!"),
-            new Usuario("lukitas", "!lukitas!"),
-            new Usuario("zirito", "!zirito!"),
+            new Usuario("echi", "!echi!"),
+            new Usuario("mili", "!mili!"),
+            new Usuario("roni", "!roni!"),
+            new Usuario("lucas", "!lucas!"),
+            new Usuario("ziro", "!ziro!"),
             new Usuario("agus", "!agus!")
     ));
 
@@ -79,7 +79,7 @@ public class Main {
                 System.out.println("Contrasenia invalida:");
                 System.out.println(resultado.getErroresEnLineas());
                 if (intentosFallidos > MAX_INTENTOS_REGISTRO) {
-                    System.out.println("Demasiados errores, ninosvimos.");
+                    System.out.println("Demasiados errores");
                 }
             }
         } while (!passwordCorrecta && intentosFallidos <= MAX_INTENTOS_REGISTRO);
@@ -106,7 +106,7 @@ public class Main {
         System.out.print("Ingrese la contraseña: ");
         final String password = scanner.nextLine();
         if (user.validarContrasenia(password)) {
-            System.out.println("Usuario " + user.getUsername() + " logeado de perlitass!");
+            System.out.println("Usuario " + user.getUsername() );
             user.logeoCorrecto();
         } else {
             System.out.println("Contrasenia incorrecta!");
