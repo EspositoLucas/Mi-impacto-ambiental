@@ -1,12 +1,12 @@
-package validador;
+package dds.grupo4.tpimpacto.extras;
 
 public enum OperacionTesteo {
     LOGIN,
     REGISTRO,
     EXIT;
 
-    public static OperacionTesteo of(int operacion){
-        switch (operacion){
+    public static OperacionTesteo of(int operacion) {
+        switch (operacion) {
             case 1:
                 return LOGIN;
             case 2:

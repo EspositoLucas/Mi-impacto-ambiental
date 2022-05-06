@@ -1,9 +1,17 @@
-package validador;
+package dds.grupo4.tpimpacto;
+
+import dds.grupo4.tpimpacto.common.LectorDeArchivoImpl;
+import dds.grupo4.tpimpacto.common.ResultadoDeValidacion;
+import dds.grupo4.tpimpacto.common.ValidadorContrasenia;
+import dds.grupo4.tpimpacto.entities.Usuario;
+import dds.grupo4.tpimpacto.extras.OperacionTesteo;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
+@SpringBootApplication
 public class Main {
 
     private static final int MAX_INTENTOS_REGISTRO = 3;
@@ -18,6 +26,11 @@ public class Main {
     ));
 
     public static void main(String[] args) throws Exception {
+        /*
+         * Descomentar esto cuando querramos usar Spring para hacer la API loca
+         * SpringApplication.run(Main.class, args);
+         */
+
         boolean terminarEjecucion = false;
         do {
             OperacionTesteo operacionTesteo = mostrarOperacionesYElegir();
@@ -38,13 +51,28 @@ public class Main {
     }
 
     public static OperacionTesteo mostrarOperacionesYElegir() {
+        Scanner scanner = new Scanner(System.in);
+
+        mostrarOperaciones();
+
+        while (true) {
+            String ingresado = scanner.nextLine();
+            try {
+                int operacion = Integer.parseInt(ingresado);
+                return OperacionTesteo.of(operacion);
+            } catch (Exception e) {
+                System.out.println("No te pases de vivarache, mete algo valido");
+                System.out.println();
+                mostrarOperaciones();
+            }
+        }
+    }
+
+    private static void mostrarOperaciones() {
         System.out.println("1- Login");
         System.out.println("2- Registrar usuario");
         System.out.println("3- Salir");
         System.out.print("Elegi una opcion: ");
-        Scanner scanner = new Scanner(System.in);
-        int operacion = scanner.nextInt();
-        return OperacionTesteo.of(operacion);
     }
 
     public static void registrarUsuario() throws Exception {
@@ -106,7 +134,7 @@ public class Main {
         System.out.print("Ingrese la contraseña: ");
         final String password = scanner.nextLine();
         if (user.validarContrasenia(password)) {
-            System.out.println("Usuario " + user.getUsername() );
+            System.out.println("Usuario " + user.getUsername() + " logeado joyita");
             user.logeoCorrecto();
         } else {
             System.out.println("Contrasenia incorrecta!");
@@ -129,7 +157,7 @@ public class Main {
     }
 
     public static ResultadoDeValidacion validarNuevaContrasenia(String nuevaPassword) {
-        ValidadorContrasenia validador = new ValidadorContrasenia();
+        ValidadorContrasenia validador = new ValidadorContrasenia(new LectorDeArchivoImpl());
         return validador.validar(nuevaPassword);
     }
 

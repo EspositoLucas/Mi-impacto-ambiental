@@ -1,4 +1,4 @@
-package validador;
+package dds.grupo4.tpimpacto.entities;
 
 import java.time.LocalDateTime;
 
@@ -30,9 +30,9 @@ public class Usuario {
 
     public void logeoIncorrecto() {
         cantidadIntentosIncorrectos++;
-        if (cantidadIntentosIncorrectos > INTENTOS_PERMITIDOS) {
+        if (cantidadIntentosIncorrectos >= INTENTOS_PERMITIDOS) {
             // Si se logeo incorrectamente mas veces de las permitidas, se empieza a bloquear por cierto tiempo
-            final int segundosDeBloqueo = (cantidadIntentosIncorrectos - INTENTOS_PERMITIDOS) * 10;
+            int segundosDeBloqueo = (cantidadIntentosIncorrectos - INTENTOS_PERMITIDOS) * 10;
 
             bloqueadoHasta = LocalDateTime.now().plusSeconds(segundosDeBloqueo);
         }
@@ -51,4 +51,5 @@ public class Usuario {
     public LocalDateTime getBloqueadoHasta() {
         return bloqueadoHasta;
     }
+
 }
