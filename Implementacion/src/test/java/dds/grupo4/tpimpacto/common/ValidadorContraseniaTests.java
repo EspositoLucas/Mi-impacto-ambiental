@@ -4,6 +4,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.Arrays;
 
@@ -27,52 +29,33 @@ public class ValidadorContraseniaTests {
     }
 
     @Test
-    public void contrasenia_esta_dentro_del_top_10000_peores_contrasenias() {
-        ResultadoDeValidacion resultado = validadorContrasenia.validar("masUsada01");
+    public void validarContrasenia_cuandoLaContraseniaEstaEnLaListaDeMasUsadas_retornaError() {
+        ResultadoDeValidacion resultado = validadorContrasenia.validarContrasenia("masUsada01");
         Assertions.assertFalse(resultado.esValido());
     }
-//    public void contrasenia_no_esta_dentro_del_top_10000_peores_contrasenias() {
-//        Assert.assertTrue(esValido: true);
-//    }
-//
-//    //Tests para corroborar si una contrasenia que no pertenece a la lista de las 100000 peores contrasenias cumple con las condiciones para ser segura
-//
-//    public void contrasenia_contiene_cantidad_minima_de_caracteres() {
-//        Assert.assertTrue(esValido: true);
-//    }
-//    public void contrasenia_no_contiene_cantidad_minima_de_caracteres() {
-//        Assert.assertEquals(1,1);
-//    }
-//
-//    public void contrasenia_contiene_cantidad_minima_de_letras_minusculas() {
-//        Assert.assertEquals(1,1);
-//    }
-//
-//    public void contrasenia_no_contiene_cantidad_minima_de_letras_minusculas() {
-//        Assert.assertEquals(1,1);
-//    }
-//
-//    public void contrasenia_contiene_cantidad_minima_de_letras_mayusculas() {
-//        Assert.assertEquals(1,1);
-//    }
-//
-//    public void contrasenia_no_contiene_cantidad_minima_de_letras_mayusculas() {
-//        Assert.assertEquals(1,1);
-//    }
-//
-//    public void contrasenia_contiene_cantidad_minima_de_digitos() {
-//        Assert.assertEquals(1,1);
-//    }
-//    public void contrasenia_no_contiene_cantidad_minima_de_digitos() {
-//        Assert.assertEquals(1,1);
-//    }
-//
-//    public void contrasenia_contiene_cantidad_minima_de_caracteres_especiales() {
-//        Assert.assertEquals(1,1);
-//    }
-//    public void contrasenia_no_contiene_cantidad_minima_de_caracteres_especiales() {
-//        Assert.assertEquals(1,1);
-//    }
 
+    @Test
+    public void validarContrasenia_cuandoLaContraseniaNoEstaEnLaListaDeMasUsadas_retornaOk() {
+        ResultadoDeValidacion resultado = validadorContrasenia.validarContrasenia("UNAcontraQueNoEsMasUsadaYPasaLosTests123!!**");
+        Assertions.assertTrue(resultado.esValido());
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {
+            "abc", // Pocos caracteres
+            "abcdefghijkl", // Le faltan mayusculas, digitos y simbolos
+            "ABCDefghIJKLmnop", // Le faltan digitos y simbolos
+            "ABCDefgh1234" // Le faltan simbolos
+    })
+    public void validarContrasenia_cuandoLaContraNoCumpleRequisitos_retornaError(String contraseniaParam) {
+        ResultadoDeValidacion resultado = validadorContrasenia.validarContrasenia(contraseniaParam);
+        Assertions.assertFalse(resultado.esValido());
+    }
+
+    @Test
+    public void validarContrasenia_cuandoLaContraCumpleTodosLosRequisitos_retornaOk() {
+        ResultadoDeValidacion resultado = validadorContrasenia.validarContrasenia("ESTAesMIcontraseniaSUPERsegura12345!*[]{}");
+        Assertions.assertTrue(resultado.esValido());
+    }
 
 }

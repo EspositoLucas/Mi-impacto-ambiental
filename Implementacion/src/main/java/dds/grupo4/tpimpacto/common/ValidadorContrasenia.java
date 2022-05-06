@@ -53,7 +53,7 @@ public class ValidadorContrasenia {
         this.contraseniasInseguras = lectorDeArchivo.leerLineas(RUTA_ARCHIVO_CONTRASENIAS_INSEGURAS);
     }
 
-    public ResultadoDeValidacion validar(String contrasenia) {
+    public ResultadoDeValidacion validarContrasenia(String contrasenia) {
         if (contraseniasInseguras.contains(contrasenia))
             return new ResultadoDeValidacion(false, "Su contrasenia se encuentra dentro de la lista del Top 10.000 peores contraseñas");
 

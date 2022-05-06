@@ -158,7 +158,7 @@ public class Main {
 
     public static ResultadoDeValidacion validarNuevaContrasenia(String nuevaPassword) {
         ValidadorContrasenia validador = new ValidadorContrasenia(new LectorDeArchivoImpl());
-        return validador.validar(nuevaPassword);
+        return validador.validarContrasenia(nuevaPassword);
     }
 
     public static String formatearBloqueadoHasta(LocalDateTime bloqueadoHasta) {
