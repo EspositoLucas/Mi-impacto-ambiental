@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 public class Usuario {
 
-    private static final int INTENTOS_PERMITIDOS = 3; // Cuantas veces puede poner mal su password antes de que empiecen a correr los bloqueos
+    public static final int INTENTOS_DE_LOGEO_PERMITIDOS = 3; // Cuantas veces puede poner mal su password antes de que empiecen a correr los bloqueos
 
     private final String username;
     private final String password;
@@ -30,9 +30,9 @@ public class Usuario {
 
     public void logeoIncorrecto() {
         cantidadIntentosIncorrectos++;
-        if (cantidadIntentosIncorrectos >= INTENTOS_PERMITIDOS) {
+        if (cantidadIntentosIncorrectos >= INTENTOS_DE_LOGEO_PERMITIDOS) {
             // Si se logeo incorrectamente mas veces de las permitidas, se empieza a bloquear por cierto tiempo
-            int segundosDeBloqueo = (cantidadIntentosIncorrectos - INTENTOS_PERMITIDOS) * 10;
+            int segundosDeBloqueo = (cantidadIntentosIncorrectos - INTENTOS_DE_LOGEO_PERMITIDOS) * 10;
 
             bloqueadoHasta = LocalDateTime.now().plusSeconds(segundosDeBloqueo);
         }
