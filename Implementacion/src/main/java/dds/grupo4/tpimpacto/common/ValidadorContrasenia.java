@@ -1,14 +1,11 @@
-package validador;
+package dds.grupo4.tpimpacto.common;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.nio.file.Files;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class ValidadorContrasenia {
+
+    public static final String RUTA_ARCHIVO_CONTRASENIAS_INSEGURAS = "static/contraseniasInseguras.txt";
+
     private static final int MIN_CARACTERES = 8;
     private static final int MIN_MINUSCULAS = 2;
     private static final int MIN_MAYUSCULAS = 2;
@@ -50,26 +47,13 @@ public class ValidadorContrasenia {
             '~'
     ));
 
-    private final Set<String> contraseniasInseguras;
+    private final List<String> contraseniasInseguras;
 
-    public ValidadorContrasenia() {
-        URL resource = getClass().getClassLoader().getResource("static/contraseniasInseguras.txt");
-        try {
-            File file = new File(resource.toURI());
-            List<String> lines = Files.readAllLines(file.toPath());
-            contraseniasInseguras = lines
-                    .stream()
-                    .map(String::trim) // Saco espacios al principio y al final de cada linea
-                    .filter(s -> !s.isEmpty()) // Borro las lineas que estan vacias
-                    .collect(Collectors.toSet());
-        } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+    public ValidadorContrasenia(LectorDeArchivo lectorDeArchivo) {
+        this.contraseniasInseguras = lectorDeArchivo.leerLineas(RUTA_ARCHIVO_CONTRASENIAS_INSEGURAS);
     }
 
-    public ResultadoDeValidacion validar(String contrasenia) {
+    public ResultadoDeValidacion validarContrasenia(String contrasenia) {
         if (contraseniasInseguras.contains(contrasenia))
             return new ResultadoDeValidacion(false, "Su contrasenia se encuentra dentro de la lista del Top 10.000 peores contraseñas");
 

@@ -1,10 +1,11 @@
-package validador;
+package dds.grupo4.tpimpacto.common;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class ResultadoDeValidacion {
+
     private boolean esValido;
     private List<String> errores;
 
@@ -31,15 +32,15 @@ public class ResultadoDeValidacion {
         return errores;
     }
 
+    public void setErrores(List<String> errores) {
+        this.errores = errores;
+    }
+
     public String getErroresEnLineas() throws Exception {
         return getErrores()
                 .stream()
                 .map(error -> "- " + error + "\n")
                 .collect(Collectors.joining());
-    }
-
-    public void setErrores(List<String> errores) {
-        this.errores = errores;
     }
 
 }
