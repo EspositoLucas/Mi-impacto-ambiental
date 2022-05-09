@@ -1,2 +1,4 @@
 # miImpactoAmbiental-DDS
 Trabajo Practico Anual 2022 de la materia Diseño de Sistemas de la UTN FRBA
+
+Link a la primera entrega: https://drive.google.com/drive/folders/1ijyV6ojHAbxNwrvBCY0gBLvaj0BnxdAA?usp=sharing
