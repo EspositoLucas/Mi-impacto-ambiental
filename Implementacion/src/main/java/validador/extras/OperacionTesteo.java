@@ -1,4 +1,4 @@
-package dds.grupo4.tpimpacto.extras;
+package validador.extras;
 
 public enum OperacionTesteo {
     LOGIN,

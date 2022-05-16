@@ -1,4 +1,4 @@
-package dds.grupo4.tpimpacto.entities;
+package validador.entities;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

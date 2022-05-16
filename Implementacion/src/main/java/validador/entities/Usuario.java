@@ -1,4 +1,4 @@
-package dds.grupo4.tpimpacto.entities;
+package validador.entities;
 
 import java.time.LocalDateTime;
 

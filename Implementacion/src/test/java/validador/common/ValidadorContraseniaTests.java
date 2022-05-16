@@ -1,4 +1,4 @@
-package dds.grupo4.tpimpacto.common;
+package validador.common;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;

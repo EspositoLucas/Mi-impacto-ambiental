@@ -1,10 +1,10 @@
-package dds.grupo4.tpimpacto;
+package validador;
 
-import dds.grupo4.tpimpacto.common.LectorDeArchivoImpl;
-import dds.grupo4.tpimpacto.common.ResultadoDeValidacion;
-import dds.grupo4.tpimpacto.common.ValidadorContrasenia;
-import dds.grupo4.tpimpacto.entities.Usuario;
-import dds.grupo4.tpimpacto.extras.OperacionTesteo;
+import validador.common.LectorDeArchivoImpl;
+import validador.common.ResultadoDeValidacion;
+import validador.common.ValidadorContrasenia;
+import validador.entities.Usuario;
+import validador.extras.OperacionTesteo;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.time.LocalDateTime;

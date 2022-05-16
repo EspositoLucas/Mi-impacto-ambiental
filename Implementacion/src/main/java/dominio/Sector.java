@@ -1,4 +1,4 @@
-package organizaciones;
+package dominio;
 
 import java.util.List;
 
@@ -6,7 +6,14 @@ public class Sector {
     private String nombre;
     private Organizacion organizacion ;
     private List<Miembro> miembros ;
-    private EspacioTrabajo espacioTrabajo;
+    private Espacio espacioTrabajo;
+
+    public Sector(String nombre, Organizacion organizacion, List<Miembro> miembros, Espacio espacioTrabajo) {
+        this.nombre = nombre;
+        this.organizacion = organizacion;
+        this.miembros = miembros;
+        this.espacioTrabajo = espacioTrabajo;
+    }
 
     public String getNombre() {
         return nombre;
@@ -32,11 +39,11 @@ public class Sector {
         this.miembros = miembros;
     }
 
-    public EspacioTrabajo getEspacioTrabajo() {
+    public Espacio getEspacioTrabajo() {
         return espacioTrabajo;
     }
 
-    public void setEspacioTrabajo(EspacioTrabajo espacioTrabajo) {
+    public void setEspacioTrabajo(Espacio espacioTrabajo) {
         this.espacioTrabajo = espacioTrabajo;
     }
 }

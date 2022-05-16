@@ -1,4 +1,4 @@
-package dds.grupo4.tpimpacto.common;
+package validador.common;
 
 import java.util.Arrays;
 import java.util.List;

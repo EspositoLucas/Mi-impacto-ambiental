@@ -1,4 +1,4 @@
-package organizaciones;
+package dominio;
 
 import java.util.List;
 
@@ -8,7 +8,12 @@ public class Organizacion {
     private List<Sector> sectores ;
     private Clasificacion clasificacion ;
 
-    public Organizacion() {
+
+    public Organizacion(String razonSocial, TipoOrganizacion tipo, List<Sector> sectores, Clasificacion clasificacion) {
+        this.razonSocial = razonSocial;
+        this.tipo = tipo;
+        this.sectores = sectores;
+        this.clasificacion = clasificacion;
     }
 
     public String getRazonSocial() {
@@ -42,6 +47,9 @@ public class Organizacion {
     public void setClasificacion(Clasificacion clasificacion) {
         this.clasificacion = clasificacion;
     }
+
+
+    //Metodo para obtener los miembros
 
 //    public List<Miembro> getMiembros() {
 //        return sectores.getMiembros();
