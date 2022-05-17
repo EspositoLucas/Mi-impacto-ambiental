@@ -2,25 +2,32 @@ package dds.grupo4.tpimpacto.entities;
 
 import dds.grupo4.tpimpacto.enums.TipoDocumento;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Miembro {
+@Entity(name = "Miembro")
+@Table(name = "miembros")
+public class Miembro extends BaseEntity {
 
     private String nombre;
     private String apellido;
     private TipoDocumento tipoDocumento;
     private Integer numeroDocumento;
-    private List<Sector> sectores;
-    private List<Trayecto> trayectos;
+    private List<Sector> sectores = new ArrayList<>();
+    private List<Trayecto> trayectos = new ArrayList<>();
 
-    public Miembro(String nombre, String apellido, TipoDocumento tipoDocumento, Integer numeroDocumento, List<Sector> sectores, List<Trayecto> trayectos) {
+    // Hibernate
+    protected Miembro() {
+    }
+
+    public Miembro(String nombre, String apellido, TipoDocumento tipoDocumento, Integer numeroDocumento) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.tipoDocumento = tipoDocumento;
         this.numeroDocumento = numeroDocumento;
-        this.sectores = sectores;
-        this.trayectos = trayectos;
     }
 
     public String getNombre() {

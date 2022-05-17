@@ -1,12 +1,21 @@
 package dds.grupo4.tpimpacto.entities;
 
-public class Parada {
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity(name = "Parada")
+@Table(name = "paradas")
+public class Parada extends BaseEntity {
 
     private TransportePublico transportePublico;
     private Direccion direccion;
 
-    public Parada(TransportePublico trasnportePublico, Direccion direccion) {
-        this.transportePublico = trasnportePublico;
+    // Hibernate
+    protected Parada() {
+    }
+
+    public Parada(TransportePublico transportePublico, Direccion direccion) {
+        this.transportePublico = transportePublico;
         this.direccion = direccion;
     }
 

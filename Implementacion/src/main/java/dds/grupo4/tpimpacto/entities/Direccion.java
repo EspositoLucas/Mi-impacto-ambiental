@@ -1,11 +1,20 @@
 package dds.grupo4.tpimpacto.entities;
 
-public class Direccion {
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity(name = "Direccion")
+@Table(name = "direcciones")
+public class Direccion extends BaseEntity {
 
     private String calle;
     private int altura;
     private String barrio;
     private int codigoPostal;
+
+    // Hibernate
+    protected Direccion() {
+    }
 
     public Direccion(String calle, int altura, String barrio, int codigoPostal) {
         this.calle = calle;

@@ -1,8 +1,12 @@
 package dds.grupo4.tpimpacto.entities;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.time.LocalDateTime;
 
-public class Usuario {
+@Entity(name = "Usuario")
+@Table(name = "usuarios")
+public class Usuario extends BaseEntity {
 
     public static final int INTENTOS_DE_LOGEO_PERMITIDOS = 3; // Cuantas veces puede poner mal su password antes de que empiecen a correr los bloqueos
 
@@ -10,6 +14,11 @@ public class Usuario {
     private String password;
     private LocalDateTime bloqueadoHasta; // Hasta que fecha esta bloqueado
     private int cantidadIntentosIncorrectos = 0; // Cuantos logeos incorrectos seguidos hizo
+
+    // Hibernate
+    protected Usuario() {
+    }
+
 
     public Usuario(String username, String password) {
         this.username = username;

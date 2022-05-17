@@ -1,17 +1,26 @@
 package dds.grupo4.tpimpacto.entities;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import java.util.ArrayList;
 import java.util.List;
 
-public class Sector {
+@Entity(name = "Sector")
+@Table(name = "sectores")
+public class Sector extends BaseEntity {
+
     private String nombre;
     private Organizacion organizacion;
-    private List<Miembro> miembros;
     private Espacio espacio;
+    private List<Miembro> miembros = new ArrayList<>();
 
-    public Sector(String nombre, Organizacion organizacion, List<Miembro> miembros, Espacio espacio) {
+    // Hibernate
+    protected Sector() {
+    }
+
+    public Sector(String nombre, Organizacion organizacion, Espacio espacio) {
         this.nombre = nombre;
         this.organizacion = organizacion;
-        this.miembros = miembros;
         this.espacio = espacio;
     }
 

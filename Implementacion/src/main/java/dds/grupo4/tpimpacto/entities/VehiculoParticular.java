@@ -3,11 +3,20 @@ package dds.grupo4.tpimpacto.entities;
 import dds.grupo4.tpimpacto.enums.TipoCombustible;
 import dds.grupo4.tpimpacto.enums.TipoVehiculoParticular;
 
-public class VehiculoParticular extends MedioTransporte {
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity(name = "VehiculoParticular")
+@Table(name = "vehiculos_particulares")
+public class VehiculoParticular extends MedioDeTransporte {
 
     private TipoVehiculoParticular tipoVehiculoParticular;
     private TipoCombustible tipoVCombustible;
     private String tipoServicioContratado;
+
+    // Hibernate
+    protected VehiculoParticular() {
+    }
 
     public VehiculoParticular(TipoVehiculoParticular tipoVehiculoParticular, TipoCombustible tipoVCombustible, String tipoServicioContratado) {
         this.tipoVehiculoParticular = tipoVehiculoParticular;

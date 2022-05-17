@@ -2,13 +2,22 @@ package dds.grupo4.tpimpacto.entities;
 
 import dds.grupo4.tpimpacto.enums.TipoTransportePublico;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import java.util.ArrayList;
 import java.util.List;
 
-public class TransportePublico extends MedioTransporte {
+@Entity(name = "TransportePublico")
+@Table(name = "transportes_publicos")
+public class TransportePublico extends MedioDeTransporte {
 
     private TipoTransportePublico tipoTransportePublico;
     private String linea;
-    private List<Parada> paradas;
+    private List<Parada> paradas = new ArrayList<>();
+
+    // Hibernate
+    protected TransportePublico() {
+    }
 
     public TransportePublico(TipoTransportePublico tipoTransportePublico, String linea, List<Parada> paradas) {
         this.tipoTransportePublico = tipoTransportePublico;

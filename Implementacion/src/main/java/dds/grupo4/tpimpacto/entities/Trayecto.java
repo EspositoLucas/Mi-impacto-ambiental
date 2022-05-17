@@ -1,12 +1,21 @@
 package dds.grupo4.tpimpacto.entities;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import java.util.ArrayList;
 import java.util.List;
 
-public class Trayecto {
+@Entity(name = "Trayecto")
+@Table(name = "trayectos")
+public class Trayecto extends BaseEntity {
 
     private Direccion partida;
     private Direccion destino;
-    private List<Tramo> tramos;
+    private List<Tramo> tramos = new ArrayList<>();
+
+    // Hibernate
+    protected Trayecto() {
+    }
 
     public Trayecto(Direccion partida, Direccion destino, List<Tramo> tramos) {
         this.partida = partida;

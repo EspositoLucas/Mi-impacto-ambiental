@@ -1,15 +1,26 @@
 package dds.grupo4.tpimpacto.entities;
 
-public class Tramo {
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity(name = "Tramo")
+@Table(name = "tramos")
+public class Tramo extends BaseEntity {
 
     private Trayecto trayecto;
-    private MedioTransporte mediotransporte;
+    private MedioDeTransporte medioDeTransporte;
+
+    // TODO: ver si estos dos campos no eran de tipo Direccion
     private Espacio direccionInicio;
     private Espacio direccionFin;
 
-    public Tramo(Trayecto trayecto, MedioTransporte mediotransporte, Espacio direccionInicio, Espacio direccionFin) {
+    // Hibernate
+    protected Tramo() {
+    }
+
+    public Tramo(Trayecto trayecto, MedioDeTransporte medioDeTransporte, Espacio direccionInicio, Espacio direccionFin) {
         this.trayecto = trayecto;
-        this.mediotransporte = mediotransporte;
+        this.medioDeTransporte = medioDeTransporte;
         this.direccionInicio = direccionInicio;
         this.direccionFin = direccionFin;
     }
@@ -22,12 +33,12 @@ public class Tramo {
         this.trayecto = trayecto;
     }
 
-    public MedioTransporte getMediotransporte() {
-        return mediotransporte;
+    public MedioDeTransporte getMedioDeTransporte() {
+        return medioDeTransporte;
     }
 
-    public void setMediotransporte(MedioTransporte mediotransporte) {
-        this.mediotransporte = mediotransporte;
+    public void setMedioDeTransporte(MedioDeTransporte medioDeTransporte) {
+        this.medioDeTransporte = medioDeTransporte;
     }
 
     public Espacio getDireccionInicio() {

@@ -3,19 +3,28 @@ package dds.grupo4.tpimpacto.entities;
 import dds.grupo4.tpimpacto.enums.Clasificacion;
 import dds.grupo4.tpimpacto.enums.TipoOrganizacion;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Organizacion {
+@Entity(name = "Organizacion")
+@Table(name = "organizaciones")
+public class Organizacion extends BaseEntity {
+
     private String razonSocial;
     private TipoOrganizacion tipo;
-    private List<Sector> sectores;
     private Clasificacion clasificacion;
+    private List<Sector> sectores = new ArrayList<>();
 
-    public Organizacion(String razonSocial, TipoOrganizacion tipo, List<Sector> sectores, Clasificacion clasificacion) {
+    // Hibernate
+    protected Organizacion() {
+    }
+
+    public Organizacion(String razonSocial, TipoOrganizacion tipo, Clasificacion clasificacion) {
         this.razonSocial = razonSocial;
         this.tipo = tipo;
-        this.sectores = sectores;
         this.clasificacion = clasificacion;
     }
 
