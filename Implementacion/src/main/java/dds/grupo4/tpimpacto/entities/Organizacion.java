@@ -1,6 +1,10 @@
 package dds.grupo4.tpimpacto.entities;
 
+import dds.grupo4.tpimpacto.enums.Clasificacion;
+import dds.grupo4.tpimpacto.enums.TipoOrganizacion;
+
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Organizacion {
     private String razonSocial;
@@ -8,7 +12,11 @@ public class Organizacion {
     private List<Sector> sectores;
     private Clasificacion clasificacion;
 
-    public Organizacion() {
+    public Organizacion(String razonSocial, TipoOrganizacion tipo, List<Sector> sectores, Clasificacion clasificacion) {
+        this.razonSocial = razonSocial;
+        this.tipo = tipo;
+        this.sectores = sectores;
+        this.clasificacion = clasificacion;
     }
 
     public String getRazonSocial() {
@@ -43,7 +51,10 @@ public class Organizacion {
         this.clasificacion = clasificacion;
     }
 
-//    public List<Miembro> getMiembros() {
-//        return sectores.getMiembros();
-//    }
+    public List<Miembro> getMiembros() {
+        return sectores.stream()
+                .flatMap(s -> s.getMiembros().stream())
+                .distinct()
+                .collect(Collectors.toList());
+    }
 }

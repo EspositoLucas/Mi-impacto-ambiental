@@ -6,7 +6,14 @@ public class Sector {
     private String nombre;
     private Organizacion organizacion;
     private List<Miembro> miembros;
-    private EspacioTrabajo espacioTrabajo;
+    private Espacio espacio;
+
+    public Sector(String nombre, Organizacion organizacion, List<Miembro> miembros, Espacio espacio) {
+        this.nombre = nombre;
+        this.organizacion = organizacion;
+        this.miembros = miembros;
+        this.espacio = espacio;
+    }
 
     public String getNombre() {
         return nombre;
@@ -32,11 +39,11 @@ public class Sector {
         this.miembros = miembros;
     }
 
-    public EspacioTrabajo getEspacioTrabajo() {
-        return espacioTrabajo;
+    public Espacio getEspacio() {
+        return espacio;
     }
 
-    public void setEspacioTrabajo(EspacioTrabajo espacioTrabajo) {
-        this.espacioTrabajo = espacioTrabajo;
+    public void setEspacio(Espacio espacio) {
+        this.espacio = espacio;
     }
 }

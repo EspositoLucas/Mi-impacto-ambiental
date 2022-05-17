@@ -6,8 +6,8 @@ public class Usuario {
 
     public static final int INTENTOS_DE_LOGEO_PERMITIDOS = 3; // Cuantas veces puede poner mal su password antes de que empiecen a correr los bloqueos
 
-    private final String username;
-    private final String password;
+    private String username;
+    private String password;
     private LocalDateTime bloqueadoHasta; // Hasta que fecha esta bloqueado
     private int cantidadIntentosIncorrectos = 0; // Cuantos logeos incorrectos seguidos hizo
 
@@ -20,8 +20,32 @@ public class Usuario {
         return username;
     }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     public String getPassword() {
         return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public int getCantidadIntentosIncorrectos() {
+        return cantidadIntentosIncorrectos;
+    }
+
+    public void setCantidadIntentosIncorrectos(int cantidadIntentosIncorrectos) {
+        this.cantidadIntentosIncorrectos = cantidadIntentosIncorrectos;
+    }
+
+    public LocalDateTime getBloqueadoHasta() {
+        return bloqueadoHasta;
+    }
+
+    public void setBloqueadoHasta(LocalDateTime bloqueadoHasta) {
+        this.bloqueadoHasta = bloqueadoHasta;
     }
 
     public boolean validarContrasenia(String password) {
@@ -46,10 +70,6 @@ public class Usuario {
 
     public boolean estaBloqueado() {
         return bloqueadoHasta != null && LocalDateTime.now().isBefore(bloqueadoHasta);
-    }
-
-    public LocalDateTime getBloqueadoHasta() {
-        return bloqueadoHasta;
     }
 
 }
