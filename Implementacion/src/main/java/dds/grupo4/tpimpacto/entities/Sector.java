@@ -1,11 +1,11 @@
-package organizaciones;
+package dds.grupo4.tpimpacto.entities;
 
 import java.util.List;
 
 public class Sector {
     private String nombre;
-    private Organizacion organizacion ;
-    private List<Miembro> miembros ;
+    private Organizacion organizacion;
+    private List<Miembro> miembros;
     private EspacioTrabajo espacioTrabajo;
 
     public String getNombre() {

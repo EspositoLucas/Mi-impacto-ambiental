@@ -1,4 +1,4 @@
-package organizaciones;
+package dds.grupo4.tpimpacto.entities;
 
 public enum Clasificacion {
     Ministerio,

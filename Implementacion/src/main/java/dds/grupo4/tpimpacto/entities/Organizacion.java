@@ -1,12 +1,12 @@
-package organizaciones;
+package dds.grupo4.tpimpacto.entities;
 
 import java.util.List;
 
 public class Organizacion {
-    private String razonSocial ;
-    private TipoOrganizacion tipo ;
-    private List<Sector> sectores ;
-    private Clasificacion clasificacion ;
+    private String razonSocial;
+    private TipoOrganizacion tipo;
+    private List<Sector> sectores;
+    private Clasificacion clasificacion;
 
     public Organizacion() {
     }
