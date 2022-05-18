@@ -18,6 +18,8 @@ public class Organizacion extends BaseEntity {
     private Clasificacion clasificacion;
     private List<Sector> sectores = new ArrayList<>();
 
+    private List<Solicitud> solicitudes = new ArrayList<>();
+
     // Hibernate
     protected Organizacion() {
     }
@@ -66,4 +68,19 @@ public class Organizacion extends BaseEntity {
                 .distinct()
                 .collect(Collectors.toList());
     }
+
+
+    // Metodo para aceptar vinculacion del miembro con la organizacion
+    public void aceptarSolicitud(Solicitud solicitud) throws Exception {
+        if (!sectores.contains(solicitud.getSector())) {
+            throw new Exception("Una organizacion no puede aceptar una solicitud de un sector que no es suyo");
+        }
+
+        this.solicitudes.remove(solicitud);
+        solicitud.getSector().agregarMiembro(solicitud.getMiembro());
+    }
+//    //Metodo para cargar las medidiciones del excel
+//    public void cargarMediciones() {
+//
+//    }
 }

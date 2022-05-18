@@ -55,4 +55,8 @@ public class Sector extends BaseEntity {
     public void setEspacio(Espacio espacio) {
         this.espacio = espacio;
     }
+
+    public void agregarMiembro(Miembro miembro) {
+        this.miembros.add(miembro);
+    }
 }

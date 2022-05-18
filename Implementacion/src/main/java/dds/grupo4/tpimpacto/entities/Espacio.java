@@ -7,22 +7,28 @@ import javax.persistence.Table;
 @Table(name = "espacios")
 public class Espacio extends BaseEntity {
 
-    private Direccion ubicacionGeografica;
+    private Direccion direccion;
+    private String nombre;
 
     // Hibernate
     protected Espacio() {
     }
 
-    public Espacio(Direccion ubicacionGeografica) {
-        this.ubicacionGeografica = ubicacionGeografica;
+    public Espacio(Direccion direccion, String nombre) {
+        this.direccion = direccion;
+        this.nombre = nombre;
     }
 
-    public Direccion getUbicacionGeografica() {
-        return ubicacionGeografica;
+    public Espacio(Direccion direccion) {
+        this.direccion = direccion;
     }
 
-    public void setUbicacionGeografica(Direccion ubicacionGeografica) {
-        this.ubicacionGeografica = ubicacionGeografica;
+    public Direccion getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(Direccion ubicacionGeografica) {
+        this.direccion = ubicacionGeografica;
     }
 
 }

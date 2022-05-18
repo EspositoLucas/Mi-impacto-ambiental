@@ -9,6 +9,8 @@ public class Parada extends BaseEntity {
 
     private TransportePublico transportePublico;
     private Direccion direccion;
+    private Double distanciaProxima;
+    private Double distanciaAnterior;
 
     // Hibernate
     protected Parada() {

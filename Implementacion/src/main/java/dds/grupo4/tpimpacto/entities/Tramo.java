@@ -11,18 +11,19 @@ public class Tramo extends BaseEntity {
     private MedioDeTransporte medioDeTransporte;
 
     // TODO: ver si estos dos campos no eran de tipo Direccion
-    private Espacio direccionInicio;
-    private Espacio direccionFin;
+    private Espacio espacioInicio;
+    private Espacio espacioFin;
+
 
     // Hibernate
     protected Tramo() {
     }
 
-    public Tramo(Trayecto trayecto, MedioDeTransporte medioDeTransporte, Espacio direccionInicio, Espacio direccionFin) {
+    public Tramo(Trayecto trayecto, MedioDeTransporte medioDeTransporte, Espacio espacioInicio, Espacio espacioFin) {
         this.trayecto = trayecto;
         this.medioDeTransporte = medioDeTransporte;
-        this.direccionInicio = direccionInicio;
-        this.direccionFin = direccionFin;
+        this.espacioInicio = espacioInicio;
+        this.espacioFin = espacioFin;
     }
 
     public Trayecto getTrayecto() {
@@ -41,19 +42,25 @@ public class Tramo extends BaseEntity {
         this.medioDeTransporte = medioDeTransporte;
     }
 
-    public Espacio getDireccionInicio() {
-        return direccionInicio;
+    public Espacio getEspacioInicio() {
+        return espacioInicio;
     }
 
-    public void setDireccionInicio(Espacio direccionInicio) {
-        this.direccionInicio = direccionInicio;
+    public void setEspacioInicio(Espacio direccionInicio) {
+        this.espacioInicio = direccionInicio;
     }
 
-    public Espacio getDireccionFin() {
-        return direccionFin;
+    public Espacio getEspacioFin() {
+        return espacioFin;
     }
 
-    public void setDireccionFin(Espacio direccionFin) {
-        this.direccionFin = direccionFin;
+    public void setEspacioFin(Espacio direccionFin) {
+        this.espacioFin = direccionFin;
     }
+
+    //Metodo para calcular la distancia de un tramo
+    public double distancia() {
+        return 1;
+    }
+
 }

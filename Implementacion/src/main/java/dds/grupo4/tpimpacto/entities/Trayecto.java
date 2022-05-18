@@ -13,6 +13,8 @@ public class Trayecto extends BaseEntity {
     private Direccion destino;
     private List<Tramo> tramos = new ArrayList<>();
 
+    private List<Miembro> miembros = new ArrayList<>();
+
     // Hibernate
     protected Trayecto() {
     }
@@ -46,4 +48,14 @@ public class Trayecto extends BaseEntity {
     public void setTramos(List<Tramo> tramos) {
         this.tramos = tramos;
     }
+
+
+    //Metodo para calcular la distancia total de un tryaecto
+
+    public double distanciaTotal() {
+        return this.tramos.stream()
+                .mapToDouble(t -> t.distancia())
+                .sum();
+    }
+
 }

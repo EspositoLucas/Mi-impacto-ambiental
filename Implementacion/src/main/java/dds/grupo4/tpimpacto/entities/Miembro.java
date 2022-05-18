@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 
 @Entity(name = "Miembro")
 @Table(name = "miembros")
+
 public class Miembro extends BaseEntity {
 
     private String nombre;
@@ -78,12 +79,21 @@ public class Miembro extends BaseEntity {
         this.trayectos = trayectos;
     }
 
+
+    // Metodo para agregar trayecto
+    public void agregarTrayecto(Trayecto trayecto)
+    {
+        this.trayectos.add(trayecto);
+    }
+
+    // Metodo para obtener las organizaciones
     public List<Organizacion> getOrganizaciones() {
         return this.sectores.stream()
                 .map(s -> s.getOrganizacion())
                 .distinct()
                 .collect(Collectors.toList());
     }
+
 
 
 }
