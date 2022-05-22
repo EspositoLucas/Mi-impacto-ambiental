@@ -60,7 +60,13 @@ public class Tramo extends BaseEntity {
 
     //Metodo para calcular la distancia de un tramo
     public double distancia() {
-        return 1;
+
+        return medioDeTransporte.distanciaRecorrida();
     }
 
+
+    // cant de litrps consumidos por un medio de trasnporte en un tramo
+//    public double litrosConsumidos() {
+//        return medioDeTransporte.litrosConsumidos();
+//    }
 }

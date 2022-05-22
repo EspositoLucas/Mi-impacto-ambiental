@@ -79,8 +79,17 @@ public class Organizacion extends BaseEntity {
         this.solicitudes.remove(solicitud);
         solicitud.getSector().agregarMiembro(solicitud.getMiembro());
     }
+
 //    //Metodo para cargar las medidiciones del excel
 //    public void cargarMediciones() {
 //
 //    }
+
+    // calculo para la huella de carbono
+
+//    public double calculoHC() {
+//        return 0;
+//    }
+
+
 }

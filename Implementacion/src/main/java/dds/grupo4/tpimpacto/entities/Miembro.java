@@ -94,6 +94,10 @@ public class Miembro extends BaseEntity {
                 .collect(Collectors.toList());
     }
 
+    // calculo para la huella de carbono
 
+//    public double calculoHC() {
+//        return ;
+//    }
 
 }

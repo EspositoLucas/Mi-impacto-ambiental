@@ -48,4 +48,13 @@ public class TransportePublico extends MedioDeTransporte {
     public void setParadas(List<Parada> paradas) {
         this.paradas = paradas;
     }
+
+    @Override
+
+    public double distanciaRecorrida() {
+        this.paradas
+                .stream()
+                .mapToDouble(Parada::distanciaTotalEntreParadas)
+                .sum();
+    }
 }

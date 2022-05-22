@@ -36,4 +36,8 @@ public class Parada extends BaseEntity {
     public void setDireccion(Direccion direccion) {
         this.direccion = direccion;
     }
+
+    public double distanciaTotalEntreParadas() {
+        return distanciaProxima + distanciaAnterior;
+    }
 }

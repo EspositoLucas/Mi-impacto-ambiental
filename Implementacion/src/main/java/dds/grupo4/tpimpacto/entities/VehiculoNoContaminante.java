@@ -27,4 +27,10 @@ public class VehiculoNoContaminante extends MedioDeTransporte {
         this.tipoVehiculoNoContaminante = tipoVehiculoNoContaminante;
     }
 
+    @Override
+
+    public double distanciaRecorrida() {
+        return 0;
+    }
+
 }

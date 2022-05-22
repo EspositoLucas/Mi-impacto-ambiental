@@ -8,7 +8,8 @@ import javax.persistence.Table;
 
 @Entity(name = "VehiculoParticular")
 @Table(name = "vehiculos_particulares")
-public class VehiculoParticular extends MedioDeTransporte {
+
+public class VehiculoParticular extends MedioDeTransporte  {
 
     private TipoVehiculoParticular tipoVehiculoParticular;
     private TipoCombustible tipoVCombustible;
@@ -46,5 +47,12 @@ public class VehiculoParticular extends MedioDeTransporte {
 
     public void setTipoServicioContratado(String tipoServicioContratado) {
         this.tipoServicioContratado = tipoServicioContratado;
+    }
+
+
+    @Override
+
+    public double distanciaRecorrida() {
+        return 0;
     }
 }

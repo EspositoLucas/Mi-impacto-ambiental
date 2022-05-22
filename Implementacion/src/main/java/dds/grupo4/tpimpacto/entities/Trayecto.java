@@ -54,8 +54,21 @@ public class Trayecto extends BaseEntity {
 
     public double distanciaTotal() {
         return this.tramos.stream()
-                .mapToDouble(t -> t.distancia())
+                .mapToDouble(t -> t.distancia())// distancia de un tramo
                 .sum();
     }
+
+
+//     cant de litros de combustible consumidos por medio de trasnporte en un trayecto a aprtir de lo
+//     que se consumio en un tramo
+//
+//    public double cantlitrosConsumidos() {
+//        this.tramos
+//                .stream()
+//                .mapToDouble(t -> t.litrosConsumidos())
+//                .sum();
+//    }
+
+
 
 }
