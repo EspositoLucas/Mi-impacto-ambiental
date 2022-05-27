@@ -50,9 +50,18 @@ public class TransportePublico extends MedioDeTransporte {
     }
 
     @Override
-    public double distanciaRecorrida() {
-        return this.paradas.stream()
-                .mapToDouble(Parada::distanciaTotalEntreParadas)
-                .sum();
+    public double distanciaRecorrida(Lugar lugarInicio, Lugar lugarFin) {
+        Parada paradaInicio = (Parada) lugarInicio;
+        Parada paradaFin = (Parada) lugarInicio;
+
+        double distanciaRecorrida = 0;
+        Parada paradaActual = paradaInicio;
+        while (!paradaActual.equals(paradaFin)) {
+            distanciaRecorrida += paradaActual.getDistanciaProxima();
+            paradaActual = paradaActual.getParadaSiguiente();
+        }
+
+        return distanciaRecorrida;
     }
+
 }

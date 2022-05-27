@@ -28,9 +28,14 @@ public class VehiculoNoContaminante extends MedioDeTransporte {
     }
 
     @Override
-
-    public double distanciaRecorrida() {
+    public double distanciaRecorrida(Lugar lugarInicio, Lugar lugarFin) {
+        // TODO: se llama al Servicio Externo
         return 0;
     }
+
+//    @Oveeride
+//    //    public double litrosConsumido() {
+////        return 0;
+////    }
 
 }

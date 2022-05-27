@@ -17,6 +17,7 @@ public class Organizacion extends BaseEntity {
     private TipoOrganizacion tipo;
     private Clasificacion clasificacion;
     private List<Sector> sectores = new ArrayList<>();
+    private List<Contacto> conatctos = new ArrayList<>();
 
     private List<Solicitud> solicitudes = new ArrayList<>();
 
@@ -88,8 +89,13 @@ public class Organizacion extends BaseEntity {
     // calculo para la huella de carbono
 
 //    public double calculoHC() {
+//
 //        return 0;
 //    }
 
-
+    // calculo HC promedio
+//    public double calculoHCPromedio() {
+//
+//        return 0;
+//    }
 }

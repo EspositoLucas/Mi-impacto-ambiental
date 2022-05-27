@@ -5,20 +5,22 @@ import javax.persistence.Table;
 
 @Entity(name = "Parada")
 @Table(name = "paradas")
-public class Parada extends BaseEntity {
+public class Parada extends Lugar {
 
     private TransportePublico transportePublico;
     private Direccion direccion;
     private Double distanciaProxima;
     private Double distanciaAnterior;
+    private Parada paradaSiguiente;
 
     // Hibernate
     protected Parada() {
     }
 
-    public Parada(TransportePublico transportePublico, Direccion direccion) {
+    public Parada(TransportePublico transportePublico, Direccion direccion, Parada paradaSiguiente) {
         this.transportePublico = transportePublico;
         this.direccion = direccion;
+        this.paradaSiguiente = paradaSiguiente;
     }
 
     public TransportePublico getTransportePublico() {
@@ -37,7 +39,10 @@ public class Parada extends BaseEntity {
         this.direccion = direccion;
     }
 
-    public double distanciaTotalEntreParadas() {
-        return distanciaProxima + distanciaAnterior;
+    public double getDistanciaProxima() { return distanciaProxima; }
+
+    public Parada getParadaSiguiente() {
+        return paradaSiguiente;
     }
+
 }

@@ -8,19 +8,20 @@ import javax.persistence.Table;
 
 @Entity(name = "VehiculoParticular")
 @Table(name = "vehiculos_particulares")
-public class VehiculoParticular extends MedioDeTransporte {
+public class Vehiculo extends MedioDeTransporte {
 
     private TipoVehiculoParticular tipoVehiculoParticular;
-    private TipoCombustible tipoVCombustible;
+
+    private Combustible combustible;
     private String tipoServicioContratado;
 
     // Hibernate
-    protected VehiculoParticular() {
+    protected Vehiculo() {
     }
 
-    public VehiculoParticular(TipoVehiculoParticular tipoVehiculoParticular, TipoCombustible tipoVCombustible, String tipoServicioContratado) {
+    public Vehiculo(TipoVehiculoParticular tipoVehiculoParticular, Combustible combustible, String tipoServicioContratado) {
         this.tipoVehiculoParticular = tipoVehiculoParticular;
-        this.tipoVCombustible = tipoVCombustible;
+        this.combustible = combustible;
         this.tipoServicioContratado = tipoServicioContratado;
     }
 
@@ -32,12 +33,12 @@ public class VehiculoParticular extends MedioDeTransporte {
         this.tipoVehiculoParticular = tipoVehiculoParticular;
     }
 
-    public TipoCombustible getTipoVCombustible() {
-        return tipoVCombustible;
+    public Combustible getCombustible() {
+        return combustible;
     }
 
-    public void setTipoVCombustible(TipoCombustible tipoVCombustible) {
-        this.tipoVCombustible = tipoVCombustible;
+    public void setCombustible(Combustible combustible) {
+        this.combustible = combustible;
     }
 
     public String getTipoServicioContratado() {
@@ -49,7 +50,8 @@ public class VehiculoParticular extends MedioDeTransporte {
     }
 
     @Override
-    public double distanciaRecorrida() {
+    public double distanciaRecorrida(Lugar lugarInicio, Lugar lugarFin) {
+        // TODO: se llama al Servicio Externo
         return 0;
     }
 }

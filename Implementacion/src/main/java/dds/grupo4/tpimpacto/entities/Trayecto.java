@@ -12,17 +12,17 @@ public class Trayecto extends BaseEntity {
     private Direccion partida;
     private Direccion destino;
     private List<Tramo> tramos = new ArrayList<>();
-
     private List<Miembro> miembros = new ArrayList<>();
 
     // Hibernate
     protected Trayecto() {
     }
 
-    public Trayecto(Direccion partida, Direccion destino, List<Tramo> tramos) {
+    public Trayecto(Direccion partida, Direccion destino, List<Tramo> tramos, List<Miembro> miembros) {
         this.partida = partida;
         this.destino = destino;
         this.tramos = tramos;
+        this.miembros = miembros;
     }
 
     public Direccion getPartida() {
@@ -49,17 +49,15 @@ public class Trayecto extends BaseEntity {
         this.tramos = tramos;
     }
 
-
-    //Metodo para calcular la distancia total de un tryaecto
-
+    //Metodo para calcular la distancia total de un trayecto
     public double distanciaTotal() {
         return this.tramos.stream()
-                .mapToDouble(t -> t.distancia())// distancia de un tramo
+                .mapToDouble(t -> t.distancia())
                 .sum();
     }
 
 
-//     cant de litros de combustible consumidos por medio de trasnporte en un trayecto a aprtir de lo
+//     cant de litros de combustible consumidos por medio de trasnporte en un trayecto a partir  de lo
 //     que se consumio en un tramo
 //
 //    public double cantlitrosConsumidos() {

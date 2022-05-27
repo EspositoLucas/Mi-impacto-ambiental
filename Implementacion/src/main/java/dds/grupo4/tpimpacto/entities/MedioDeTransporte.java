@@ -14,12 +14,10 @@ public abstract class MedioDeTransporte extends BaseEntity {
     protected MedioDeTransporte() {
     }
 
-    public abstract double distanciaRecorrida();
+    public abstract double distanciaRecorrida(Lugar lugarInicio, Lugar lugarFin);
 
 
     // litros de combustible consumidos por medio de trasnporte
 
 //    public double litrosConsumido() {
-//        return 0;
-//    }
 }

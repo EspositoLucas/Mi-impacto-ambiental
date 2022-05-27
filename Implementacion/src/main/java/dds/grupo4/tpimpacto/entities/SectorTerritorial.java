@@ -18,4 +18,14 @@ public class SectorTerritorial extends BaseEntity {
     // Hibernate
     protected SectorTerritorial() {
     }
+
+
+    // metdod Resultado HC para SectoTerritorial
+
+//    public Double calculoHC {
+//        return this.organizaciones
+//                .stream()
+//                .mapToInt(o -> o.calculoHC)
+//                .sum();
+//    }
 }

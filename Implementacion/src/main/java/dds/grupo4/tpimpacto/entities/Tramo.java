@@ -9,21 +9,18 @@ public class Tramo extends BaseEntity {
 
     private Trayecto trayecto;
     private MedioDeTransporte medioDeTransporte;
-
-    // TODO: ver si estos dos campos no eran de tipo Direccion
-    private Espacio espacioInicio;
-    private Espacio espacioFin;
-
+    private Lugar lugarInicio;
+    private Lugar lugarFin;
 
     // Hibernate
     protected Tramo() {
     }
 
-    public Tramo(Trayecto trayecto, MedioDeTransporte medioDeTransporte, Espacio espacioInicio, Espacio espacioFin) {
+    public Tramo(Trayecto trayecto, MedioDeTransporte medioDeTransporte, Lugar lugarInicio, Lugar lugarFin) {
         this.trayecto = trayecto;
         this.medioDeTransporte = medioDeTransporte;
-        this.espacioInicio = espacioInicio;
-        this.espacioFin = espacioFin;
+        this.lugarInicio = lugarInicio;
+        this.lugarFin = lugarFin;
     }
 
     public Trayecto getTrayecto() {
@@ -42,30 +39,30 @@ public class Tramo extends BaseEntity {
         this.medioDeTransporte = medioDeTransporte;
     }
 
-    public Espacio getEspacioInicio() {
-        return espacioInicio;
+    public Lugar getLugarInicio() {
+        return lugarInicio;
     }
 
-    public void setEspacioInicio(Espacio direccionInicio) {
-        this.espacioInicio = direccionInicio;
+    public void setLugarInicio(Lugar lugarInicio) {
+        this.lugarInicio = lugarInicio;
     }
 
-    public Espacio getEspacioFin() {
-        return espacioFin;
+    public Lugar getLugarFin() {
+        return lugarFin;
     }
 
-    public void setEspacioFin(Espacio direccionFin) {
-        this.espacioFin = direccionFin;
+    public void setLugarFin(Lugar lugarFin) {
+        this.lugarFin = lugarFin;
     }
 
-    //Metodo para calcular la distancia de un tramo
+    // Metodo para calcular la distancia de un tramo
     public double distancia() {
-
-        return medioDeTransporte.distanciaRecorrida();
+        return medioDeTransporte.distanciaRecorrida(lugarInicio, lugarFin);
     }
 
 
-    // cant de litrps consumidos por un medio de trasnporte en un tramo
+    // cant de litros consumidos por un medio de trasnporte en un tramo
+
 //    public double litrosConsumidos() {
 //        return medioDeTransporte.litrosConsumidos();
 //    }
