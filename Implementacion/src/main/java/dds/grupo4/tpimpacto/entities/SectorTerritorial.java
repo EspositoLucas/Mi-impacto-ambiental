@@ -9,12 +9,11 @@ import java.util.List;
 
 @Entity(name = "SectorTerritorial")
 @Table(name = "sectores_territoriales")
-
 public class SectorTerritorial extends BaseEntity {
 
-    private List<AgenteSectorial> agentesSectoriales ;
+    private List<AgenteSectorial> agentesSectoriales;
     private List<Organizacion> organizaciones;
-    private TipoSectorTerritorial tipo ;
+    private TipoSectorTerritorial tipo;
 
     // Hibernate
     protected SectorTerritorial() {

@@ -1,12 +1,10 @@
 package dds.grupo4.tpimpacto.entities;
 
 import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity(name = "Solicitud")
 @Table(name = "solicitudes")
-
 public class Solicitud extends BaseEntity {
 
     private Miembro miembro;

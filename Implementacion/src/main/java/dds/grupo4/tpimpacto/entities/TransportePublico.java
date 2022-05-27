@@ -50,10 +50,8 @@ public class TransportePublico extends MedioDeTransporte {
     }
 
     @Override
-
     public double distanciaRecorrida() {
-        this.paradas
-                .stream()
+        return this.paradas.stream()
                 .mapToDouble(Parada::distanciaTotalEntreParadas)
                 .sum();
     }

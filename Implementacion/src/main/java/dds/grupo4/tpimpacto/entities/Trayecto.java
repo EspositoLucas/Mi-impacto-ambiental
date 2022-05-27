@@ -70,5 +70,4 @@ public class Trayecto extends BaseEntity {
 //    }
 
 
-
 }

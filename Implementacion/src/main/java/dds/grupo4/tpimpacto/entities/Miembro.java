@@ -10,7 +10,6 @@ import java.util.stream.Collectors;
 
 @Entity(name = "Miembro")
 @Table(name = "miembros")
-
 public class Miembro extends BaseEntity {
 
     private String nombre;
@@ -81,8 +80,7 @@ public class Miembro extends BaseEntity {
 
 
     // Metodo para agregar trayecto
-    public void agregarTrayecto(Trayecto trayecto)
-    {
+    public void agregarTrayecto(Trayecto trayecto) {
         this.trayectos.add(trayecto);
     }
 
