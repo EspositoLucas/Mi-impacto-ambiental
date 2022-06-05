@@ -5,25 +5,21 @@ import dds.grupo4.tpimpacto.common.ResultadoDeValidacion;
 import dds.grupo4.tpimpacto.common.ValidadorContrasenia;
 import dds.grupo4.tpimpacto.entities.Usuario;
 import dds.grupo4.tpimpacto.extras.OperacionTesteo;
+import dds.grupo4.tpimpacto.repositories.UsuarioRepositoryImpl;
+import dds.grupo4.tpimpacto.services.UsuarioService;
+import dds.grupo4.tpimpacto.services.UsuarioServiceImpl;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.Optional;
+import java.util.Scanner;
 
 @SpringBootApplication
 public class Main {
 
     private static final int MAX_INTENTOS_REGISTRO = 3;
-
-    private static final List<Usuario> usuariosRegistrados = new ArrayList<>(Arrays.asList(
-            new Usuario("echi", "!echi!"),
-            new Usuario("mili", "!mili!"),
-            new Usuario("roni", "!roni!"),
-            new Usuario("lucas", "!lucas!"),
-            new Usuario("ziro", "!ziro!"),
-            new Usuario("agus", "!agus!")
-    ));
+    private static final UsuarioService usuarioService = new UsuarioServiceImpl(new UsuarioRepositoryImpl());
 
     public static void main(String[] args) throws Exception {
         /*
@@ -81,9 +77,9 @@ public class Main {
         String username;
         boolean usernameCorrecto = false;
         do {
-            System.out.println("Ingresa el nuevo username: ");
+            System.out.print("Ingresa el nuevo username: ");
             username = scanner.nextLine();
-            if (usuarioExisteConUsername(username)) {
+            if (usuarioService.existeUsuarioConUsername(username)) {
                 System.out.println("Ya existe otro usuario con ese username!");
             } else {
                 usernameCorrecto = true;
@@ -94,17 +90,17 @@ public class Main {
         boolean passwordCorrecta = false;
         int intentosFallidos = 0;
         do {
-            System.out.println("Ingresa la nueva contrasenia: ");
+            System.out.print("Ingresa la nueva contrasenia: ");
             password = scanner.nextLine();
             ResultadoDeValidacion resultado = validarNuevaContrasenia(password);
             if (resultado.esValido()) {
                 Usuario nuevoUser = new Usuario(username, password);
-                usuariosRegistrados.add(nuevoUser);
+                usuarioService.agregarUsuario(nuevoUser);
                 System.out.println("Usuario creado exitosamente!");
                 passwordCorrecta = true;
             } else {
                 intentosFallidos++;
-                System.out.println("Contrasenia invalida:");
+                System.out.println("Contrasenia invalida:-");
                 System.out.println(resultado.getErroresEnLineas());
                 if (intentosFallidos > MAX_INTENTOS_REGISTRO) {
                     System.out.println("Demasiados errores");
@@ -117,22 +113,22 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
         System.out.print("Ingrese su usuario: ");
-        final String username = scanner.nextLine();
+        String username = scanner.nextLine();
 
-        final Optional<Usuario> optionalUser = getUsuarioPorUsername(username);
+        Optional<Usuario> optionalUser = usuarioService.getUsuarioPorUsername(username);
         if (!optionalUser.isPresent()) {
             System.out.println("Usuario incorrecto!");
             return;
         }
 
-        final Usuario user = optionalUser.get();
+        Usuario user = optionalUser.get();
         if (user.estaBloqueado()) {
             System.out.println("Estas bloqueado hasta la fecha " + formatearBloqueadoHasta(user.getBloqueadoHasta()));
             return;
         }
 
         System.out.print("Ingrese la contraseña: ");
-        final String password = scanner.nextLine();
+        String password = scanner.nextLine();
         if (user.validarContrasenia(password)) {
             System.out.println("Usuario " + user.getUsername() + " logeado joyita");
             user.logeoCorrecto();
@@ -143,17 +139,6 @@ public class Main {
                 System.out.println("Estas bloqueado hasta la fecha " + formatearBloqueadoHasta(user.getBloqueadoHasta()));
             }
         }
-    }
-
-    public static Optional<Usuario> getUsuarioPorUsername(String username) {
-        return usuariosRegistrados.stream()
-                .filter(u -> u.getUsername().equals(username))
-                .findFirst();
-    }
-
-    public static boolean usuarioExisteConUsername(String username) {
-        return usuariosRegistrados.stream()
-                .anyMatch(u -> u.getUsername().equals(username));
     }
 
     public static ResultadoDeValidacion validarNuevaContrasenia(String nuevaPassword) {
