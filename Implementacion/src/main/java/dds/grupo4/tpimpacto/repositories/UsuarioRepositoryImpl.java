@@ -10,7 +10,7 @@ import java.util.Optional;
 public class UsuarioRepositoryImpl implements UsuarioRepository {
 
     // En algun momento de la vida esta lista va a salir de una BD
-    private final List<Usuario> usuariosRegistrados = new ArrayList<>(Arrays.asList(
+    private final List<Usuario> usuarios = new ArrayList<>(Arrays.asList(
             new Usuario("echi", "!echi!"),
             new Usuario("mili", "!mili!"),
             new Usuario("roni", "!roni!"),
@@ -21,14 +21,19 @@ public class UsuarioRepositoryImpl implements UsuarioRepository {
 
     @Override
     public Optional<Usuario> getByUsername(String username) {
-        return usuariosRegistrados.stream()
+        return usuarios.stream()
                 .filter(usuario -> usuario.getUsername().equals(username))
                 .findAny();
     }
 
     @Override
     public void save(Usuario user) {
-        usuariosRegistrados.add(user);
+        usuarios.add(user);
+    }
+
+    @Override
+    public List<Usuario> getAll() {
+        return usuarios;
     }
 
 }

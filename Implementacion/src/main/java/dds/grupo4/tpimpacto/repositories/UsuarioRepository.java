@@ -4,8 +4,6 @@ import dds.grupo4.tpimpacto.entities.Usuario;
 
 import java.util.Optional;
 
-public interface UsuarioRepository {
+public interface UsuarioRepository extends BaseRepository<Usuario> {
     Optional<Usuario> getByUsername(String username);
-
-    void save(Usuario user);
 }

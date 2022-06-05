@@ -4,9 +4,7 @@ import dds.grupo4.tpimpacto.entities.Usuario;
 
 import java.util.Optional;
 
-public interface UsuarioService {
-    void save(Usuario user);
-
+public interface UsuarioService extends BaseService<Usuario> {
     Optional<Usuario> getUsuarioPorUsername(String username);
 
     boolean existeUsuarioConUsername(String username);

@@ -5,10 +5,6 @@ import dds.grupo4.tpimpacto.entities.Organizacion;
 
 import java.util.List;
 
-public interface OrganizacionService {
-    void save(Organizacion organizacion);
-
-    List<Organizacion> getAll();
-
+public interface OrganizacionService extends BaseService<Organizacion> {
     void cargarMediciones(List<RowMedicionActividad> mediciones);
 }

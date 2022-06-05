@@ -3,6 +3,7 @@ package dds.grupo4.tpimpacto.services;
 import dds.grupo4.tpimpacto.entities.Usuario;
 import dds.grupo4.tpimpacto.repositories.UsuarioRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 public class UsuarioServiceImpl implements UsuarioService {
@@ -20,6 +21,11 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Override
     public void save(Usuario user) {
         usuarioRepository.save(user);
+    }
+
+    @Override
+    public List<Usuario> getAll() {
+        return usuarioRepository.getAll();
     }
 
     @Override
