@@ -2,6 +2,8 @@ package dds.grupo4.tpimpacto.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity(name = "Tramo")
 @Table(name = "tramos")
@@ -11,16 +13,18 @@ public class Tramo extends BaseEntity {
     private MedioDeTransporte medioDeTransporte;
     private Lugar lugarInicio;
     private Lugar lugarFin;
+    private List<Miembro> miembros = new ArrayList<>();
 
     // Hibernate
     protected Tramo() {
     }
 
-    public Tramo(Trayecto trayecto, MedioDeTransporte medioDeTransporte, Lugar lugarInicio, Lugar lugarFin) {
+    public Tramo(Trayecto trayecto, MedioDeTransporte medioDeTransporte, Lugar lugarInicio, Lugar lugarFin, List<Miembro> miembros) {
         this.trayecto = trayecto;
         this.medioDeTransporte = medioDeTransporte;
         this.lugarInicio = lugarInicio;
         this.lugarFin = lugarFin;
+        this.miembros = miembros;
     }
 
     public Trayecto getTrayecto() {
