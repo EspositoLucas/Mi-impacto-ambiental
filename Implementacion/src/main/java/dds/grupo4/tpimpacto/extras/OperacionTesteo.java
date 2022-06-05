@@ -1,20 +1,23 @@
 package dds.grupo4.tpimpacto.extras;
 
-public enum OperacionTesteo {
-    LOGIN,
-    REGISTRO,
-    EXIT;
+import java.util.Arrays;
 
-    public static OperacionTesteo of(int operacion) {
-        switch (operacion) {
-            case 1:
-                return LOGIN;
-            case 2:
-                return REGISTRO;
-            case 3:
-                return EXIT;
-            default:
-                throw new IllegalArgumentException();
-        }
+public enum OperacionTesteo {
+    LOGIN(1),
+    REGISTRO(2),
+    CARGA_MEDICIONES(3),
+    EXIT(4);
+
+    private final int value;
+
+    OperacionTesteo(int value) {
+        this.value = value;
+    }
+
+    public static OperacionTesteo valueOf(int operacion) {
+        return Arrays.stream(values())
+                .filter(operacionTesteo -> operacionTesteo.value == operacion)
+                .findFirst()
+                .orElseThrow(IllegalArgumentException::new);
     }
 }
