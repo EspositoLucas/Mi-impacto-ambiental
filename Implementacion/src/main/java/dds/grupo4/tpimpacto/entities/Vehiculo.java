@@ -1,6 +1,5 @@
 package dds.grupo4.tpimpacto.entities;
 
-import dds.grupo4.tpimpacto.enums.TipoCombustible;
 import dds.grupo4.tpimpacto.enums.TipoVehiculoParticular;
 
 import javax.persistence.Entity;
@@ -54,4 +53,5 @@ public class Vehiculo extends MedioDeTransporte {
         // TODO: se llama al Servicio Externo
         return 0;
     }
+
 }

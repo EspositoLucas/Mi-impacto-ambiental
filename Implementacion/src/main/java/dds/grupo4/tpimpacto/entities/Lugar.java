@@ -12,7 +12,8 @@ public abstract class Lugar extends BaseEntity {
     private Direccion direccion;
 
     // Hibernate
-    protected Lugar() {}
+    protected Lugar() {
+    }
 
     public Direccion getDireccion() {
         return direccion;
@@ -23,4 +24,3 @@ public abstract class Lugar extends BaseEntity {
     }
 
 }
-

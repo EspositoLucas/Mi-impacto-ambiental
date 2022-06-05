@@ -9,11 +9,12 @@ import javax.persistence.Table;
 @Table(name = "medios_de_transporte")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Contacto extends BaseEntity {
-    private String nombre ;
+    private String nombre;
     private String apellido;
-    private String email ;
-    private Integer telefono ;
+    private String email;
+    private Integer telefono;
 
+    // Hibernate
     protected Contacto() {
     }
 
@@ -55,6 +56,5 @@ public class Contacto extends BaseEntity {
     public void setTelefono(Integer telefono) {
         this.telefono = telefono;
     }
-
 
 }

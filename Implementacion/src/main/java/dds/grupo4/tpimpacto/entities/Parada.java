@@ -39,7 +39,9 @@ public class Parada extends Lugar {
         this.direccion = direccion;
     }
 
-    public double getDistanciaProxima() { return distanciaProxima; }
+    public double getDistanciaProxima() {
+        return distanciaProxima;
+    }
 
     public Parada getParadaSiguiente() {
         return paradaSiguiente;

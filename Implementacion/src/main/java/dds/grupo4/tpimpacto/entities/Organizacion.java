@@ -17,8 +17,7 @@ public class Organizacion extends BaseEntity {
     private TipoOrganizacion tipo;
     private Clasificacion clasificacion;
     private List<Sector> sectores = new ArrayList<>();
-    private List<Contacto> conatctos = new ArrayList<>();
-
+    private List<Contacto> contactos = new ArrayList<>();
     private List<Solicitud> solicitudes = new ArrayList<>();
 
     // Hibernate

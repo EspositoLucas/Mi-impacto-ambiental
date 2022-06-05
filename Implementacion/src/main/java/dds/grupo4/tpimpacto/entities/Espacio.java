@@ -7,15 +7,16 @@ import javax.persistence.Table;
 
 @Entity(name = "Espacio")
 @Table(name = "espacios")
-
 public class Espacio extends Lugar {
 
     //private Direccion direccion;
     private String nombre;
     private TipoEspacio tipoEspacio;
+
     // Hibernate
     protected Espacio() {
     }
+
     /*
     public Espacio(Direccion direccion, String nombre) {
         this.direccion = direccion;
@@ -34,6 +35,5 @@ public class Espacio extends Lugar {
         this.direccion = ubicacionGeografica;
     }
     */
-
 
 }
