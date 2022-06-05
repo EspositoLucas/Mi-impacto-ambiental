@@ -12,7 +12,7 @@ public class Trayecto extends BaseEntity {
     private Direccion partida;
     private Direccion destino;
     private List<Tramo> tramos = new ArrayList<>();
-    private List<Miembro> miembros = new ArrayList<>();
+
 
     // Hibernate
     protected Trayecto() {
@@ -22,7 +22,6 @@ public class Trayecto extends BaseEntity {
         this.partida = partida;
         this.destino = destino;
         this.tramos = tramos;
-        this.miembros = miembros;
     }
 
     public Direccion getPartida() {

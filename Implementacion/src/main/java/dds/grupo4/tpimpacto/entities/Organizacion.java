@@ -63,7 +63,7 @@ public class Organizacion extends BaseEntity {
         this.clasificacion = clasificacion;
     }
 
-    public List<Miembro> getMiembros() {
+    public List<Miembro> getMiembros() { // si se trata de buscar uno o mas  miembros en específico.
         return sectores.stream()
                 .flatMap(s -> s.getMiembros().stream())
                 .distinct()

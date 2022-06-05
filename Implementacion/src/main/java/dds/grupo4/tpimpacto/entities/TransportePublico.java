@@ -15,14 +15,17 @@ public class TransportePublico extends MedioDeTransporte {
     private String linea;
     private List<Parada> paradas = new ArrayList<>();
 
+    private Combustible combustible;
+
     // Hibernate
     protected TransportePublico() {
     }
 
-    public TransportePublico(TipoTransportePublico tipoTransportePublico, String linea, List<Parada> paradas) {
+    public TransportePublico(TipoTransportePublico tipoTransportePublico, String linea, List<Parada> paradas, Combustible combustible) {
         this.tipoTransportePublico = tipoTransportePublico;
         this.linea = linea;
         this.paradas = paradas;
+        this.combustible = combustible;
     }
 
     public TipoTransportePublico getTipoTransportePublico() {
@@ -47,6 +50,14 @@ public class TransportePublico extends MedioDeTransporte {
 
     public void setParadas(List<Parada> paradas) {
         this.paradas = paradas;
+    }
+
+    public Combustible getCombustible() {
+        return combustible;
+    }
+
+    public void setCombustible(Combustible combustible) {
+        this.combustible = combustible;
     }
 
     @Override

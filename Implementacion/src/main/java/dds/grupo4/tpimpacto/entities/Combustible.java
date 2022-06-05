@@ -11,8 +11,8 @@ import javax.persistence.Table;
 @Table(name = "combustibles")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Combustible extends BaseEntity{
-     private Double combustibleInicial
-     private Double combustibleFinal
+     private Double combustibleInicial;
+     private Double combustibleFinal;
      private TipoCombustible tipoCombustible ;
 
 
