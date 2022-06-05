@@ -59,15 +59,27 @@ public class Tramo extends BaseEntity {
         this.lugarFin = lugarFin;
     }
 
-    // Metodo para calcular la distancia de un tramo
+    public List<Miembro> getMiembros() {
+        return miembros;
+    }
+
+    public void setMiembros(List<Miembro> miembros) {
+        this.miembros = miembros;
+    }
+
+    public void addMiembro(Miembro miembro) {
+        miembros.add(miembro);
+        miembro.addTramo(this);
+    }
+
     public double distancia() {
         return medioDeTransporte.distanciaRecorrida(lugarInicio, lugarFin);
     }
-
 
     // cant de litros consumidos por un medio de trasnporte en un tramo
 
 //    public double litrosConsumidos() {
 //        return medioDeTransporte.litrosConsumidos();
 //    }
+
 }

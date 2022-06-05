@@ -12,7 +12,7 @@ public class Miembro extends BaseEntity {
     private Persona persona;
     private Usuario usuario;
     private Sector sector;
-    private List<Trayecto> trayectos = new ArrayList<>();
+    private List<Tramo> tramos = new ArrayList<>();
 
     // Hibernate
     protected Miembro() {
@@ -31,6 +31,14 @@ public class Miembro extends BaseEntity {
         this.persona = persona;
     }
 
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
     public Sector getSector() {
         return sector;
     }
@@ -39,21 +47,20 @@ public class Miembro extends BaseEntity {
         this.sector = sector;
     }
 
-    public List<Trayecto> getTrayectos() {
-        return trayectos;
+    public List<Tramo> getTramos() {
+        return tramos;
     }
 
-    public void setTrayectos(List<Trayecto> trayectos) {
-        this.trayectos = trayectos;
-    }
-
-    // Metodo para agregar trayecto
-    public void agregarTrayecto(Trayecto trayecto) {
-        this.trayectos.add(trayecto);
+    public void setTramos(List<Tramo> tramos) {
+        this.tramos = tramos;
     }
 
     public Organizacion getOrganizacion() {
         return this.sector.getOrganizacion();
+    }
+
+    public void addTramo(Tramo tramo) {
+        tramos.add(tramo);
     }
 
     // calculo para la huella de carbono

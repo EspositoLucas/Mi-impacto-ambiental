@@ -9,6 +9,7 @@ import java.util.List;
 @Table(name = "trayectos")
 public class Trayecto extends BaseEntity {
 
+    // TODO: ver si estas Direcciones no deberian ser Lugares
     private Direccion partida;
     private Direccion destino;
     private List<Tramo> tramos = new ArrayList<>();
@@ -47,7 +48,6 @@ public class Trayecto extends BaseEntity {
         this.tramos = tramos;
     }
 
-    //Metodo para calcular la distancia total de un trayecto
     public double distanciaTotal() {
         return this.tramos.stream()
                 .mapToDouble(t -> t.distancia())
@@ -64,6 +64,5 @@ public class Trayecto extends BaseEntity {
 //                .mapToDouble(t -> t.litrosConsumidos())
 //                .sum();
 //    }
-
 
 }

@@ -14,8 +14,6 @@ public class AgenteSectorial extends BaseEntity {
     protected AgenteSectorial() {
     }
 
-    // Dar de alta
-
     public AgenteSectorial(SectorTerritorial sectorTerritorial, String nombre, String apellido) {
         this.sectorTerritorial = sectorTerritorial;
         this.nombre = nombre;
