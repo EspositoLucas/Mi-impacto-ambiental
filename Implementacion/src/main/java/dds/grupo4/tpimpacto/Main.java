@@ -3,7 +3,7 @@ package dds.grupo4.tpimpacto;
 import dds.grupo4.tpimpacto.common.LectorDeArchivoImpl;
 import dds.grupo4.tpimpacto.common.ResultadoDeValidacion;
 import dds.grupo4.tpimpacto.common.ValidadorContrasenia;
-import dds.grupo4.tpimpacto.controllers.OrganizacionController;
+import dds.grupo4.tpimpacto.controllers.OrganizacionControllerFake;
 import dds.grupo4.tpimpacto.entities.Usuario;
 import dds.grupo4.tpimpacto.extras.ConsoleHelper;
 import dds.grupo4.tpimpacto.extras.OperacionTesteo;
@@ -27,7 +27,7 @@ public class Main {
     private static final UsuarioService usuarioService = new UsuarioServiceImpl(new UsuarioRepositoryImpl());
     private static final OrganizacionService organizacionService = new OrganizacionServiceImpl(new OrganizacionRepositoryImpl());
 
-    private static final OrganizacionController organizacionController = new OrganizacionController(organizacionService);
+    private static final OrganizacionControllerFake organizacionControllerFake = new OrganizacionControllerFake(organizacionService);
 
     public static void main(String[] args) throws Exception {
         /*
@@ -46,13 +46,13 @@ public class Main {
                     logearse();
                     break;
                 case CARGAR_MEDICIONES:
-                    organizacionController.cargarMediciones();
+                    organizacionControllerFake.cargarMediciones();
                     break;
                 case CREAR_ORGANIZACION:
-                    organizacionController.crearOrganizacion();
+                    organizacionControllerFake.crearOrganizacion();
                     break;
                 case LISTAR_ORGANIZACIONES:
-                    organizacionController.listarOrganizaciones();
+                    organizacionControllerFake.listarOrganizaciones();
                     break;
             }
 

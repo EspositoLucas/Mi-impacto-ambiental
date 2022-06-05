@@ -15,11 +15,11 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 
-public class OrganizacionController {
+public class OrganizacionControllerFake {
 
     private final OrganizacionService organizacionService;
 
-    public OrganizacionController(OrganizacionService organizacionService) {
+    public OrganizacionControllerFake(OrganizacionService organizacionService) {
         this.organizacionService = organizacionService;
     }
 
