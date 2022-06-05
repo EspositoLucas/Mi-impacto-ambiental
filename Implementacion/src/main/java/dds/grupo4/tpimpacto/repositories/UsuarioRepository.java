@@ -7,5 +7,5 @@ import java.util.Optional;
 public interface UsuarioRepository {
     Optional<Usuario> getByUsername(String username);
 
-    void addUser(Usuario user);
+    void save(Usuario user);
 }

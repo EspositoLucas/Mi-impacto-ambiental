@@ -18,9 +18,8 @@ public class Sector extends BaseEntity {
     protected Sector() {
     }
 
-    public Sector(String nombre, Organizacion organizacion, Espacio espacio) {
+    public Sector(String nombre, Espacio espacio) {
         this.nombre = nombre;
-        this.organizacion = organizacion;
         this.espacio = espacio;
     }
 

@@ -69,6 +69,11 @@ public class Organizacion extends BaseEntity {
                 .collect(Collectors.toList());
     }
 
+    public void addSector(Sector sector) {
+        sectores.add(sector);
+        sector.setOrganizacion(this);
+    }
+
     /**
      * Metodo para aceptar vinculacion del miembro con la organizacion
      */

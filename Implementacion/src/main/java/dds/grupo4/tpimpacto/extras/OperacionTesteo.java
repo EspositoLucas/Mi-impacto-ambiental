@@ -5,8 +5,10 @@ import java.util.Arrays;
 public enum OperacionTesteo {
     LOGIN(1),
     REGISTRO(2),
-    CARGA_MEDICIONES(3),
-    EXIT(4);
+    CARGAR_MEDICIONES(3),
+    CREAR_ORGANIZACION(4),
+    LISTAR_ORGANIZACIONES(5),
+    EXIT(6);
 
     private final int value;
 

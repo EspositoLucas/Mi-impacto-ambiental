@@ -18,8 +18,8 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public void agregarUsuario(Usuario user) {
-        usuarioRepository.addUser(user);
+    public void save(Usuario user) {
+        usuarioRepository.save(user);
     }
 
     @Override

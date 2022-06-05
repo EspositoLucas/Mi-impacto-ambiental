@@ -7,6 +7,7 @@ import dds.grupo4.tpimpacto.controllers.OrganizacionController;
 import dds.grupo4.tpimpacto.entities.Usuario;
 import dds.grupo4.tpimpacto.extras.ConsoleHelper;
 import dds.grupo4.tpimpacto.extras.OperacionTesteo;
+import dds.grupo4.tpimpacto.repositories.OrganizacionRepositoryImpl;
 import dds.grupo4.tpimpacto.repositories.UsuarioRepositoryImpl;
 import dds.grupo4.tpimpacto.services.OrganizacionService;
 import dds.grupo4.tpimpacto.services.OrganizacionServiceImpl;
@@ -24,7 +25,7 @@ public class Main {
     private static final int MAX_INTENTOS_REGISTRO = 3;
 
     private static final UsuarioService usuarioService = new UsuarioServiceImpl(new UsuarioRepositoryImpl());
-    private static final OrganizacionService organizacionService = new OrganizacionServiceImpl();
+    private static final OrganizacionService organizacionService = new OrganizacionServiceImpl(new OrganizacionRepositoryImpl());
 
     private static final OrganizacionController organizacionController = new OrganizacionController(organizacionService);
 
@@ -34,9 +35,9 @@ public class Main {
          * SpringApplication.run(Main.class, args);
          */
 
-        boolean terminarEjecucion = false;
+        OperacionTesteo operacionTesteo;
         do {
-            OperacionTesteo operacionTesteo = mostrarOperacionesYElegir();
+            operacionTesteo = mostrarOperacionesYElegir();
             switch (operacionTesteo) {
                 case REGISTRO:
                     registrarUsuario();
@@ -44,16 +45,19 @@ public class Main {
                 case LOGIN:
                     logearse();
                     break;
-                case CARGA_MEDICIONES:
+                case CARGAR_MEDICIONES:
                     organizacionController.cargarMediciones();
                     break;
-                case EXIT:
-                    terminarEjecucion = true;
+                case CREAR_ORGANIZACION:
+                    organizacionController.crearOrganizacion();
+                    break;
+                case LISTAR_ORGANIZACIONES:
+                    organizacionController.listarOrganizaciones();
                     break;
             }
 
             ConsoleHelper.printLine("\n");
-        } while (!terminarEjecucion);
+        } while (!operacionTesteo.equals(OperacionTesteo.EXIT));
 
         ConsoleHelper.closeScanner();
     }
@@ -77,7 +81,9 @@ public class Main {
         ConsoleHelper.printLine("1- Login");
         ConsoleHelper.printLine("2- Registrar usuario");
         ConsoleHelper.printLine("3- Cargar mediciones");
-        ConsoleHelper.printLine("4- Salir");
+        ConsoleHelper.printLine("4- Crear organizacion");
+        ConsoleHelper.printLine("5- Listar organizaciones");
+        ConsoleHelper.printLine("6- Salir");
         ConsoleHelper.print("Elegi una opcion: ");
     }
 
@@ -103,7 +109,7 @@ public class Main {
             ResultadoDeValidacion resultado = validarNuevaContrasenia(password);
             if (resultado.esValido()) {
                 Usuario nuevoUser = new Usuario(username, password);
-                usuarioService.agregarUsuario(nuevoUser);
+                usuarioService.save(nuevoUser);
                 ConsoleHelper.printLine("Usuario creado exitosamente!");
                 passwordCorrecta = true;
             } else {

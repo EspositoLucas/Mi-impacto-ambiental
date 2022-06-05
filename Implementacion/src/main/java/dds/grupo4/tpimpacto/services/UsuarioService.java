@@ -5,7 +5,7 @@ import dds.grupo4.tpimpacto.entities.Usuario;
 import java.util.Optional;
 
 public interface UsuarioService {
-    void agregarUsuario(Usuario user);
+    void save(Usuario user);
 
     Optional<Usuario> getUsuarioPorUsername(String username);
 

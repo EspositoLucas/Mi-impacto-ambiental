@@ -10,7 +10,7 @@ import java.util.Optional;
 public class UsuarioRepositoryImpl implements UsuarioRepository {
 
     // En algun momento de la vida esta lista va a salir de una BD
-    private static final List<Usuario> usuariosRegistrados = new ArrayList<>(Arrays.asList(
+    private final List<Usuario> usuariosRegistrados = new ArrayList<>(Arrays.asList(
             new Usuario("echi", "!echi!"),
             new Usuario("mili", "!mili!"),
             new Usuario("roni", "!roni!"),
@@ -27,7 +27,7 @@ public class UsuarioRepositoryImpl implements UsuarioRepository {
     }
 
     @Override
-    public void addUser(Usuario user) {
+    public void save(Usuario user) {
         usuariosRegistrados.add(user);
     }
 
