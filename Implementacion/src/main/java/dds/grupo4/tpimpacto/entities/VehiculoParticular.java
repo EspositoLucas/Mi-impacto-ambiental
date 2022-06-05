@@ -1,6 +1,5 @@
 package dds.grupo4.tpimpacto.entities;
 
-import dds.grupo4.tpimpacto.enums.TipoCombustible;
 import dds.grupo4.tpimpacto.enums.TipoVehiculoParticular;
 
 import javax.persistence.Entity;
@@ -8,18 +7,17 @@ import javax.persistence.Table;
 
 @Entity(name = "VehiculoParticular")
 @Table(name = "vehiculos_particulares")
-public class Vehiculo extends MedioDeTransporte {
+public class VehiculoParticular extends MedioDeTransporte {
 
     private TipoVehiculoParticular tipoVehiculoParticular;
-
     private Combustible combustible;
     private String tipoServicioContratado;
 
     // Hibernate
-    protected Vehiculo() {
+    protected VehiculoParticular() {
     }
 
-    public Vehiculo(TipoVehiculoParticular tipoVehiculoParticular, Combustible combustible, String tipoServicioContratado) {
+    public VehiculoParticular(TipoVehiculoParticular tipoVehiculoParticular, Combustible combustible, String tipoServicioContratado) {
         this.tipoVehiculoParticular = tipoVehiculoParticular;
         this.combustible = combustible;
         this.tipoServicioContratado = tipoServicioContratado;
@@ -54,4 +52,5 @@ public class Vehiculo extends MedioDeTransporte {
         // TODO: se llama al Servicio Externo
         return 0;
     }
+
 }

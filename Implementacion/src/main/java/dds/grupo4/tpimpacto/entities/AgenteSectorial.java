@@ -7,14 +7,12 @@ import javax.persistence.Table;
 @Table(name = "agentes_sectoriales")
 public class AgenteSectorial extends BaseEntity {
     private SectorTerritorial sectorTerritorial;
-    private String nombre ;
+    private String nombre;
     private String apellido;
+
     // Hibernate
     protected AgenteSectorial() {
     }
-
-
-    // Dar de alta
 
     public AgenteSectorial(SectorTerritorial sectorTerritorial, String nombre, String apellido) {
         this.sectorTerritorial = sectorTerritorial;
@@ -45,5 +43,5 @@ public class AgenteSectorial extends BaseEntity {
     public void setApellido(String apellido) {
         this.apellido = apellido;
     }
-}
 
+}

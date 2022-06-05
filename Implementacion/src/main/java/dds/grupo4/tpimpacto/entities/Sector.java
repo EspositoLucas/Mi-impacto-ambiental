@@ -18,9 +18,8 @@ public class Sector extends BaseEntity {
     protected Sector() {
     }
 
-    public Sector(String nombre, Organizacion organizacion, Espacio espacio) {
+    public Sector(String nombre, Espacio espacio) {
         this.nombre = nombre;
-        this.organizacion = organizacion;
         this.espacio = espacio;
     }
 
@@ -56,8 +55,9 @@ public class Sector extends BaseEntity {
         this.espacio = espacio;
     }
 
-    public void agregarMiembro(Miembro miembro) {
-        this.miembros.add(miembro);
+    public void addMiembro(Miembro miembro) {
+        miembros.add(miembro);
+        miembro.setSector(this);
     }
 
 }

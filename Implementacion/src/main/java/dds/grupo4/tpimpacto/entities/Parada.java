@@ -8,7 +8,6 @@ import javax.persistence.Table;
 public class Parada extends Lugar {
 
     private TransportePublico transportePublico;
-    private Direccion direccion;
     private Double distanciaProxima;
     private Double distanciaAnterior;
     private Parada paradaSiguiente;
@@ -17,9 +16,10 @@ public class Parada extends Lugar {
     protected Parada() {
     }
 
-    public Parada(TransportePublico transportePublico, Direccion direccion, Parada paradaSiguiente) {
+    public Parada(TransportePublico transportePublico, Direccion direccion, Double distanciaProxima, Parada paradaSiguiente) {
+        super(direccion);
         this.transportePublico = transportePublico;
-        this.direccion = direccion;
+        this.distanciaProxima = distanciaProxima;
         this.paradaSiguiente = paradaSiguiente;
     }
 
@@ -31,18 +31,20 @@ public class Parada extends Lugar {
         this.transportePublico = transportePublico;
     }
 
-    public Direccion getDireccion() {
-        return direccion;
+    public Double getDistanciaProxima() {
+        return distanciaProxima;
     }
 
-    public void setDireccion(Direccion direccion) {
-        this.direccion = direccion;
+    public void setDistanciaProxima(Double distanciaProxima) {
+        this.distanciaProxima = distanciaProxima;
     }
-
-    public double getDistanciaProxima() { return distanciaProxima; }
 
     public Parada getParadaSiguiente() {
         return paradaSiguiente;
+    }
+
+    public void setParadaSiguiente(Parada paradaSiguiente) {
+        this.paradaSiguiente = paradaSiguiente;
     }
 
 }

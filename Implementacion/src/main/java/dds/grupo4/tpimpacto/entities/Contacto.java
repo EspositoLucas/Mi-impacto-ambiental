@@ -1,23 +1,21 @@
 package dds.grupo4.tpimpacto.entities;
 
 import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 
-@Entity(name = "MedioDeTransporte")
-@Table(name = "medios_de_transporte")
-@Inheritance(strategy = InheritanceType.JOINED)
+@Entity(name = "Contacto")
+@Table(name = "contactos")
 public class Contacto extends BaseEntity {
-    private String nombre ;
+    private String nombre;
     private String apellido;
-    private String email ;
-    private Integer telefono ;
+    private String email;
+    private String telefono;
 
+    // Hibernate
     protected Contacto() {
     }
 
-    public Contacto(String nombre, String apellido, String email, Integer telefono) {
+    public Contacto(String nombre, String apellido, String email, String telefono) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.email = email;
@@ -48,13 +46,12 @@ public class Contacto extends BaseEntity {
         this.email = email;
     }
 
-    public Integer getTelefono() {
+    public String getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(Integer telefono) {
+    public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
-
 
 }

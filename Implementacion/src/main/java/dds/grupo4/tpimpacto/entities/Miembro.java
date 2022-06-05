@@ -1,23 +1,18 @@
 package dds.grupo4.tpimpacto.entities;
 
-import dds.grupo4.tpimpacto.enums.TipoDocumento;
-
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Entity(name = "Miembro")
 @Table(name = "miembros")
 public class Miembro extends BaseEntity {
 
-    private String nombre;
-    private String apellido;
-    private TipoDocumento tipoDocumento;
-    private Integer numeroDocumento;
-    private List<Sector> sectores = new ArrayList<>();
-    private List<Trayecto> trayectos = new ArrayList<>();
+    private Persona persona;
+    private Usuario usuario;
+    private Sector sector;
+    private List<Tramo> tramos = new ArrayList<>();
 
     private List<Organizacion> organizaciones = new ArrayList<>(); //  para saber las organizaciones a las que pertenece un mimebro
 
@@ -25,6 +20,7 @@ public class Miembro extends BaseEntity {
     protected Miembro() {
     }
 
+<<<<<<< HEAD
     public Miembro(String nombre, String apellido, TipoDocumento tipoDocumento, Integer numeroDocumento, List<Sector> sectores, List<Trayecto> trayectos, List<Organizacion> organizaciones) {
         this.nombre = nombre;
         this.apellido = apellido;
@@ -37,44 +33,50 @@ public class Miembro extends BaseEntity {
 
     public void setOrganizaciones(List<Organizacion> organizaciones) {
         this.organizaciones = organizaciones;
+=======
+    public Miembro(Persona persona, Sector sector) {
+        this.persona = persona;
+        this.sector = sector;
+>>>>>>> e1d416f4eef3b15244fab6944571afefdf3d9703
     }
 
-    public String getNombre() {
-        return nombre;
+    public Persona getPersona() {
+        return persona;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setPersona(Persona persona) {
+        this.persona = persona;
     }
 
-    public String getApellido() {
-        return apellido;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
-    public TipoDocumento getTipoDocumento() {
-        return tipoDocumento;
+    public Sector getSector() {
+        return sector;
     }
 
-    public void setTipoDocumento(TipoDocumento tipoDocumento) {
-        this.tipoDocumento = tipoDocumento;
+    public void setSector(Sector sector) {
+        this.sector = sector;
     }
 
-    public Integer getNumeroDocumento() {
-        return numeroDocumento;
+    public List<Tramo> getTramos() {
+        return tramos;
     }
 
-    public void setNumeroDocumento(Integer numeroDocumento) {
-        this.numeroDocumento = numeroDocumento;
+    public void setTramos(List<Tramo> tramos) {
+        this.tramos = tramos;
     }
 
-    public List<Sector> getSectores() {
-        return sectores;
+    public Organizacion getOrganizacion() {
+        return this.sector.getOrganizacion();
     }
 
+<<<<<<< HEAD
     public void setSectores(List<Sector> sectores) {
         this.sectores = sectores;
     }
@@ -102,6 +104,10 @@ public class Miembro extends BaseEntity {
                 .map(s -> s.getOrganizacion())
                 .distinct()
                 .collect(Collectors.toList());
+=======
+    public void addTramo(Tramo tramo) {
+        tramos.add(tramo);
+>>>>>>> e1d416f4eef3b15244fab6944571afefdf3d9703
     }
 
     // calculo para la huella de carbono

@@ -14,20 +14,19 @@ import java.util.stream.Collectors;
 public class Organizacion extends BaseEntity {
 
     private String razonSocial;
-    private TipoOrganizacion tipo;
+    private TipoOrganizacion tipoOrganizacion;
     private Clasificacion clasificacion;
     private List<Sector> sectores = new ArrayList<>();
-    private List<Contacto> conatctos = new ArrayList<>();
-
+    private List<Contacto> contactos = new ArrayList<>();
     private List<Solicitud> solicitudes = new ArrayList<>();
 
     // Hibernate
     protected Organizacion() {
     }
 
-    public Organizacion(String razonSocial, TipoOrganizacion tipo, Clasificacion clasificacion) {
+    public Organizacion(String razonSocial, TipoOrganizacion tipoOrganizacion, Clasificacion clasificacion) {
         this.razonSocial = razonSocial;
-        this.tipo = tipo;
+        this.tipoOrganizacion = tipoOrganizacion;
         this.clasificacion = clasificacion;
     }
 
@@ -39,20 +38,12 @@ public class Organizacion extends BaseEntity {
         this.razonSocial = razonSocial;
     }
 
-    public TipoOrganizacion getTipo() {
-        return tipo;
+    public TipoOrganizacion getTipoOrganizacion() {
+        return tipoOrganizacion;
     }
 
-    public void setTipo(TipoOrganizacion tipo) {
-        this.tipo = tipo;
-    }
-
-    public List<Sector> getSectores() {
-        return sectores;
-    }
-
-    public void setSectores(List<Sector> sectores) {
-        this.sectores = sectores;
+    public void setTipoOrganizacion(TipoOrganizacion tipoOrganizacion) {
+        this.tipoOrganizacion = tipoOrganizacion;
     }
 
     public Clasificacion getClasificacion() {
@@ -63,22 +54,40 @@ public class Organizacion extends BaseEntity {
         this.clasificacion = clasificacion;
     }
 
+<<<<<<< HEAD
     public List<Miembro> getMiembros() { // si se trata de buscar uno o mas  miembros en específico.
+=======
+    public List<Sector> getSectores() {
+        return sectores;
+    }
+
+    public void setSectores(List<Sector> sectores) {
+        this.sectores = sectores;
+    }
+
+    public List<Miembro> getMiembros() {
+>>>>>>> e1d416f4eef3b15244fab6944571afefdf3d9703
         return sectores.stream()
                 .flatMap(s -> s.getMiembros().stream())
                 .distinct()
                 .collect(Collectors.toList());
     }
 
+    public void addSector(Sector sector) {
+        sectores.add(sector);
+        sector.setOrganizacion(this);
+    }
 
-    // Metodo para aceptar vinculacion del miembro con la organizacion
+    /**
+     * Metodo para aceptar vinculacion del miembro con la organizacion
+     */
     public void aceptarSolicitud(Solicitud solicitud) throws Exception {
         if (!sectores.contains(solicitud.getSector())) {
             throw new Exception("Una organizacion no puede aceptar una solicitud de un sector que no es suyo");
         }
 
+        solicitud.getSector().addMiembro(solicitud.getMiembro());
         this.solicitudes.remove(solicitud);
-        solicitud.getSector().agregarMiembro(solicitud.getMiembro());
     }
 
 //    //Metodo para cargar las medidiciones del excel

@@ -3,27 +3,31 @@ package dds.grupo4.tpimpacto;
 import dds.grupo4.tpimpacto.common.LectorDeArchivoImpl;
 import dds.grupo4.tpimpacto.common.ResultadoDeValidacion;
 import dds.grupo4.tpimpacto.common.ValidadorContrasenia;
+import dds.grupo4.tpimpacto.controllers.OrganizacionControllerFake;
 import dds.grupo4.tpimpacto.entities.Usuario;
+import dds.grupo4.tpimpacto.extras.ConsoleHelper;
 import dds.grupo4.tpimpacto.extras.OperacionTesteo;
+import dds.grupo4.tpimpacto.repositories.OrganizacionRepositoryImpl;
+import dds.grupo4.tpimpacto.repositories.UsuarioRepositoryImpl;
+import dds.grupo4.tpimpacto.services.OrganizacionService;
+import dds.grupo4.tpimpacto.services.OrganizacionServiceImpl;
+import dds.grupo4.tpimpacto.services.UsuarioService;
+import dds.grupo4.tpimpacto.services.UsuarioServiceImpl;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.Optional;
 
 @SpringBootApplication
 public class Main {
 
     private static final int MAX_INTENTOS_REGISTRO = 3;
 
-    private static final List<Usuario> usuariosRegistrados = new ArrayList<>(Arrays.asList(
-            new Usuario("echi", "!echi!"),
-            new Usuario("mili", "!mili!"),
-            new Usuario("roni", "!roni!"),
-            new Usuario("lucas", "!lucas!"),
-            new Usuario("ziro", "!ziro!"),
-            new Usuario("agus", "!agus!")
-    ));
+    private static final UsuarioService usuarioService = new UsuarioServiceImpl(new UsuarioRepositoryImpl());
+    private static final OrganizacionService organizacionService = new OrganizacionServiceImpl(new OrganizacionRepositoryImpl());
+
+    private static final OrganizacionControllerFake organizacionControllerFake = new OrganizacionControllerFake(organizacionService);
 
     public static void main(String[] args) throws Exception {
         /*
@@ -31,9 +35,9 @@ public class Main {
          * SpringApplication.run(Main.class, args);
          */
 
-        boolean terminarEjecucion = false;
+        OperacionTesteo operacionTesteo;
         do {
-            OperacionTesteo operacionTesteo = mostrarOperacionesYElegir();
+            operacionTesteo = mostrarOperacionesYElegir();
             switch (operacionTesteo) {
                 case REGISTRO:
                     registrarUsuario();
@@ -41,50 +45,56 @@ public class Main {
                 case LOGIN:
                     logearse();
                     break;
-                case EXIT:
-                    terminarEjecucion = true;
+                case CARGAR_MEDICIONES:
+                    organizacionControllerFake.cargarMediciones();
+                    break;
+                case CREAR_ORGANIZACION:
+                    organizacionControllerFake.crearOrganizacion();
+                    break;
+                case LISTAR_ORGANIZACIONES:
+                    organizacionControllerFake.listarOrganizaciones();
                     break;
             }
 
-            System.out.println("\n");
-        } while (!terminarEjecucion);
+            ConsoleHelper.printLine("\n");
+        } while (!operacionTesteo.equals(OperacionTesteo.EXIT));
+
+        ConsoleHelper.closeScanner();
     }
 
     public static OperacionTesteo mostrarOperacionesYElegir() {
-        Scanner scanner = new Scanner(System.in);
-
-        mostrarOperaciones();
-
         while (true) {
-            String ingresado = scanner.nextLine();
+            mostrarOperaciones();
+            String input = ConsoleHelper.readString();
             try {
-                int operacion = Integer.parseInt(ingresado);
-                return OperacionTesteo.of(operacion);
+                int operacion = Integer.parseInt(input);
+                OperacionTesteo operacionTesteo = OperacionTesteo.valueOf(operacion);
+                return operacionTesteo;
             } catch (Exception e) {
-                System.out.println("No te pases de vivarache, mete algo valido");
-                System.out.println();
-                mostrarOperaciones();
+                ConsoleHelper.printLine("No te pases de vivarache, mete algo valido");
+                ConsoleHelper.printLine();
             }
         }
     }
 
     private static void mostrarOperaciones() {
-        System.out.println("1- Login");
-        System.out.println("2- Registrar usuario");
-        System.out.println("3- Salir");
-        System.out.print("Elegi una opcion: ");
+        ConsoleHelper.printLine("1- Login");
+        ConsoleHelper.printLine("2- Registrar usuario");
+        ConsoleHelper.printLine("3- Cargar mediciones");
+        ConsoleHelper.printLine("4- Crear organizacion");
+        ConsoleHelper.printLine("5- Listar organizaciones");
+        ConsoleHelper.printLine("6- Salir");
+        ConsoleHelper.print("Elegi una opcion: ");
     }
 
     public static void registrarUsuario() throws Exception {
-        Scanner scanner = new Scanner(System.in);
-
         String username;
         boolean usernameCorrecto = false;
         do {
-            System.out.println("Ingresa el nuevo username: ");
-            username = scanner.nextLine();
-            if (usuarioExisteConUsername(username)) {
-                System.out.println("Ya existe otro usuario con ese username!");
+            ConsoleHelper.print("Ingresa el nuevo username: ");
+            username = ConsoleHelper.readString();
+            if (usuarioService.existeUsuarioConUsername(username)) {
+                ConsoleHelper.printLine("Ya existe otro usuario con ese username!");
             } else {
                 usernameCorrecto = true;
             }
@@ -94,66 +104,53 @@ public class Main {
         boolean passwordCorrecta = false;
         int intentosFallidos = 0;
         do {
-            System.out.println("Ingresa la nueva contrasenia: ");
-            password = scanner.nextLine();
+            ConsoleHelper.print("Ingresa la nueva contrasenia: ");
+            password = ConsoleHelper.readString();
             ResultadoDeValidacion resultado = validarNuevaContrasenia(password);
             if (resultado.esValido()) {
                 Usuario nuevoUser = new Usuario(username, password);
-                usuariosRegistrados.add(nuevoUser);
-                System.out.println("Usuario creado exitosamente!");
+                usuarioService.save(nuevoUser);
+                ConsoleHelper.printLine("Usuario creado exitosamente!");
                 passwordCorrecta = true;
             } else {
                 intentosFallidos++;
-                System.out.println("Contrasenia invalida:");
-                System.out.println(resultado.getErroresEnLineas());
+                ConsoleHelper.printLine("Contrasenia invalida:-");
+                ConsoleHelper.printLine(resultado.getErroresEnLineas());
                 if (intentosFallidos > MAX_INTENTOS_REGISTRO) {
-                    System.out.println("Demasiados errores");
+                    ConsoleHelper.printLine("Demasiados errores");
                 }
             }
         } while (!passwordCorrecta && intentosFallidos <= MAX_INTENTOS_REGISTRO);
     }
 
     public static void logearse() {
-        Scanner scanner = new Scanner(System.in);
+        ConsoleHelper.print("Ingrese su usuario: ");
+        String username = ConsoleHelper.readString();
 
-        System.out.print("Ingrese su usuario: ");
-        final String username = scanner.nextLine();
-
-        final Optional<Usuario> optionalUser = getUsuarioPorUsername(username);
+        Optional<Usuario> optionalUser = usuarioService.getUsuarioPorUsername(username);
         if (!optionalUser.isPresent()) {
-            System.out.println("Usuario incorrecto!");
+            ConsoleHelper.printLine("Usuario incorrecto!");
             return;
         }
 
-        final Usuario user = optionalUser.get();
+        Usuario user = optionalUser.get();
         if (user.estaBloqueado()) {
-            System.out.println("Estas bloqueado hasta la fecha " + formatearBloqueadoHasta(user.getBloqueadoHasta()));
+            ConsoleHelper.printLine("Estas bloqueado hasta la fecha " + formatearBloqueadoHasta(user.getBloqueadoHasta()));
             return;
         }
 
-        System.out.print("Ingrese la contraseña: ");
-        final String password = scanner.nextLine();
+        ConsoleHelper.print("Ingrese la contraseña: ");
+        String password = ConsoleHelper.readString();
         if (user.validarContrasenia(password)) {
-            System.out.println("Usuario " + user.getUsername() + " logeado joyita");
+            ConsoleHelper.printLine("Usuario " + user.getUsername() + " logeado joyita");
             user.logeoCorrecto();
         } else {
-            System.out.println("Contrasenia incorrecta!");
+            ConsoleHelper.printLine("Contrasenia incorrecta!");
             user.logeoIncorrecto();
             if (user.estaBloqueado()) {
-                System.out.println("Estas bloqueado hasta la fecha " + formatearBloqueadoHasta(user.getBloqueadoHasta()));
+                ConsoleHelper.printLine("Estas bloqueado hasta la fecha " + formatearBloqueadoHasta(user.getBloqueadoHasta()));
             }
         }
-    }
-
-    public static Optional<Usuario> getUsuarioPorUsername(String username) {
-        return usuariosRegistrados.stream()
-                .filter(u -> u.getUsername().equals(username))
-                .findFirst();
-    }
-
-    public static boolean usuarioExisteConUsername(String username) {
-        return usuariosRegistrados.stream()
-                .anyMatch(u -> u.getUsername().equals(username));
     }
 
     public static ResultadoDeValidacion validarNuevaContrasenia(String nuevaPassword) {

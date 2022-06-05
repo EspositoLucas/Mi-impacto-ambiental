@@ -9,10 +9,16 @@ import javax.persistence.Table;
 @Table(name = "lugares")
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Lugar extends BaseEntity {
+
     private Direccion direccion;
 
     // Hibernate
-    protected Lugar() {}
+    protected Lugar() {
+    }
+
+    public Lugar(Direccion direccion) {
+        this.direccion = direccion;
+    }
 
     public Direccion getDireccion() {
         return direccion;
@@ -23,4 +29,3 @@ public abstract class Lugar extends BaseEntity {
     }
 
 }
-

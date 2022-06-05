@@ -9,16 +9,20 @@ import java.util.List;
 @Table(name = "trayectos")
 public class Trayecto extends BaseEntity {
 
+    // TODO: ver si estas Direcciones no deberian ser Lugares
     private Direccion partida;
     private Direccion destino;
     private List<Tramo> tramos = new ArrayList<>();
+<<<<<<< HEAD
 
+=======
+>>>>>>> e1d416f4eef3b15244fab6944571afefdf3d9703
 
     // Hibernate
     protected Trayecto() {
     }
 
-    public Trayecto(Direccion partida, Direccion destino, List<Tramo> tramos, List<Miembro> miembros) {
+    public Trayecto(Direccion partida, Direccion destino, List<Tramo> tramos) {
         this.partida = partida;
         this.destino = destino;
         this.tramos = tramos;
@@ -48,7 +52,6 @@ public class Trayecto extends BaseEntity {
         this.tramos = tramos;
     }
 
-    //Metodo para calcular la distancia total de un trayecto
     public double distanciaTotal() {
         return this.tramos.stream()
                 .mapToDouble(t -> t.distancia())
@@ -65,6 +68,5 @@ public class Trayecto extends BaseEntity {
 //                .mapToDouble(t -> t.litrosConsumidos())
 //                .sum();
 //    }
-
 
 }
