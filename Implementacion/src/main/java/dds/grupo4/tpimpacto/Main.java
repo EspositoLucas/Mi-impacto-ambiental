@@ -47,19 +47,19 @@ public class Main {
     }
 
     public static OperacionTesteo mostrarOperacionesYElegir() {
-        Scanner scanner = new Scanner(System.in);
+        try (Scanner scanner = new Scanner(System.in)) {
+            mostrarOperaciones();
 
-        mostrarOperaciones();
-
-        while (true) {
-            String ingresado = scanner.nextLine();
-            try {
-                int operacion = Integer.parseInt(ingresado);
-                return OperacionTesteo.of(operacion);
-            } catch (Exception e) {
-                System.out.println("No te pases de vivarache, mete algo valido");
-                System.out.println();
-                mostrarOperaciones();
+            while (true) {
+                String ingresado = scanner.nextLine();
+                try {
+                    int operacion = Integer.parseInt(ingresado);
+                    return OperacionTesteo.of(operacion);
+                } catch (Exception e) {
+                    System.out.println("No te pases de vivarache, mete algo valido");
+                    System.out.println();
+                    mostrarOperaciones();
+                }
             }
         }
     }
@@ -72,71 +72,71 @@ public class Main {
     }
 
     public static void registrarUsuario() throws Exception {
-        Scanner scanner = new Scanner(System.in);
-
-        String username;
-        boolean usernameCorrecto = false;
-        do {
-            System.out.print("Ingresa el nuevo username: ");
-            username = scanner.nextLine();
-            if (usuarioService.existeUsuarioConUsername(username)) {
-                System.out.println("Ya existe otro usuario con ese username!");
-            } else {
-                usernameCorrecto = true;
-            }
-        } while (!usernameCorrecto);
-
-        String password;
-        boolean passwordCorrecta = false;
-        int intentosFallidos = 0;
-        do {
-            System.out.print("Ingresa la nueva contrasenia: ");
-            password = scanner.nextLine();
-            ResultadoDeValidacion resultado = validarNuevaContrasenia(password);
-            if (resultado.esValido()) {
-                Usuario nuevoUser = new Usuario(username, password);
-                usuarioService.agregarUsuario(nuevoUser);
-                System.out.println("Usuario creado exitosamente!");
-                passwordCorrecta = true;
-            } else {
-                intentosFallidos++;
-                System.out.println("Contrasenia invalida:-");
-                System.out.println(resultado.getErroresEnLineas());
-                if (intentosFallidos > MAX_INTENTOS_REGISTRO) {
-                    System.out.println("Demasiados errores");
+        try (Scanner scanner = new Scanner(System.in)) {
+            String username;
+            boolean usernameCorrecto = false;
+            do {
+                System.out.print("Ingresa el nuevo username: ");
+                username = scanner.nextLine();
+                if (usuarioService.existeUsuarioConUsername(username)) {
+                    System.out.println("Ya existe otro usuario con ese username!");
+                } else {
+                    usernameCorrecto = true;
                 }
-            }
-        } while (!passwordCorrecta && intentosFallidos <= MAX_INTENTOS_REGISTRO);
+            } while (!usernameCorrecto);
+
+            String password;
+            boolean passwordCorrecta = false;
+            int intentosFallidos = 0;
+            do {
+                System.out.print("Ingresa la nueva contrasenia: ");
+                password = scanner.nextLine();
+                ResultadoDeValidacion resultado = validarNuevaContrasenia(password);
+                if (resultado.esValido()) {
+                    Usuario nuevoUser = new Usuario(username, password);
+                    usuarioService.agregarUsuario(nuevoUser);
+                    System.out.println("Usuario creado exitosamente!");
+                    passwordCorrecta = true;
+                } else {
+                    intentosFallidos++;
+                    System.out.println("Contrasenia invalida:-");
+                    System.out.println(resultado.getErroresEnLineas());
+                    if (intentosFallidos > MAX_INTENTOS_REGISTRO) {
+                        System.out.println("Demasiados errores");
+                    }
+                }
+            } while (!passwordCorrecta && intentosFallidos <= MAX_INTENTOS_REGISTRO);
+        }
     }
 
     public static void logearse() {
-        Scanner scanner = new Scanner(System.in);
+        try (Scanner scanner = new Scanner(System.in)) {
+            System.out.print("Ingrese su usuario: ");
+            String username = scanner.nextLine();
 
-        System.out.print("Ingrese su usuario: ");
-        String username = scanner.nextLine();
+            Optional<Usuario> optionalUser = usuarioService.getUsuarioPorUsername(username);
+            if (!optionalUser.isPresent()) {
+                System.out.println("Usuario incorrecto!");
+                return;
+            }
 
-        Optional<Usuario> optionalUser = usuarioService.getUsuarioPorUsername(username);
-        if (!optionalUser.isPresent()) {
-            System.out.println("Usuario incorrecto!");
-            return;
-        }
-
-        Usuario user = optionalUser.get();
-        if (user.estaBloqueado()) {
-            System.out.println("Estas bloqueado hasta la fecha " + formatearBloqueadoHasta(user.getBloqueadoHasta()));
-            return;
-        }
-
-        System.out.print("Ingrese la contraseña: ");
-        String password = scanner.nextLine();
-        if (user.validarContrasenia(password)) {
-            System.out.println("Usuario " + user.getUsername() + " logeado joyita");
-            user.logeoCorrecto();
-        } else {
-            System.out.println("Contrasenia incorrecta!");
-            user.logeoIncorrecto();
+            Usuario user = optionalUser.get();
             if (user.estaBloqueado()) {
                 System.out.println("Estas bloqueado hasta la fecha " + formatearBloqueadoHasta(user.getBloqueadoHasta()));
+                return;
+            }
+
+            System.out.print("Ingrese la contraseña: ");
+            String password = scanner.nextLine();
+            if (user.validarContrasenia(password)) {
+                System.out.println("Usuario " + user.getUsername() + " logeado joyita");
+                user.logeoCorrecto();
+            } else {
+                System.out.println("Contrasenia incorrecta!");
+                user.logeoIncorrecto();
+                if (user.estaBloqueado()) {
+                    System.out.println("Estas bloqueado hasta la fecha " + formatearBloqueadoHasta(user.getBloqueadoHasta()));
+                }
             }
         }
     }
