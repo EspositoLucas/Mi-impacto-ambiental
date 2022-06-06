@@ -14,7 +14,6 @@ public class TransportePublico extends MedioDeTransporte {
     private TipoTransportePublico tipoTransportePublico;
     private String linea;
     private List<Parada> paradas = new ArrayList<>();
-
     private Combustible combustible;
 
     // Hibernate

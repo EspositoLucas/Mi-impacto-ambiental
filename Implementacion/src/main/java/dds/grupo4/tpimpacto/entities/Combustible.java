@@ -8,18 +8,10 @@ import javax.persistence.Table;
 // TODO: estoy casi seguro que esta clase no deberia existir
 @Entity(name = "Combustible")
 @Table(name = "combustibles")
-<<<<<<< HEAD
-@Inheritance(strategy = InheritanceType.JOINED)
-public class Combustible extends BaseEntity{
-     private Double combustibleInicial;
-     private Double combustibleFinal;
-     private TipoCombustible tipoCombustible ;
-=======
 public class Combustible extends BaseEntity {
     private Double combustibleInicial;
     private Double combustibleFinal;
     private TipoCombustible tipoCombustible;
->>>>>>> e1d416f4eef3b15244fab6944571afefdf3d9703
 
     public Combustible(Double combustibleInicial, Double combustibleFinal, TipoCombustible tipoCombustible) {
         this.combustibleInicial = combustibleInicial;

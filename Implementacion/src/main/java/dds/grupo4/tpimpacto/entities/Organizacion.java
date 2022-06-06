@@ -54,9 +54,6 @@ public class Organizacion extends BaseEntity {
         this.clasificacion = clasificacion;
     }
 
-<<<<<<< HEAD
-    public List<Miembro> getMiembros() { // si se trata de buscar uno o mas  miembros en específico.
-=======
     public List<Sector> getSectores() {
         return sectores;
     }
@@ -66,7 +63,6 @@ public class Organizacion extends BaseEntity {
     }
 
     public List<Miembro> getMiembros() {
->>>>>>> e1d416f4eef3b15244fab6944571afefdf3d9703
         return sectores.stream()
                 .flatMap(s -> s.getMiembros().stream())
                 .distinct()

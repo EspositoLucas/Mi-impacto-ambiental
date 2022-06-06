@@ -19,15 +19,12 @@ public class SectorTerritorial extends BaseEntity {
     protected SectorTerritorial() {
     }
 
-<<<<<<< HEAD
     public SectorTerritorial(List<AgenteSectorial> agentesSectoriales, List<Organizacion> organizaciones, TipoSectorTerritorial tipo) {
         this.agentesSectoriales = agentesSectoriales;
         this.organizaciones = organizaciones;
-        this.tipo = tipo;
+        this.tipoSectorTerritorial = tipo;
     }
 
-=======
->>>>>>> e1d416f4eef3b15244fab6944571afefdf3d9703
     public List<AgenteSectorial> getAgentesSectoriales() {
         return agentesSectoriales;
     }
@@ -44,21 +41,12 @@ public class SectorTerritorial extends BaseEntity {
         this.organizaciones = organizaciones;
     }
 
-<<<<<<< HEAD
-    public TipoSectorTerritorial getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(TipoSectorTerritorial tipo) {
-        this.tipo = tipo;
-=======
     public TipoSectorTerritorial getTipoSectorTerritorial() {
         return tipoSectorTerritorial;
     }
 
     public void setTipoSectorTerritorial(TipoSectorTerritorial tipoSectorTerritorial) {
         this.tipoSectorTerritorial = tipoSectorTerritorial;
->>>>>>> e1d416f4eef3b15244fab6944571afefdf3d9703
     }
 
     // metdod Resultado HC para SectoTerritorial

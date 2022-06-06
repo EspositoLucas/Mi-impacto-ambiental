@@ -13,10 +13,6 @@ public class Trayecto extends BaseEntity {
     private Direccion partida;
     private Direccion destino;
     private List<Tramo> tramos = new ArrayList<>();
-<<<<<<< HEAD
-
-=======
->>>>>>> e1d416f4eef3b15244fab6944571afefdf3d9703
 
     // Hibernate
     protected Trayecto() {
