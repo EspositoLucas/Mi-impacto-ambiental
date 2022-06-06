@@ -8,7 +8,10 @@ public enum OperacionTesteo {
     CARGAR_MEDICIONES(3),
     CREAR_ORGANIZACION(4),
     LISTAR_ORGANIZACIONES(5),
-    EXIT(6);
+    CREAR_MIEMBRO(6),
+    ACEPTAR_SOLICITUD(7),
+    LISTAR_MIEMBROS_DE_ORGANIZACION(8),
+    EXIT(9);
 
     private final int value;
 

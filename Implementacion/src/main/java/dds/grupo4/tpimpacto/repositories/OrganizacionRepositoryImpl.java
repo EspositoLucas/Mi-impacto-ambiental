@@ -7,6 +7,7 @@ import dds.grupo4.tpimpacto.enums.TipoOrganizacion;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 public class OrganizacionRepositoryImpl implements OrganizacionRepository {
 
@@ -25,4 +26,10 @@ public class OrganizacionRepositoryImpl implements OrganizacionRepository {
         return organizaciones;
     }
 
+    @Override
+    public Optional<Organizacion> getByRazonSocial(String razonSocial) {
+        return organizaciones.stream()
+                .filter(organizacion -> organizacion.getRazonSocial().equals(razonSocial))
+                .findFirst();
+    }
 }

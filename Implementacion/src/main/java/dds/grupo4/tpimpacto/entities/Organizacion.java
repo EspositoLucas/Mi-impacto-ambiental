@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Entity(name = "Organizacion")
@@ -74,14 +75,21 @@ public class Organizacion extends BaseEntity {
         sector.setOrganizacion(this);
     }
 
+    public void addSolicitud(Solicitud solicitud) {
+        solicitudes.add(solicitud);
+        solicitud.setOrganizacion(this);
+    }
+
+    public Optional<Solicitud> getSolicitudDeMiembro(String documento) {
+        return solicitudes.stream()
+                .filter(solicitud -> solicitud.getMiembro().getDocumento().equals(documento))
+                .findFirst();
+    }
+
     /**
      * Metodo para aceptar vinculacion del miembro con la organizacion
      */
-    public void aceptarSolicitud(Solicitud solicitud) throws Exception {
-        if (!sectores.contains(solicitud.getSector())) {
-            throw new Exception("Una organizacion no puede aceptar una solicitud de un sector que no es suyo");
-        }
-
+    public void aceptarSolicitud(Solicitud solicitud) {
         solicitud.getSector().addMiembro(solicitud.getMiembro());
         this.solicitudes.remove(solicitud);
     }

@@ -63,6 +63,10 @@ public class Miembro extends BaseEntity {
         tramos.add(tramo);
     }
 
+    public String getDocumento() {
+        return persona.getDocumento();
+    }
+
     // calculo para la huella de carbono
 
 //    public double calculoHC() {

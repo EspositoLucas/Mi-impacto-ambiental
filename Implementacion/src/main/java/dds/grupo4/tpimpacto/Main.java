@@ -3,16 +3,13 @@ package dds.grupo4.tpimpacto;
 import dds.grupo4.tpimpacto.common.LectorDeArchivoImpl;
 import dds.grupo4.tpimpacto.common.ResultadoDeValidacion;
 import dds.grupo4.tpimpacto.common.ValidadorContrasenia;
+import dds.grupo4.tpimpacto.controllers.MiembroControllerFake;
 import dds.grupo4.tpimpacto.controllers.OrganizacionControllerFake;
 import dds.grupo4.tpimpacto.entities.Usuario;
 import dds.grupo4.tpimpacto.extras.ConsoleHelper;
 import dds.grupo4.tpimpacto.extras.OperacionTesteo;
-import dds.grupo4.tpimpacto.repositories.OrganizacionRepositoryImpl;
-import dds.grupo4.tpimpacto.repositories.UsuarioRepositoryImpl;
-import dds.grupo4.tpimpacto.services.OrganizacionService;
-import dds.grupo4.tpimpacto.services.OrganizacionServiceImpl;
-import dds.grupo4.tpimpacto.services.UsuarioService;
-import dds.grupo4.tpimpacto.services.UsuarioServiceImpl;
+import dds.grupo4.tpimpacto.repositories.*;
+import dds.grupo4.tpimpacto.services.*;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.time.LocalDateTime;
@@ -24,10 +21,18 @@ public class Main {
 
     private static final int MAX_INTENTOS_REGISTRO = 3;
 
-    private static final UsuarioService usuarioService = new UsuarioServiceImpl(new UsuarioRepositoryImpl());
-    private static final OrganizacionService organizacionService = new OrganizacionServiceImpl(new OrganizacionRepositoryImpl());
+    private static final SectorRepository sectorRepository = new SectorRepositoryImpl();
+    private static final OrganizacionRepository organizacionRepository = new OrganizacionRepositoryImpl();
+    private static final UsuarioRepository usuarioRepository = new UsuarioRepositoryImpl();
+    private static final MiembroRepository miembroRepository = new MiembroRepositoryImpl();
+
+    private static final SectorService sectorService = new SectorServiceImpl(sectorRepository);
+    private static final OrganizacionService organizacionService = new OrganizacionServiceImpl(organizacionRepository, sectorService);
+    private static final UsuarioService usuarioService = new UsuarioServiceImpl(usuarioRepository);
+    private static final MiembroService miembroService = new MiembroServiceImpl(miembroRepository);
 
     private static final OrganizacionControllerFake organizacionControllerFake = new OrganizacionControllerFake(organizacionService);
+    private static final MiembroControllerFake miembroControllerFake = new MiembroControllerFake(miembroService, organizacionService, sectorService);
 
     public static void main(String[] args) throws Exception {
         /*
@@ -53,6 +58,15 @@ public class Main {
                     break;
                 case LISTAR_ORGANIZACIONES:
                     organizacionControllerFake.listarOrganizaciones();
+                    break;
+                case CREAR_MIEMBRO:
+                    miembroControllerFake.crearMiembro();
+                    break;
+                case ACEPTAR_SOLICITUD:
+                    organizacionControllerFake.aceptarSolicitud();
+                    break;
+                case LISTAR_MIEMBROS_DE_ORGANIZACION:
+                    organizacionControllerFake.listarMiembros();
                     break;
             }
 
@@ -83,7 +97,10 @@ public class Main {
         ConsoleHelper.printLine("3- Cargar mediciones");
         ConsoleHelper.printLine("4- Crear organizacion");
         ConsoleHelper.printLine("5- Listar organizaciones");
-        ConsoleHelper.printLine("6- Salir");
+        ConsoleHelper.printLine("6- Crear miembro");
+        ConsoleHelper.printLine("7- Aceptar solicitud");
+        ConsoleHelper.printLine("8- Listar miembros de una organizacion");
+        ConsoleHelper.printLine("9- Salir");
         ConsoleHelper.print("Elegi una opcion: ");
     }
 

@@ -11,6 +11,11 @@ public class Solicitud extends BaseEntity {
     private Sector sector;
     private Organizacion organizacion;
 
+    public Solicitud(Miembro miembro, Sector sector) {
+        this.miembro = miembro;
+        this.sector = sector;
+    }
+
     public Miembro getMiembro() {
         return miembro;
     }
