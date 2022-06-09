@@ -7,7 +7,7 @@ public class ListadoMunicipios {
 
     public Provincia provincia;
     public List<Municipio> municipios;
-    public Parametro parametros;
+    public ParametroMunicipio parametros;
 
     public Optional<Municipio> municipiosDeId(int id){
         return this.municipios.stream()
@@ -15,7 +15,7 @@ public class ListadoMunicipios {
                 .findFirst();
     }
 
-    private class Parametro {
+    private class ParametroMunicipio {
         public int offset;
         public int provinciaId;
 

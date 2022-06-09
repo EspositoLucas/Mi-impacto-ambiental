@@ -6,7 +6,7 @@ import java.util.Optional;
 public class ListadoLocalidades {
     public Municipio municipio;
     public List<Localidad> localidades;
-    public Parametro parametros;
+    public ParametroLocalidad parametros;
 
     public Optional<Localidad> localidadesDeId(int id){
         return this.localidades.stream()
@@ -14,7 +14,7 @@ public class ListadoLocalidades {
                 .findFirst();
     }
 
-    private class Parametro {
+    private class ParametroLocalidad {
         public int offset;
         public int municipioId;
 

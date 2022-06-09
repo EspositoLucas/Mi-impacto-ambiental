@@ -13,7 +13,7 @@ public class Direccion extends BaseEntity {
 
     private String pais ;
 
-    private List<String> provincias ;
+    private String provincia ;
 
     private String municipio ;
 
@@ -26,11 +26,11 @@ public class Direccion extends BaseEntity {
     protected Direccion() {
     }
 
-    public Direccion(String calle, String altura, String pais, List<String> provincias, String municipio, String localidad, String barrio, int codigoPostal) {
+    public Direccion(String calle, String altura, String pais, String provincia, String municipio, String localidad, String barrio, int codigoPostal) {
         this.calle = calle;
         this.altura = altura;
         this.pais = pais;
-        this.provincias = provincias;
+        this.provincia = provincia;
         this.municipio = municipio;
         this.localidad = localidad;
         this.barrio = barrio;
@@ -77,12 +77,12 @@ public class Direccion extends BaseEntity {
         this.pais = pais;
     }
 
-    public List<String> getProvincias() {
-        return provincias;
+    public String getProvincia() {
+        return provincia;
     }
 
-    public void setProvincias(List<String> provincias) {
-        this.provincias = provincias;
+    public void setProvincia(String provincia) {
+        this.provincia = provincia;
     }
 
     public String getMunicipio() {

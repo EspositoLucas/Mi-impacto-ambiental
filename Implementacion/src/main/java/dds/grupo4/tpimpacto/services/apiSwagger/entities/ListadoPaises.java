@@ -5,14 +5,14 @@ import java.util.Optional;
 
 public class ListadoPaises {
     public List<Pais> paises;
-    public Parametro parametros;
+    public ParametroPais parametros;
 
     public Optional<Pais> paisesDeId(int id){
         return this.paises.stream()
                 .filter(p -> p.idPais == id)
                 .findFirst();
     }
-    private class Parametro {
+    private class ParametroPais {
         public int offset;
 
     }

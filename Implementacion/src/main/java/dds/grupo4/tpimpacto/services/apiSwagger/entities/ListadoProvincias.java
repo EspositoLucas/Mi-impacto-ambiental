@@ -8,7 +8,7 @@ public class ListadoProvincias {
     public Pais pais ;
     public List<Provincia> provincias;
 
-    public Parametro parametros;
+    public ParametroProvincia parametros;
 
     public Optional<Provincia> provinciaDeId(int id){
         return this.provincias.stream()
@@ -16,7 +16,7 @@ public class ListadoProvincias {
                 .findFirst();
     }
 
-    private class Parametro {
+    private class ParametroProvincia {
         public int offset;
         public int paisId;
 

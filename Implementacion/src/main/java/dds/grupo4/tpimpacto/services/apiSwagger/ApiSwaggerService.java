@@ -24,10 +24,10 @@ public interface ApiSwaggerService {
 
     @GET("localidades")
     Call<ListadoLocalidades> localidades(@Query("offset") int offset,@Query("municipioId") int provinciaId);
-    
+
 
     @GET("distancia")
-    Call<Distancia> distancia(@Query("localidadOrigenId") int localidadorigenId,@Query("calleOrigen") String calleOrigen,@Query("alturaOrigen") int alturaOrigen,@Query("localidadDestinoId") int localidaddestinoid,@Query("calleDestino") String calleDestino,@Query("alturaDestino") String alturaDestino);
+    Call<Distancia> distancia(@Query("localidadOrigenId") int localidadorigenId,@Query("calleOrigen") String calleOrigen,@Query("alturaOrigen") String alturaOrigen,@Query("localidadDestinoId") int localidaddestinoid,@Query("calleDestino") String calleDestino,@Query("alturaDestino") String alturaDestino);
 
 
 

@@ -4,15 +4,15 @@ public class Distancia {
 
     public float valor ;
     public String unidad ;
-    public Parametro parametros;
+    public ParametroDistancia parametros;
 
-    private class Parametro {
+    private class ParametroDistancia {
         public int localidadOrigenId;
         public String  calleOrigen;
-        public int alturaOrigen;
+        public String alturaOrigen;
         public int localidadDestinoId;
         public String  calleDestino;
-        public int alturaDestino;
+        public String alturaDestino;
 
     }
 
