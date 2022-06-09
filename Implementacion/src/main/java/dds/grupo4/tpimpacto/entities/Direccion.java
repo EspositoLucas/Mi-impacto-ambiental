@@ -2,13 +2,23 @@ package dds.grupo4.tpimpacto.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import java.util.List;
 
 @Entity(name = "Direccion")
 @Table(name = "direcciones")
 public class Direccion extends BaseEntity {
 
     private String calle;
-    private int altura;
+    private String altura;
+
+    private String pais ;
+
+    private List<String> provincias ;
+
+    private String municipio ;
+
+    private String localidad ;
+
     private String barrio;
     private int codigoPostal;
 
@@ -16,9 +26,13 @@ public class Direccion extends BaseEntity {
     protected Direccion() {
     }
 
-    public Direccion(String calle, int altura, String barrio, int codigoPostal) {
+    public Direccion(String calle, String altura, String pais, List<String> provincias, String municipio, String localidad, String barrio, int codigoPostal) {
         this.calle = calle;
         this.altura = altura;
+        this.pais = pais;
+        this.provincias = provincias;
+        this.municipio = municipio;
+        this.localidad = localidad;
         this.barrio = barrio;
         this.codigoPostal = codigoPostal;
     }
@@ -31,11 +45,11 @@ public class Direccion extends BaseEntity {
         this.calle = calle;
     }
 
-    public int getAltura() {
+    public String getAltura() {
         return altura;
     }
 
-    public void setAltura(int altura) {
+    public void setAltura(String altura) {
         this.altura = altura;
     }
 
@@ -53,5 +67,37 @@ public class Direccion extends BaseEntity {
 
     public void setCodigoPostal(int codigoPostal) {
         this.codigoPostal = codigoPostal;
+    }
+
+    public String getPais() {
+        return pais;
+    }
+
+    public void setPais(String pais) {
+        this.pais = pais;
+    }
+
+    public List<String> getProvincias() {
+        return provincias;
+    }
+
+    public void setProvincias(List<String> provincias) {
+        this.provincias = provincias;
+    }
+
+    public String getMunicipio() {
+        return municipio;
+    }
+
+    public void setMunicipio(String municipio) {
+        this.municipio = municipio;
+    }
+
+    public String getLocalidad() {
+        return localidad;
+    }
+
+    public void setLocalidad(String localidad) {
+        this.localidad = localidad;
     }
 }
