@@ -11,12 +11,14 @@ import dds.grupo4.tpimpacto.extras.OperacionTesteo;
 import dds.grupo4.tpimpacto.repositories.*;
 import dds.grupo4.tpimpacto.services.*;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 @SpringBootApplication
+@ConfigurationPropertiesScan
 public class Main {
 
     private static final int MAX_INTENTOS_REGISTRO = 3;
