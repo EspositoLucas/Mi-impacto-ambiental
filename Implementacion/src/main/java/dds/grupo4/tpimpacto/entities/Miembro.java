@@ -14,13 +14,18 @@ public class Miembro extends BaseEntity {
     private Sector sector;
     private List<Tramo> tramos = new ArrayList<>();
 
+    private List<Organizacion> organizaciones = new ArrayList<>();
+
     // Hibernate
     protected Miembro() {
     }
 
-    public Miembro(Persona persona, Sector sector) {
+    public Miembro(Persona persona, Usuario usuario, Sector sector, List<Tramo> tramos, List<Organizacion> organizaciones) {
         this.persona = persona;
+        this.usuario = usuario;
         this.sector = sector;
+        this.tramos = tramos;
+        this.organizaciones = organizaciones;
     }
 
     public Persona getPersona() {
@@ -55,12 +60,17 @@ public class Miembro extends BaseEntity {
         this.tramos = tramos;
     }
 
-    public Organizacion getOrganizacion() {
-        return this.sector.getOrganizacion();
-    }
 
     public void addTramo(Tramo tramo) {
         tramos.add(tramo);
+    }
+
+    public List<Organizacion> getOrganizaciones() {
+        return organizaciones;
+    }
+
+    public void setOrganizaciones(List<Organizacion> organizaciones) {
+        this.organizaciones = organizaciones;
     }
 
     public String getDocumento() {

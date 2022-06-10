@@ -18,17 +18,24 @@ public class Organizacion extends BaseEntity {
     private TipoOrganizacion tipoOrganizacion;
     private Clasificacion clasificacion;
     private List<Sector> sectores = new ArrayList<>();
+
     private List<Contacto> contactos = new ArrayList<>();
     private List<Solicitud> solicitudes = new ArrayList<>();
+
+    private List<Miembro> miembros = new ArrayList<>();
 
     // Hibernate
     protected Organizacion() {
     }
 
-    public Organizacion(String razonSocial, TipoOrganizacion tipoOrganizacion, Clasificacion clasificacion) {
+    public Organizacion(String razonSocial, TipoOrganizacion tipoOrganizacion, Clasificacion clasificacion, List<Sector> sectores, List<Contacto> contactos, List<Solicitud> solicitudes, List<Miembro> miembros) {
         this.razonSocial = razonSocial;
         this.tipoOrganizacion = tipoOrganizacion;
         this.clasificacion = clasificacion;
+        this.sectores = sectores;
+        this.contactos = contactos;
+        this.solicitudes = solicitudes;
+        this.miembros = miembros;
     }
 
     public String getRazonSocial() {
@@ -63,7 +70,7 @@ public class Organizacion extends BaseEntity {
         this.sectores = sectores;
     }
 
-    public List<Miembro> getMiembros() {
+    public List<Miembro> getMiembrosPorSector() {  // Para obtener los miembros de cierto sector
         return sectores.stream()
                 .flatMap(s -> s.getMiembros().stream())
                 .distinct()
@@ -94,7 +101,31 @@ public class Organizacion extends BaseEntity {
         this.solicitudes.remove(solicitud);
     }
 
-//    //Metodo para cargar las medidiciones del excel
+    public List<Contacto> getContactos() {
+        return contactos;
+    }
+
+    public void setContactos(List<Contacto> contactos) {
+        this.contactos = contactos;
+    }
+
+    public List<Solicitud> getSolicitudes() {
+        return solicitudes;
+    }
+
+    public void setSolicitudes(List<Solicitud> solicitudes) {
+        this.solicitudes = solicitudes;
+    }
+
+    public List<Miembro> getMiembros() {
+        return miembros;
+    }
+
+    public void setMiembros(List<Miembro> miembros) {
+        this.miembros = miembros;
+    }
+
+    //    //Metodo para cargar las medidiciones del excel
 //    public void cargarMediciones() {
 //
 //    }
