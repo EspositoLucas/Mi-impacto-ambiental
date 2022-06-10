@@ -11,6 +11,10 @@ public class Solicitud extends BaseEntity {
     private Sector sector;
     private Organizacion organizacion;
 
+    // Hibernate
+    protected Solicitud() {
+    }
+
     public Solicitud(Miembro miembro, Sector sector) {
         this.miembro = miembro;
         this.sector = sector;
