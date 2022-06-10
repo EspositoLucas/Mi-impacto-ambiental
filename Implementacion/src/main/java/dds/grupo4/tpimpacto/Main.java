@@ -10,14 +10,16 @@ import dds.grupo4.tpimpacto.extras.ConsoleHelper;
 import dds.grupo4.tpimpacto.extras.OperacionTesteo;
 import dds.grupo4.tpimpacto.repositories.*;
 import dds.grupo4.tpimpacto.services.*;
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
-@SpringBootApplication
+@SpringBootApplication(/*exclude = {DataSourceAutoConfiguration.class}*/)
 @ConfigurationPropertiesScan
 public class Main {
 
@@ -84,8 +86,7 @@ public class Main {
             String input = ConsoleHelper.readString();
             try {
                 int operacion = Integer.parseInt(input);
-                OperacionTesteo operacionTesteo = OperacionTesteo.valueOf(operacion);
-                return operacionTesteo;
+                return OperacionTesteo.valueOf(operacion);
             } catch (Exception e) {
                 ConsoleHelper.printLine("No te pases de vivarache, mete algo valido");
                 ConsoleHelper.printLine();
