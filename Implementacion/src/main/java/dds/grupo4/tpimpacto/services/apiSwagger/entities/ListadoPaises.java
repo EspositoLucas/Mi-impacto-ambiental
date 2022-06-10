@@ -7,13 +7,14 @@ public class ListadoPaises {
     public List<Pais> paises;
     public ParametroPais parametros;
 
-    public Optional<Pais> paisesDeId(int id){
+    public Optional<Pais> paisesDeId(int id) {
         return this.paises.stream()
                 .filter(p -> p.idPais == id)
                 .findFirst();
     }
+
     private class ParametroPais {
         public int offset;
-
     }
+
 }

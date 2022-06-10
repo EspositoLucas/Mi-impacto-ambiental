@@ -9,7 +9,7 @@ public class ListadoMunicipios {
     public List<Municipio> municipios;
     public ParametroMunicipio parametros;
 
-    public Optional<Municipio> municipiosDeId(int id){
+    public Optional<Municipio> municipiosDeId(int id) {
         return this.municipios.stream()
                 .filter(p -> p.idMunicipio == id)
                 .findFirst();
@@ -18,6 +18,6 @@ public class ListadoMunicipios {
     private class ParametroMunicipio {
         public int offset;
         public int provinciaId;
-
     }
+
 }

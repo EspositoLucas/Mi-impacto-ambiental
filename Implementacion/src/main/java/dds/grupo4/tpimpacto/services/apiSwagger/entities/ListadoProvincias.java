@@ -5,12 +5,12 @@ import java.util.Optional;
 
 public class ListadoProvincias {
 
-    public Pais pais ;
+    public Pais pais;
     public List<Provincia> provincias;
 
     public ParametroProvincia parametros;
 
-    public Optional<Provincia> provinciaDeId(int id){
+    public Optional<Provincia> provinciaDeId(int id) {
         return this.provincias.stream()
                 .filter(p -> p.idProvincia == id)
                 .findFirst();
@@ -19,6 +19,6 @@ public class ListadoProvincias {
     private class ParametroProvincia {
         public int offset;
         public int paisId;
-
     }
+
 }
