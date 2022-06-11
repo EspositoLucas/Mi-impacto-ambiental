@@ -18,24 +18,20 @@ public class Organizacion extends BaseEntity {
     private TipoOrganizacion tipoOrganizacion;
     private Clasificacion clasificacion;
     private List<Sector> sectores = new ArrayList<>();
-
     private List<Contacto> contactos = new ArrayList<>();
     private List<Solicitud> solicitudes = new ArrayList<>();
-
-    private List<Miembro> miembros = new ArrayList<>();
 
     // Hibernate
     protected Organizacion() {
     }
 
-    public Organizacion(String razonSocial, TipoOrganizacion tipoOrganizacion, Clasificacion clasificacion, List<Sector> sectores, List<Contacto> contactos, List<Solicitud> solicitudes, List<Miembro> miembros) {
+    public Organizacion(String razonSocial, TipoOrganizacion tipoOrganizacion, Clasificacion clasificacion, List<Sector> sectores, List<Contacto> contactos, List<Solicitud> solicitudes) {
         this.razonSocial = razonSocial;
         this.tipoOrganizacion = tipoOrganizacion;
         this.clasificacion = clasificacion;
         this.sectores = sectores;
         this.contactos = contactos;
         this.solicitudes = solicitudes;
-        this.miembros = miembros;
     }
 
     public String getRazonSocial() {
@@ -68,13 +64,6 @@ public class Organizacion extends BaseEntity {
 
     public void setSectores(List<Sector> sectores) {
         this.sectores = sectores;
-    }
-
-    public List<Miembro> getMiembrosPorSector() {  // Para obtener los miembros de cierto sector
-        return sectores.stream()
-                .flatMap(s -> s.getMiembros().stream())
-                .distinct()
-                .collect(Collectors.toList());
     }
 
     public void addSector(Sector sector) {
@@ -118,11 +107,10 @@ public class Organizacion extends BaseEntity {
     }
 
     public List<Miembro> getMiembros() {
-        return miembros;
-    }
-
-    public void setMiembros(List<Miembro> miembros) {
-        this.miembros = miembros;
+        return sectores.stream()
+                .flatMap(s -> s.getMiembros().stream())
+                .distinct()
+                .collect(Collectors.toList());
     }
 
     //    //Metodo para cargar las medidiciones del excel
