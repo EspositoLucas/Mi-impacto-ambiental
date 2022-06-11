@@ -49,7 +49,9 @@ public class MiembroControllerFake {
         // Persona puede tener muchos Miembros
         Persona nuevaPersona = new Persona(nombreMiembro, "", TipoDocumento.DNI, dniMiembro);
 
-        Miembro nuevoMiembro = new Miembro(nuevaPersona, sector);
+        Usuario nuevoUsuario = new Usuario(nombreMiembro, nombreMiembro);
+
+        Miembro nuevoMiembro = new Miembro(nuevaPersona, nuevoUsuario, sector);
         miembroService.save(nuevoMiembro);
 
         Solicitud solicitud = new Solicitud(nuevoMiembro, sector);

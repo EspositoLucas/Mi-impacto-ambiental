@@ -18,11 +18,10 @@ public class Miembro extends BaseEntity {
     protected Miembro() {
     }
 
-    public Miembro(Persona persona, Usuario usuario, Sector sector, List<Tramo> tramos) {
+    public Miembro(Persona persona, Usuario usuario, Sector sector) {
         this.persona = persona;
         this.usuario = usuario;
         this.sector = sector;
-        this.tramos = tramos;
     }
 
     public Persona getPersona() {

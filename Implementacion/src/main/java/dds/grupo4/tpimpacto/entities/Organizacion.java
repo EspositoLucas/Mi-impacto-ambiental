@@ -25,13 +25,10 @@ public class Organizacion extends BaseEntity {
     protected Organizacion() {
     }
 
-    public Organizacion(String razonSocial, TipoOrganizacion tipoOrganizacion, Clasificacion clasificacion, List<Sector> sectores, List<Contacto> contactos, List<Solicitud> solicitudes) {
+    public Organizacion(String razonSocial, TipoOrganizacion tipoOrganizacion, Clasificacion clasificacion) {
         this.razonSocial = razonSocial;
         this.tipoOrganizacion = tipoOrganizacion;
         this.clasificacion = clasificacion;
-        this.sectores = sectores;
-        this.contactos = contactos;
-        this.solicitudes = solicitudes;
     }
 
     public String getRazonSocial() {
