@@ -6,6 +6,7 @@ import dds.grupo4.tpimpacto.common.ValidadorContrasenia;
 import dds.grupo4.tpimpacto.controllers.MiembroControllerFake;
 import dds.grupo4.tpimpacto.controllers.OrganizacionControllerFake;
 import dds.grupo4.tpimpacto.controllers.TipoServicioContratadoControllerFake;
+import dds.grupo4.tpimpacto.controllers.TransportePublicoControllerFake;
 import dds.grupo4.tpimpacto.entities.Usuario;
 import dds.grupo4.tpimpacto.extras.ConsoleHelper;
 import dds.grupo4.tpimpacto.extras.OperacionTesteo;
@@ -41,6 +42,7 @@ public class Main {
     private static final OrganizacionControllerFake organizacionControllerFake = new OrganizacionControllerFake(organizacionService);
     private static final MiembroControllerFake miembroControllerFake = new MiembroControllerFake(miembroService, organizacionService, sectorService);
     private static final TipoServicioContratadoControllerFake tipoServicioContratadoControllerFake = new TipoServicioContratadoControllerFake(tipoServicioContratadoService);
+    private static final TransportePublicoControllerFake transportePublicoControllerFake = new TransportePublicoControllerFake();
 
     public static void main(String[] args) throws Exception {
         /*
@@ -78,6 +80,9 @@ public class Main {
                     break;
                 case CREAR_TIPO_SERVICIO_CONTRATADO:
                     tipoServicioContratadoControllerFake.crearTipoServicioContratado();
+                    break;
+                case CREAR_TRANSPORTE_PUBLICO:
+                    transportePublicoControllerFake.crearLinea();
                     break;
             }
 

@@ -16,11 +16,9 @@ public class Parada extends Lugar {
     protected Parada() {
     }
 
-    public Parada(TransportePublico transportePublico, Direccion direccion, Double distanciaProxima, Parada paradaSiguiente) {
+    public Parada(Direccion direccion, Double distanciaProxima) {
         super(direccion);
-        this.transportePublico = transportePublico;
         this.distanciaProxima = distanciaProxima;
-        this.paradaSiguiente = paradaSiguiente;
     }
 
     public TransportePublico getTransportePublico() {

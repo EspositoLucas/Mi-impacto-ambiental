@@ -23,7 +23,7 @@ public class TransportePublico extends MedioDeTransporte {
     public TransportePublico(TipoTransportePublico tipoTransportePublico, String linea, List<Parada> paradas, Combustible combustible) {
         this.tipoTransportePublico = tipoTransportePublico;
         this.linea = linea;
-        this.paradas = paradas;
+        paradas.forEach(parada -> addParada(parada));
         this.combustible = combustible;
     }
 
@@ -57,6 +57,11 @@ public class TransportePublico extends MedioDeTransporte {
 
     public void setCombustible(Combustible combustible) {
         this.combustible = combustible;
+    }
+
+    public void addParada(Parada parada) {
+        paradas.add(parada);
+        parada.setTransportePublico(this);
     }
 
     @Override

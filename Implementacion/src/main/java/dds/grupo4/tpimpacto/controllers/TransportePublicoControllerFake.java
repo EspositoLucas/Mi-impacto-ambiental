@@ -1,0 +1,46 @@
+package dds.grupo4.tpimpacto.controllers;
+
+import dds.grupo4.tpimpacto.entities.Combustible;
+import dds.grupo4.tpimpacto.entities.Direccion;
+import dds.grupo4.tpimpacto.entities.Parada;
+import dds.grupo4.tpimpacto.entities.TransportePublico;
+import dds.grupo4.tpimpacto.enums.TipoTransportePublico;
+import dds.grupo4.tpimpacto.extras.ConsoleHelper;
+import dds.grupo4.tpimpacto.helpers.ListHelper;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class TransportePublicoControllerFake {
+
+    public void crearLinea() {
+        ConsoleHelper.print("Tipo de transporte publico (tren, subte o colectivo)");
+        int ingresado = ConsoleHelper.readInt();
+        TipoTransportePublico tipoTransportePublico = TipoTransportePublico.COLECTIVO; // Default para facilitar los tests
+
+        ConsoleHelper.print("Numero de linea: ");
+        String linea = ConsoleHelper.readString();
+
+        List<Parada> paradas = new ArrayList<>();
+        for (int i = 0; i < 3; i++) {
+            Direccion direccion = new Direccion("Medrano", "700", "Argentina", "Buenos Aires",
+                    "???", "???", "???", 1313);
+            Parada parada = new Parada(direccion, 1313.0);
+
+            // Agarro la ultima Parada creada y le seteo la Parada siguiente a la nueva Parada
+            if (!paradas.isEmpty()) {
+                Parada ultimaParada = ListHelper.getLast(paradas);
+                ultimaParada.setParadaSiguiente(parada);
+            }
+
+            paradas.add(parada);
+        }
+
+        Combustible combustible = null;
+        TransportePublico transportePublico = new TransportePublico(tipoTransportePublico, linea, paradas, combustible);
+
+        // TODO: ver como guardamos este TransportePublico (podemos crear un Service para todos los MediosDeTransporte o
+        //  uno para cada tipo)
+    }
+
+}
