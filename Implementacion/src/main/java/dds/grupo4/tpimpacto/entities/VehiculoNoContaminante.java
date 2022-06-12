@@ -1,6 +1,9 @@
 package dds.grupo4.tpimpacto.entities;
 
+import dds.grupo4.tpimpacto.config.GeoApiConfig;
 import dds.grupo4.tpimpacto.enums.TipoVehiculoNoContaminante;
+import dds.grupo4.tpimpacto.services.apiSwagger.GeoService;
+import dds.grupo4.tpimpacto.services.apiSwagger.GeoServiceImpl;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -29,8 +32,9 @@ public class VehiculoNoContaminante extends MedioDeTransporte {
 
     @Override
     public double distanciaRecorrida(Lugar lugarInicio, Lugar lugarFin) {
-        // TODO: se llama al Servicio Externo
-        return 0;
+        // TODO: pensar alguna forma mas testeable de implementar esto
+        GeoService geoService = new GeoServiceImpl(new GeoApiConfig(API_TOKEN));
+        return geoService.distanciaRecorrida(lugarInicio, lugarFin);
     }
 
 //    @Oveeride

@@ -10,10 +10,15 @@ import javax.persistence.Table;
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class MedioDeTransporte extends BaseEntity {
 
+    protected final String API_TOKEN = "dbNsJcYAneNbF8+i9DX735F7KR7mPZVELmu1wN+Nx0o=";
+
     // Hibernate
     protected MedioDeTransporte() {
     }
 
+    /**
+     * Devuelve la distancia en KM entre el Lugar inicial y el Lugar final
+     */
     public abstract double distanciaRecorrida(Lugar lugarInicio, Lugar lugarFin);
 
 

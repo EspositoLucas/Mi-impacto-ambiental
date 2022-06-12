@@ -5,8 +5,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class DistanciaDto {
 
-    public float valor;
-    public String unidad;
+    private float valor;
+    private String unidad;
 
     public float getValor() {
         return valor;

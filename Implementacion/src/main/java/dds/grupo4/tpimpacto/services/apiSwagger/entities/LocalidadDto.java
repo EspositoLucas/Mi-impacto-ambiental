@@ -1,21 +1,9 @@
 package dds.grupo4.tpimpacto.services.apiSwagger.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+public class LocalidadDto extends BaseGeoApiDto {
 
-@JsonIgnoreProperties(ignoreUnknown = true)
-public class LocalidadDto {
-
-    public int id;
-    public String nombre;
-    public int codPostal;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
+    private String nombre;
+    private int codPostal;
 
     public String getNombre() {
         return nombre;
