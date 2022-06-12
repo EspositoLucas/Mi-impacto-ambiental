@@ -5,6 +5,7 @@ import dds.grupo4.tpimpacto.common.ResultadoDeValidacion;
 import dds.grupo4.tpimpacto.common.ValidadorContrasenia;
 import dds.grupo4.tpimpacto.controllers.MiembroControllerFake;
 import dds.grupo4.tpimpacto.controllers.OrganizacionControllerFake;
+import dds.grupo4.tpimpacto.controllers.TipoServicioContratadoControllerFake;
 import dds.grupo4.tpimpacto.entities.Usuario;
 import dds.grupo4.tpimpacto.extras.ConsoleHelper;
 import dds.grupo4.tpimpacto.extras.OperacionTesteo;
@@ -29,14 +30,17 @@ public class Main {
     private static final OrganizacionRepository organizacionRepository = new OrganizacionRepositoryImpl();
     private static final UsuarioRepository usuarioRepository = new UsuarioRepositoryImpl();
     private static final MiembroRepository miembroRepository = new MiembroRepositoryImpl();
+    private static final TipoServicioContratadoRepository tipoServicioContratadoRepository = new TipoServicioContratadoRepositoryImpl();
 
     private static final SectorService sectorService = new SectorServiceImpl(sectorRepository);
     private static final OrganizacionService organizacionService = new OrganizacionServiceImpl(organizacionRepository, sectorService);
     private static final UsuarioService usuarioService = new UsuarioServiceImpl(usuarioRepository);
     private static final MiembroService miembroService = new MiembroServiceImpl(miembroRepository);
+    private static final TipoServicioContratadoService tipoServicioContratadoService = new TipoServicioContratadoServiceImpl(tipoServicioContratadoRepository);
 
     private static final OrganizacionControllerFake organizacionControllerFake = new OrganizacionControllerFake(organizacionService);
     private static final MiembroControllerFake miembroControllerFake = new MiembroControllerFake(miembroService, organizacionService, sectorService);
+    private static final TipoServicioContratadoControllerFake tipoServicioContratadoControllerFake = new TipoServicioContratadoControllerFake(tipoServicioContratadoService);
 
     public static void main(String[] args) throws Exception {
         /*
@@ -71,6 +75,9 @@ public class Main {
                     break;
                 case LISTAR_MIEMBROS_DE_ORGANIZACION:
                     organizacionControllerFake.listarMiembros();
+                    break;
+                case CREAR_TIPO_SERVICIO_CONTRATADO:
+                    tipoServicioContratadoControllerFake.crearTipoServicioContratado();
                     break;
             }
 

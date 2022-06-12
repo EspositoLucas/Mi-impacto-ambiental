@@ -11,13 +11,13 @@ public class VehiculoParticular extends MedioDeTransporte {
 
     private TipoVehiculoParticular tipoVehiculoParticular;
     private Combustible combustible;
-    private String tipoServicioContratado;
+    private TipoServicioContratado tipoServicioContratado;
 
     // Hibernate
     protected VehiculoParticular() {
     }
 
-    public VehiculoParticular(TipoVehiculoParticular tipoVehiculoParticular, Combustible combustible, String tipoServicioContratado) {
+    public VehiculoParticular(TipoVehiculoParticular tipoVehiculoParticular, Combustible combustible, TipoServicioContratado tipoServicioContratado) {
         this.tipoVehiculoParticular = tipoVehiculoParticular;
         this.combustible = combustible;
         this.tipoServicioContratado = tipoServicioContratado;
@@ -39,11 +39,11 @@ public class VehiculoParticular extends MedioDeTransporte {
         this.combustible = combustible;
     }
 
-    public String getTipoServicioContratado() {
+    public TipoServicioContratado getTipoServicioContratado() {
         return tipoServicioContratado;
     }
 
-    public void setTipoServicioContratado(String tipoServicioContratado) {
+    public void setTipoServicioContratado(TipoServicioContratado tipoServicioContratado) {
         this.tipoServicioContratado = tipoServicioContratado;
     }
 

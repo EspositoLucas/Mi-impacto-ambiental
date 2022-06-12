@@ -11,7 +11,8 @@ public enum OperacionTesteo {
     CREAR_MIEMBRO(6),
     ACEPTAR_SOLICITUD(7),
     LISTAR_MIEMBROS_DE_ORGANIZACION(8),
-    EXIT(9);
+    CREAR_TIPO_SERVICIO_CONTRATADO(9),
+    EXIT(10);
 
     private final int value;
 
