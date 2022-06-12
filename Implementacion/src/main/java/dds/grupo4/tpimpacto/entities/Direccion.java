@@ -14,7 +14,6 @@ public class Direccion extends BaseEntity {
     private String provincia;
     private String municipio;
     private String localidad;
-
     private String barrio;
     private int codigoPostal;
 

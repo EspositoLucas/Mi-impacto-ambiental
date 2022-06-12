@@ -63,11 +63,11 @@ public class Miembro extends BaseEntity {
 
     public Organizacion getOrganizacion() {
         return sector.getOrganizacion();
-    }
+    } // Para saber a que organizacion pertenece un miembro a partir del sector
 
     public String getDocumento() {
         return persona.getDocumento();
-    }
+    }  // Para saber que persona es un miembro a partir del documento
 
     // calculo para la huella de carbono
 

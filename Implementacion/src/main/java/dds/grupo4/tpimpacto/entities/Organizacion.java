@@ -103,7 +103,7 @@ public class Organizacion extends BaseEntity {
         this.solicitudes = solicitudes;
     }
 
-    public List<Miembro> getMiembros() {
+    public List<Miembro> getMiembros() {  // Para saber los miembros que tiene una organizacion de cada sector que tiene
         return sectores.stream()
                 .flatMap(s -> s.getMiembros().stream())
                 .distinct()
