@@ -72,6 +72,8 @@ public class SpringCommandLineRunner implements CommandLineRunner {
         ConsoleHelper.printLine("Chauchissss!!!");
 
         ConsoleHelper.closeScanner();
+
+        System.exit(0);
     }
 
     private OperacionTesteo mostrarOperacionesYElegir() {
