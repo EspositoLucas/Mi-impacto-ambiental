@@ -2,9 +2,11 @@ package dds.grupo4.tpimpacto.services;
 
 import dds.grupo4.tpimpacto.entities.Miembro;
 import dds.grupo4.tpimpacto.repositories.MiembroRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class MiembroServiceImpl implements MiembroService {
 
     private final MiembroRepository miembroRepository;

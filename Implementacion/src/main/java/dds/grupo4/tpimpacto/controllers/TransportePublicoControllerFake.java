@@ -7,10 +7,12 @@ import dds.grupo4.tpimpacto.entities.TransportePublico;
 import dds.grupo4.tpimpacto.enums.TipoTransportePublico;
 import dds.grupo4.tpimpacto.extras.ConsoleHelper;
 import dds.grupo4.tpimpacto.helpers.ListHelper;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class TransportePublicoControllerFake {
 
     public void crearLinea() {

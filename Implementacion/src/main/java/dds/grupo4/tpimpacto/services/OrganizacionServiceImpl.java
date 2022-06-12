@@ -5,10 +5,12 @@ import dds.grupo4.tpimpacto.entities.Organizacion;
 import dds.grupo4.tpimpacto.entities.Sector;
 import dds.grupo4.tpimpacto.entities.Solicitud;
 import dds.grupo4.tpimpacto.repositories.OrganizacionRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class OrganizacionServiceImpl implements OrganizacionService {
 
     private final OrganizacionRepository organizacionRepository;

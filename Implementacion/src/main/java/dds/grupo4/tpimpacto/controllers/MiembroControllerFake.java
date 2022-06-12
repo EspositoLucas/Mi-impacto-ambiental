@@ -6,9 +6,11 @@ import dds.grupo4.tpimpacto.extras.ConsoleHelper;
 import dds.grupo4.tpimpacto.services.MiembroService;
 import dds.grupo4.tpimpacto.services.OrganizacionService;
 import dds.grupo4.tpimpacto.services.SectorService;
+import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
+@Component
 public class MiembroControllerFake {
 
     private final MiembroService miembroService;

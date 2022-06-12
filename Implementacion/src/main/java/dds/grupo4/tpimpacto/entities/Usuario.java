@@ -64,7 +64,8 @@ public class Usuario extends BaseEntity {
         cantidadIntentosIncorrectos++;
         if (cantidadIntentosIncorrectos >= INTENTOS_DE_LOGEO_PERMITIDOS) {
             // Si se logeo incorrectamente mas veces de las permitidas, se empieza a bloquear por cierto tiempo
-            int segundosDeBloqueo = (cantidadIntentosIncorrectos - INTENTOS_DE_LOGEO_PERMITIDOS) * 10;
+            int intentosExcedidos = cantidadIntentosIncorrectos - INTENTOS_DE_LOGEO_PERMITIDOS;
+            int segundosDeBloqueo = intentosExcedidos * 10;
 
             bloqueadoHasta = LocalDateTime.now().plusSeconds(segundosDeBloqueo);
         }

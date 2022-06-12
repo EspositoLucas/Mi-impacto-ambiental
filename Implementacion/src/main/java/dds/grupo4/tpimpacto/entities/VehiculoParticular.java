@@ -7,7 +7,6 @@ import dds.grupo4.tpimpacto.services.apiSwagger.GeoServiceImpl;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import java.io.IOException;
 
 @Entity(name = "VehiculoParticular")
 @Table(name = "vehiculos_particulares")

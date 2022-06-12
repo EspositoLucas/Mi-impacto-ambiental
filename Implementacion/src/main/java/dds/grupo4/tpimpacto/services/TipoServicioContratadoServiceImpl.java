@@ -2,9 +2,11 @@ package dds.grupo4.tpimpacto.services;
 
 import dds.grupo4.tpimpacto.entities.TipoServicioContratado;
 import dds.grupo4.tpimpacto.repositories.TipoServicioContratadoRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class TipoServicioContratadoServiceImpl implements TipoServicioContratadoService {
 
     private final TipoServicioContratadoRepository tipoServicioContratadoRepository;

@@ -7,6 +7,7 @@ import dds.grupo4.tpimpacto.enums.Clasificacion;
 import dds.grupo4.tpimpacto.enums.TipoOrganizacion;
 import dds.grupo4.tpimpacto.extras.ConsoleHelper;
 import dds.grupo4.tpimpacto.services.OrganizacionService;
+import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,6 +15,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.Optional;
 
+@Component
 public class OrganizacionControllerFake {
 
     private final OrganizacionService organizacionService;

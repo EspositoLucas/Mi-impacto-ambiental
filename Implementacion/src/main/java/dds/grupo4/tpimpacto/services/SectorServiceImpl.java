@@ -2,10 +2,12 @@ package dds.grupo4.tpimpacto.services;
 
 import dds.grupo4.tpimpacto.entities.Sector;
 import dds.grupo4.tpimpacto.repositories.SectorRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class SectorServiceImpl implements SectorService {
 
     private final SectorRepository sectorRepository;
