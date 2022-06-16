@@ -9,6 +9,11 @@ import java.util.Objects;
 public abstract class BaseEntity {
     @Id
     @GeneratedValue
+    /* TODO: ver si conviene convertirlo a UUID (es mas facil implementar el .equals() y el .hashCode(),
+     *  y ademas permite que el ID se genere desde el codigo y no desde la BD, asi que podemos usar los IDs
+     *  sin tener una BD)
+     *  https://vladmihalcea.com/the-best-way-to-implement-equals-hashcode-and-tostring-with-jpa-and-hibernate/
+     */
     private Integer id;
 
     public Integer getId() {
