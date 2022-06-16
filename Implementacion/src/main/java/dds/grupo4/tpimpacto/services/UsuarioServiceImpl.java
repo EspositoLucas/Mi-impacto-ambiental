@@ -22,7 +22,11 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Override
     public void save(Usuario user) {
-        usuarioRepository.save(user);
+        if (usuarioRepository.getAll().contains(user)) {
+            usuarioRepository.update(user);
+        } else {
+            usuarioRepository.save(user);
+        }
     }
 
     @Override

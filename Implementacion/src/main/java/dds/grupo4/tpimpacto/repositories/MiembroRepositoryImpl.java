@@ -17,6 +17,12 @@ public class MiembroRepositoryImpl implements MiembroRepository {
     }
 
     @Override
+    public void update(Miembro obj) {
+        int index = miembros.indexOf(obj);
+        miembros.set(index, obj);
+    }
+
+    @Override
     public List<Miembro> getAll() {
         return miembros;
     }

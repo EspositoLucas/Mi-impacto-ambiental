@@ -1,5 +1,6 @@
 package dds.grupo4.tpimpacto.cargamediciones;
 
+import dds.grupo4.tpimpacto.entities.Medicion;
 import org.apache.poi.ss.usermodel.Row;
 
 public class RowMedicionActividad {
@@ -25,6 +26,10 @@ public class RowMedicionActividad {
         String periodoAmputacion = row.getCell(4).getStringCellValue();
 
         return new RowMedicionActividad(actividad, tipoDeConsumo, valor, periodicidad, periodoAmputacion);
+    }
+
+    public Medicion toMedicion() {
+        return new Medicion(actividad, tipoDeConsumo, valor, periodicidad, periodoImputacion);
     }
 
     @Override

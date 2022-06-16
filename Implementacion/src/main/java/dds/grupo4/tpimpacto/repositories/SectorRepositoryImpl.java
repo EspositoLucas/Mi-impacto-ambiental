@@ -18,6 +18,12 @@ public class SectorRepositoryImpl implements SectorRepository {
     }
 
     @Override
+    public void update(Sector sector) {
+        int index = sectores.indexOf(sector);
+        sectores.set(index, sector);
+    }
+
+    @Override
     public List<Sector> getAll() {
         return sectores;
     }

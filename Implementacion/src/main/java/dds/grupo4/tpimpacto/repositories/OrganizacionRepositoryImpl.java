@@ -24,6 +24,12 @@ public class OrganizacionRepositoryImpl implements OrganizacionRepository {
     }
 
     @Override
+    public void update(Organizacion organizacion) {
+        int index = organizaciones.indexOf(organizacion);
+        organizaciones.set(index, organizacion);
+    }
+
+    @Override
     public List<Organizacion> getAll() {
         return organizaciones;
     }

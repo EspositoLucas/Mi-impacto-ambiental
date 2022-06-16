@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Component
@@ -88,32 +89,43 @@ public class OrganizacionControllerFake {
     }
 
     public void listarMiembros() {
-        ConsoleHelper.print("Razon social de la Organizacion: ");
-        String razonSocialOrganizacion = ConsoleHelper.readString();
+        try {
+            Organizacion organizacion = buscarOrganizacionPorRazonSocial();
 
-        Optional<Organizacion> optionalOrganizacion = organizacionService.getByRazonSocial(razonSocialOrganizacion);
-        if (!optionalOrganizacion.isPresent()) {
-            ConsoleHelper.printLine("ERROR: no existe ninguna Organizacion con la razon social especificada");
-            return;
-        }
-
-        Organizacion organizacion = optionalOrganizacion.get();
-        ConsoleHelper.printLine("Miembros de organizacion " + organizacion.getRazonSocial() + ":");
-        for (Miembro miembro : organizacion.getMiembros()) {
-            String message = "\n - " + miembro.getPersona().getNombre() + " (" + miembro.getDocumento() + ")";
-            ConsoleHelper.printLine(message);
+            ConsoleHelper.printLine("Miembros de organizacion " + organizacion.getRazonSocial() + ":");
+            for (Miembro miembro : organizacion.getMiembros()) {
+                String message = "\n - " + miembro.getPersona().getNombre() + " (" + miembro.getDocumento() + ")";
+                ConsoleHelper.printLine(message);
+            }
+        } catch (NoSuchElementException e) {
+            ConsoleHelper.printLine(e.getMessage());
         }
     }
 
     public void cargarMediciones() throws IOException {
-        String pathPrueba = "static/PruebaCargaMediciones.xlsx";
-        URL resource = getClass().getClassLoader().getResource(pathPrueba);
-        String filePath = resource.getPath();
-        File file = new File(filePath);
+        try {
+            Organizacion organizacion = buscarOrganizacionPorRazonSocial();
 
-        MedicionesDataLoader dataLoader = new MedicionesDataLoader();
-        List<RowMedicionActividad> mediciones = dataLoader.loadData(file);
-        organizacionService.cargarMediciones(mediciones);
+            // Esto nos llegaria como un archivo que nos suben desde la Web o algo asi
+            String pathPrueba = "static/PruebaCargaMediciones.xlsx";
+            URL resource = getClass().getClassLoader().getResource(pathPrueba);
+            String filePath = resource.getPath();
+            File file = new File(filePath);
+
+            MedicionesDataLoader dataLoader = new MedicionesDataLoader();
+            List<RowMedicionActividad> mediciones = dataLoader.loadData(file);
+            organizacionService.cargarMediciones(organizacion, mediciones);
+        } catch (NoSuchElementException e) {
+            ConsoleHelper.printLine(e.getMessage());
+        }
+    }
+
+    private Organizacion buscarOrganizacionPorRazonSocial() throws NoSuchElementException {
+        ConsoleHelper.print("Razon social de la Organizacion: ");
+        String razonSocialOrganizacion = ConsoleHelper.readString();
+
+        Optional<Organizacion> optionalOrganizacion = organizacionService.getByRazonSocial(razonSocialOrganizacion);
+        return optionalOrganizacion.get();
     }
 
 }

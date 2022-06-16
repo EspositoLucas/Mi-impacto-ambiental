@@ -1,6 +1,7 @@
 package dds.grupo4.tpimpacto.services;
 
 import dds.grupo4.tpimpacto.cargamediciones.RowMedicionActividad;
+import dds.grupo4.tpimpacto.entities.Medicion;
 import dds.grupo4.tpimpacto.entities.Organizacion;
 import dds.grupo4.tpimpacto.entities.Sector;
 import dds.grupo4.tpimpacto.entities.Solicitud;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class OrganizacionServiceImpl implements OrganizacionService {
@@ -23,7 +25,12 @@ public class OrganizacionServiceImpl implements OrganizacionService {
 
     @Override
     public void save(Organizacion organizacion) {
-        organizacionRepository.save(organizacion);
+        if (organizacionRepository.getAll().contains(organizacion)) {
+            organizacionRepository.update(organizacion);
+        } else {
+            organizacionRepository.save(organizacion);
+        }
+
         for (Sector sector : organizacion.getSectores()) {
             sectorService.save(sector);
         }
@@ -45,10 +52,16 @@ public class OrganizacionServiceImpl implements OrganizacionService {
     }
 
     @Override
-    public void cargarMediciones(List<RowMedicionActividad> mediciones) {
-        for (RowMedicionActividad rowMedicionActividad : mediciones) {
-            System.out.println(rowMedicionActividad.toString());
+    public void cargarMediciones(Organizacion organizacion, List<RowMedicionActividad> mediciones) {
+        List<Medicion> medicionesParseadas = mediciones.stream()
+                .map(RowMedicionActividad::toMedicion)
+                .collect(Collectors.toList());
+
+        for (Medicion medicion : medicionesParseadas) {
+            organizacion.addMedicion(medicion);
         }
+
+        save(organizacion);
     }
 
 }

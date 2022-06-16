@@ -17,6 +17,12 @@ public class TrayectoRepositoryImpl implements TrayectoRepository {
     }
 
     @Override
+    public void update(Trayecto trayecto) {
+        int index = trayectos.indexOf(trayecto);
+        trayectos.set(index, trayecto);
+    }
+
+    @Override
     public List<Trayecto> getAll() {
         return trayectos;
     }

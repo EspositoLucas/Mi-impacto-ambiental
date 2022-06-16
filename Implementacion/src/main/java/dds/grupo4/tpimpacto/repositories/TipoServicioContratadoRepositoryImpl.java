@@ -17,6 +17,12 @@ public class TipoServicioContratadoRepositoryImpl implements TipoServicioContrat
     }
 
     @Override
+    public void update(TipoServicioContratado obj) {
+        int index = tiposServicioContratado.indexOf(obj);
+        tiposServicioContratado.set(index, obj);
+    }
+
+    @Override
     public List<TipoServicioContratado> getAll() {
         return tiposServicioContratado;
     }

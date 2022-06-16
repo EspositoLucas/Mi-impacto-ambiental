@@ -17,7 +17,11 @@ public class MiembroServiceImpl implements MiembroService {
 
     @Override
     public void save(Miembro miembro) {
-        miembroRepository.save(miembro);
+        if (miembroRepository.getAll().contains(miembro)) {
+            miembroRepository.update(miembro);
+        } else {
+            miembroRepository.save(miembro);
+        }
     }
 
     @Override

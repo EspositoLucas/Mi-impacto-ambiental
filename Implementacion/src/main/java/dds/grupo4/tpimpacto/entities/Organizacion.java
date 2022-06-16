@@ -20,6 +20,7 @@ public class Organizacion extends BaseEntity {
     private List<Sector> sectores = new ArrayList<>();
     private List<Contacto> contactos = new ArrayList<>();
     private List<Solicitud> solicitudes = new ArrayList<>();
+    private List<Medicion> mediciones = new ArrayList<>();
 
     // Hibernate
     protected Organizacion() {
@@ -108,6 +109,10 @@ public class Organizacion extends BaseEntity {
                 .flatMap(s -> s.getMiembros().stream())
                 .distinct()
                 .collect(Collectors.toList());
+    }
+
+    public void addMedicion(Medicion medicion) {
+        mediciones.add(medicion);
     }
 
     //    //Metodo para cargar las medidiciones del excel

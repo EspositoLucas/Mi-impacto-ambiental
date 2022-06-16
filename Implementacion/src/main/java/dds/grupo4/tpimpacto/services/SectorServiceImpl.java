@@ -18,7 +18,11 @@ public class SectorServiceImpl implements SectorService {
 
     @Override
     public void save(Sector obj) {
-        sectorRepository.save(obj);
+        if (sectorRepository.getAll().contains(obj)) {
+            sectorRepository.update(obj);
+        } else {
+            sectorRepository.save(obj);
+        }
     }
 
     @Override

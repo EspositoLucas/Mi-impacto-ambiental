@@ -34,6 +34,12 @@ public class UsuarioRepositoryImpl implements UsuarioRepository {
     }
 
     @Override
+    public void update(Usuario user) {
+        int index = usuarios.indexOf(user);
+        usuarios.set(index, user);
+    }
+
+    @Override
     public List<Usuario> getAll() {
         return usuarios;
     }
