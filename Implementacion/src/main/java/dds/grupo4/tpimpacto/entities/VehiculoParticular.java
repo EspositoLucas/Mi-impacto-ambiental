@@ -57,4 +57,9 @@ public class VehiculoParticular extends MedioDeTransporte {
         return geoService.distanciaRecorrida(lugarInicio, lugarFin);
     }
 
+    //    @Override
+//    public double cantConsumidaCombustible() {
+//   return 0;
+//   }
+
 }

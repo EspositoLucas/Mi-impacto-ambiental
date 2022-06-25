@@ -122,9 +122,11 @@ public class Organizacion extends BaseEntity {
 
     // calculo para la huella de carbono
 
-//    public double calculoHC() {
-//
-//        return 0;
+//    public double calculoHCTotal() {
+//    return getMiembros().stream()
+//            .flatMap(m -> m.getTramo().stream())
+//            .distinct()
+//            .collect(Collectors.toList());
 //    }
 
     // calculo HC promedio

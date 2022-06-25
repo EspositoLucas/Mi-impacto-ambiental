@@ -37,9 +37,9 @@ public class VehiculoNoContaminante extends MedioDeTransporte {
         return geoService.distanciaRecorrida(lugarInicio, lugarFin);
     }
 
-//    @Oveeride
-//    //    public double litrosConsumido() {
-////        return 0;
-////    }
+//    @Override
+//    public double cantConsumidaCombustible() {
+//   return 0;
+//   }
 
 }

@@ -79,4 +79,9 @@ public class TransportePublico extends MedioDeTransporte {
         return distanciaRecorrida;
     }
 
+    //    @Override
+//    public double cantConsumidaCombustible() {
+//      return 0;
+//    }
+
 }

@@ -11,7 +11,7 @@ import javax.persistence.Table;
 public abstract class MedioDeTransporte extends BaseEntity {
 
     protected final String API_TOKEN = "dbNsJcYAneNbF8+i9DX735F7KR7mPZVELmu1wN+Nx0o=";
-
+    private FactorEmision factorEmision ;
     // Hibernate
     protected MedioDeTransporte() {
     }
@@ -24,5 +24,5 @@ public abstract class MedioDeTransporte extends BaseEntity {
 
     // litros de combustible consumidos por medio de trasnporte
 
-//    public double litrosConsumido() {
+    //    public double cantConsumidaCombustible() {
 }
