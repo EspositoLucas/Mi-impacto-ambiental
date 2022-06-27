@@ -60,4 +60,11 @@ public class Sector extends BaseEntity {
         miembro.setSector(this);
     }
 
+    // calculo HC promedio
+
+//    public double calculoHCPromedio() {
+//
+//        return 0;
+//    }
+
 }

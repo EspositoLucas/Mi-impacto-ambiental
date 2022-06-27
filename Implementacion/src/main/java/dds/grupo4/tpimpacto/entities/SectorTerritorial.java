@@ -49,12 +49,12 @@ public class SectorTerritorial extends BaseEntity {
         this.tipoSectorTerritorial = tipoSectorTerritorial;
     }
 
-    // metdod Resultado HC para SectoTerritorial
+    // metodo Resultado HC total para SectoTerritorial
 
-//    public Double calculoHC {
+//    public Double calculoHCTotal {
 //        return this.organizaciones
 //                .stream()
-//                .mapToInt(o -> o.calculoHC)
+//                .mapToInt(o -> o.calculoHCTotal)
 //                .sum();
 //    }
 }

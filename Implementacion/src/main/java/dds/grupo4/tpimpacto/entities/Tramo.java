@@ -15,6 +15,8 @@ public class Tramo extends BaseEntity {
     private Lugar lugarFin;
     private List<Miembro> miembros = new ArrayList<>();
 
+    private CalculoHCTramo calculoHC ;
+
     // Hibernate
     protected Tramo() {
     }
@@ -76,10 +78,5 @@ public class Tramo extends BaseEntity {
         return medioDeTransporte.distanciaRecorrida(lugarInicio, lugarFin);
     }
 
-    // cant de litros consumidos por un medio de trasnporte en un tramo
-
-//    public double litrosConsumidos() {
-//        return medioDeTransporte.litrosConsumidos();
-//    }
 
 }

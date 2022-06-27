@@ -17,6 +17,8 @@ public class Medicion extends BaseEntity {
     private String periodicidad;
     private String periodoAmputacion;
 
+    private CalculoHCActividad calculoHC ;
+
     // Hibernate
     protected Medicion() {
     }
@@ -68,4 +70,6 @@ public class Medicion extends BaseEntity {
     public void setPeriodoAmputacion(String periodoAmputacion) {
         this.periodoAmputacion = periodoAmputacion;
     }
+
+
 }

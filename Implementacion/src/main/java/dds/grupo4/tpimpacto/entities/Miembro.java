@@ -69,7 +69,8 @@ public class Miembro extends BaseEntity {
         return persona.getDocumento();
     }  // Para saber que persona es un miembro a partir del documento
 
-    // calculo para la huella de carbono
+
+    // calculo para HC
 
 //    public double calculoHC() {
 //        return ;
