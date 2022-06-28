@@ -5,13 +5,26 @@ import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.Getter;
+import lombok.Setter;
+
 @Entity(name = "Miembro")
 @Table(name = "miembros")
 public class Miembro extends BaseEntity {
-
+    @Getter
+    @Setter
     private Persona persona;
+
+    @Getter
+    @Setter
     private Usuario usuario;
+
+    @Getter
+    @Setter
     private Sector sector;
+
+    @Getter
+    @Setter
     private List<Tramo> tramos = new ArrayList<>();
 
     // Hibernate
@@ -23,39 +36,6 @@ public class Miembro extends BaseEntity {
         this.usuario = usuario;
         this.sector = sector;
     }
-
-    public Persona getPersona() {
-        return persona;
-    }
-
-    public void setPersona(Persona persona) {
-        this.persona = persona;
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
-
-    public Sector getSector() {
-        return sector;
-    }
-
-    public void setSector(Sector sector) {
-        this.sector = sector;
-    }
-
-    public List<Tramo> getTramos() {
-        return tramos;
-    }
-
-    public void setTramos(List<Tramo> tramos) {
-        this.tramos = tramos;
-    }
-
 
     public void addTramo(Tramo tramo) {
         tramos.add(tramo);
