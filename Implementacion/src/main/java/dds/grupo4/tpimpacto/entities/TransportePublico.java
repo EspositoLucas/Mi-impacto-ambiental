@@ -38,7 +38,7 @@ public class TransportePublico extends MedioDeTransporte {
     @Override
     public double distanciaRecorrida(Lugar lugarInicio, Lugar lugarFin) {
         Parada paradaInicio = (Parada) lugarInicio;
-        Parada paradaFin = (Parada) lugarInicio;
+        Parada paradaFin = (Parada) lugarFin;
 
         double distanciaRecorrida = 0;
         Parada paradaActual = paradaInicio;
