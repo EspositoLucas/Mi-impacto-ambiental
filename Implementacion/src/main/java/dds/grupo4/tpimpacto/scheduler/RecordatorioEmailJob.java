@@ -7,6 +7,7 @@ import org.quartz.JobExecutionException;
 import org.springframework.scheduling.quartz.QuartzJobBean;
 import org.springframework.stereotype.Component;
 
+import javax.mail.MessagingException;
 import java.util.List;
 
 @Component
@@ -25,9 +26,13 @@ public class RecordatorioEmailJob extends QuartzJobBean {
         List<String> mailsContactos = organizacionService.getMailsDeContactos();
 
         String asunto = "Guia de Recomendaciones";
-        String cuerpo = "Haga click <a href=\"www.google.com\">aqui</a> para ver la guia de recomendaciones.";
+        String cuerpo = "<p>Haga click <a href=\"https://www.google.com\">aqui</a> para ver la guia de recomendaciones.</p>";
 
-        emailService.send(mailsContactos, asunto, cuerpo);
+        try {
+            emailService.send(mailsContactos, asunto, cuerpo);
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }

@@ -1,9 +1,11 @@
 package dds.grupo4.tpimpacto.services;
 
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import java.util.List;
 
 @Component
@@ -16,14 +18,16 @@ public class EmailServiceImpl implements EmailService {
     }
 
     @Override
-    public void send(List<String> to, String subject, String body) {
+    public void send(List<String> to, String subject, String body) throws MessagingException {
         String[] arrayTo = to.toArray(new String[0]);
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("grupo4dds2022@hotmail.com");
-        message.setTo(arrayTo);
-        message.setSubject(subject);
-        message.setText(body);
-        mailSender.send(message);
+
+        MimeMessage mimeMessage = mailSender.createMimeMessage();
+        MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage, "utf-8");
+        messageHelper.setFrom("grupo4dds2022@hotmail.com");
+        messageHelper.setTo(arrayTo);
+        messageHelper.setSubject(subject);
+        messageHelper.setText(body, true);
+        mailSender.send(mimeMessage);
     }
 
 }
