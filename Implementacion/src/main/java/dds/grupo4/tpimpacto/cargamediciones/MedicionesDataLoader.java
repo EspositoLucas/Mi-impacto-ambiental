@@ -14,22 +14,23 @@ import java.util.List;
 public class MedicionesDataLoader {
 
     public List<RowMedicionActividad> loadData(File file) throws IOException {
-        Workbook wb = WorkbookFactory.create(file);
-        Sheet sheet = wb.getSheet("Hoja1");
-
-        Iterator<Row> rowIterator = sheet.rowIterator();
-
-        // Las primeras dos filas son de los titulos, asi que las salteamos
-        rowIterator.next();
-        rowIterator.next();
-
         List<RowMedicionActividad> rowsMedicionActividad = new ArrayList<>();
-        Row row = rowIterator.next();
-        while (!row.getCell(0).getStringCellValue().isEmpty()) {
-            RowMedicionActividad rowMedicionActividad = RowMedicionActividad.fromRow(row);
-            rowsMedicionActividad.add(rowMedicionActividad);
 
-            row = rowIterator.next();
+        try (Workbook wb = WorkbookFactory.create(file)) {
+            Sheet sheet = wb.getSheet("Hoja1");
+            Iterator<Row> rowIterator = sheet.rowIterator();
+
+            // Las primeras dos filas son de los titulos, asi que las salteamos
+            rowIterator.next();
+            rowIterator.next();
+
+            Row row = rowIterator.next();
+            while (!row.getCell(0).getStringCellValue().isEmpty()) {
+                RowMedicionActividad rowMedicionActividad = RowMedicionActividad.fromRow(row);
+                rowsMedicionActividad.add(rowMedicionActividad);
+
+                row = rowIterator.next();
+            }
         }
 
         return rowsMedicionActividad;
