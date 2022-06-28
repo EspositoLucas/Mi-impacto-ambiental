@@ -34,6 +34,13 @@
 			<version>2.7.0</version>
 		</dependency>
 
+		<!-- Quartz (scheduling) -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-quartz</artifactId>
+			<version>2.7.0</version>
+		</dependency>
+
 		<!-- Esto ya incluye al JUnit y al Mockito-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

@@ -64,4 +64,9 @@ public class OrganizacionServiceImpl implements OrganizacionService {
         save(organizacion);
     }
 
+    @Override
+    public List<String> getMailsDeContactos() {
+        return organizacionRepository.getMailsDeContactos();
+    }
+
 }

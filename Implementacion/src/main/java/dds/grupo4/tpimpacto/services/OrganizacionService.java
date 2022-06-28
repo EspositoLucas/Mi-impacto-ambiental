@@ -13,4 +13,6 @@ public interface OrganizacionService extends BaseService<Organizacion> {
     void agregarSolicitud(Organizacion organizacion, Solicitud solicitud);
 
     void cargarMediciones(Organizacion organizacion, List<RowMedicionActividad> mediciones);
+
+    List<String> getMailsDeContactos();
 }
