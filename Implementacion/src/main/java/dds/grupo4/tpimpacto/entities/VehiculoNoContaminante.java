@@ -4,29 +4,24 @@ import dds.grupo4.tpimpacto.config.GeoApiConfig;
 import dds.grupo4.tpimpacto.enums.TipoVehiculoNoContaminante;
 import dds.grupo4.tpimpacto.services.apiSwagger.GeoService;
 import dds.grupo4.tpimpacto.services.apiSwagger.GeoServiceImpl;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity(name = "VehiculoNoContaminante")
 @Table(name = "vehiculos_no_contaminantes")
+@Getter
+@Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class VehiculoNoContaminante extends MedioDeTransporte {
 
     private TipoVehiculoNoContaminante tipoVehiculoNoContaminante;
 
-    // Hibernate
-    protected VehiculoNoContaminante() {
-    }
-
     public VehiculoNoContaminante(TipoVehiculoNoContaminante tipoVehiculoNoContaminante) {
-        this.tipoVehiculoNoContaminante = tipoVehiculoNoContaminante;
-    }
-
-    public TipoVehiculoNoContaminante getTipoVehiculoNoContaminante() {
-        return tipoVehiculoNoContaminante;
-    }
-
-    public void setTipoVehiculoNoContaminante(TipoVehiculoNoContaminante tipoVehiculoNoContaminante) {
         this.tipoVehiculoNoContaminante = tipoVehiculoNoContaminante;
     }
 

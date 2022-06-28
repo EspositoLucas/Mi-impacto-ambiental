@@ -1,5 +1,10 @@
 package dds.grupo4.tpimpacto.entities;
 
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -8,23 +13,14 @@ import javax.persistence.Table;
 @Entity(name = "Lugar")
 @Table(name = "lugares")
 @Inheritance(strategy = InheritanceType.JOINED)
+@Getter
+@Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public abstract class Lugar extends BaseEntity {
 
     private Direccion direccion;
 
-    // Hibernate
-    protected Lugar() {
-    }
-
     public Lugar(Direccion direccion) {
-        this.direccion = direccion;
-    }
-
-    public Direccion getDireccion() {
-        return direccion;
-    }
-
-    public void setDireccion(Direccion direccion) {
         this.direccion = direccion;
     }
 

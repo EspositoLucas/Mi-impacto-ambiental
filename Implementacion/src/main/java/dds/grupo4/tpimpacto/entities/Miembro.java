@@ -1,35 +1,26 @@
 package dds.grupo4.tpimpacto.entities;
 
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
 
-import lombok.Getter;
-import lombok.Setter;
-
 @Entity(name = "Miembro")
 @Table(name = "miembros")
+@Getter
+@Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Miembro extends BaseEntity {
-    @Getter
-    @Setter
+
     private Persona persona;
-
-    @Getter
-    @Setter
     private Usuario usuario;
-
-    @Getter
-    @Setter
     private Sector sector;
-
-    @Getter
-    @Setter
     private List<Tramo> tramos = new ArrayList<>();
-
-    // Hibernate
-    protected Miembro() {
-    }
 
     public Miembro(Persona persona, Usuario usuario, Sector sector) {
         this.persona = persona;

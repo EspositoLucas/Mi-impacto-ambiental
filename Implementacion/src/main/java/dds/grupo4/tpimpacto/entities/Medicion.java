@@ -1,10 +1,18 @@
 package dds.grupo4.tpimpacto.entities;
 
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity(name = "Medicion")
 @Table(name = "mediciones")
+@Getter
+@Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Medicion extends BaseEntity {
 
     /* TODO: todos estos campos String probablemente tengan que ser una Clase aparte (por ejemplo una
@@ -17,11 +25,7 @@ public class Medicion extends BaseEntity {
     private String periodicidad;
     private String periodoAmputacion;
 
-    private CalculoHCActividad calculoHC ;
-
-    // Hibernate
-    protected Medicion() {
-    }
+    private CalculoHCActividad calculoHC;
 
     public Medicion(String actividad, String tipoConsumo, Double valorConsumo, String periodicidad, String periodoAmputacion) {
         this.actividad = actividad;
@@ -30,46 +34,5 @@ public class Medicion extends BaseEntity {
         this.periodicidad = periodicidad;
         this.periodoAmputacion = periodoAmputacion;
     }
-
-    public String getActividad() {
-        return actividad;
-    }
-
-    public void setActividad(String actividad) {
-        this.actividad = actividad;
-    }
-
-    public String getTipoConsumo() {
-        return tipoConsumo;
-    }
-
-    public void setTipoConsumo(String tipoConsumo) {
-        this.tipoConsumo = tipoConsumo;
-    }
-
-    public Double getValorConsumo() {
-        return valorConsumo;
-    }
-
-    public void setValorConsumo(Double valorConsumo) {
-        this.valorConsumo = valorConsumo;
-    }
-
-    public String getPeriodicidad() {
-        return periodicidad;
-    }
-
-    public void setPeriodicidad(String periodicidad) {
-        this.periodicidad = periodicidad;
-    }
-
-    public String getPeriodoAmputacion() {
-        return periodoAmputacion;
-    }
-
-    public void setPeriodoAmputacion(String periodoAmputacion) {
-        this.periodoAmputacion = periodoAmputacion;
-    }
-
 
 }

@@ -1,6 +1,10 @@
 package dds.grupo4.tpimpacto.entities;
 
 import dds.grupo4.tpimpacto.enums.TipoDocumento;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -9,6 +13,9 @@ import java.util.List;
 
 @Entity(name = "Persona")
 @Table(name = "personas")
+@Getter
+@Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Persona extends BaseEntity {
 
     private String nombre;
@@ -17,46 +24,10 @@ public class Persona extends BaseEntity {
     private String documento;
     private List<Miembro> miembros = new ArrayList<>();
 
-    // Hibernate
-    protected Persona() {
-    }
-
     public Persona(String nombre, String apellido, TipoDocumento tipoDocumento, String documento) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.tipoDocumento = tipoDocumento;
-        this.documento = documento;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getApellido() {
-        return apellido;
-    }
-
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
-
-    public TipoDocumento getTipoDocumento() {
-        return tipoDocumento;
-    }
-
-    public void setTipoDocumento(TipoDocumento tipoDocumento) {
-        this.tipoDocumento = tipoDocumento;
-    }
-
-    public String getDocumento() {
-        return documento;
-    }
-
-    public void setDocumento(String documento) {
         this.documento = documento;
     }
 

@@ -31,13 +31,13 @@ public class ValidadorContraseniaTests {
     @Test
     public void validarContrasenia_cuandoLaContraseniaEstaEnLaListaDeMasUsadas_retornaError() {
         ResultadoDeValidacion resultado = validadorContrasenia.validarContrasenia("masUsada01");
-        Assertions.assertFalse(resultado.esValido());
+        Assertions.assertFalse(resultado.isValido());
     }
 
     @Test
     public void validarContrasenia_cuandoLaContraseniaNoEstaEnLaListaDeMasUsadas_retornaOk() {
         ResultadoDeValidacion resultado = validadorContrasenia.validarContrasenia("UNAcontraQueNoEsMasUsadaYPasaLosTests123!!**");
-        Assertions.assertTrue(resultado.esValido());
+        Assertions.assertTrue(resultado.isValido());
     }
 
     @ParameterizedTest
@@ -49,13 +49,13 @@ public class ValidadorContraseniaTests {
     })
     public void validarContrasenia_cuandoLaContraNoCumpleRequisitos_retornaError(String contraseniaParam) {
         ResultadoDeValidacion resultado = validadorContrasenia.validarContrasenia(contraseniaParam);
-        Assertions.assertFalse(resultado.esValido());
+        Assertions.assertFalse(resultado.isValido());
     }
 
     @Test
     public void validarContrasenia_cuandoLaContraCumpleTodosLosRequisitos_retornaOk() {
         ResultadoDeValidacion resultado = validadorContrasenia.validarContrasenia("ESTAesMIcontraseniaSUPERsegura12345!*[]{}");
-        Assertions.assertTrue(resultado.esValido());
+        Assertions.assertTrue(resultado.isValido());
     }
 
 }

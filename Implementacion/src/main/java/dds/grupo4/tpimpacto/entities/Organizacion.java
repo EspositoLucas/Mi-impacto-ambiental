@@ -2,6 +2,10 @@ package dds.grupo4.tpimpacto.entities;
 
 import dds.grupo4.tpimpacto.enums.Clasificacion;
 import dds.grupo4.tpimpacto.enums.TipoOrganizacion;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -12,6 +16,9 @@ import java.util.stream.Collectors;
 
 @Entity(name = "Organizacion")
 @Table(name = "organizaciones")
+@Getter
+@Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Organizacion extends BaseEntity {
 
     private String razonSocial;
@@ -22,46 +29,10 @@ public class Organizacion extends BaseEntity {
     private List<Solicitud> solicitudes = new ArrayList<>();
     private List<Medicion> mediciones = new ArrayList<>();
 
-    // Hibernate
-    protected Organizacion() {
-    }
-
     public Organizacion(String razonSocial, TipoOrganizacion tipoOrganizacion, Clasificacion clasificacion) {
         this.razonSocial = razonSocial;
         this.tipoOrganizacion = tipoOrganizacion;
         this.clasificacion = clasificacion;
-    }
-
-    public String getRazonSocial() {
-        return razonSocial;
-    }
-
-    public void setRazonSocial(String razonSocial) {
-        this.razonSocial = razonSocial;
-    }
-
-    public TipoOrganizacion getTipoOrganizacion() {
-        return tipoOrganizacion;
-    }
-
-    public void setTipoOrganizacion(TipoOrganizacion tipoOrganizacion) {
-        this.tipoOrganizacion = tipoOrganizacion;
-    }
-
-    public Clasificacion getClasificacion() {
-        return clasificacion;
-    }
-
-    public void setClasificacion(Clasificacion clasificacion) {
-        this.clasificacion = clasificacion;
-    }
-
-    public List<Sector> getSectores() {
-        return sectores;
-    }
-
-    public void setSectores(List<Sector> sectores) {
-        this.sectores = sectores;
     }
 
     public void addSector(Sector sector) {
@@ -88,22 +59,6 @@ public class Organizacion extends BaseEntity {
         this.solicitudes.remove(solicitud);
     }
 
-    public List<Contacto> getContactos() {
-        return contactos;
-    }
-
-    public void setContactos(List<Contacto> contactos) {
-        this.contactos = contactos;
-    }
-
-    public List<Solicitud> getSolicitudes() {
-        return solicitudes;
-    }
-
-    public void setSolicitudes(List<Solicitud> solicitudes) {
-        this.solicitudes = solicitudes;
-    }
-
     public List<Miembro> getMiembros() {  // Para saber los miembros que tiene una organizacion de cada sector que tiene
         return sectores.stream()
                 .flatMap(s -> s.getMiembros().stream())
@@ -128,6 +83,5 @@ public class Organizacion extends BaseEntity {
 //            .distinct()
 //            .collect(Collectors.toList());
 //    }
-
 
 }

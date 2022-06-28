@@ -9,7 +9,7 @@ import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 @ConfigurationPropertiesScan
 public class Main {
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         // Esto va al SpringCommandLineRunner.run() y le inyecta todas las dependencias a traves del constructor
         // (por ejemplo los Controllers)
         SpringApplication.run(Main.class, args);

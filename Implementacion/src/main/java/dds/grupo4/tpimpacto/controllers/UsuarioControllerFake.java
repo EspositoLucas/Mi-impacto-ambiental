@@ -43,7 +43,7 @@ public class UsuarioControllerFake {
             ConsoleHelper.print("Ingresa la nueva contrasenia: ");
             password = ConsoleHelper.readString();
             ResultadoDeValidacion resultado = validarNuevaContrasenia(password);
-            if (resultado.esValido()) {
+            if (resultado.isValido()) {
                 Usuario nuevoUser = new Usuario(username, password);
                 usuarioService.save(nuevoUser);
                 ConsoleHelper.printLine("Usuario creado exitosamente!");

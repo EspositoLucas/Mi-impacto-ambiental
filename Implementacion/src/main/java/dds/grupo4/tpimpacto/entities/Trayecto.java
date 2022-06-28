@@ -1,5 +1,10 @@
 package dds.grupo4.tpimpacto.entities;
 
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.util.ArrayList;
@@ -7,6 +12,9 @@ import java.util.List;
 
 @Entity(name = "Trayecto")
 @Table(name = "trayectos")
+@Getter
+@Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Trayecto extends BaseEntity {
 
     // TODO: ver si estas Direcciones no deberian ser Lugares
@@ -14,37 +22,9 @@ public class Trayecto extends BaseEntity {
     private Direccion destino;
     private List<Tramo> tramos = new ArrayList<>();
 
-    // Hibernate
-    protected Trayecto() {
-    }
-
     public Trayecto(Direccion partida, Direccion destino, List<Tramo> tramos) {
         this.partida = partida;
         this.destino = destino;
-        this.tramos = tramos;
-    }
-
-    public Direccion getPartida() {
-        return partida;
-    }
-
-    public void setPartida(Direccion partida) {
-        this.partida = partida;
-    }
-
-    public Direccion getDestino() {
-        return destino;
-    }
-
-    public void setDestino(Direccion destino) {
-        this.destino = destino;
-    }
-
-    public List<Tramo> getTramos() {
-        return tramos;
-    }
-
-    public void setTramos(List<Tramo> tramos) {
         this.tramos = tramos;
     }
 
@@ -53,6 +33,5 @@ public class Trayecto extends BaseEntity {
                 .mapToDouble(t -> t.distancia())
                 .sum();
     }
-
 
 }

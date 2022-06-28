@@ -1,5 +1,10 @@
 package dds.grupo4.tpimpacto.entities;
 
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.util.ArrayList;
@@ -7,6 +12,9 @@ import java.util.List;
 
 @Entity(name = "Tramo")
 @Table(name = "tramos")
+@Getter
+@Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Tramo extends BaseEntity {
 
     private Trayecto trayecto;
@@ -14,58 +22,13 @@ public class Tramo extends BaseEntity {
     private Lugar lugarInicio;
     private Lugar lugarFin;
     private List<Miembro> miembros = new ArrayList<>();
-
-    private CalculoHCTramo calculoHC ;
-
-    // Hibernate
-    protected Tramo() {
-    }
+    private CalculoHCTramo calculoHC;
 
     public Tramo(Trayecto trayecto, MedioDeTransporte medioDeTransporte, Lugar lugarInicio, Lugar lugarFin, List<Miembro> miembros) {
         this.trayecto = trayecto;
         this.medioDeTransporte = medioDeTransporte;
         this.lugarInicio = lugarInicio;
         this.lugarFin = lugarFin;
-        this.miembros = miembros;
-    }
-
-    public Trayecto getTrayecto() {
-        return trayecto;
-    }
-
-    public void setTrayecto(Trayecto trayecto) {
-        this.trayecto = trayecto;
-    }
-
-    public MedioDeTransporte getMedioDeTransporte() {
-        return medioDeTransporte;
-    }
-
-    public void setMedioDeTransporte(MedioDeTransporte medioDeTransporte) {
-        this.medioDeTransporte = medioDeTransporte;
-    }
-
-    public Lugar getLugarInicio() {
-        return lugarInicio;
-    }
-
-    public void setLugarInicio(Lugar lugarInicio) {
-        this.lugarInicio = lugarInicio;
-    }
-
-    public Lugar getLugarFin() {
-        return lugarFin;
-    }
-
-    public void setLugarFin(Lugar lugarFin) {
-        this.lugarFin = lugarFin;
-    }
-
-    public List<Miembro> getMiembros() {
-        return miembros;
-    }
-
-    public void setMiembros(List<Miembro> miembros) {
         this.miembros = miembros;
     }
 
@@ -77,6 +40,5 @@ public class Tramo extends BaseEntity {
     public double distancia() {
         return medioDeTransporte.distanciaRecorrida(lugarInicio, lugarFin);
     }
-
 
 }

@@ -1,46 +1,26 @@
 package dds.grupo4.tpimpacto.entities;
 
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity(name = "Solicitud")
 @Table(name = "solicitudes")
+@Getter
+@Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Solicitud extends BaseEntity {
 
     private Miembro miembro;
     private Sector sector;
     private Organizacion organizacion;
 
-    // Hibernate
-    protected Solicitud() {
-    }
-
     public Solicitud(Miembro miembro, Sector sector) {
         this.miembro = miembro;
-        this.sector = sector;
-    }
-
-    public Miembro getMiembro() {
-        return miembro;
-    }
-
-    public void setMiembro(Miembro miembro) {
-        this.miembro = miembro;
-    }
-
-    public Organizacion getOrganizacion() {
-        return organizacion;
-    }
-
-    public void setOrganizacion(Organizacion organizacion) {
-        this.organizacion = organizacion;
-    }
-
-    public Sector getSector() {
-        return sector;
-    }
-
-    public void setSector(Sector sector) {
         this.sector = sector;
     }
 

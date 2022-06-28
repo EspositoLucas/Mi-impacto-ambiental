@@ -1,6 +1,10 @@
 package dds.grupo4.tpimpacto.entities;
 
 import dds.grupo4.tpimpacto.enums.TipoTransportePublico;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -9,6 +13,9 @@ import java.util.List;
 
 @Entity(name = "TransportePublico")
 @Table(name = "transportes_publicos")
+@Getter
+@Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class TransportePublico extends MedioDeTransporte {
 
     private TipoTransportePublico tipoTransportePublico;
@@ -16,46 +23,10 @@ public class TransportePublico extends MedioDeTransporte {
     private List<Parada> paradas = new ArrayList<>();
     private Combustible combustible;
 
-    // Hibernate
-    protected TransportePublico() {
-    }
-
     public TransportePublico(TipoTransportePublico tipoTransportePublico, String linea, List<Parada> paradas, Combustible combustible) {
         this.tipoTransportePublico = tipoTransportePublico;
         this.linea = linea;
         paradas.forEach(parada -> addParada(parada));
-        this.combustible = combustible;
-    }
-
-    public TipoTransportePublico getTipoTransportePublico() {
-        return tipoTransportePublico;
-    }
-
-    public void setTipoTransportePublico(TipoTransportePublico tipoTransportePublico) {
-        this.tipoTransportePublico = tipoTransportePublico;
-    }
-
-    public String getLinea() {
-        return linea;
-    }
-
-    public void setLinea(String linea) {
-        this.linea = linea;
-    }
-
-    public List<Parada> getParadas() {
-        return paradas;
-    }
-
-    public void setParadas(List<Parada> paradas) {
-        this.paradas = paradas;
-    }
-
-    public Combustible getCombustible() {
-        return combustible;
-    }
-
-    public void setCombustible(Combustible combustible) {
         this.combustible = combustible;
     }
 
