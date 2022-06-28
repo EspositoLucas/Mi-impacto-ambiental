@@ -27,6 +27,20 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
+		<!-- Para mandar mails -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
+			<version>2.7.0</version>
+		</dependency>
+
+		<!-- Esto ya incluye al JUnit y al Mockito-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
 		<!-- Retrofit (para APIs) -->
 		<dependency>
 			<groupId>com.squareup.retrofit2</groupId>
@@ -42,13 +56,6 @@
 			<groupId>com.squareup.retrofit2</groupId>
 			<artifactId>converter-jackson</artifactId>
 			<version>2.9.0</version>
-		</dependency>
-
-		<!-- Esto ya incluye al JUnit y al Mockito-->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
 		</dependency>
 
 		<!-- Para leer Excels -->
