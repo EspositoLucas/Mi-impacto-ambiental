@@ -41,10 +41,4 @@ public class Miembro extends BaseEntity {
     }  // Para saber que persona es un miembro a partir del documento
 
 
-    // calculo para HC
-
-//    public double calculoHC() {
-//        return ;
-//    }
-
 }

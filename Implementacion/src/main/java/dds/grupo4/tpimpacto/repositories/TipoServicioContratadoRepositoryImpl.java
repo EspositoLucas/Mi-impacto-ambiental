@@ -1,6 +1,5 @@
 package dds.grupo4.tpimpacto.repositories;
 
-import dds.grupo4.tpimpacto.entities.TipoServicioContratado;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;

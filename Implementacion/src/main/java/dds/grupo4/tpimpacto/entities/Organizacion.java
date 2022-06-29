@@ -25,14 +25,21 @@ public class Organizacion extends BaseEntity {
     private TipoOrganizacion tipoOrganizacion;
     private Clasificacion clasificacion;
     private List<Sector> sectores = new ArrayList<>();
+
     private List<Contacto> contactos = new ArrayList<>();
     private List<Solicitud> solicitudes = new ArrayList<>();
     private List<Medicion> mediciones = new ArrayList<>();
+    private CalculoHCTramo calculoHCTramo ;
 
-    public Organizacion(String razonSocial, TipoOrganizacion tipoOrganizacion, Clasificacion clasificacion) {
+    public Organizacion(String razonSocial, TipoOrganizacion tipoOrganizacion, Clasificacion clasificacion, List<Sector> sectores, List<Contacto> contactos, List<Solicitud> solicitudes, List<Medicion> mediciones, CalculoHCTramo calculoHCTramo) {
         this.razonSocial = razonSocial;
         this.tipoOrganizacion = tipoOrganizacion;
         this.clasificacion = clasificacion;
+        this.sectores = sectores;
+        this.contactos = contactos;
+        this.solicitudes = solicitudes;
+        this.mediciones = mediciones;
+        this.calculoHCTramo = calculoHCTramo;
     }
 
     public void addSector(Sector sector) {

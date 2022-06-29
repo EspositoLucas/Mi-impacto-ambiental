@@ -23,7 +23,9 @@ public class CalculoHCTramo {
 
     // calculo para HC
 
-//    public double calculoHC() {
-//    return ;
+//    public double calculoHCTramos() {
+//    return this.tramos().stream()
+//                .mapToDouble(t -> t.calculoHC())
+//                .sum();;
 //    }
 }

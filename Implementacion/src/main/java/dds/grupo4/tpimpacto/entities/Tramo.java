@@ -22,7 +22,6 @@ public class Tramo extends BaseEntity {
     private Lugar lugarInicio;
     private Lugar lugarFin;
     private List<Miembro> miembros = new ArrayList<>();
-    private CalculoHCTramo calculoHC;
 
     public Tramo(Trayecto trayecto, MedioDeTransporte medioDeTransporte, Lugar lugarInicio, Lugar lugarFin, List<Miembro> miembros) {
         this.trayecto = trayecto;
@@ -40,5 +39,11 @@ public class Tramo extends BaseEntity {
     public double distancia() {
         return medioDeTransporte.distanciaRecorrida(lugarInicio, lugarFin);
     }
+
+    // calculo para HC
+
+//    public double calculoHC() {
+//    return ;
+//    }
 
 }
