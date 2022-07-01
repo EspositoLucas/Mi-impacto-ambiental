@@ -27,7 +27,7 @@ public class CustomQuartzScheduler {
 
     public void scheduleRecordatorioEmail() throws SchedulerException, ParseException {
         String jobDescription = "Job que envia recordatorios por mail";
-        JobDetail jobDetail = buildJobDetail(RecordatorioEmailJob.class, JOB_GROUP, jobDescription, null);
+        JobDetail jobDetail = buildJobDetail(RecordatorioRecomendacionesJob.class, JOB_GROUP, jobDescription, null);
         String triggerDescription = "Trigger para el Job que envia recordatorios por mail";
         ZonedDateTime startAt = ZonedDateTime.now();
         String strCronExpression = "0 * * * * ?";

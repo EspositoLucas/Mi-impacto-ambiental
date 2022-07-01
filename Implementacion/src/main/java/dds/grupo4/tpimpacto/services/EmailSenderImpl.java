@@ -9,11 +9,11 @@ import javax.mail.internet.MimeMessage;
 import java.util.List;
 
 @Component
-public class EmailServiceImpl implements EmailService {
+public class EmailSenderImpl implements NotificationSender {
 
     private final JavaMailSender mailSender;
 
-    public EmailServiceImpl(JavaMailSender mailSender) {
+    public EmailSenderImpl(JavaMailSender mailSender) {
         this.mailSender = mailSender;
     }
 
@@ -26,7 +26,10 @@ public class EmailServiceImpl implements EmailService {
         messageHelper.setFrom("grupo4dds2022@hotmail.com");
         messageHelper.setTo(arrayTo);
         messageHelper.setSubject(subject);
-        messageHelper.setText(body, true);
+
+        boolean useHtml = true;
+        messageHelper.setText(body, useHtml);
+
         mailSender.send(mimeMessage);
     }
 
