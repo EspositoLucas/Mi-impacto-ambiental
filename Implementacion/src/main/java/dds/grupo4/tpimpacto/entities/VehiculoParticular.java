@@ -21,9 +21,9 @@ public class VehiculoParticular extends MedioDeTransporte {
 
     private TipoVehiculoParticular tipoVehiculoParticular;
     private Combustible combustible;
-    private String tipoServicioContratado;
+    private TipoServicioContratado tipoServicioContratado;
 
-    public VehiculoParticular(TipoVehiculoParticular tipoVehiculoParticular, Combustible combustible, String tipoServicioContratado) {
+    public VehiculoParticular(TipoVehiculoParticular tipoVehiculoParticular, Combustible combustible, TipoServicioContratado tipoServicioContratado) {
         this.tipoVehiculoParticular = tipoVehiculoParticular;
         this.combustible = combustible;
         this.tipoServicioContratado = tipoServicioContratado;
