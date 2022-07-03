@@ -8,7 +8,7 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.util.List;
 
-@Component
+@Component("emailSender")
 public class EmailSenderImpl implements NotificationSender {
 
     private final JavaMailSender mailSender;
