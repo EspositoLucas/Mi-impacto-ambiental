@@ -27,12 +27,12 @@ public class Medicion extends BaseEntity {
 
     private CalculoHCActividad calculoHC;
 
-    public Medicion(String actividad, String tipoConsumo, Double valorConsumo, String periodicidad, String periodoAmputacion) {
+    public Medicion(String actividad, String tipoConsumo, Double valorConsumo, String periodicidad, String periodoAmputacion, CalculoHCActividad calculoHC) {
         this.actividad = actividad;
         this.tipoConsumo = tipoConsumo;
         this.valorConsumo = valorConsumo;
         this.periodicidad = periodicidad;
         this.periodoAmputacion = periodoAmputacion;
+        this.calculoHC = calculoHC;
     }
-
 }

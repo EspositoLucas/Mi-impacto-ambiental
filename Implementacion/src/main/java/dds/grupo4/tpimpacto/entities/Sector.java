@@ -32,11 +32,11 @@ public class Sector extends BaseEntity {
         miembro.setSector(this);
     }
 
-    // calculo HC promedio
+     //calculo HC promedio
 
 //    public double calculoHCPromedio() {
 //
-//        return 0;
+//        return  organizacion.calculoHCTotal / this.miembros.size();
 //    }
 
 }
