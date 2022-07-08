@@ -22,12 +22,15 @@ public class TransportePublico extends MedioDeTransporte {
     private String linea;
     private List<Parada> paradas = new ArrayList<>();
     private Combustible combustible;
+    private Double cantConmbustibleXKm;
 
-    public TransportePublico(TipoTransportePublico tipoTransportePublico, String linea, List<Parada> paradas, Combustible combustible) {
+
+    public TransportePublico(TipoTransportePublico tipoTransportePublico, String linea, List<Parada> paradas, Combustible combustible, Double cantConmbustibleXKm) {
         this.tipoTransportePublico = tipoTransportePublico;
         this.linea = linea;
-        paradas.forEach(parada -> addParada(parada));
+        this.paradas = paradas;
         this.combustible = combustible;
+        this.cantConmbustibleXKm = cantConmbustibleXKm;
     }
 
     public void addParada(Parada parada) {
@@ -50,9 +53,9 @@ public class TransportePublico extends MedioDeTransporte {
         return distanciaRecorrida;
     }
 
-    //    @Override
-//    public double cantConsumidaCombustible() {
-//      return 0;
-//    }
+        @Override
+    public double cantConsumidaCombustible(Lugar lugarInicio, Lugar lugarFin) {
+      return cantConmbustibleXKm * this.distanciaRecorrida(lugarInicio,lugarFin);
+    }
 
 }

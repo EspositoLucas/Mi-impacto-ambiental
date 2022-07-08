@@ -39,7 +39,8 @@ public class TransportePublicoControllerFake {
         }
 
         Combustible combustible = null;
-        TransportePublico transportePublico = new TransportePublico(tipoTransportePublico, linea, paradas, combustible);
+        Double cantConmbustibleXKm = null;
+        TransportePublico transportePublico = new TransportePublico(tipoTransportePublico, linea, paradas, combustible,cantConmbustibleXKm);
 
         // TODO: ver como guardamos este TransportePublico (podemos crear un Service para todos los MediosDeTransporte o
         //  uno para cada tipo)

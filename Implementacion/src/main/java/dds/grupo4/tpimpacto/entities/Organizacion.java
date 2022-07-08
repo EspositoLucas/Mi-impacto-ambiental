@@ -30,6 +30,8 @@ public class Organizacion extends BaseEntity {
     private List<Solicitud> solicitudes = new ArrayList<>();
     private List<Medicion> mediciones = new ArrayList<>();
 
+    private CalculoHCTramos calculoHCTramo;
+
     public Organizacion(String razonSocial, TipoOrganizacion tipoOrganizacion, Clasificacion clasificacion) {
         this.razonSocial = razonSocial;
         this.tipoOrganizacion = tipoOrganizacion;
@@ -75,31 +77,17 @@ public class Organizacion extends BaseEntity {
         return getMiembros().stream()
                 .flatMap(m -> m.getTramos().stream())
                 .distinct()
-                .collect(Collectors.toList()) ;
+                .collect(Collectors.toList());
     }
 
 
-    // esto tiene pinta de que no va pero lo dejo comentado por si acaso sirve de algo
 
-//    public List<CalculoHCActividad> getCalculoHCActividadDeMediciones() {
-//        return getMiembros().stream()
-//                .flatMap(m -> m.getCalculoHCActividad().stream())
-//                .distinct()
-//                .collect(Collectors.toList()) ;
-//    }
-
-
-    // calculo para HC
-
+//     calculo para HC Total
+//
 //    public double calculoHCTotal() {
 //
-//        return this.getTramosDeMiembros().stream()
-//            .mapToDouble(t-> t.calculoHC)                     // me hace ruido o que puse aca para el calculo porque queda raro y no se si esta bien hecho la logica , cualquier cosa lo cambian
-//            .sum() +
+//        return this.calculoHCTramo.calculoHCTramos() + (this.mediciones.stream().mapToDouble(m -> m.calculoHCDatoActividad()).sum());
 //
-//            this.mediciones().stream()
-//            .mapToDouble(c-> c.calculoHCActividad)
-//            .sum() ;
+//
 //    }
-
 }

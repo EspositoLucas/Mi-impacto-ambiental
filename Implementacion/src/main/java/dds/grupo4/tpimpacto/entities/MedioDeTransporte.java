@@ -22,6 +22,10 @@ public abstract class MedioDeTransporte extends BaseEntity {
 
     private FactorEmision factorEmision;
 
+    public MedioDeTransporte(FactorEmision factorEmision) {
+        this.factorEmision = factorEmision;
+    }
+
     /**
      * Devuelve la distancia en KM entre el Lugar inicial y el Lugar final
      */
@@ -30,5 +34,7 @@ public abstract class MedioDeTransporte extends BaseEntity {
 
     // litros de combustible consumidos por medio de trasnporte
 
-    //    public double cantConsumidaCombustible() {
+    public abstract double cantConsumidaCombustible(Lugar lugarInicio, Lugar lugarFin) ;
+
+
 }

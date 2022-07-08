@@ -18,16 +18,11 @@ import javax.persistence.Table;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Combustible extends BaseEntity {
 
-    private Double combustibleInicial;
-    private Double combustibleFinal;
     private TipoCombustible tipoCombustible;
     private UnidadCombustible unidad;
 
-    public Combustible(Double combustibleInicial, Double combustibleFinal, TipoCombustible tipoCombustible, UnidadCombustible unidad) {
-        this.combustibleInicial = combustibleInicial;
-        this.combustibleFinal = combustibleFinal;
+    public Combustible(TipoCombustible tipoCombustible, UnidadCombustible unidad) {
         this.tipoCombustible = tipoCombustible;
         this.unidad = unidad;
     }
-
 }

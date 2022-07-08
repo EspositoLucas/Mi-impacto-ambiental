@@ -42,8 +42,8 @@ public class Tramo extends BaseEntity {
 
     // calculo para HC
 
-//    public double calculoHC() {
-//    return ;
-//    }
+    public double calculoHC() {
+    return  medioDeTransporte.distanciaRecorrida(lugarInicio,lugarFin) * medioDeTransporte.getFactorEmision().getValor();
+    }
 
 }

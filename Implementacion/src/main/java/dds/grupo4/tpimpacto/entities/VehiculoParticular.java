@@ -22,11 +22,14 @@ public class VehiculoParticular extends MedioDeTransporte {
     private TipoVehiculoParticular tipoVehiculoParticular;
     private Combustible combustible;
     private TipoServicioContratado tipoServicioContratado;
+    private Double cantConmbustibleXKm;
 
-    public VehiculoParticular(TipoVehiculoParticular tipoVehiculoParticular, Combustible combustible, TipoServicioContratado tipoServicioContratado) {
+
+    public VehiculoParticular(TipoVehiculoParticular tipoVehiculoParticular, Combustible combustible, TipoServicioContratado tipoServicioContratado, Double cantConmbustibleXKm) {
         this.tipoVehiculoParticular = tipoVehiculoParticular;
         this.combustible = combustible;
         this.tipoServicioContratado = tipoServicioContratado;
+        this.cantConmbustibleXKm = cantConmbustibleXKm;
     }
 
     @Override
@@ -36,9 +39,9 @@ public class VehiculoParticular extends MedioDeTransporte {
         return geoService.distanciaRecorrida(lugarInicio, lugarFin);
     }
 
-    //    @Override
-//    public double cantConsumidaCombustible() {
-//   return 0;
-//   }
+        @Override
+    public double cantConsumidaCombustible(Lugar lugarInicio, Lugar lugarFin) {
+        return cantConmbustibleXKm * this.distanciaRecorrida(lugarInicio, lugarFin) ;
+   }
 
 }
