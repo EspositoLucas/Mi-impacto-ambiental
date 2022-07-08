@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Administrador extends Usuario{
 
-    public void configurarFactorEmision() {
+    public void setFactorEmision(FactorEmision factorEmision) {
 
     }
 }

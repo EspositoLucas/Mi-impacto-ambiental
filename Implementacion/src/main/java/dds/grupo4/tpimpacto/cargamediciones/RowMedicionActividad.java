@@ -27,7 +27,6 @@ public class RowMedicionActividad {
 
         return new RowMedicionActividad(actividad, tipoDeConsumo, valor, periodicidad, periodoAmputacion);
     }
-
     public Medicion toMedicion() {
         return new Medicion(actividad, tipoDeConsumo, valor, periodicidad, periodoImputacion);
     }

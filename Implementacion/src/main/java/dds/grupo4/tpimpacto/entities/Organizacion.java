@@ -82,12 +82,12 @@ public class Organizacion extends BaseEntity {
 
 
 
-//     calculo para HC Total
-//
-//    public double calculoHCTotal() {
-//
-//        return this.calculoHCTramo.calculoHCTramos() + (this.mediciones.stream().mapToDouble(m -> m.calculoHCDatoActividad()).sum());
-//
-//
-//    }
+    // calculo para HC Total
+
+    public double calculoHCTotal() {
+
+        return this.calculoHCTramo.calculoHCTramos() + (this.mediciones.stream().mapToDouble(m -> m.calculoHCDatoActividad()).sum());
+
+
+    }
 }

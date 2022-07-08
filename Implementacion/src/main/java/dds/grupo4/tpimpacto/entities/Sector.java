@@ -34,9 +34,9 @@ public class Sector extends BaseEntity {
 
      //calculo HC promedio
 
-//    public double calculoHCPromedio() {
-//
-//        return  organizacion.calculoHCTotal / this.miembros.size();
-//    }
+    public double calculoHCPromedio() {
+
+        return  organizacion.calculoHCTotal() / this.miembros.size();
+    }
 
 }
