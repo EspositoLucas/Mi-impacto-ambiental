@@ -42,6 +42,8 @@ public class Miembro extends BaseEntity {
         return persona.getDocumento();
     }  // Para saber que persona es un miembro a partir del documento
 
+
+    // calculo HC de un miembro
     public double calculoHC() {
        return this.calculoHCTramos.calculoHCTramos(); // creo que el calculo HC de un miembro seria el HC de los tramos que recorrio en un trayecto
     }
