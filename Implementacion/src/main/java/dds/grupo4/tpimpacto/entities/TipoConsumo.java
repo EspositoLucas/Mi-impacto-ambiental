@@ -18,6 +18,7 @@ public class TipoConsumo extends BaseEntity {
     private String nombre ;
     private FactorEmision factorEmision ;
 
+
     public TipoConsumo(String nombre, FactorEmision factorEmision) {
         this.nombre = nombre;
         this.factorEmision = factorEmision;

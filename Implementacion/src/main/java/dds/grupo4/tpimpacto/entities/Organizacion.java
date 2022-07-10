@@ -32,10 +32,15 @@ public class Organizacion extends BaseEntity {
 
     private CalculoHCTramos calculoHCTramo;
 
-    public Organizacion(String razonSocial, TipoOrganizacion tipoOrganizacion, Clasificacion clasificacion) {
+
+    public Organizacion(String razonSocial, TipoOrganizacion tipoOrganizacion, Clasificacion clasificacion, List<Sector> sectores, List<Contacto> contactos, List<Solicitud> solicitudes, List<Medicion> mediciones) {
         this.razonSocial = razonSocial;
         this.tipoOrganizacion = tipoOrganizacion;
         this.clasificacion = clasificacion;
+        this.sectores = sectores;
+        this.contactos = contactos;
+        this.solicitudes = solicitudes;
+        this.mediciones = mediciones;
     }
 
     public void addSector(Sector sector) {

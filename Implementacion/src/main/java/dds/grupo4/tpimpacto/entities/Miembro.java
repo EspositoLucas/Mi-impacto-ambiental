@@ -21,11 +21,13 @@ public class Miembro extends BaseEntity {
     private Usuario usuario;
     private Sector sector;
     private List<Tramo> tramos = new ArrayList<>();
+    private  CalculoHCTramos calculoHCTramos ;
 
-    public Miembro(Persona persona, Usuario usuario, Sector sector) {
+    public Miembro(Persona persona, Usuario usuario, Sector sector, List<Tramo> tramos) {
         this.persona = persona;
         this.usuario = usuario;
         this.sector = sector;
+        this.tramos = tramos;
     }
 
     public void addTramo(Tramo tramo) {
@@ -40,5 +42,7 @@ public class Miembro extends BaseEntity {
         return persona.getDocumento();
     }  // Para saber que persona es un miembro a partir del documento
 
-
+    public double calculoHC() {
+       return this.calculoHCTramos.calculoHCTramos(); // creo que el calculo HC de un miembro seria el HC de los tramos que recorrio en un trayecto
+    }
 }

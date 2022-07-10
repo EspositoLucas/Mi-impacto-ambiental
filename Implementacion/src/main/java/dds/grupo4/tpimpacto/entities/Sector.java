@@ -22,9 +22,11 @@ public class Sector extends BaseEntity {
     private Espacio espacio;
     private List<Miembro> miembros = new ArrayList<>();
 
-    public Sector(String nombre, Espacio espacio) {
+    public Sector(String nombre, Organizacion organizacion, Espacio espacio, List<Miembro> miembros) {
         this.nombre = nombre;
+        this.organizacion = organizacion;
         this.espacio = espacio;
+        this.miembros = miembros;
     }
 
     public void addMiembro(Miembro miembro) {
