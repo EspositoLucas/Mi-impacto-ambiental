@@ -1,8 +1,13 @@
 package dds.grupo4.tpimpacto.cargamediciones;
 
 import dds.grupo4.tpimpacto.entities.Medicion;
+import lombok.Getter;
+import lombok.Setter;
+
 import org.apache.poi.ss.usermodel.Row;
 
+@Getter
+@Setter
 public class RowMedicionActividad {
     private final String actividad;
     private final String tipoDeConsumo;
@@ -10,7 +15,8 @@ public class RowMedicionActividad {
     private final String periodicidad;
     private final String periodoImputacion;
 
-    private RowMedicionActividad(String actividad, String tipoDeConsumo, double valor, String periodicidad, String periodoImputacion) {
+    private RowMedicionActividad(String actividad, String tipoDeConsumo, double valor, String periodicidad,
+            String periodoImputacion) {
         this.actividad = actividad;
         this.tipoDeConsumo = tipoDeConsumo;
         this.valor = valor;
@@ -26,9 +32,6 @@ public class RowMedicionActividad {
         String periodoAmputacion = row.getCell(4).getStringCellValue();
 
         return new RowMedicionActividad(actividad, tipoDeConsumo, valor, periodicidad, periodoAmputacion);
-    }
-    public Medicion toMedicion() {
-        return new Medicion(actividad, tipoDeConsumo, valor, periodicidad, periodoImputacion);
     }
 
     @Override

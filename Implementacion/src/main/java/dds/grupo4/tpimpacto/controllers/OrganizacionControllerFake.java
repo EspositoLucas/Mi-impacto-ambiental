@@ -41,7 +41,7 @@ public class OrganizacionControllerFake {
             nombreSector = ConsoleHelper.readString();
             if (!nombreSector.equals("FIN")) {
                 Espacio espacioSector = null;
-                Sector nuevoSector = new Sector(nombreSector, espacioSector);
+                Sector nuevoSector = new Sector(nombreSector, nuevaOrganizacion, espacioSector);
                 nuevaOrganizacion.addSector(nuevoSector);
             }
         }

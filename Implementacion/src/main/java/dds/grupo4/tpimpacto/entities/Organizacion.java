@@ -32,15 +32,10 @@ public class Organizacion extends BaseEntity {
 
     private CalculoHCTramos calculoHCTramo;
 
-
-    public Organizacion(String razonSocial, TipoOrganizacion tipoOrganizacion, Clasificacion clasificacion, List<Sector> sectores, List<Contacto> contactos, List<Solicitud> solicitudes, List<Medicion> mediciones) {
+    public Organizacion(String razonSocial, TipoOrganizacion tipoOrganizacion, Clasificacion clasificacion) {
         this.razonSocial = razonSocial;
         this.tipoOrganizacion = tipoOrganizacion;
         this.clasificacion = clasificacion;
-        this.sectores = sectores;
-        this.contactos = contactos;
-        this.solicitudes = solicitudes;
-        this.mediciones = mediciones;
     }
 
     public void addSector(Sector sector) {
@@ -67,7 +62,7 @@ public class Organizacion extends BaseEntity {
         this.solicitudes.remove(solicitud);
     }
 
-    public List<Miembro> getMiembros() {  // Para saber los miembros que tiene una organizacion de cada sector que tiene
+    public List<Miembro> getMiembros() { // Para saber los miembros que tiene una organizacion de cada sector que tiene
         return sectores.stream()
                 .flatMap(s -> s.getMiembros().stream())
                 .distinct()
@@ -85,14 +80,12 @@ public class Organizacion extends BaseEntity {
                 .collect(Collectors.toList());
     }
 
-
-
     // calculo para HC Total
 
     public double calculoHCTotal() {
 
-        return this.calculoHCTramo.calculoHCTramos() + (this.mediciones.stream().mapToDouble(m -> m.calculoHCDatoActividad()).sum());
-
+        return this.calculoHCTramo.calculoHCTramos()
+                + (this.mediciones.stream().mapToDouble(m -> m.calculoHCDatoActividad()).sum());
 
     }
 }

@@ -5,6 +5,8 @@ import dds.grupo4.tpimpacto.entities.Medicion;
 import dds.grupo4.tpimpacto.entities.Organizacion;
 import dds.grupo4.tpimpacto.entities.Sector;
 import dds.grupo4.tpimpacto.entities.Solicitud;
+import dds.grupo4.tpimpacto.entities.TipoConsumo;
+import dds.grupo4.tpimpacto.enums.Actividad;
 import dds.grupo4.tpimpacto.repositories.OrganizacionRepository;
 import org.springframework.stereotype.Service;
 
@@ -17,10 +19,13 @@ public class OrganizacionServiceImpl implements OrganizacionService {
 
     private final OrganizacionRepository organizacionRepository;
     private final SectorService sectorService;
+    private final TipoConsumoService tipoConsumoService;
 
-    public OrganizacionServiceImpl(OrganizacionRepository organizacionRepository, SectorService sectorService) {
+    public OrganizacionServiceImpl(OrganizacionRepository organizacionRepository, SectorService sectorService,
+            TipoConsumoService tipoConsumoService) {
         this.organizacionRepository = organizacionRepository;
         this.sectorService = sectorService;
+        this.tipoConsumoService = tipoConsumoService;
     }
 
     @Override
@@ -54,7 +59,7 @@ public class OrganizacionServiceImpl implements OrganizacionService {
     @Override
     public void cargarMediciones(Organizacion organizacion, List<RowMedicionActividad> mediciones) {
         List<Medicion> medicionesParseadas = mediciones.stream()
-                .map(RowMedicionActividad::toMedicion)
+                .map(this::rowToMedicion)
                 .collect(Collectors.toList());
 
         for (Medicion medicion : medicionesParseadas) {
@@ -67,6 +72,15 @@ public class OrganizacionServiceImpl implements OrganizacionService {
     @Override
     public List<String> getMailsDeContactos() {
         return organizacionRepository.getMailsDeContactos();
+    }
+
+    private Medicion rowToMedicion(RowMedicionActividad row) {
+        Actividad actividad = Actividad.from(row.getActividad());
+        TipoConsumo tipoConsumo = tipoConsumoService.getByNombre(row.getTipoDeConsumo()).get();
+
+        Medicion medicion = new Medicion(actividad, tipoConsumo, row.getValor(), row.getPeriodicidad(),
+                row.getPeriodoImputacion());
+        return medicion;
     }
 
 }

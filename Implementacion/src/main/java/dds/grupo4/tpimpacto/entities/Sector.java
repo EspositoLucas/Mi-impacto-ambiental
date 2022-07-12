@@ -22,11 +22,10 @@ public class Sector extends BaseEntity {
     private Espacio espacio;
     private List<Miembro> miembros = new ArrayList<>();
 
-    public Sector(String nombre, Organizacion organizacion, Espacio espacio, List<Miembro> miembros) {
+    public Sector(String nombre, Organizacion organizacion, Espacio espacio) {
         this.nombre = nombre;
         this.organizacion = organizacion;
         this.espacio = espacio;
-        this.miembros = miembros;
     }
 
     public void addMiembro(Miembro miembro) {
@@ -34,11 +33,9 @@ public class Sector extends BaseEntity {
         miembro.setSector(this);
     }
 
-     //calculo HC promedio
-
+    // calculo HC promedio
     public double calculoHCPromedio() {
-
-        return  organizacion.calculoHCTotal() / this.miembros.size();
+        return organizacion.calculoHCTotal() / this.miembros.size();
     }
 
 }
