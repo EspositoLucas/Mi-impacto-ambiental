@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity(name = "Medicion")
@@ -16,9 +18,16 @@ import javax.persistence.Table;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Medicion extends BaseEntity {
 
+    @ManyToOne
+    @JoinColumn(name = "organizacion", nullable = false)
+    private Organizacion organizacion;
 
     private Actividad actividad;
+
+    @ManyToOne
+    @JoinColumn(name = "???tipo_consumo???", nullable = false)
     private TipoConsumo tipoConsumo;
+
     private Double valorConsumo;
     // private String unidad;
     private String periodicidad;

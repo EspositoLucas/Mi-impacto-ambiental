@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,10 +21,12 @@ public class TransportePublico extends MedioDeTransporte {
 
     private TipoTransportePublico tipoTransportePublico;
     private String linea;
+
+    @OneToMany(mappedBy = "transportePublico")
     private List<Parada> paradas = new ArrayList<>();
+
     private Combustible combustible;
     private Double cantConmbustibleXKm;
-
 
     public TransportePublico(TipoTransportePublico tipoTransportePublico, String linea, List<Parada> paradas, Combustible combustible, Double cantConmbustibleXKm) {
         this.tipoTransportePublico = tipoTransportePublico;
@@ -53,9 +56,9 @@ public class TransportePublico extends MedioDeTransporte {
         return distanciaRecorrida;
     }
 
-        @Override
+    @Override
     public double cantConsumidaCombustible(Lugar lugarInicio, Lugar lugarFin) {
-      return cantConmbustibleXKm * this.distanciaRecorrida(lugarInicio,lugarFin);
+        return cantConmbustibleXKm * this.distanciaRecorrida(lugarInicio, lugarFin);
     }
 
 }

@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity(name = "VehiculoParticular")
@@ -21,9 +23,12 @@ public class VehiculoParticular extends MedioDeTransporte {
 
     private TipoVehiculoParticular tipoVehiculoParticular;
     private Combustible combustible;
-    private TipoServicioContratado tipoServicioContratado;
-    private Double cantConmbustibleXKm;
 
+    @ManyToOne
+    @JoinColumn(name = "???tipo_servicio_contratado???", nullable = false)
+    private TipoServicioContratado tipoServicioContratado;
+
+    private Double cantConmbustibleXKm;
 
     public VehiculoParticular(TipoVehiculoParticular tipoVehiculoParticular, Combustible combustible, TipoServicioContratado tipoServicioContratado, Double cantConmbustibleXKm) {
         this.tipoVehiculoParticular = tipoVehiculoParticular;
@@ -39,9 +44,9 @@ public class VehiculoParticular extends MedioDeTransporte {
         return geoService.distanciaRecorrida(lugarInicio, lugarFin);
     }
 
-        @Override
+    @Override
     public double cantConsumidaCombustible(Lugar lugarInicio, Lugar lugarFin) {
-        return cantConmbustibleXKm * this.distanciaRecorrida(lugarInicio, lugarFin) ;
-   }
+        return cantConmbustibleXKm * this.distanciaRecorrida(lugarInicio, lugarFin);
+    }
 
 }

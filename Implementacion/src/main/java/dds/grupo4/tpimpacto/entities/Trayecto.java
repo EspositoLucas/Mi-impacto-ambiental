@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +21,8 @@ public class Trayecto extends BaseEntity {
     // TODO: ver si estas Direcciones no deberian ser Lugares
     private Direccion partida;
     private Direccion destino;
+
+    @OneToMany(mappedBy = "trayecto")
     private List<Tramo> tramos = new ArrayList<>();
 
     public Trayecto(Direccion partida, Direccion destino, List<Tramo> tramos) {

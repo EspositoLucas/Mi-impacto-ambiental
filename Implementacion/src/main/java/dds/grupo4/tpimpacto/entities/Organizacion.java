@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,11 +26,21 @@ public class Organizacion extends BaseEntity {
     private String razonSocial;
     private TipoOrganizacion tipoOrganizacion;
     private Clasificacion clasificacion;
+
+    @OneToMany(mappedBy = "organizacion")
     private List<Sector> sectores = new ArrayList<>();
 
+    @OneToMany(mappedBy = "organizacion")
     private List<Contacto> contactos = new ArrayList<>();
+
+    @OneToMany(mappedBy = "organizacion")
     private List<Solicitud> solicitudes = new ArrayList<>();
+
+    @OneToMany(mappedBy = "organizacion")
     private List<Medicion> mediciones = new ArrayList<>();
+
+    @ManyToMany(mappedBy = "organizaciones")
+    private List<SectorTerritorial> sectoresTerritoriales = new ArrayList<>();
 
     private CalculoHCTramos calculoHCTramo;
 

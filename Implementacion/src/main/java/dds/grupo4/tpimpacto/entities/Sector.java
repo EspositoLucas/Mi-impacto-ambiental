@@ -6,6 +6,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,8 +21,20 @@ import java.util.List;
 public class Sector extends BaseEntity {
 
     private String nombre;
+
+    @ManyToOne
+    @JoinColumn(name = "organizacion", nullable = false)
     private Organizacion organizacion;
+
+    /*
+     * TODO: ver si esto es un OneToOne o un ManyToOne.
+     * Si en un mismo Espacio pueden haber distintos Sectores (que calculo que no),
+     * seria ManyToOne.
+     * Si en cada Espacio solamente puede haber un Sector, seria un OneToOne.
+     */
     private Espacio espacio;
+
+    @OneToMany(mappedBy = "sector")
     private List<Miembro> miembros = new ArrayList<>();
 
     public Sector(String nombre, Organizacion organizacion, Espacio espacio) {

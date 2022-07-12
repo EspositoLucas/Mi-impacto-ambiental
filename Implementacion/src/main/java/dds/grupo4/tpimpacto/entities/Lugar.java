@@ -8,6 +8,8 @@ import lombok.Setter;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity(name = "Lugar")
@@ -18,6 +20,8 @@ import javax.persistence.Table;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public abstract class Lugar extends BaseEntity {
 
+    @ManyToOne
+    @JoinColumn(name = "direccion", nullable = false)
     private Direccion direccion;
 
     public Lugar(Direccion direccion) {

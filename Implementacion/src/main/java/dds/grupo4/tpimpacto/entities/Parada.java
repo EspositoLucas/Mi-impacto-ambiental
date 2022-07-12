@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity(name = "Parada")
@@ -15,9 +17,14 @@ import javax.persistence.Table;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Parada extends Lugar {
 
+    @ManyToOne
+    @JoinColumn(name = "???transporte_publico???", nullable = false)
     private TransportePublico transportePublico;
+
     private Double distanciaProxima;
     private Double distanciaAnterior;
+
+    // TODO: ver como se anota esto en Hibernate (referencia recursiva)
     private Parada paradaSiguiente;
 
     public Parada(Direccion direccion, Double distanciaProxima) {

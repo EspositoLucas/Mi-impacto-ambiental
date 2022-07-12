@@ -6,6 +6,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,10 +21,20 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Miembro extends BaseEntity {
 
+    @ManyToOne
+    @JoinColumn(name = "persona", nullable = false)
     private Persona persona;
+
+    @OneToOne
     private Usuario usuario;
+
+    @ManyToOne
+    @JoinColumn(name = "sector", nullable = false)
     private Sector sector;
+
+    @ManyToMany(mappedBy = "miembros")
     private List<Tramo> tramos = new ArrayList<>();
+
     private CalculoHCTramos calculoHCTramos;
 
     public Miembro(Persona persona, Usuario usuario, Sector sector) {

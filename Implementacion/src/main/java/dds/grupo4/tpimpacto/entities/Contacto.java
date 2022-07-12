@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity(name = "Contacto")
@@ -19,6 +21,10 @@ public class Contacto extends BaseEntity {
     private String apellido;
     private String email;
     private String telefono;
+
+    @ManyToOne
+    @JoinColumn(name = "organizacion", nullable = false)
+    private Organizacion organizacion;
 
     public Contacto(String nombre, String apellido, String email, String telefono) {
         this.nombre = nombre;

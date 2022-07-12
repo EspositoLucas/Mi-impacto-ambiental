@@ -7,6 +7,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,8 +22,17 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class SectorTerritorial extends BaseEntity {
 
+    @OneToMany(mappedBy = "sectorTerritorial")
     private List<AgenteSectorial> agentesSectoriales = new ArrayList<>();
+
+    @ManyToMany
+    @JoinTable(
+        name = "organizaciones_por_sector_territorial",
+        joinColumns = @JoinColumn(name = "???sector_territorial???"),
+        inverseJoinColumns = @JoinColumn(name = "organizacion")
+    )
     private List<Organizacion> organizaciones = new ArrayList<>();
+
     private TipoSectorTerritorial tipoSectorTerritorial;
 
     public SectorTerritorial(List<AgenteSectorial> agentesSectoriales, List<Organizacion> organizaciones, TipoSectorTerritorial tipo) {
