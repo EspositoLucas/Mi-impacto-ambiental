@@ -1,6 +1,6 @@
 package dds.grupo4.tpimpacto.repositories;
 
-import dds.grupo4.tpimpacto.entities.Usuario;
+import dds.grupo4.tpimpacto.entities.seguridad.Usuario;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;

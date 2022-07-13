@@ -1,7 +1,12 @@
 package dds.grupo4.tpimpacto.controllers;
 
-import dds.grupo4.tpimpacto.entities.*;
-import dds.grupo4.tpimpacto.entities.enums.TipoDocumento;
+import dds.grupo4.tpimpacto.entities.organizacion.TipoDocumento;
+import dds.grupo4.tpimpacto.entities.organizacion.Miembro;
+import dds.grupo4.tpimpacto.entities.organizacion.Organizacion;
+import dds.grupo4.tpimpacto.entities.organizacion.Sector;
+import dds.grupo4.tpimpacto.entities.organizacion.Solicitud;
+import dds.grupo4.tpimpacto.entities.seguridad.Persona;
+import dds.grupo4.tpimpacto.entities.seguridad.Usuario;
 import dds.grupo4.tpimpacto.extras.ConsoleHelper;
 import dds.grupo4.tpimpacto.services.MiembroService;
 import dds.grupo4.tpimpacto.services.OrganizacionService;

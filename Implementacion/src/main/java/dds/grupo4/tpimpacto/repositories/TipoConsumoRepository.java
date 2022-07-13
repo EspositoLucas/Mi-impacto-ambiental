@@ -1,6 +1,6 @@
 package dds.grupo4.tpimpacto.repositories;
 
-import dds.grupo4.tpimpacto.entities.TipoConsumo;
+import dds.grupo4.tpimpacto.entities.medicion.TipoConsumo;
 
 import java.util.Optional;
 

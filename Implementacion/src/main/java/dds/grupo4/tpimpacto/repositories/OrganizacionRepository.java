@@ -1,6 +1,6 @@
 package dds.grupo4.tpimpacto.repositories;
 
-import dds.grupo4.tpimpacto.entities.Organizacion;
+import dds.grupo4.tpimpacto.entities.organizacion.Organizacion;
 
 import java.util.List;
 import java.util.Optional;

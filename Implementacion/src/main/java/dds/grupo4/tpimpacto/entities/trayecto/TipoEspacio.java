@@ -1,4 +1,4 @@
-package dds.grupo4.tpimpacto.entities.enums;
+package dds.grupo4.tpimpacto.entities.trayecto;
 
 public enum TipoEspacio {
     TRABAJO,

@@ -1,8 +1,8 @@
 package dds.grupo4.tpimpacto.controllers;
 
 import dds.grupo4.tpimpacto.entities.medioTransporte.Combustible;
-import dds.grupo4.tpimpacto.entities.Direccion;
-import dds.grupo4.tpimpacto.entities.Parada;
+import dds.grupo4.tpimpacto.entities.trayecto.Direccion;
+import dds.grupo4.tpimpacto.entities.medioTransporte.Parada;
 import dds.grupo4.tpimpacto.entities.medioTransporte.TransportePublico;
 import dds.grupo4.tpimpacto.entities.medioTransporte.TipoTransportePublico;
 import dds.grupo4.tpimpacto.extras.ConsoleHelper;

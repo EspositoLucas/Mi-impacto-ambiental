@@ -1,7 +1,10 @@
-package dds.grupo4.tpimpacto.entities;
+package dds.grupo4.tpimpacto.entities.organizacion;
 
-import dds.grupo4.tpimpacto.entities.enums.Clasificacion;
-import dds.grupo4.tpimpacto.entities.enums.TipoOrganizacion;
+import dds.grupo4.tpimpacto.entities.BaseEntity;
+import dds.grupo4.tpimpacto.entities.seguridad.SectorTerritorial;
+import dds.grupo4.tpimpacto.entities.medicion.Medicion;
+import dds.grupo4.tpimpacto.entities.seguridad.Contacto;
+import dds.grupo4.tpimpacto.entities.trayecto.Tramo;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

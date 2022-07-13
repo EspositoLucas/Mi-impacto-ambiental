@@ -1,6 +1,6 @@
 package dds.grupo4.tpimpacto.services;
 
-import dds.grupo4.tpimpacto.entities.Miembro;
+import dds.grupo4.tpimpacto.entities.organizacion.Miembro;
 import dds.grupo4.tpimpacto.repositories.MiembroRepository;
 import org.springframework.stereotype.Service;
 

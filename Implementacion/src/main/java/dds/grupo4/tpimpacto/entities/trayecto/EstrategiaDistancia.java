@@ -1,4 +1,4 @@
-package dds.grupo4.tpimpacto.entities;
+package dds.grupo4.tpimpacto.entities.trayecto;
 
 import dds.grupo4.tpimpacto.entities.medioTransporte.MedioDeTransporte;
 

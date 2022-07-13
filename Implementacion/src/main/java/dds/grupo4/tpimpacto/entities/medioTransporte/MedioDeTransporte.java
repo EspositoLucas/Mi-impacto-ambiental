@@ -1,8 +1,8 @@
 package dds.grupo4.tpimpacto.entities.medioTransporte;
 
 import dds.grupo4.tpimpacto.entities.BaseEntity;
-import dds.grupo4.tpimpacto.entities.FactorEmision;
-import dds.grupo4.tpimpacto.entities.Lugar;
+import dds.grupo4.tpimpacto.entities.medicion.FactorEmision;
+import dds.grupo4.tpimpacto.entities.trayecto.Lugar;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -1,6 +1,5 @@
 package dds.grupo4.tpimpacto.cargamediciones;
 
-import dds.grupo4.tpimpacto.entities.Medicion;
 import lombok.Getter;
 import lombok.Setter;
 

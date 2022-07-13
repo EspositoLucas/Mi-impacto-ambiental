@@ -3,7 +3,7 @@ package dds.grupo4.tpimpacto.controllers;
 import dds.grupo4.tpimpacto.common.LectorDeArchivoImpl;
 import dds.grupo4.tpimpacto.common.ResultadoDeValidacion;
 import dds.grupo4.tpimpacto.common.ValidadorContrasenia;
-import dds.grupo4.tpimpacto.entities.Usuario;
+import dds.grupo4.tpimpacto.entities.seguridad.Usuario;
 import dds.grupo4.tpimpacto.extras.ConsoleHelper;
 import dds.grupo4.tpimpacto.services.UsuarioService;
 import org.springframework.stereotype.Component;

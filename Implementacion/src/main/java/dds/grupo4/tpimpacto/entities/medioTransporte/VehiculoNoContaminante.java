@@ -1,7 +1,7 @@
 package dds.grupo4.tpimpacto.entities.medioTransporte;
 
 import dds.grupo4.tpimpacto.config.GeoApiConfig;
-import dds.grupo4.tpimpacto.entities.Lugar;
+import dds.grupo4.tpimpacto.entities.trayecto.Lugar;
 import dds.grupo4.tpimpacto.services.apiSwagger.GeoService;
 import dds.grupo4.tpimpacto.services.apiSwagger.GeoServiceImpl;
 import lombok.AccessLevel;

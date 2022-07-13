@@ -1,6 +1,6 @@
 package dds.grupo4.tpimpacto.services;
 
-import dds.grupo4.tpimpacto.entities.Sector;
+import dds.grupo4.tpimpacto.entities.organizacion.Sector;
 
 import java.util.Optional;
 

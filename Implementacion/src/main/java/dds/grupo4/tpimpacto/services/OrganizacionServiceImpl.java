@@ -1,12 +1,12 @@
 package dds.grupo4.tpimpacto.services;
 
 import dds.grupo4.tpimpacto.cargamediciones.RowMedicionActividad;
-import dds.grupo4.tpimpacto.entities.Medicion;
-import dds.grupo4.tpimpacto.entities.Organizacion;
-import dds.grupo4.tpimpacto.entities.Sector;
-import dds.grupo4.tpimpacto.entities.Solicitud;
-import dds.grupo4.tpimpacto.entities.TipoConsumo;
-import dds.grupo4.tpimpacto.entities.enums.Actividad;
+import dds.grupo4.tpimpacto.entities.medicion.Medicion;
+import dds.grupo4.tpimpacto.entities.organizacion.Organizacion;
+import dds.grupo4.tpimpacto.entities.organizacion.Sector;
+import dds.grupo4.tpimpacto.entities.organizacion.Solicitud;
+import dds.grupo4.tpimpacto.entities.medicion.TipoConsumo;
+import dds.grupo4.tpimpacto.entities.medicion.Actividad;
 import dds.grupo4.tpimpacto.repositories.OrganizacionRepository;
 import org.springframework.stereotype.Service;
 

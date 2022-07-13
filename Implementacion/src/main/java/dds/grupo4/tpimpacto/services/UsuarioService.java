@@ -1,6 +1,6 @@
 package dds.grupo4.tpimpacto.services;
 
-import dds.grupo4.tpimpacto.entities.Usuario;
+import dds.grupo4.tpimpacto.entities.seguridad.Usuario;
 
 import java.util.Optional;
 

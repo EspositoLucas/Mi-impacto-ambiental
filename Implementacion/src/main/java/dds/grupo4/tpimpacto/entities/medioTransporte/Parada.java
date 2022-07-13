@@ -1,6 +1,7 @@
-package dds.grupo4.tpimpacto.entities;
+package dds.grupo4.tpimpacto.entities.medioTransporte;
 
-import dds.grupo4.tpimpacto.entities.medioTransporte.TransportePublico;
+import dds.grupo4.tpimpacto.entities.trayecto.Direccion;
+import dds.grupo4.tpimpacto.entities.trayecto.Lugar;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

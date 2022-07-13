@@ -1,6 +1,5 @@
-package dds.grupo4.tpimpacto.entities;
+package dds.grupo4.tpimpacto.entities.trayecto;
 
-import dds.grupo4.tpimpacto.entities.enums.TipoEspacio;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -1,8 +1,8 @@
 package dds.grupo4.tpimpacto.services.apiSwagger;
 
 import dds.grupo4.tpimpacto.config.GeoApiConfig;
-import dds.grupo4.tpimpacto.entities.Direccion;
-import dds.grupo4.tpimpacto.entities.Lugar;
+import dds.grupo4.tpimpacto.entities.trayecto.Direccion;
+import dds.grupo4.tpimpacto.entities.trayecto.Lugar;
 import dds.grupo4.tpimpacto.helpers.ConverterHelper;
 import dds.grupo4.tpimpacto.services.apiSwagger.entities.*;
 import okhttp3.OkHttpClient;

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import dds.grupo4.tpimpacto.entities.TipoConsumo;
+import dds.grupo4.tpimpacto.entities.medicion.TipoConsumo;
 
 public class TipoConsumoRepositoryImpl implements TipoConsumoRepository {
 

@@ -1,6 +1,6 @@
 package dds.grupo4.tpimpacto.services.apiSwagger;
 
-import dds.grupo4.tpimpacto.entities.Lugar;
+import dds.grupo4.tpimpacto.entities.trayecto.Lugar;
 import dds.grupo4.tpimpacto.services.apiSwagger.entities.*;
 
 import java.io.IOException;

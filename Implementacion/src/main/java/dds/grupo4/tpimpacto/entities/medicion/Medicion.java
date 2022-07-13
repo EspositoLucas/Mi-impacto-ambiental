@@ -1,6 +1,7 @@
-package dds.grupo4.tpimpacto.entities;
+package dds.grupo4.tpimpacto.entities.medicion;
 
-import dds.grupo4.tpimpacto.entities.enums.Actividad;
+import dds.grupo4.tpimpacto.entities.BaseEntity;
+import dds.grupo4.tpimpacto.entities.organizacion.Organizacion;
 import dds.grupo4.tpimpacto.entities.medioTransporte.MedioDeTransporte;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -12,7 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import static dds.grupo4.tpimpacto.entities.enums.Actividad.LogisticaDeProductosYResiduos;
+import static dds.grupo4.tpimpacto.entities.medicion.Actividad.LogisticaDeProductosYResiduos;
 
 @Entity(name = "Medicion")
 @Table(name = "mediciones")

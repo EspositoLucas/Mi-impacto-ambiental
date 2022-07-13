@@ -3,7 +3,7 @@ package dds.grupo4.tpimpacto.services;
 import java.util.List;
 import java.util.Optional;
 
-import dds.grupo4.tpimpacto.entities.TipoConsumo;
+import dds.grupo4.tpimpacto.entities.medicion.TipoConsumo;
 import dds.grupo4.tpimpacto.repositories.TipoConsumoRepository;
 
 public class TipoConsumoServiceImpl implements TipoConsumoService {

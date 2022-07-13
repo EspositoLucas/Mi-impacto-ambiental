@@ -1,8 +1,8 @@
 package dds.grupo4.tpimpacto.services;
 
 import dds.grupo4.tpimpacto.cargamediciones.RowMedicionActividad;
-import dds.grupo4.tpimpacto.entities.Organizacion;
-import dds.grupo4.tpimpacto.entities.Solicitud;
+import dds.grupo4.tpimpacto.entities.organizacion.Organizacion;
+import dds.grupo4.tpimpacto.entities.organizacion.Solicitud;
 
 import java.util.List;
 import java.util.Optional;

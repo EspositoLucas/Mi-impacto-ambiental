@@ -1,6 +1,8 @@
-package dds.grupo4.tpimpacto.entities;
+package dds.grupo4.tpimpacto.entities.seguridad;
 
-import dds.grupo4.tpimpacto.entities.enums.TipoDocumento;
+import dds.grupo4.tpimpacto.entities.BaseEntity;
+import dds.grupo4.tpimpacto.entities.organizacion.TipoDocumento;
+import dds.grupo4.tpimpacto.entities.organizacion.Miembro;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
