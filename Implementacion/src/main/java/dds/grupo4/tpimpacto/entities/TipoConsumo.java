@@ -18,6 +18,10 @@ public class TipoConsumo extends BaseEntity {
     private String nombre;
     private FactorEmision factorEmision;
 
+    private Double peso ; // para la actividad logistica y productos
+
+    private Double distanciaMediaRecorrida ; //para la actividad logistica y productos
+
     public TipoConsumo(String nombre, FactorEmision factorEmision) {
         this.nombre = nombre;
         this.factorEmision = factorEmision;

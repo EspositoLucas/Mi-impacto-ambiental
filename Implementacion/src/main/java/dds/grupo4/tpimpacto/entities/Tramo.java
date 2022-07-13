@@ -1,5 +1,6 @@
 package dds.grupo4.tpimpacto.entities;
 
+import dds.grupo4.tpimpacto.entities.medioTransporte.MedioDeTransporte;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -41,6 +42,7 @@ public class Tramo extends BaseEntity {
     @JoinTable(name = "miembros_por_tramo", joinColumns = @JoinColumn(name = "tramo"), inverseJoinColumns = @JoinColumn(name = "miembro"))
     private List<Miembro> miembros = new ArrayList<>();
 
+    private EstrategiaDistancia strategyDistanciaRecorrida ;
     public Tramo(Trayecto trayecto, MedioDeTransporte medioDeTransporte, Lugar lugarInicio, Lugar lugarFin, List<Miembro> miembros) {
         this.trayecto = trayecto;
         this.medioDeTransporte = medioDeTransporte;

@@ -1,6 +1,6 @@
 package dds.grupo4.tpimpacto.entities;
 
-import dds.grupo4.tpimpacto.enums.UnidadFactorEmision;
+import dds.grupo4.tpimpacto.entities.enums.UnidadFactorEmision;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

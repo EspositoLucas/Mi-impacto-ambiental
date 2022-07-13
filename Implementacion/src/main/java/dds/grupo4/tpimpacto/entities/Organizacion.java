@@ -1,7 +1,7 @@
 package dds.grupo4.tpimpacto.entities;
 
-import dds.grupo4.tpimpacto.enums.Clasificacion;
-import dds.grupo4.tpimpacto.enums.TipoOrganizacion;
+import dds.grupo4.tpimpacto.entities.enums.Clasificacion;
+import dds.grupo4.tpimpacto.entities.enums.TipoOrganizacion;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -42,7 +42,9 @@ public class Organizacion extends BaseEntity {
     @ManyToMany(mappedBy = "organizaciones")
     private List<SectorTerritorial> sectoresTerritoriales = new ArrayList<>();
 
-    private CalculoHCTramos calculoHCTramo;
+    private List<Tramo> tramos = new ArrayList<>() ;
+
+    private Double factorK;
 
     public Organizacion(String razonSocial, TipoOrganizacion tipoOrganizacion, Clasificacion clasificacion) {
         this.razonSocial = razonSocial;
@@ -94,9 +96,19 @@ public class Organizacion extends BaseEntity {
 
     // calculo para HC Total
 
-    public double calculoHCTotal() {
 
-        return this.calculoHCTramo.calculoHCTramos()
+    //mensual
+    public double calculoHCTotalMensual() {
+
+        return this.tramos.stream().mapToDouble(t->t.calculoHC()).sum()
+                + (this.mediciones.stream().mapToDouble(m -> m.calculoHCDatoActividad()).sum());
+
+    }
+
+    //anual
+    public double calculoHCTotalAnual() {
+
+        return this.tramos.stream().mapToDouble(t->t.calculoHC()).sum()
                 + (this.mediciones.stream().mapToDouble(m -> m.calculoHCDatoActividad()).sum());
 
     }

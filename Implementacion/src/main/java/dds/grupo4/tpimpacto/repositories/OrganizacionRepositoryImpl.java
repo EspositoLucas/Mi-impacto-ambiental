@@ -2,8 +2,8 @@ package dds.grupo4.tpimpacto.repositories;
 
 import dds.grupo4.tpimpacto.entities.Contacto;
 import dds.grupo4.tpimpacto.entities.Organizacion;
-import dds.grupo4.tpimpacto.enums.Clasificacion;
-import dds.grupo4.tpimpacto.enums.TipoOrganizacion;
+import dds.grupo4.tpimpacto.entities.enums.Clasificacion;
+import dds.grupo4.tpimpacto.entities.enums.TipoOrganizacion;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;

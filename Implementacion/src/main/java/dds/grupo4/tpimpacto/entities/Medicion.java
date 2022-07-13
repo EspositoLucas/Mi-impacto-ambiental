@@ -1,6 +1,7 @@
 package dds.grupo4.tpimpacto.entities;
 
-import dds.grupo4.tpimpacto.enums.Actividad;
+import dds.grupo4.tpimpacto.entities.enums.Actividad;
+import dds.grupo4.tpimpacto.entities.medioTransporte.MedioDeTransporte;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,6 +11,8 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import static dds.grupo4.tpimpacto.entities.enums.Actividad.LogisticaDeProductosYResiduos;
 
 @Entity(name = "Medicion")
 @Table(name = "mediciones")
@@ -27,11 +30,13 @@ public class Medicion extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "???tipo_consumo???", nullable = false)
     private TipoConsumo tipoConsumo;
-
     private Double valorConsumo;
-    // private String unidad;
     private String periodicidad;
     private String periodoAmputacion;
+
+    private MedioDeTransporte medioDeTransporte ;
+
+
 
     public Medicion(Actividad actividad, TipoConsumo tipoConsumo, Double valorConsumo, String periodicidad, String periodoAmputacion) {
         this.actividad = actividad;
@@ -42,6 +47,10 @@ public class Medicion extends BaseEntity {
     }
 
     public double calculoHCDatoActividad() {
-        return valorConsumo * this.tipoConsumo.getFactorEmision().getValor();
+        if(getActividad() == LogisticaDeProductosYResiduos){
+            return this.organizacion.getFactorK() * this.tipoConsumo.getPeso() * this.tipoConsumo.getDistanciaMediaRecorrida() * this.medioDeTransporte.getFactorEmision().getValor() ;
+        }
+        else return valorConsumo * this.tipoConsumo.getFactorEmision().getValor();
+
     }
 }

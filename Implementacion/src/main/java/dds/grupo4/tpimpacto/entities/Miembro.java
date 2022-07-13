@@ -35,7 +35,6 @@ public class Miembro extends BaseEntity {
     @ManyToMany(mappedBy = "miembros")
     private List<Tramo> tramos = new ArrayList<>();
 
-    private CalculoHCTramos calculoHCTramos;
 
     public Miembro(Persona persona, Usuario usuario, Sector sector) {
         this.persona = persona;
@@ -55,10 +54,9 @@ public class Miembro extends BaseEntity {
         return persona.getDocumento();
     } // Para saber que persona es un miembro a partir del documento
 
+
     // calculo HC de un miembro
     public double calculoHC() {
-        // creo que el calculo HC de un miembro seria el HC de los tramos
-        // que recorrio en un trayecto
-        return this.calculoHCTramos.calculoHCTramos();
+        return this.tramos.stream().mapToDouble(t->t.calculoHC()).sum();
     }
 }
