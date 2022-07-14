@@ -55,14 +55,11 @@ public class Tramo extends BaseEntity {
         miembro.addTramo(this);
     }
 
-    public double distancia() {
-        return medioDeTransporte.distanciaRecorrida(lugarInicio, lugarFin);
-    }
 
-    // calculo para HC
+    // calculo HC
 
     public double calculoHC() {
-    return  medioDeTransporte.distanciaRecorrida(lugarInicio,lugarFin) * medioDeTransporte.getFactorEmision().getValor();
+    return  strategyDistanciaRecorrida.distanciaRecorrida(lugarInicio,lugarFin) * medioDeTransporte.getFactorEmision().getValor();
     }
 
 }

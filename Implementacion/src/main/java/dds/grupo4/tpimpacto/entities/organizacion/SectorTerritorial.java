@@ -1,4 +1,4 @@
-package dds.grupo4.tpimpacto.entities.seguridad;
+package dds.grupo4.tpimpacto.entities.organizacion;
 
 import dds.grupo4.tpimpacto.entities.BaseEntity;
 import dds.grupo4.tpimpacto.entities.organizacion.TipoSectorTerritorial;

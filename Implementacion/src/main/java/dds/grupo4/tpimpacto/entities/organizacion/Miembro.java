@@ -1,7 +1,6 @@
 package dds.grupo4.tpimpacto.entities.organizacion;
 
 import dds.grupo4.tpimpacto.entities.BaseEntity;
-import dds.grupo4.tpimpacto.entities.seguridad.Persona;
 import dds.grupo4.tpimpacto.entities.seguridad.Usuario;
 import dds.grupo4.tpimpacto.entities.trayecto.Tramo;
 import lombok.AccessLevel;
