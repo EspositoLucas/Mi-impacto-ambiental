@@ -3,10 +3,8 @@ package dds.grupo4.tpimpacto.entities.trayecto;
 import dds.grupo4.tpimpacto.entities.*;
 import dds.grupo4.tpimpacto.entities.medioTransporte.MedioDeTransporte;
 import dds.grupo4.tpimpacto.entities.organizacion.Miembro;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import sun.util.calendar.LocalGregorianCalendar;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -39,7 +37,6 @@ public class Tramo extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "???lugar_fin???", nullable = false)
     private Lugar lugarFin;
-
     @ManyToMany
     @JoinTable(name = "miembros_por_tramo", joinColumns = @JoinColumn(name = "tramo"), inverseJoinColumns = @JoinColumn(name = "miembro"))
     private List<Miembro> miembros = new ArrayList<>();
