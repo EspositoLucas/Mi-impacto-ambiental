@@ -38,7 +38,6 @@ public class Miembro extends BaseEntity {
     @ManyToMany(mappedBy = "miembros")
     private List<Tramo> tramos = new ArrayList<>();
 
-
     public Miembro(Persona persona, Usuario usuario, Sector sector) {
         this.persona = persona;
         this.usuario = usuario;
@@ -62,4 +61,5 @@ public class Miembro extends BaseEntity {
     public double calculoHC() {
         return this.tramos.stream().mapToDouble(t->t.calculoHC()).sum();
     }
+
 }

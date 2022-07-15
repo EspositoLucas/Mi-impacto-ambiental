@@ -43,8 +43,6 @@ public class Organizacion extends BaseEntity {
     @ManyToMany(mappedBy = "organizaciones")
     private List<SectorTerritorial> sectoresTerritoriales = new ArrayList<>();
 
-    private List<Tramo> tramos = new ArrayList<>() ;
-
     private Double factorK;
 
     public Organizacion(String razonSocial, TipoOrganizacion tipoOrganizacion, Clasificacion clasificacion) {
@@ -88,6 +86,8 @@ public class Organizacion extends BaseEntity {
         mediciones.add(medicion);
     }
 
+
+    // tramos de los miembros de la organizacion
     public List<Tramo> getTramosDeMiembros() {
         return getMiembros().stream()
                 .flatMap(m -> m.getTramos().stream())
@@ -101,16 +101,25 @@ public class Organizacion extends BaseEntity {
     //mensual
     public double calculoHCTotalMensual() {
 
-        return this.tramos.stream().mapToDouble(t->t.calculoHC()).sum()
+        return this.calculoHCTramo()
                 + (this.mediciones.stream().mapToDouble(m -> m.calculoHCDatoActividad()).sum());
 
     }
 
-    //anual
+//  anual
+
     public double calculoHCTotalAnual() {
 
-        return this.tramos.stream().mapToDouble(t->t.calculoHC()).sum()
+        return this.calculoHCTramo()
                 + (this.mediciones.stream().mapToDouble(m -> m.calculoHCDatoActividad()).sum());
 
     }
+
+
+    // calculo HC de los tramos de los miembros
+    public double calculoHCTramo() {
+        return this.calculoHCTramo()
+                + (this.mediciones.stream().mapToDouble(m -> m.calculoHCDatoActividad()).sum());
+    }
+
 }
