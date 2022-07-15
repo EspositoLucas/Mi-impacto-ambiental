@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Administrador extends Usuario {
 
-
     public Administrador(String username, String password) {
         super(username, password);
     }

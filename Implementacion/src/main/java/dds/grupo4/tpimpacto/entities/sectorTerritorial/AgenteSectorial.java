@@ -1,6 +1,7 @@
-package dds.grupo4.tpimpacto.entities.organizacion;
+package dds.grupo4.tpimpacto.entities.sectorTerritorial;
 
 import dds.grupo4.tpimpacto.entities.BaseEntity;
+import dds.grupo4.tpimpacto.entities.sectorTerritorial.SectorTerritorial;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -29,7 +29,7 @@ public class Solicitud extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "organizacion", nullable = false)
-    private Organizacion organizacion;
+    private Organizacion organizacion; // para persistencia
 
     public Solicitud(Miembro miembro, Sector sector) {
         this.miembro = miembro;

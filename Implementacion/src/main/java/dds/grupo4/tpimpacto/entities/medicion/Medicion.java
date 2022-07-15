@@ -34,7 +34,6 @@ public class Medicion extends BaseEntity {
     private Double valorConsumo;
     private String periodicidad;
     private String periodoAmputacion;
-
     private MedioDeTransporte medioDeTransporte ;
 
 

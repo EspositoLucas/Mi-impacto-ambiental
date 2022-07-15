@@ -1,4 +1,4 @@
-package dds.grupo4.tpimpacto.entities.organizacion;
+package dds.grupo4.tpimpacto.entities.sectorTerritorial;
 
 public enum TipoSectorTerritorial {
     Provincias,

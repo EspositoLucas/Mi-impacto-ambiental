@@ -1,8 +1,6 @@
-package dds.grupo4.tpimpacto.entities.organizacion;
+package dds.grupo4.tpimpacto.entities.sectorTerritorial;
 
 import dds.grupo4.tpimpacto.entities.BaseEntity;
-import dds.grupo4.tpimpacto.entities.organizacion.TipoSectorTerritorial;
-import dds.grupo4.tpimpacto.entities.organizacion.AgenteSectorial;
 import dds.grupo4.tpimpacto.entities.organizacion.Organizacion;
 import lombok.AccessLevel;
 import lombok.Getter;
