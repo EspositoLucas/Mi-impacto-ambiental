@@ -1,4 +1,4 @@
-package dds.grupo4.tpimpacto.entities;
+package dds.grupo4.tpimpacto.entities.testSeguridad;
 
 import dds.grupo4.tpimpacto.entities.seguridad.Usuario;
 import org.junit.jupiter.api.Assertions;
