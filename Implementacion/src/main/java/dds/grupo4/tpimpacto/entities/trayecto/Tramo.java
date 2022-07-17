@@ -42,12 +42,12 @@ public class Tramo extends BaseEntity {
     private List<Miembro> miembros = new ArrayList<>();
 
     private EstrategiaDistancia strategyDistanciaRecorrida ;
-    public Tramo(Trayecto trayecto, MedioDeTransporte medioDeTransporte, Lugar lugarInicio, Lugar lugarFin, List<Miembro> miembros) {
+
+    public Tramo(Trayecto trayecto, MedioDeTransporte medioDeTransporte, Lugar lugarInicio, Lugar lugarFin) {
         this.trayecto = trayecto;
         this.medioDeTransporte = medioDeTransporte;
         this.lugarInicio = lugarInicio;
         this.lugarFin = lugarFin;
-        this.miembros = miembros;
     }
 
     public void addMiembro(Miembro miembro) {

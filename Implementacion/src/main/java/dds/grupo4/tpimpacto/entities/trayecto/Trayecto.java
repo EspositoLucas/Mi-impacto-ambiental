@@ -34,7 +34,7 @@ public class Trayecto extends BaseEntity {
 
     public double distanciaTotalRecorrida() {
         return this.tramos.stream()
-                .mapToDouble(t -> t.distancia())
+                .mapToDouble(t -> t.getStrategyDistanciaRecorrida().distanciaRecorrida())
                 .sum();
     }
 
