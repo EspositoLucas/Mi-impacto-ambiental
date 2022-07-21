@@ -21,9 +21,7 @@ public class LectorDeArchivoImpl implements LectorDeArchivo {
                     .map(String::trim) // Saco espacios al principio y al final de cada linea
                     .filter(s -> !s.isEmpty()) // Borro las lineas que estan vacias
                     .collect(Collectors.toList());
-        } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
+        } catch (URISyntaxException | IOException e) {
             throw new RuntimeException(e);
         }
     }

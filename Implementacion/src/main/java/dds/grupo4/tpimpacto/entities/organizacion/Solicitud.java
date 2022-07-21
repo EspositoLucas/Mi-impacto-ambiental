@@ -6,10 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity(name = "Solicitud")
 @Table(name = "solicitudes")
@@ -20,16 +17,16 @@ public class Solicitud extends BaseEntity {
 
     // Tal vez esto tendria que ser un OneToOne
     @ManyToOne
-    @JoinColumn(name = "miembro", nullable = false)
+    @JoinColumn(name = "miembro", nullable = false, foreignKey = @ForeignKey(name = "FK_Solicitudes_Miembro"))
     private Miembro miembro;
 
     @ManyToOne
-    @JoinColumn(name = "sector", nullable = false)
+    @JoinColumn(name = "sector", nullable = false, foreignKey = @ForeignKey(name = "FK_Solicitudes_Sector"))
     private Sector sector;
 
     @ManyToOne
-    @JoinColumn(name = "organizacion", nullable = false)
-    private Organizacion organizacion; // para persistencia
+    @JoinColumn(name = "organizacion", nullable = false, foreignKey = @ForeignKey(name = "FK_Solicitudes_Organizacion"))
+    private Organizacion organizacion;
 
     public Solicitud(Miembro miembro, Sector sector) {
         this.miembro = miembro;

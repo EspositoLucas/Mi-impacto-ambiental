@@ -1,16 +1,12 @@
 package dds.grupo4.tpimpacto.entities.sectorTerritorial;
 
 import dds.grupo4.tpimpacto.entities.BaseEntity;
-import dds.grupo4.tpimpacto.entities.sectorTerritorial.SectorTerritorial;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity(name = "AgenteSectorial")
 @Table(name = "agentes_sectoriales")
@@ -20,7 +16,8 @@ import javax.persistence.Table;
 public class AgenteSectorial extends BaseEntity {
 
     @ManyToOne
-    @JoinColumn(name = "???sector_territorial???", nullable = false)
+    @JoinColumn(name = "sector_territorial", nullable = false,
+            foreignKey = @ForeignKey(name = "FK_AgentesSectoriales_SectorTerritorial"))
     private SectorTerritorial sectorTerritorial;
 
     private String nombre;

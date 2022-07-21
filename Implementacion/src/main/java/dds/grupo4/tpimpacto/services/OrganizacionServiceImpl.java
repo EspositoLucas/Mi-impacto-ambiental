@@ -1,12 +1,12 @@
 package dds.grupo4.tpimpacto.services;
 
 import dds.grupo4.tpimpacto.cargamediciones.RowMedicionActividad;
+import dds.grupo4.tpimpacto.entities.medicion.Actividad;
 import dds.grupo4.tpimpacto.entities.medicion.Medicion;
+import dds.grupo4.tpimpacto.entities.medicion.TipoConsumo;
 import dds.grupo4.tpimpacto.entities.organizacion.Organizacion;
 import dds.grupo4.tpimpacto.entities.organizacion.Sector;
 import dds.grupo4.tpimpacto.entities.organizacion.Solicitud;
-import dds.grupo4.tpimpacto.entities.medicion.TipoConsumo;
-import dds.grupo4.tpimpacto.entities.medicion.Actividad;
 import dds.grupo4.tpimpacto.repositories.OrganizacionRepository;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +22,7 @@ public class OrganizacionServiceImpl implements OrganizacionService {
     private final TipoConsumoService tipoConsumoService;
 
     public OrganizacionServiceImpl(OrganizacionRepository organizacionRepository, SectorService sectorService,
-            TipoConsumoService tipoConsumoService) {
+                                   TipoConsumoService tipoConsumoService) {
         this.organizacionRepository = organizacionRepository;
         this.sectorService = sectorService;
         this.tipoConsumoService = tipoConsumoService;

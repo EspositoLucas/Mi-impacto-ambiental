@@ -7,12 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,9 +23,11 @@ public class SectorTerritorial extends BaseEntity {
 
     @ManyToMany
     @JoinTable(
-        name = "organizaciones_por_sector_territorial",
-        joinColumns = @JoinColumn(name = "???sector_territorial???"),
-        inverseJoinColumns = @JoinColumn(name = "organizacion")
+            name = "organizaciones_por_sector_territorial",
+            joinColumns = @JoinColumn(name = "sector_territorial"),
+            inverseJoinColumns = @JoinColumn(name = "organizacion"),
+            foreignKey = @ForeignKey(name = "FK_OrganizacionesPorSectorTerritorial_SectorTerritorial"),
+            inverseForeignKey = @ForeignKey(name = "FK_OrganizacionesPorSectorTerritorial_Organizacion")
     )
     private List<Organizacion> organizaciones = new ArrayList<>();
 

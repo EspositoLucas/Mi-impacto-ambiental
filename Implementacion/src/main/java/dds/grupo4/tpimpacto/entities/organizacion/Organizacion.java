@@ -101,7 +101,6 @@ public class Organizacion extends BaseEntity {
 
     //mensual
     public double calculoHCTotalMensual() {
-
         return this.calculoHCTramo()
                 + (this.mediciones.stream().mapToDouble(m -> m.calculoHCDatoActividad()).sum());
 
@@ -118,6 +117,8 @@ public class Organizacion extends BaseEntity {
 
 
     // calculo HC de los tramos de los miembros
+    // FIX: esto tiene referencia recursiva, explota 100% garantizado, ver que se suponia que queria
+    // hacerse aca
     public double calculoHCTramo() {
         return this.calculoHCTramo()
                 + (this.mediciones.stream().mapToDouble(m -> m.calculoHCDatoActividad()).sum());

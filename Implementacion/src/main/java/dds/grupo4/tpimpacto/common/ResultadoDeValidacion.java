@@ -30,8 +30,7 @@ public class ResultadoDeValidacion {
     }
 
     public String getErroresEnLineas() throws Exception {
-        return getErrores()
-                .stream()
+        return getErrores().stream()
                 .map(error -> "- " + error + "\n")
                 .collect(Collectors.joining());
     }

@@ -1,19 +1,14 @@
 package dds.grupo4.tpimpacto.entities.medicion;
 
 import dds.grupo4.tpimpacto.entities.BaseEntity;
-import dds.grupo4.tpimpacto.entities.organizacion.Organizacion;
 import dds.grupo4.tpimpacto.entities.medioTransporte.MedioDeTransporte;
+import dds.grupo4.tpimpacto.entities.organizacion.Organizacion;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
-import static dds.grupo4.tpimpacto.entities.medicion.Actividad.LogisticaDeProductosYResiduos;
+import javax.persistence.*;
 
 @Entity(name = "Medicion")
 @Table(name = "mediciones")
@@ -23,20 +18,24 @@ import static dds.grupo4.tpimpacto.entities.medicion.Actividad.LogisticaDeProduc
 public class Medicion extends BaseEntity {
 
     @ManyToOne
-    @JoinColumn(name = "organizacion", nullable = false)
+    @JoinColumn(name = "organizacion", nullable = false,
+            foreignKey = @ForeignKey(name = "FK_Mediciones_Organizacion"))
     private Organizacion organizacion;
 
     private Actividad actividad;
 
     @ManyToOne
-    @JoinColumn(name = "???tipo_consumo???", nullable = false)
+    @JoinColumn(name = "tipo_consumo", nullable = false, foreignKey = @ForeignKey(name = "FK_Mediciones_TipoConsumo"))
     private TipoConsumo tipoConsumo;
+
     private Double valorConsumo;
     private String periodicidad;
     private String periodoAmputacion;
-    private MedioDeTransporte medioDeTransporte ;
 
-
+    @ManyToOne
+    @JoinColumn(name = "medio_de_transporte", nullable = false,
+            foreignKey = @ForeignKey(name = "FK_Mediciones_MedioDeTransporte"))
+    private MedioDeTransporte medioDeTransporte;
 
     public Medicion(Actividad actividad, TipoConsumo tipoConsumo, Double valorConsumo, String periodicidad, String periodoAmputacion) {
         this.actividad = actividad;
@@ -47,10 +46,9 @@ public class Medicion extends BaseEntity {
     }
 
     public double calculoHCDatoActividad() {
-        if(getActividad() == LogisticaDeProductosYResiduos){
-            return this.organizacion.getFactorK() * this.tipoConsumo.getPeso() * this.tipoConsumo.getDistanciaMediaRecorrida() * this.medioDeTransporte.getFactorEmision().getValor() ;
+        if (getActividad() == Actividad.LogisticaDeProductosYResiduos) {
+            return this.organizacion.getFactorK() * this.tipoConsumo.getPeso() * this.tipoConsumo.getDistanciaMediaRecorrida() * this.medioDeTransporte.getFactorEmision().getValor();
         }
-        else return valorConsumo * this.tipoConsumo.getFactorEmision().getValor();
-
+        return valorConsumo * this.tipoConsumo.getFactorEmision().getValor();
     }
 }

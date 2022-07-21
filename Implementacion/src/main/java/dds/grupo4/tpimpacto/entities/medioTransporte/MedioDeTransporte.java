@@ -37,7 +37,7 @@ public abstract class MedioDeTransporte extends BaseEntity {
 
     // litros de combustible consumidos por medio de trasnporte
 
-    public abstract double cantConsumidaCombustible(Lugar lugarInicio, Lugar lugarFin) ;
+    public abstract double cantConsumidaCombustible(Lugar lugarInicio, Lugar lugarFin);
 
 
 }

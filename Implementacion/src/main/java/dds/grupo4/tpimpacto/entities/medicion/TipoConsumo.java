@@ -19,9 +19,9 @@ public class TipoConsumo extends BaseEntity {
     private String nombre;
     private FactorEmision factorEmision;
 
-    private Double peso ; // para la actividad logistica y productos
-
-    private Double distanciaMediaRecorrida ; //para la actividad logistica y productos
+    // FIX: esto casi seguro esta mal, no tiene sentido que el TipoConsumo tenga un peso ni una distancia recorrida
+    private Double peso; // para la actividad logistica y productos
+    private Double distanciaMediaRecorrida; //para la actividad logistica y productos
 
     public TipoConsumo(String nombre, FactorEmision factorEmision) {
         this.nombre = nombre;

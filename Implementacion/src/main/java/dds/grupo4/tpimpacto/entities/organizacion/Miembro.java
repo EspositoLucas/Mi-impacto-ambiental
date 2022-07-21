@@ -8,12 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,14 +20,14 @@ import java.util.List;
 public class Miembro extends BaseEntity {
 
     @ManyToOne
-    @JoinColumn(name = "persona", nullable = false)
+    @JoinColumn(name = "persona", nullable = false, foreignKey = @ForeignKey(name = "FK_Miembros_Persona"))
     private Persona persona;
 
     @OneToOne
     private Usuario usuario;
 
     @ManyToOne
-    @JoinColumn(name = "sector", nullable = false)
+    @JoinColumn(name = "sector", nullable = false, foreignKey = @ForeignKey(name = "FK_Miembros_Sector"))
     private Sector sector;
 
     @ManyToMany(mappedBy = "miembros")
@@ -59,7 +54,7 @@ public class Miembro extends BaseEntity {
 
     // calculo HC de un miembro
     public double calculoHC() {
-        return this.tramos.stream().mapToDouble(t->t.calculoHC()).sum();
+        return this.tramos.stream().mapToDouble(t -> t.calculoHC()).sum();
     }
 
 }

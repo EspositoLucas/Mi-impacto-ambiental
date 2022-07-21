@@ -15,7 +15,7 @@ public class RowMedicionActividad {
     private final String periodoImputacion;
 
     private RowMedicionActividad(String actividad, String tipoDeConsumo, double valor, String periodicidad,
-            String periodoImputacion) {
+                                 String periodoImputacion) {
         this.actividad = actividad;
         this.tipoDeConsumo = tipoDeConsumo;
         this.valor = valor;
@@ -26,7 +26,7 @@ public class RowMedicionActividad {
     public static RowMedicionActividad fromRow(Row row) {
         String actividad = row.getCell(0).getStringCellValue();
         String tipoDeConsumo = row.getCell(1).getStringCellValue();
-        Double valor = row.getCell(2).getNumericCellValue();
+        double valor = row.getCell(2).getNumericCellValue();
         String periodicidad = row.getCell(3).getStringCellValue();
         String periodoAmputacion = row.getCell(4).getStringCellValue();
 

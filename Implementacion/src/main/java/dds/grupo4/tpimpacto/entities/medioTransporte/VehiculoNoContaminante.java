@@ -34,7 +34,7 @@ public class VehiculoNoContaminante extends MedioDeTransporte {
 
     @Override
     public double cantConsumidaCombustible(Lugar lugarInicio, Lugar lugarFin) {
-            return 0;
-   }
+        return 0;
+    }
 
 }

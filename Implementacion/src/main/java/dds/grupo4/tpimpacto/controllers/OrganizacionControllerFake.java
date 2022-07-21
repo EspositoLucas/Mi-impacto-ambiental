@@ -2,12 +2,7 @@ package dds.grupo4.tpimpacto.controllers;
 
 import dds.grupo4.tpimpacto.cargamediciones.MedicionesDataLoader;
 import dds.grupo4.tpimpacto.cargamediciones.RowMedicionActividad;
-import dds.grupo4.tpimpacto.entities.organizacion.Clasificacion;
-import dds.grupo4.tpimpacto.entities.organizacion.TipoOrganizacion;
-import dds.grupo4.tpimpacto.entities.organizacion.Miembro;
-import dds.grupo4.tpimpacto.entities.organizacion.Organizacion;
-import dds.grupo4.tpimpacto.entities.organizacion.Sector;
-import dds.grupo4.tpimpacto.entities.organizacion.Solicitud;
+import dds.grupo4.tpimpacto.entities.organizacion.*;
 import dds.grupo4.tpimpacto.entities.trayecto.Espacio;
 import dds.grupo4.tpimpacto.extras.ConsoleHelper;
 import dds.grupo4.tpimpacto.services.OrganizacionService;

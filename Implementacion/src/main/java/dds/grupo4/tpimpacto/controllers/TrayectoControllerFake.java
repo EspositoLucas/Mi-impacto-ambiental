@@ -1,9 +1,7 @@
 package dds.grupo4.tpimpacto.controllers;
 
-import dds.grupo4.tpimpacto.entities.medioTransporte.MedioDeTransporte;
 import dds.grupo4.tpimpacto.entities.trayecto.Direccion;
 import dds.grupo4.tpimpacto.entities.trayecto.Tramo;
-import dds.grupo4.tpimpacto.entities.trayecto.Trayecto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,8 +26,5 @@ public class TrayectoControllerFake {
 //        }
 //        return this;
 //    }
-
-
-
 
 }

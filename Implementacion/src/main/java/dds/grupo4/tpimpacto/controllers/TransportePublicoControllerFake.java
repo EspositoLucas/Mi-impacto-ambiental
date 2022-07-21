@@ -1,10 +1,10 @@
 package dds.grupo4.tpimpacto.controllers;
 
 import dds.grupo4.tpimpacto.entities.medioTransporte.Combustible;
-import dds.grupo4.tpimpacto.entities.trayecto.Direccion;
 import dds.grupo4.tpimpacto.entities.medioTransporte.Parada;
-import dds.grupo4.tpimpacto.entities.medioTransporte.TransportePublico;
 import dds.grupo4.tpimpacto.entities.medioTransporte.TipoTransportePublico;
+import dds.grupo4.tpimpacto.entities.medioTransporte.TransportePublico;
+import dds.grupo4.tpimpacto.entities.trayecto.Direccion;
 import dds.grupo4.tpimpacto.extras.ConsoleHelper;
 import dds.grupo4.tpimpacto.helpers.ListHelper;
 import org.springframework.stereotype.Component;
@@ -40,7 +40,7 @@ public class TransportePublicoControllerFake {
 
         Combustible combustible = null;
         Double cantConmbustibleXKm = null;
-        TransportePublico transportePublico = new TransportePublico(tipoTransportePublico, linea, paradas, combustible,cantConmbustibleXKm);
+        TransportePublico transportePublico = new TransportePublico(tipoTransportePublico, linea, paradas, combustible, cantConmbustibleXKm);
 
         // TODO: ver como guardamos este TransportePublico (podemos crear un Service para todos los MediosDeTransporte o
         //  uno para cada tipo)

@@ -13,6 +13,6 @@ public class Administrador extends Usuario {
     }
 
     public void setFactorEmision(Double valorEmision, UnidadFactorEmision unidadEmision) {
-        new FactorEmision(valorEmision,unidadEmision);
+        new FactorEmision(valorEmision, unidadEmision);
     }
 }

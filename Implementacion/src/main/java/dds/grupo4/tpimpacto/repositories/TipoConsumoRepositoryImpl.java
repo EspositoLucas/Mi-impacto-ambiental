@@ -1,10 +1,10 @@
 package dds.grupo4.tpimpacto.repositories;
 
+import dds.grupo4.tpimpacto.entities.medicion.TipoConsumo;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
-import dds.grupo4.tpimpacto.entities.medicion.TipoConsumo;
 
 public class TipoConsumoRepositoryImpl implements TipoConsumoRepository {
 

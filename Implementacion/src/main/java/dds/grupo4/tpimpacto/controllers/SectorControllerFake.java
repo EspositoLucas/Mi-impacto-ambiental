@@ -1,7 +1,9 @@
 package dds.grupo4.tpimpacto.controllers;
 
 import com.sun.istack.NotNull;
-import dds.grupo4.tpimpacto.entities.organizacion.*;
+import dds.grupo4.tpimpacto.entities.organizacion.Miembro;
+import dds.grupo4.tpimpacto.entities.organizacion.Organizacion;
+import dds.grupo4.tpimpacto.entities.organizacion.Sector;
 import dds.grupo4.tpimpacto.entities.trayecto.Direccion;
 import dds.grupo4.tpimpacto.entities.trayecto.Espacio;
 import dds.grupo4.tpimpacto.entities.trayecto.TipoEspacio;
@@ -31,9 +33,9 @@ public class SectorControllerFake {
         Organizacion organizacion = buscarOrganizacionPorRazonSocial();
         ConsoleHelper.print("Nombre del espacio donde esta el sector: ");
         String nombreEspacio = ConsoleHelper.readString();
-        Espacio espacio = definirEspacio(direccionEspacio,nombreEspacio,tipoEspacio);
+        Espacio espacio = definirEspacio(direccionEspacio, nombreEspacio, tipoEspacio);
 
-        Sector nuevoSector = new Sector(nombreSector,organizacion,espacio);
+        Sector nuevoSector = new Sector(nombreSector, organizacion, espacio);
 
         try {
 
@@ -50,12 +52,12 @@ public class SectorControllerFake {
     }
 
     public SectorControllerFake definirDireccion(@NotNull Direccion direccion) {
-        this.direccionEspacio= direccion;
+        this.direccionEspacio = direccion;
         return this;
     }
 
     public SectorControllerFake definirTipoEspacio(@NotNull TipoEspacio tipoEspacio) {
-        this.tipoEspacio= tipoEspacio;
+        this.tipoEspacio = tipoEspacio;
         return this;
     }
 
@@ -67,8 +69,8 @@ public class SectorControllerFake {
         return optionalOrganizacion.get();
     }
 
-    public Espacio definirEspacio(Direccion direccion, String nombre, TipoEspacio tipoEspacio ) {
-        new Espacio(direccion,nombre,tipoEspacio);
+    public Espacio definirEspacio(Direccion direccion, String nombre, TipoEspacio tipoEspacio) {
+        new Espacio(direccion, nombre, tipoEspacio);
     }
 
 }

@@ -23,6 +23,4 @@ public class FactorEmision extends BaseEntity {
         this.unidad = unidad;
     }
 
-
-
 }
