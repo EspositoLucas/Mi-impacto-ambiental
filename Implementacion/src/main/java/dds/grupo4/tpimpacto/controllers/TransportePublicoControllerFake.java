@@ -6,7 +6,7 @@ import dds.grupo4.tpimpacto.entities.medioTransporte.TipoTransportePublico;
 import dds.grupo4.tpimpacto.entities.medioTransporte.TransportePublico;
 import dds.grupo4.tpimpacto.entities.trayecto.Direccion;
 import dds.grupo4.tpimpacto.extras.ConsoleHelper;
-import dds.grupo4.tpimpacto.helpers.ListHelper;
+import dds.grupo4.tpimpacto.utils.ListUtils;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -31,7 +31,7 @@ public class TransportePublicoControllerFake {
 
             // Agarro la ultima Parada creada y le seteo la Parada siguiente a la nueva Parada
             if (!paradas.isEmpty()) {
-                Parada ultimaParada = ListHelper.getLast(paradas);
+                Parada ultimaParada = ListUtils.getLast(paradas);
                 ultimaParada.setParadaSiguiente(parada);
             }
 

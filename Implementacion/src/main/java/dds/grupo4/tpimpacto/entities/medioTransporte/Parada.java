@@ -7,10 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity(name = "Parada")
 @Table(name = "paradas")
@@ -20,18 +17,33 @@ import javax.persistence.Table;
 public class Parada extends Lugar {
 
     @ManyToOne
-    @JoinColumn(name = "???transporte_publico???", nullable = false)
+    @JoinColumn(name = "transporte_publico", nullable = false)
     private TransportePublico transportePublico;
 
-    private Double distanciaProxima;
-    private Double distanciaAnterior;
+    private Double distanciaParadaSiguiente;
+    private Double distanciaParadaAnterior;
 
-    // TODO: ver como se anota esto en Hibernate (referencia recursiva)
+    @OneToOne
+    @JoinColumn(
+            name = "parada_siguiente",
+            unique = true,
+            nullable = true,
+            foreignKey = @ForeignKey(name = "FK_Paradas_ParadaSiguiente")
+    )
     private Parada paradaSiguiente;
 
-    public Parada(Direccion direccion, Double distanciaProxima) {
+    @OneToOne
+    @JoinColumn(
+            name = "parada_anterior",
+            unique = true,
+            nullable = true,
+            foreignKey = @ForeignKey(name = "FK_Paradas_ParadaAnterior")
+    )
+    private Parada paradaAnterior;
+
+    public Parada(Direccion direccion, Double distanciaParadaSiguiente) {
         super(direccion);
-        this.distanciaProxima = distanciaProxima;
+        this.distanciaParadaSiguiente = distanciaParadaSiguiente;
     }
 
 }

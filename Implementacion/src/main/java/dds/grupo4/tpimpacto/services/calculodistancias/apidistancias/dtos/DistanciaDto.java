@@ -1,4 +1,4 @@
-package dds.grupo4.tpimpacto.services.apiSwagger.entities;
+package dds.grupo4.tpimpacto.services.calculodistancias.apidistancias.dtos;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;

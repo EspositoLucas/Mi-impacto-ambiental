@@ -1,14 +1,11 @@
-package dds.grupo4.tpimpacto.services.apiSwagger;
+package dds.grupo4.tpimpacto.services.calculodistancias.apidistancias;
 
-import dds.grupo4.tpimpacto.entities.trayecto.Lugar;
-import dds.grupo4.tpimpacto.services.apiSwagger.entities.*;
+import dds.grupo4.tpimpacto.services.calculodistancias.apidistancias.dtos.*;
 
 import java.io.IOException;
 import java.util.List;
 
 public interface GeoService {
-    double distanciaRecorrida(Lugar lugarInicio, Lugar lugarFin);
-
     List<PaisDto> getPaises(int offset) throws IOException;
 
     List<ProvinciaDto> getProvincias(int offset, int paisId) throws IOException;

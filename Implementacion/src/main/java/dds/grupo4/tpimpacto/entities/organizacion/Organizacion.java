@@ -87,8 +87,6 @@ public class Organizacion extends BaseEntity {
         mediciones.add(medicion);
     }
 
-
-    // tramos de los miembros de la organizacion
     public List<Tramo> getTramosDeMiembros() {
         return getMiembros().stream()
                 .flatMap(m -> m.getTramos().stream())
@@ -96,23 +94,15 @@ public class Organizacion extends BaseEntity {
                 .collect(Collectors.toList());
     }
 
-    // calculo para HC Total
-
-
-    //mensual
-    public double calculoHCTotalMensual() {
+    public double calcularHCMensual() {
         return this.calculoHCTramo()
                 + (this.mediciones.stream().mapToDouble(m -> m.calculoHCDatoActividad()).sum());
 
     }
 
-//  anual
-
-    public double calculoHCTotalAnual() {
-
+    public double calcularHCAnual() {
         return this.calculoHCTramo()
                 + (this.mediciones.stream().mapToDouble(m -> m.calculoHCDatoActividad()).sum());
-
     }
 
 

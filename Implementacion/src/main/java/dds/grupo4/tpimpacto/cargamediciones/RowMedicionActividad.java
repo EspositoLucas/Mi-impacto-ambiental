@@ -28,9 +28,9 @@ public class RowMedicionActividad {
         String tipoDeConsumo = row.getCell(1).getStringCellValue();
         double valor = row.getCell(2).getNumericCellValue();
         String periodicidad = row.getCell(3).getStringCellValue();
-        String periodoAmputacion = row.getCell(4).getStringCellValue();
+        String periodoImputacion = row.getCell(4).getStringCellValue();
 
-        return new RowMedicionActividad(actividad, tipoDeConsumo, valor, periodicidad, periodoAmputacion);
+        return new RowMedicionActividad(actividad, tipoDeConsumo, valor, periodicidad, periodoImputacion);
     }
 
     @Override

@@ -45,16 +45,16 @@ public class Miembro extends BaseEntity {
 
     public Organizacion getOrganizacion() {
         return sector.getOrganizacion();
-    } // Para saber a que organizacion pertenece un miembro a partir del sector
+    }
 
     public String getDocumento() {
         return persona.getDocumento();
-    } // Para saber que persona es un miembro a partir del documento
+    }
 
-
-    // calculo HC de un miembro
-    public double calculoHC() {
-        return this.tramos.stream().mapToDouble(t -> t.calculoHC()).sum();
+    public double calcularHC() {
+        return this.tramos.stream()
+                .mapToDouble(Tramo::calcularHC)
+                .sum();
     }
 
 }

@@ -1,10 +1,11 @@
-package dds.grupo4.tpimpacto.services.apiSwagger;
+package dds.grupo4.tpimpacto.services.calculodistancias.apidistancias;
 
 import dds.grupo4.tpimpacto.config.GeoApiConfig;
 import dds.grupo4.tpimpacto.entities.trayecto.Direccion;
 import dds.grupo4.tpimpacto.entities.trayecto.Lugar;
-import dds.grupo4.tpimpacto.helpers.ConverterHelper;
-import dds.grupo4.tpimpacto.services.apiSwagger.entities.*;
+import dds.grupo4.tpimpacto.services.calculodistancias.CalculadoraDistancias;
+import dds.grupo4.tpimpacto.services.calculodistancias.apidistancias.dtos.*;
+import dds.grupo4.tpimpacto.utils.UnitUtils;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import org.springframework.stereotype.Service;
@@ -17,10 +18,10 @@ import java.util.List;
 import java.util.Set;
 
 @Service
-public class GeoServiceImpl implements GeoService {
+public class GeoServiceImpl implements GeoService, CalculadoraDistancias {
 
     private final String BASE_URL = "https://ddstpa.com.ar/api/";
-    private final ApiSwaggerService apiSwaggerService;
+    private final ApiDistanciasService apiDistanciasService;
 
     public GeoServiceImpl(GeoApiConfig apiConfig) {
         // Agrega el Token necesario para hacer las requests
@@ -38,11 +39,11 @@ public class GeoServiceImpl implements GeoService {
                 .addConverterFactory(JacksonConverterFactory.create())
                 .build();
 
-        this.apiSwaggerService = retrofit.create(ApiSwaggerService.class);
+        this.apiDistanciasService = retrofit.create(ApiDistanciasService.class);
     }
 
     @Override
-    public double distanciaRecorrida(Lugar lugarInicio, Lugar lugarFin) {
+    public double calcularDistanciaRecorrida(Lugar lugarInicio, Lugar lugarFin) {
         try {
             Direccion direccionInicio = lugarInicio.getDireccion();
             Direccion direccionFin = lugarFin.getDireccion();
@@ -60,7 +61,7 @@ public class GeoServiceImpl implements GeoService {
             int localidadFinId = getLocalidadId(municipioFinId, direccionFin.getLocalidad());
 
             DistanciaDto distanciaDto = getDistancia(localidadInicioId, direccionInicio.getCalle(), direccionInicio.getAltura(), localidadFinId, direccionFin.getCalle(), direccionFin.getAltura());
-            return ConverterHelper.convertToUnit(distanciaDto.getValor(), distanciaDto.getUnidad(), "KM");
+            return UnitUtils.convertToUnit(distanciaDto.getValor(), distanciaDto.getUnidad(), "KM");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -68,27 +69,27 @@ public class GeoServiceImpl implements GeoService {
 
     @Override
     public List<PaisDto> getPaises(int offset) throws IOException {
-        return this.apiSwaggerService.paises(offset).execute().body();
+        return this.apiDistanciasService.paises(offset).execute().body();
     }
 
     @Override
     public List<ProvinciaDto> getProvincias(int offset, int paisId) throws IOException {
-        return this.apiSwaggerService.provincias(offset, paisId).execute().body();
+        return this.apiDistanciasService.provincias(offset, paisId).execute().body();
     }
 
     @Override
     public List<MunicipioDto> getMunicipios(int offset, int provinciaId) throws IOException {
-        return this.apiSwaggerService.municipios(offset, provinciaId).execute().body();
+        return this.apiDistanciasService.municipios(offset, provinciaId).execute().body();
     }
 
     @Override
     public List<LocalidadDto> getLocalidades(int offset, int municipioId) throws IOException {
-        return this.apiSwaggerService.localidades(offset, municipioId).execute().body();
+        return this.apiDistanciasService.localidades(offset, municipioId).execute().body();
     }
 
     @Override
     public DistanciaDto getDistancia(int localidadOrigenId, String calleOrigen, String alturaOrigen, int localidadDestinoId, String calleDestino, String alturaDestino) throws IOException {
-        return this.apiSwaggerService.distancia(localidadOrigenId, calleOrigen, alturaOrigen, localidadDestinoId, calleDestino, alturaDestino).execute().body();
+        return this.apiDistanciasService.distancia(localidadOrigenId, calleOrigen, alturaOrigen, localidadDestinoId, calleDestino, alturaDestino).execute().body();
     }
 
     private int getPaisId(String pais) throws IOException {

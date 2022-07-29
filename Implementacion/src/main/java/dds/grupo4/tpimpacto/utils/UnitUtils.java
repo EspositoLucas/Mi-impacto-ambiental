@@ -1,6 +1,6 @@
-package dds.grupo4.tpimpacto.helpers;
+package dds.grupo4.tpimpacto.utils;
 
-public class ConverterHelper {
+public class UnitUtils {
 
     public static double convertToUnit(double valor, String unidadActual, String unidadFinal) {
         switch (unidadFinal) {

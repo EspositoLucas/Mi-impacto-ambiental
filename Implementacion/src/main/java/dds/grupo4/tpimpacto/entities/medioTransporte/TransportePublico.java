@@ -1,6 +1,5 @@
 package dds.grupo4.tpimpacto.entities.medioTransporte;
 
-import dds.grupo4.tpimpacto.entities.trayecto.Lugar;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,39 +25,19 @@ public class TransportePublico extends MedioDeTransporte {
     private List<Parada> paradas = new ArrayList<>();
 
     private Combustible combustible;
-    private Double cantConmbustibleXKm;
+    private double combustibleConsumidoPorKm;
 
-    public TransportePublico(TipoTransportePublico tipoTransportePublico, String linea, List<Parada> paradas, Combustible combustible, Double cantConmbustibleXKm) {
+    public TransportePublico(TipoTransportePublico tipoTransportePublico, String linea, List<Parada> paradas, Combustible combustible, double combustibleConsumidoPorKm) {
         this.tipoTransportePublico = tipoTransportePublico;
         this.linea = linea;
         this.paradas = paradas;
         this.combustible = combustible;
-        this.cantConmbustibleXKm = cantConmbustibleXKm;
+        this.combustibleConsumidoPorKm = combustibleConsumidoPorKm;
     }
 
     public void addParada(Parada parada) {
         paradas.add(parada);
         parada.setTransportePublico(this);
-    }
-
-    @Override
-    public double distanciaRecorrida(Lugar lugarInicio, Lugar lugarFin) {
-        Parada paradaInicio = (Parada) lugarInicio;
-        Parada paradaFin = (Parada) lugarFin;
-
-        double distanciaRecorrida = 0;
-        Parada paradaActual = paradaInicio;
-        while (!paradaActual.equals(paradaFin)) {
-            distanciaRecorrida += paradaActual.getDistanciaProxima();
-            paradaActual = paradaActual.getParadaSiguiente();
-        }
-
-        return distanciaRecorrida;
-    }
-
-    @Override
-    public double cantConsumidaCombustible(Lugar lugarInicio, Lugar lugarFin) {
-        return cantConmbustibleXKm * this.distanciaRecorrida(lugarInicio, lugarFin);
     }
 
 }

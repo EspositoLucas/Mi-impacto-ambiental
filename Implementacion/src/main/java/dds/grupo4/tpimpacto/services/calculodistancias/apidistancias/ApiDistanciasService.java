@@ -1,13 +1,13 @@
-package dds.grupo4.tpimpacto.services.apiSwagger;
+package dds.grupo4.tpimpacto.services.calculodistancias.apidistancias;
 
-import dds.grupo4.tpimpacto.services.apiSwagger.entities.*;
+import dds.grupo4.tpimpacto.services.calculodistancias.apidistancias.dtos.*;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
 import java.util.List;
 
-interface ApiSwaggerService {
+interface ApiDistanciasService {
 
     @GET("paises")
     Call<List<PaisDto>> paises(@Query("offset") int offset);

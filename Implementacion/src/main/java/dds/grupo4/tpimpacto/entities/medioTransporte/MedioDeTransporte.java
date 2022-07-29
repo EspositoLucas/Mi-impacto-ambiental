@@ -1,17 +1,14 @@
 package dds.grupo4.tpimpacto.entities.medioTransporte;
 
 import dds.grupo4.tpimpacto.entities.BaseEntity;
-import dds.grupo4.tpimpacto.entities.medicion.FactorEmision;
+import dds.grupo4.tpimpacto.entities.medicion.FactorDeEmision;
 import dds.grupo4.tpimpacto.entities.trayecto.Lugar;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity(name = "MedioDeTransporte")
 @Table(name = "medios_de_transporte")
@@ -23,21 +20,22 @@ public abstract class MedioDeTransporte extends BaseEntity {
 
     protected final String API_TOKEN = "dbNsJcYAneNbF8+i9DX735F7KR7mPZVELmu1wN+Nx0o=";
 
-    private FactorEmision factorEmision;
+    // ? Esto supone que todas las Organizaciones usan el mismo FactorDeEmision para cada MedioDeTransporte.
+    // Si cada Organizacion puede tener su propio FE para cada MedioDeTransporte, entonces habria que hacer
+    // un ManyToMany con una tabla intermedia.
+    @OneToOne
+    @JoinColumn(
+            name = "factor_de_emision",
+            nullable = false,
+            foreignKey = @ForeignKey(name = "FK_MedioDeTransporte_FactorDeEmision")
+    )
+    private FactorDeEmision factorDeEmision;
 
-    public MedioDeTransporte(FactorEmision factorEmision) {
-        this.factorEmision = factorEmision;
+    public void setFactorDeEmision(FactorDeEmision factorDeEmision) {
+        this.factorDeEmision = factorDeEmision;
+        factorDeEmision.setMedioDeTransporte(this);
     }
 
-    /**
-     * Devuelve la distancia en KM entre el Lugar inicial y el Lugar final
-     */
-    public abstract double distanciaRecorrida(Lugar lugarInicio, Lugar lugarFin);
-
-
-    // litros de combustible consumidos por medio de trasnporte
-
-    public abstract double cantConsumidaCombustible(Lugar lugarInicio, Lugar lugarFin);
-
+    public abstract double getCombustibleConsumidoPorKm();
 
 }

@@ -39,12 +39,15 @@ public class SectorTerritorial extends BaseEntity {
         this.tipoSectorTerritorial = tipo;
     }
 
-    // metodo Resultado HC total para SectoTerritorial
+    public double calcularHCAnual() {
+        return organizaciones.stream()
+                .mapToDouble(Organizacion::calcularHCAnual)
+                .sum();
+    }
 
-//    public Double calculoHCTotal {
-//        return this.organizaciones
-//                .stream()
-//                .mapToInt(o -> o.calculoHCTotal)
-//                .sum();
-//    }
+    public double calcularHCMensual() {
+        return organizaciones.stream()
+                .mapToDouble(Organizacion::calcularHCMensual)
+                .sum();
+    }
 }

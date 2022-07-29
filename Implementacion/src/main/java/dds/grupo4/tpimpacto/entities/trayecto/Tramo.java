@@ -3,6 +3,7 @@ package dds.grupo4.tpimpacto.entities.trayecto;
 import dds.grupo4.tpimpacto.entities.BaseEntity;
 import dds.grupo4.tpimpacto.entities.medioTransporte.MedioDeTransporte;
 import dds.grupo4.tpimpacto.entities.organizacion.Miembro;
+import dds.grupo4.tpimpacto.services.calculodistancias.CalculadoraDistancias;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -46,7 +47,9 @@ public class Tramo extends BaseEntity {
     )
     private List<Miembro> miembros = new ArrayList<>();
 
-    private EstrategiaDistancia strategyDistanciaRecorrida;
+    // Desnormaliza el dato de la distancia recorrida en el tramo, una vez que se calcula no tiene sentido volver
+    // a calcularlo asi que se guarda aca.
+    private Double distanciaRecorrida;
 
     public Tramo(Trayecto trayecto, MedioDeTransporte medioDeTransporte, Lugar lugarInicio, Lugar lugarFin) {
         this.trayecto = trayecto;
@@ -60,11 +63,16 @@ public class Tramo extends BaseEntity {
         miembro.addTramo(this);
     }
 
+    public void calcularDistanciaRecorrida(CalculadoraDistancias calculadoraDistancias) {
+        distanciaRecorrida = calculadoraDistancias.calcularDistanciaRecorrida(lugarInicio, lugarFin);
+    }
 
-    // calculo HC
+    public double calcularHC() {
+        return distanciaRecorrida * medioDeTransporte.getFactorDeEmision().getValor();
+    }
 
-    public double calculoHC() {
-        return strategyDistanciaRecorrida.distanciaRecorrida(lugarInicio, lugarFin) * medioDeTransporte.getFactorEmision().getValor();
+    public double combustibleConsumido() {
+        return distanciaRecorrida * medioDeTransporte.getCombustibleConsumidoPorKm();
     }
 
 }

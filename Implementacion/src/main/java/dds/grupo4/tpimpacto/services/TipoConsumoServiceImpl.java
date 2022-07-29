@@ -16,16 +16,7 @@ public class TipoConsumoServiceImpl implements TipoConsumoService {
 
     @Override
     public void save(TipoConsumo tipoConsumo) {
-        Optional<TipoConsumo> tipoConsumoConMismoNombreOptional = getByNombre(tipoConsumo.getNombre());
-        if (tipoConsumoConMismoNombreOptional.isPresent()) {
-            // Si ya existe un TipoConsumo con el mismo nombre, entonces se actualiza el
-            // factor de emision
-            TipoConsumo tipoConsumoConMismoNombre = tipoConsumoConMismoNombreOptional.get();
-            tipoConsumoConMismoNombre.setFactorEmision(tipoConsumo.getFactorEmision());
-            tipoConsumoRepository.update(tipoConsumoConMismoNombre);
-        } else {
-            tipoConsumoRepository.save(tipoConsumo);
-        }
+        tipoConsumoRepository.save(tipoConsumo);
     }
 
     @Override

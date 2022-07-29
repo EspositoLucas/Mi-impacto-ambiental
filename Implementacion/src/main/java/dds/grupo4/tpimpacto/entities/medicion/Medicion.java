@@ -1,7 +1,6 @@
 package dds.grupo4.tpimpacto.entities.medicion;
 
 import dds.grupo4.tpimpacto.entities.BaseEntity;
-import dds.grupo4.tpimpacto.entities.medioTransporte.MedioDeTransporte;
 import dds.grupo4.tpimpacto.entities.organizacion.Organizacion;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -9,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity(name = "Medicion")
 @Table(name = "mediciones")
@@ -28,27 +28,52 @@ public class Medicion extends BaseEntity {
     @JoinColumn(name = "tipo_consumo", nullable = false, foreignKey = @ForeignKey(name = "FK_Mediciones_TipoConsumo"))
     private TipoConsumo tipoConsumo;
 
-    private Double valorConsumo;
-    private String periodicidad;
-    private String periodoAmputacion;
+    private Double valor;
+    private Periodicidad periodicidad;
 
+    /**
+     * Si la periodicidad es MENSUAL, entonces el periodoImputacion se guarda como 01/MM/YYYY (importan
+     * el Mes y el Anio).<br>
+     * Si la periodicidad es ANUAL, entonces el periodoImputacion se guarda como 01/01/YYYY (solo importa el Anio).
+     */
+    private LocalDate periodoImputacion;
+
+    /*
+    TODO: para que seria esto?
     @ManyToOne
     @JoinColumn(name = "medio_de_transporte", nullable = false,
             foreignKey = @ForeignKey(name = "FK_Mediciones_MedioDeTransporte"))
     private MedioDeTransporte medioDeTransporte;
+     */
 
-    public Medicion(Actividad actividad, TipoConsumo tipoConsumo, Double valorConsumo, String periodicidad, String periodoAmputacion) {
+    public Medicion(Organizacion organizacion, Actividad actividad, TipoConsumo tipoConsumo, Double valor,
+                    Periodicidad periodicidad, Integer mesImputacion, Integer anioImputacion) {
+        this.organizacion = organizacion;
         this.actividad = actividad;
         this.tipoConsumo = tipoConsumo;
-        this.valorConsumo = valorConsumo;
+        this.valor = valor;
         this.periodicidad = periodicidad;
-        this.periodoAmputacion = periodoAmputacion;
+
+        if (this.periodicidad == Periodicidad.MENSUAL) {
+            this.periodoImputacion = LocalDate.of(anioImputacion, mesImputacion, 1);
+        } else {
+            this.periodoImputacion = LocalDate.of(anioImputacion, 1, 1);
+        }
     }
 
     public double calculoHCDatoActividad() {
+        // TODO: ver de donde se saca este dato, porque en teoria depende del MedioDeTransporte pero aca
+        //  no tenemos ninguna informacion sobre el MedioDeTransporte utilizado
+        double factorDeEmision = 123456789;
+
         if (getActividad() == Actividad.LogisticaDeProductosYResiduos) {
-            return this.organizacion.getFactorK() * this.tipoConsumo.getPeso() * this.tipoConsumo.getDistanciaMediaRecorrida() * this.medioDeTransporte.getFactorEmision().getValor();
+            // TODO: ver de donde salen estos numeros (creeria que del Excel, asi que habria que meter la funcionalidad
+            //  para leer estos datos
+            double distanciaMediaRecorrida = 123456789,
+                    pesoTotalTransportado = 123456789;
+            return distanciaMediaRecorrida * pesoTotalTransportado * factorDeEmision * this.organizacion.getFactorK();
         }
-        return valorConsumo * this.tipoConsumo.getFactorEmision().getValor();
+
+        return valor * factorDeEmision;
     }
 }

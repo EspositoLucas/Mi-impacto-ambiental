@@ -9,7 +9,6 @@ import lombok.Setter;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-// FIX: estoy casi seguro que esta clase no deberia existir
 @Entity(name = "Combustible")
 @Table(name = "combustibles")
 @Getter

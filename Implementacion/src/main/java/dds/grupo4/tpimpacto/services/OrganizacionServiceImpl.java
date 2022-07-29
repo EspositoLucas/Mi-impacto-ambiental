@@ -3,11 +3,13 @@ package dds.grupo4.tpimpacto.services;
 import dds.grupo4.tpimpacto.cargamediciones.RowMedicionActividad;
 import dds.grupo4.tpimpacto.entities.medicion.Actividad;
 import dds.grupo4.tpimpacto.entities.medicion.Medicion;
+import dds.grupo4.tpimpacto.entities.medicion.Periodicidad;
 import dds.grupo4.tpimpacto.entities.medicion.TipoConsumo;
 import dds.grupo4.tpimpacto.entities.organizacion.Organizacion;
 import dds.grupo4.tpimpacto.entities.organizacion.Sector;
 import dds.grupo4.tpimpacto.entities.organizacion.Solicitud;
 import dds.grupo4.tpimpacto.repositories.OrganizacionRepository;
+import dds.grupo4.tpimpacto.utils.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -59,7 +61,7 @@ public class OrganizacionServiceImpl implements OrganizacionService {
     @Override
     public void cargarMediciones(Organizacion organizacion, List<RowMedicionActividad> mediciones) {
         List<Medicion> medicionesParseadas = mediciones.stream()
-                .map(this::rowToMedicion)
+                .map(rowMedicionActividad -> rowToMedicion(organizacion, rowMedicionActividad))
                 .collect(Collectors.toList());
 
         for (Medicion medicion : medicionesParseadas) {
@@ -74,13 +76,25 @@ public class OrganizacionServiceImpl implements OrganizacionService {
         return organizacionRepository.getMailsDeContactos();
     }
 
-    private Medicion rowToMedicion(RowMedicionActividad row) {
-        Actividad actividad = Actividad.from(row.getActividad());
-        TipoConsumo tipoConsumo = tipoConsumoService.getByNombre(row.getTipoDeConsumo()).get();
+    private Medicion rowToMedicion(Organizacion organizacion, RowMedicionActividad row) {
+        Actividad actividad = Actividad.from(StringUtils.sacarAcentos(row.getActividad()));
+        TipoConsumo tipoConsumo = tipoConsumoService.getByNombre(StringUtils.sacarAcentos(row.getTipoDeConsumo())).get();
+        Periodicidad periodicidad = Periodicidad.from(row.getPeriodicidad());
 
-        Medicion medicion = new Medicion(actividad, tipoConsumo, row.getValor(), row.getPeriodicidad(),
-                row.getPeriodoImputacion());
-        return medicion;
+        Integer mesImputacion, anioImputacion;
+        String[] periodoImputacionSeparado = row.getPeriodoImputacion().split("/");
+        if (periodicidad == Periodicidad.MENSUAL) {
+            // MM/YYYY
+            mesImputacion = Integer.parseInt(periodoImputacionSeparado[0]);
+            anioImputacion = Integer.parseInt(periodoImputacionSeparado[1]);
+        } else {
+            // YYYY
+            mesImputacion = null;
+            anioImputacion = Integer.parseInt(periodoImputacionSeparado[0]);
+        }
+
+        return new Medicion(organizacion, actividad, tipoConsumo, row.getValor(),
+                periodicidad, mesImputacion, anioImputacion);
     }
 
 }
