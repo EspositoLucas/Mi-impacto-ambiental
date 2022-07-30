@@ -1,6 +1,7 @@
 package dds.grupo4.tpimpacto.entities.trayecto;
 
 import dds.grupo4.tpimpacto.entities.BaseEntity;
+import dds.grupo4.tpimpacto.entities.medicion.Periodicidad;
 import dds.grupo4.tpimpacto.entities.medioTransporte.MedioDeTransporte;
 import dds.grupo4.tpimpacto.entities.organizacion.Miembro;
 import dds.grupo4.tpimpacto.services.calculodistancias.CalculadoraDistancias;
@@ -37,6 +38,15 @@ public class Tramo extends BaseEntity {
     @JoinColumn(name = "lugar_fin", nullable = false, foreignKey = @ForeignKey(name = "FK_Tramos_LugarFin"))
     private Lugar lugarFin;
 
+    private CalculoHCTramos calculoHCTramos ;
+
+    private Double peso ;
+    private EstrategiaDistancia strategyDistanciaRecorrida ;
+
+    private Periodicidad mesDeInicio ;
+
+    private Periodicidad mesDeFin ;
+
     @ManyToMany
     @JoinTable(
             name = "miembros_por_tramo",
@@ -67,12 +77,13 @@ public class Tramo extends BaseEntity {
         distanciaRecorrida = calculadoraDistancias.calcularDistanciaRecorrida(lugarInicio, lugarFin);
     }
 
-    public double calcularHC() {
-        return distanciaRecorrida * medioDeTransporte.getFactorDeEmision().getValor();
-    }
-
     public double combustibleConsumido() {
         return distanciaRecorrida * medioDeTransporte.getCombustibleConsumidoPorKm();
     }
+
+//    public double calcularHCTramo() {
+//        return distanciaRecorrida* medioDeTransporte.getFactorDeEmision().getValor();
+//    }
+
 
 }
