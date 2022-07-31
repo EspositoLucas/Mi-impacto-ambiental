@@ -1,3 +1,0 @@
-1. Si la Actividad del Excel es "Logistica de productos y residuos", la fila incluye todos los tipos de consumos? Porque en el post de las formulas dice que para "Logistica..." el HC usa la Distancia y el Peso, pero teoricamente en cada fila nos viene o un TipoConsumo u otro, no los dos (o sea que nunca tendriamos la Distancia y el Peso juntos).
-
-2. El calculo de HC para las actividades (ya sea "Logistica..." o no) necesita de un FE, que depende del MedioDeTransporte. El tema es que en el Excel no viene ninguna informacion sobre el MedioDeTransporte correspondiente, asi que no entiendo de donde se saca ese FE.
