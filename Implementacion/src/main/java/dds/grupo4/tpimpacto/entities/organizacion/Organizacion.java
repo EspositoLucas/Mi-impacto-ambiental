@@ -94,24 +94,27 @@ public class Organizacion extends BaseEntity {
                 .collect(Collectors.toList());
     }
 
-    public double calcularHCMensual() {
-        return this.calculoHCTramo()
-                + (this.mediciones.stream().mapToDouble(m -> m.calculoHCDatoActividad()).sum());
 
-    }
-
-    public double calcularHCAnual() {
-        return this.calculoHCTramo()
-                + (this.mediciones.stream().mapToDouble(m -> m.calculoHCDatoActividad()).sum());
-    }
-
-
-    // calculo HC de los tramos de los miembros
-    // FIX: esto tiene referencia recursiva, explota 100% garantizado, ver que se suponia que queria
-    // hacerse aca
-    public double calculoHCTramo() {
-        return this.calculoHCTramo()
-                + (this.mediciones.stream().mapToDouble(m -> m.calculoHCDatoActividad()).sum());
-    }
+    // Calculo HC
+    
+//    public double calcularHCMensual() {
+//        return this.calculoHCTramo()
+//                + (this.mediciones.stream().mapToDouble(m -> m.calculoHCDatoActividad()).sum());
+//
+//    }
+//
+//    public double calcularHCAnual() {
+//        return this.calculoHCTramo()
+//                + (this.mediciones.stream().mapToDouble(m -> m.calculoHCDatoActividad()).sum());
+//    }
+//
+//
+//    // calculo HC de los tramos de los miembros
+//    // FIX: esto tiene referencia recursiva, explota 100% garantizado, ver que se suponia que queria
+//    // hacerse aca
+//    public double calculoHCTramo() {
+//        return this.calculoHCTramo()
+//                + (this.mediciones.stream().mapToDouble(m -> m.calculoHCDatoActividad()).sum());
+//    }
 
 }

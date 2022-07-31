@@ -10,6 +10,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity(name = "Miembro")
@@ -25,6 +26,8 @@ public class Miembro extends BaseEntity {
 
     @OneToOne
     private Usuario usuario;
+
+    private Date fechaIngreso ;
 
     @ManyToOne
     @JoinColumn(name = "sector", nullable = false, foreignKey = @ForeignKey(name = "FK_Miembros_Sector"))
@@ -51,10 +54,13 @@ public class Miembro extends BaseEntity {
         return persona.getDocumento();
     }
 
-    public double calcularHC() {
-        return this.tramos.stream()
-                .mapToDouble(Tramo::calcularHC)
-                .sum();
-    }
+
+    // Calculo HC
+
+//    public double calcularHC() {
+//        return this.tramos.stream()
+//                .mapToDouble(Tramo::calcularHC)
+//                .sum();
+//    }
 
 }

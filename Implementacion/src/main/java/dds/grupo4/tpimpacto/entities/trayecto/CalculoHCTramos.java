@@ -6,6 +6,9 @@ public class CalculoHCTramos {
 
     private List<Tramo> tramos;
 
+
+    // Calculos HC
+
 //    public double calcularHCTramos() {
 //        return this.tramos.stream().mapToDouble(t->t.calcularHCTramo()).sum();
 //    }

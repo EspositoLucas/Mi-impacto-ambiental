@@ -12,6 +12,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity(name = "Tramo")
@@ -43,9 +44,9 @@ public class Tramo extends BaseEntity {
     private Double peso ;
     private EstrategiaDistancia strategyDistanciaRecorrida ;
 
-    private Periodicidad mesDeInicio ;
+    private Date mesDeInicio ;
 
-    private Periodicidad mesDeFin ;
+    private Date mesDeFin ;
 
     @ManyToMany
     @JoinTable(
