@@ -61,19 +61,4 @@ public class Medicion extends BaseEntity {
         }
     }
 
-    public double calculoHCDatoActividad() {
-        // TODO: ver de donde se saca este dato, porque en teoria depende del MedioDeTransporte pero aca
-        //  no tenemos ninguna informacion sobre el MedioDeTransporte utilizado
-        double factorDeEmision = 123456789;
-
-        if (getActividad() == Actividad.LogisticaDeProductosYResiduos) {
-            // TODO: ver de donde salen estos numeros (creeria que del Excel, asi que habria que meter la funcionalidad
-            //  para leer estos datos
-            double distanciaMediaRecorrida = 123456789,
-                    pesoTotalTransportado = 123456789;
-            return distanciaMediaRecorrida * pesoTotalTransportado * factorDeEmision * this.organizacion.getFactorK();
-        }
-
-        return valor * factorDeEmision;
-    }
 }

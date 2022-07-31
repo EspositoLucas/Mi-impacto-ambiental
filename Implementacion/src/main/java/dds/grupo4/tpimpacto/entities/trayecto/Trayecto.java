@@ -48,13 +48,4 @@ public class Trayecto extends BaseEntity {
                 .sum();
     }
 
-    /**
-     * La Huella de Carbono de un Trayecto es la suma de las HCs de sus Tramos
-     */
-    public double calcularHC() {
-        return tramos.stream()
-                .mapToDouble(Tramo::calcularHC)
-                .sum();
-    }
-
 }

@@ -54,13 +54,4 @@ public class Miembro extends BaseEntity {
         return persona.getDocumento();
     }
 
-
-    // Calculo HC
-
-//    public double calcularHC() {
-//        return this.tramos.stream()
-//                .mapToDouble(Tramo::calcularHC)
-//                .sum();
-//    }
-
 }

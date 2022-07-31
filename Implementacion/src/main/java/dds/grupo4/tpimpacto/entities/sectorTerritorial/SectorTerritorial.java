@@ -39,15 +39,4 @@ public class SectorTerritorial extends BaseEntity {
         this.tipoSectorTerritorial = tipo;
     }
 
-    public double calcularHCAnual() {
-        return organizaciones.stream()
-                .mapToDouble(Organizacion::calcularHCAnual)
-                .sum();
-    }
-
-    public double calcularHCMensual() {
-        return organizaciones.stream()
-                .mapToDouble(Organizacion::calcularHCMensual)
-                .sum();
-    }
 }
