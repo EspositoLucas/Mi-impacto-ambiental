@@ -96,7 +96,7 @@ public class Organizacion extends BaseEntity {
 
 
     // Calculo HC
-    
+
 //    public double calcularHCMensual() {
 //        return this.calculoHCTramo()
 //                + (this.mediciones.stream().mapToDouble(m -> m.calculoHCDatoActividad()).sum());
