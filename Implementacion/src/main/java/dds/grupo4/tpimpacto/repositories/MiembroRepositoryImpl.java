@@ -3,27 +3,18 @@ package dds.grupo4.tpimpacto.repositories;
 import dds.grupo4.tpimpacto.entities.organizacion.Miembro;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
+import javax.persistence.EntityManager;
 import java.util.List;
 
 @Repository
-public class MiembroRepositoryImpl implements MiembroRepository {
+public class MiembroRepositoryImpl extends BaseRepositoryImpl<Miembro> implements MiembroRepository {
 
-    private final List<Miembro> miembros = new ArrayList<>();
-
-    @Override
-    public void save(Miembro obj) {
-        miembros.add(obj);
+    public MiembroRepositoryImpl(EntityManager entityManager) {
+        super(entityManager);
     }
 
     @Override
-    public void update(Miembro obj) {
-        int index = miembros.indexOf(obj);
-        miembros.set(index, obj);
-    }
-
-    @Override
-    public List<Miembro> getAll() {
-        return miembros;
+    public Class<Miembro> getEntityClass() {
+        return Miembro.class;
     }
 }

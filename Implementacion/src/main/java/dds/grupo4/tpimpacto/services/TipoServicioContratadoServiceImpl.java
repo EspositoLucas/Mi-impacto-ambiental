@@ -18,7 +18,7 @@ public class TipoServicioContratadoServiceImpl implements TipoServicioContratado
     @Override
     public void save(TipoServicioContratado obj) {
         if (tipoServicioContratadoRepository.getAll().contains(obj)) {
-            tipoServicioContratadoRepository.update(obj);
+            tipoServicioContratadoRepository.merge(obj);
         } else {
             tipoServicioContratadoRepository.save(obj);
         }

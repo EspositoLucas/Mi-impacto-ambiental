@@ -3,28 +3,17 @@ package dds.grupo4.tpimpacto.repositories;
 import dds.grupo4.tpimpacto.entities.trayecto.Trayecto;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.persistence.EntityManager;
 
 @Repository
-public class TrayectoRepositoryImpl implements TrayectoRepository {
+public class TrayectoRepositoryImpl extends BaseRepositoryImpl<Trayecto> implements TrayectoRepository {
 
-    private final List<Trayecto> trayectos = new ArrayList<>();
-
-    @Override
-    public void save(Trayecto trayecto) {
-        trayectos.add(trayecto);
+    public TrayectoRepositoryImpl(EntityManager entityManager) {
+        super(entityManager);
     }
 
     @Override
-    public void update(Trayecto trayecto) {
-        int index = trayectos.indexOf(trayecto);
-        trayectos.set(index, trayecto);
+    public Class<Trayecto> getEntityClass() {
+        return Trayecto.class;
     }
-
-    @Override
-    public List<Trayecto> getAll() {
-        return trayectos;
-    }
-
 }

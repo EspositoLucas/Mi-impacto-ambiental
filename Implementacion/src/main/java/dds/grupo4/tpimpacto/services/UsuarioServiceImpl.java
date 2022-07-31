@@ -23,7 +23,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Override
     public void save(Usuario user) {
         if (usuarioRepository.getAll().contains(user)) {
-            usuarioRepository.update(user);
+            usuarioRepository.merge(user);
         } else {
             usuarioRepository.save(user);
         }

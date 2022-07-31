@@ -3,45 +3,28 @@ package dds.grupo4.tpimpacto.repositories;
 import dds.grupo4.tpimpacto.entities.seguridad.Usuario;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import javax.persistence.EntityManager;
 import java.util.Optional;
 
 @Repository
-public class UsuarioRepositoryImpl implements UsuarioRepository {
+public class UsuarioRepositoryImpl extends BaseRepositoryImpl<Usuario> implements UsuarioRepository {
 
-    // En algun momento de la vida esta lista va a salir de una BD
-    private final List<Usuario> usuarios = new ArrayList<>(Arrays.asList(
-            new Usuario("echi", "!echi!"),
-            new Usuario("mili", "!mili!"),
-            new Usuario("roni", "!roni!"),
-            new Usuario("lucas", "!lucas!"),
-            new Usuario("ziro", "!ziro!"),
-            new Usuario("agus", "!agus!"))
-    );
+    public UsuarioRepositoryImpl(EntityManager entityManager) {
+        super(entityManager);
+    }
 
     @Override
     public Optional<Usuario> getByUsername(String username) {
-        return usuarios.stream()
-                .filter(usuario -> usuario.getUsername().equals(username))
-                .findAny();
+        String query = "FROM Usuario u" +
+                "WHERE u.username = :username";
+        return entityManager.createQuery(query, Usuario.class)
+                .setParameter("username", username)
+                .getResultStream()
+                .findFirst();
     }
 
     @Override
-    public void save(Usuario user) {
-        usuarios.add(user);
+    public Class<Usuario> getEntityClass() {
+        return Usuario.class;
     }
-
-    @Override
-    public void update(Usuario user) {
-        int index = usuarios.indexOf(user);
-        usuarios.set(index, user);
-    }
-
-    @Override
-    public List<Usuario> getAll() {
-        return usuarios;
-    }
-
 }

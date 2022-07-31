@@ -3,36 +3,29 @@ package dds.grupo4.tpimpacto.repositories;
 import dds.grupo4.tpimpacto.entities.organizacion.Sector;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.persistence.EntityManager;
 import java.util.Optional;
 
 @Repository
-public class SectorRepositoryImpl implements SectorRepository {
+public class SectorRepositoryImpl extends BaseRepositoryImpl<Sector> implements SectorRepository {
 
-    private final List<Sector> sectores = new ArrayList<>();
-
-    @Override
-    public void save(Sector sector) {
-        sectores.add(sector);
-    }
-
-    @Override
-    public void update(Sector sector) {
-        int index = sectores.indexOf(sector);
-        sectores.set(index, sector);
-    }
-
-    @Override
-    public List<Sector> getAll() {
-        return sectores;
+    public SectorRepositoryImpl(EntityManager entityManager) {
+        super(entityManager);
     }
 
     @Override
     public Optional<Sector> getByNombreYOrganizacion(String nombreSector, String razonSocialOrganizacion) {
-        return sectores.stream()
-                .filter(sector -> sector.getNombre().equals(nombreSector)
-                               && sector.getOrganizacion().getRazonSocial().equals(razonSocialOrganizacion))
+        String query = "FROM Sector sector" +
+                "WHERE sector.nombre = :nombreSector AND sector.organizacion.razonSocial = :razonSocialOrganizacion";
+        return entityManager.createQuery(query, Sector.class)
+                .setParameter("nombreSector", nombreSector)
+                .setParameter("razonSocialOrganizacion", razonSocialOrganizacion)
+                .getResultStream()
                 .findFirst();
+    }
+
+    @Override
+    public Class<Sector> getEntityClass() {
+        return Sector.class;
     }
 }

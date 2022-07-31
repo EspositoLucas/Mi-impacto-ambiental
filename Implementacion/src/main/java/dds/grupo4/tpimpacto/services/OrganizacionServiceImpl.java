@@ -33,7 +33,7 @@ public class OrganizacionServiceImpl implements OrganizacionService {
     @Override
     public void save(Organizacion organizacion) {
         if (organizacionRepository.getAll().contains(organizacion)) {
-            organizacionRepository.update(organizacion);
+            organizacionRepository.merge(organizacion);
         } else {
             organizacionRepository.save(organizacion);
         }

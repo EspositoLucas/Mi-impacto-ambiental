@@ -1,66 +1,42 @@
 package dds.grupo4.tpimpacto.repositories;
 
-import dds.grupo4.tpimpacto.entities.organizacion.Clasificacion;
-import dds.grupo4.tpimpacto.entities.organizacion.Contacto;
 import dds.grupo4.tpimpacto.entities.organizacion.Organizacion;
-import dds.grupo4.tpimpacto.entities.organizacion.TipoOrganizacion;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Repository
-public class OrganizacionRepositoryImpl implements OrganizacionRepository {
+public class OrganizacionRepositoryImpl extends BaseRepositoryImpl<Organizacion> implements OrganizacionRepository {
 
-    private final List<Organizacion> organizaciones = new ArrayList<>();
-
-    public OrganizacionRepositoryImpl() {
-        Organizacion mcDonalds = new Organizacion("McDonalds", TipoOrganizacion.EMPRESA, Clasificacion.EMPRESA_SECTOR_PRIMARIO);
-        mcDonalds.setContactos(new ArrayList<>(Arrays.asList(
-                new Contacto("McEchi", "McSaidman", "esaidman@frba.utn.edu.ar", "1122334455")
-        )));
-
-        Organizacion carrefour = new Organizacion("Carrefour", TipoOrganizacion.EMPRESA, Clasificacion.EMPRESA_SECTOR_PRIMARIO);
-        carrefour.setContactos(new ArrayList<>(Arrays.asList(
-                new Contacto("CarrEchi", "CarrSaidman", "grupo4dds2022@hotmail.com", "1122334455")
-        )));
-
-        organizaciones.add(mcDonalds);
-        organizaciones.add(carrefour);
-    }
-
-    @Override
-    public void save(Organizacion organizacion) {
-        organizaciones.add(organizacion);
-    }
-
-    @Override
-    public void update(Organizacion organizacion) {
-        int index = organizaciones.indexOf(organizacion);
-        organizaciones.set(index, organizacion);
-    }
-
-    @Override
-    public List<Organizacion> getAll() {
-        return organizaciones;
+    public OrganizacionRepositoryImpl(EntityManager entityManager) {
+        super(entityManager);
     }
 
     @Override
     public Optional<Organizacion> getByRazonSocial(String razonSocial) {
-        return organizaciones.stream()
-                .filter(organizacion -> organizacion.getRazonSocial().equals(razonSocial))
+        String query = "FROM Organizacion org WHERE org.razonSocial = :razonSocial";
+        return entityManager.createQuery(query, Organizacion.class)
+                .setParameter("razonSocial", razonSocial)
+                .getResultStream()
                 .findFirst();
     }
 
     @Override
     public List<String> getMailsDeContactos() {
-        return organizaciones.stream()
-                .flatMap(organizacion -> organizacion.getContactos().stream())
-                .map(contacto -> contacto.getEmail())
+        String query = "SELECT contacto.email" +
+                "FROM Organizacion org" +
+                "JOIN org.contactos contacto";
+        return entityManager.createQuery(query, String.class)
+                .getResultStream()
                 .distinct()
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Class<Organizacion> getEntityClass() {
+        return Organizacion.class;
     }
 }

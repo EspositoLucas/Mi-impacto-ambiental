@@ -2,35 +2,27 @@ package dds.grupo4.tpimpacto.repositories;
 
 import dds.grupo4.tpimpacto.entities.medicion.TipoConsumo;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.persistence.EntityManager;
 import java.util.Optional;
 
-public class TipoConsumoRepositoryImpl implements TipoConsumoRepository {
+public class TipoConsumoRepositoryImpl extends BaseRepositoryImpl<TipoConsumo> implements TipoConsumoRepository {
 
-    private final List<TipoConsumo> tiposConsumo = new ArrayList<>();
-
-    @Override
-    public void save(TipoConsumo tipoConsumo) {
-        tiposConsumo.add(tipoConsumo);
+    public TipoConsumoRepositoryImpl(EntityManager entityManager) {
+        super(entityManager);
     }
 
     @Override
-    public void update(TipoConsumo tipoConsumo) {
-        int index = tiposConsumo.indexOf(tipoConsumo);
-        tiposConsumo.set(index, tipoConsumo);
-    }
-
-    @Override
-    public List<TipoConsumo> getAll() {
-        return tiposConsumo;
-    }
-
-    @Override
-    public Optional<TipoConsumo> getByNombre(String nombreTipo) {
-        return tiposConsumo.stream()
-                .filter(tipoConsumo -> tipoConsumo.getNombre().equals(nombreTipo))
+    public Optional<TipoConsumo> getByNombre(String nombre) {
+        String query = "FROM TipoConsumo tipoConsumo" +
+                "WHERE tipoConsumo.nombre = :nombre";
+        return entityManager.createQuery(query, TipoConsumo.class)
+                .setParameter("nombre", nombre)
+                .getResultStream()
                 .findFirst();
     }
 
+    @Override
+    public Class<TipoConsumo> getEntityClass() {
+        return TipoConsumo.class;
+    }
 }
