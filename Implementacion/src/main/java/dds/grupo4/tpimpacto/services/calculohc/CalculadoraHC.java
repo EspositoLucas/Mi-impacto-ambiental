@@ -1,8 +1,10 @@
-package dds.grupo4.tpimpacto.entities.trayecto;
+package dds.grupo4.tpimpacto.services.calculohc;
+
+import dds.grupo4.tpimpacto.entities.trayecto.Tramo;
 
 import java.util.List;
 
-public class CalculoHCTramos {
+public class CalculadoraHC {
 
     private List<Tramo> tramos;
 

@@ -1,10 +1,10 @@
 package dds.grupo4.tpimpacto.entities.trayecto;
 
 import dds.grupo4.tpimpacto.entities.BaseEntity;
-import dds.grupo4.tpimpacto.entities.medicion.Periodicidad;
 import dds.grupo4.tpimpacto.entities.medioTransporte.MedioDeTransporte;
 import dds.grupo4.tpimpacto.entities.organizacion.Miembro;
 import dds.grupo4.tpimpacto.services.calculodistancias.CalculadoraDistancias;
+import dds.grupo4.tpimpacto.services.calculohc.CalculadoraHC;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -39,10 +39,7 @@ public class Tramo extends BaseEntity {
     @JoinColumn(name = "lugar_fin", nullable = false, foreignKey = @ForeignKey(name = "FK_Tramos_LugarFin"))
     private Lugar lugarFin;
 
-    private CalculoHCTramos calculoHCTramos ;
-
     private Double peso ;
-    private EstrategiaDistancia strategyDistanciaRecorrida ;
 
     private Date mesDeInicio ;
 
