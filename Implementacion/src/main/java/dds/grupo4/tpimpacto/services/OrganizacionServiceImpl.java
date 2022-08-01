@@ -1,6 +1,7 @@
 package dds.grupo4.tpimpacto.services;
 
 import dds.grupo4.tpimpacto.cargamediciones.RowMedicionActividad;
+import dds.grupo4.tpimpacto.dtos.AceptarSolicitud;
 import dds.grupo4.tpimpacto.entities.medicion.Actividad;
 import dds.grupo4.tpimpacto.entities.medicion.Medicion;
 import dds.grupo4.tpimpacto.entities.medicion.Periodicidad;
@@ -8,10 +9,12 @@ import dds.grupo4.tpimpacto.entities.medicion.TipoConsumo;
 import dds.grupo4.tpimpacto.entities.organizacion.Organizacion;
 import dds.grupo4.tpimpacto.entities.organizacion.Solicitud;
 import dds.grupo4.tpimpacto.repositories.OrganizacionRepository;
+import dds.grupo4.tpimpacto.repositories.SolicitudRepository;
 import dds.grupo4.tpimpacto.utils.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -19,13 +22,13 @@ import java.util.stream.Collectors;
 @Service
 public class OrganizacionServiceImpl extends BaseServiceImpl<Organizacion, OrganizacionRepository> implements OrganizacionService {
 
-    private final SectorService sectorService;
+    private final SolicitudRepository solicitudRepository;
     private final TipoConsumoService tipoConsumoService;
 
-    public OrganizacionServiceImpl(OrganizacionRepository organizacionRepository, SectorService sectorService,
+    public OrganizacionServiceImpl(OrganizacionRepository organizacionRepository, SolicitudRepository solicitudRepository,
                                    TipoConsumoService tipoConsumoService) {
         super(organizacionRepository);
-        this.sectorService = sectorService;
+        this.solicitudRepository = solicitudRepository;
         this.tipoConsumoService = tipoConsumoService;
     }
 
@@ -33,6 +36,15 @@ public class OrganizacionServiceImpl extends BaseServiceImpl<Organizacion, Organ
     @Transactional
     public Optional<Organizacion> getByRazonSocial(String razonSocial) {
         return repository.getByRazonSocial(razonSocial);
+    }
+
+    @Override
+    @Transactional
+    public AceptarSolicitud.Response aceptarSolicitud(AceptarSolicitud.Request request) {
+        Solicitud solicitud = solicitudRepository.getById(request.getIdSolicitud());
+        solicitud.getOrganizacion().aceptarSolicitud(solicitud);
+        solicitud.getMiembro().setFechaIngreso(LocalDate.now());
+        return new AceptarSolicitud.Response();
     }
 
     @Override

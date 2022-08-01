@@ -1,64 +1,36 @@
 package dds.grupo4.tpimpacto.controllers;
 
-import dds.grupo4.tpimpacto.entities.organizacion.*;
-import dds.grupo4.tpimpacto.entities.seguridad.Usuario;
+import dds.grupo4.tpimpacto.dtos.CrearMiembro;
 import dds.grupo4.tpimpacto.extras.ConsoleHelper;
 import dds.grupo4.tpimpacto.services.MiembroService;
 import dds.grupo4.tpimpacto.services.OrganizacionService;
 import dds.grupo4.tpimpacto.services.SectorService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import java.util.Optional;
-
 @Component
+@Slf4j
 public class MiembroControllerFake {
 
     private final MiembroService miembroService;
-    private final OrganizacionService organizacionService;
-    private final SectorService sectorService;
 
-    public MiembroControllerFake(MiembroService miembroService, OrganizacionService organizacionService, SectorService sectorService) {
+    public MiembroControllerFake(MiembroService miembroService) {
         this.miembroService = miembroService;
-        this.organizacionService = organizacionService;
-        this.sectorService = sectorService;
     }
 
     public void crearMiembro() {
-        ConsoleHelper.print("Nombre del miembro: ");
-        String nombreMiembro = ConsoleHelper.readString();
-        ConsoleHelper.print("DNI del miembro: ");
-        String dniMiembro = ConsoleHelper.readString();
+        int idPersona = ConsoleHelper.readInt("ID de la persona: ");
 
-        ConsoleHelper.print("Organizacion donde trabaja el miembro: ");
-        String razonSocialOrganizacion = ConsoleHelper.readString();
-        ConsoleHelper.print("Sector de la organizacion donde trabaja el miembro: ");
-        String nombreSector = ConsoleHelper.readString();
+        String username = ConsoleHelper.readString("Username del miembro: ");
+        String password = ConsoleHelper.readString("Password del miembro: ");
 
-        Optional<Sector> optionalSector = sectorService.getByNombreYOrganizacion(nombreSector, razonSocialOrganizacion);
-        while (!optionalSector.isPresent()) {
-            ConsoleHelper.printLine("ERROR: el sector especificado no fue encontrado");
+        int idOrganizacion = ConsoleHelper.readInt("ID de la organizacion del miembro: ");
+        int idSector = ConsoleHelper.readInt("ID del sector del miembro: ");
 
-            ConsoleHelper.print("Organizacion donde trabaja el miembro: ");
-            razonSocialOrganizacion = ConsoleHelper.readString();
-            ConsoleHelper.print("Sector de la organizacion donde trabaja el miembro: ");
-            nombreSector = ConsoleHelper.readString();
-            optionalSector = sectorService.getByNombreYOrganizacion(nombreSector, razonSocialOrganizacion);
-        }
-
-        Sector sector = optionalSector.get();
-
-        // Para las pruebas creamos una Persona para cada Miembro, aunque en realidad cada
-        // Persona puede tener muchos Miembros
-        Persona nuevaPersona = new Persona(nombreMiembro, "", TipoDocumento.DNI, dniMiembro);
-
-        Usuario nuevoUsuario = new Usuario(nombreMiembro, nombreMiembro);
-
-        Miembro nuevoMiembro = new Miembro(nuevaPersona, nuevoUsuario, sector);
-        miembroService.save(nuevoMiembro);
-
-        Solicitud solicitud = new Solicitud(nuevoMiembro, sector);
-        Organizacion organizacion = sector.getOrganizacion();
-        organizacionService.agregarSolicitud(organizacion, solicitud);
+        CrearMiembro.Request request = new CrearMiembro.Request(idPersona, username, password, idOrganizacion, idSector);
+        CrearMiembro.Response response = miembroService.crearMiembro(request);
+        log.debug("Solicitud con ID " + response.getIdSolicitud() +
+                " creada para vincular al nuevo miembro al sector de ID " + idSector);
     }
 
 }

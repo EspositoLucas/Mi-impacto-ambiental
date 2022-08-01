@@ -2,10 +2,12 @@ package dds.grupo4.tpimpacto.controllers;
 
 import dds.grupo4.tpimpacto.cargamediciones.MedicionesDataLoader;
 import dds.grupo4.tpimpacto.cargamediciones.RowMedicionActividad;
+import dds.grupo4.tpimpacto.dtos.AceptarSolicitud;
 import dds.grupo4.tpimpacto.entities.organizacion.*;
 import dds.grupo4.tpimpacto.entities.trayecto.Espacio;
 import dds.grupo4.tpimpacto.extras.ConsoleHelper;
 import dds.grupo4.tpimpacto.services.OrganizacionService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
@@ -16,6 +18,7 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Component
+@Slf4j
 public class OrganizacionControllerFake {
 
     private final OrganizacionService organizacionService;
@@ -61,30 +64,10 @@ public class OrganizacionControllerFake {
     }
 
     public void aceptarSolicitud() {
-        ConsoleHelper.print("Razon social de la Organizacion: ");
-        String razonSocialOrganizacion = ConsoleHelper.readString();
-        Optional<Organizacion> optionalOrganizacion = organizacionService.getByRazonSocial(razonSocialOrganizacion);
-        while (!optionalOrganizacion.isPresent()) {
-            ConsoleHelper.printLine("ERROR: no se encontro ninguna Organizacion con la razon social especificada");
-
-            ConsoleHelper.print("Razon social de la Organizacion: ");
-            razonSocialOrganizacion = ConsoleHelper.readString();
-            optionalOrganizacion = organizacionService.getByRazonSocial(razonSocialOrganizacion);
-        }
-
-        Organizacion organizacion = optionalOrganizacion.get();
-
-        ConsoleHelper.print("Documento del Miembro: ");
-        String documentoMiembro = ConsoleHelper.readString();
-
-        Optional<Solicitud> optionalSolicitud = organizacion.getSolicitudDeMiembro(documentoMiembro);
-        if (!optionalSolicitud.isPresent()) {
-            ConsoleHelper.printLine("ERROR: no se encontro ninguna solicitud para el Miembro especificado");
-            return;
-        }
-
-        Solicitud solicitud = optionalSolicitud.get();
-        organizacion.aceptarSolicitud(solicitud);
+        int idSolicitud = ConsoleHelper.readInt("ID de la solicitud: ");
+        AceptarSolicitud.Request request = new AceptarSolicitud.Request(idSolicitud);
+        organizacionService.aceptarSolicitud(request);
+        log.debug("Solicitud de ID " + idSolicitud + " aceptada");
     }
 
     public void listarMiembros() {

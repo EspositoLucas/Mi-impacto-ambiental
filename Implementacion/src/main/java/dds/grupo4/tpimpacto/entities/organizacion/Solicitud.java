@@ -28,9 +28,10 @@ public class Solicitud extends BaseEntity {
     @JoinColumn(name = "organizacion", nullable = false, foreignKey = @ForeignKey(name = "FK_Solicitudes_Organizacion"))
     private Organizacion organizacion;
 
-    public Solicitud(Miembro miembro, Sector sector) {
+    public Solicitud(Miembro miembro, Sector sector, Organizacion organizacion) {
         this.miembro = miembro;
         this.sector = sector;
+        this.organizacion = organizacion;
     }
 
 }

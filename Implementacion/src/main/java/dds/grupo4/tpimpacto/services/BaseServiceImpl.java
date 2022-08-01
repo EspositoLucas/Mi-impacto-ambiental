@@ -22,7 +22,7 @@ public class BaseServiceImpl<TEntity extends BaseEntity, TRepo extends BaseRepos
         try {
             repository.save(obj);
         } catch (Exception e) {
-            log.error("Error al llamar a save(), asi que se llama a merge()");
+            log.error("Error al llamar a save(), asi que se llama a merge()\nEl error es: " + e.getMessage());
             obj = repository.merge(obj);
         }
         return obj;

@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Entity(name = "Miembro")
@@ -27,7 +27,7 @@ public class Miembro extends BaseEntity {
     @OneToOne
     private Usuario usuario;
 
-    private Date fechaIngreso;
+    private LocalDate fechaIngreso;
 
     @ManyToOne
     @JoinColumn(name = "sector", nullable = false, foreignKey = @ForeignKey(name = "FK_Miembros_Sector"))
@@ -36,10 +36,9 @@ public class Miembro extends BaseEntity {
     @ManyToMany(mappedBy = "miembros")
     private List<Tramo> tramos = new ArrayList<>();
 
-    public Miembro(Persona persona, Usuario usuario, Sector sector) {
+    public Miembro(Persona persona, Usuario usuario) {
         this.persona = persona;
         this.usuario = usuario;
-        this.sector = sector;
     }
 
     public void addTramo(Tramo tramo) {

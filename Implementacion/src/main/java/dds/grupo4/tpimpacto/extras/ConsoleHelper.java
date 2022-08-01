@@ -10,8 +10,18 @@ public class ConsoleHelper {
         return scanner.nextInt();
     }
 
+    public static int readInt(String message) {
+        print(message);
+        return readInt();
+    }
+
     public static String readString() {
         return scanner.nextLine();
+    }
+
+    public static String readString(String message) {
+        print(message);
+        return readString();
     }
 
     public static void printLine(String message) {
