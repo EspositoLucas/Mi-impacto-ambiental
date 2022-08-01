@@ -5,8 +5,10 @@ import dds.grupo4.tpimpacto.extras.ConsoleHelper;
 import dds.grupo4.tpimpacto.extras.OperacionTesteo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
+@Profile("!test")
 @Component
 public class SpringCommandLineRunner implements CommandLineRunner {
     // Todos estos Controllers son "Fakes" porque unicamente estan para que no quede toda la logica en el Main,

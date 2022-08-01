@@ -91,6 +91,13 @@
 			<version>1.18.24</version>
 			<scope>provided</scope>
 		</dependency>
+
+		<!-- H2 (para los tests) -->
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>runtime</scope>
+		</dependency>
 	</dependencies>
 
 	<build>

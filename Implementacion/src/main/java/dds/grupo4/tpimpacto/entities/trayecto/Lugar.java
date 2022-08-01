@@ -16,7 +16,7 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public abstract class Lugar extends BaseEntity {
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "direccion", nullable = false, foreignKey = @ForeignKey(name = "FK_Lugares_Direccion"))
     private Direccion direccion;
 

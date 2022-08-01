@@ -9,10 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -32,7 +29,7 @@ public class Organizacion extends BaseEntity {
     @OneToMany(mappedBy = "organizacion")
     private List<Sector> sectores = new ArrayList<>();
 
-    @OneToMany(mappedBy = "organizacion")
+    @OneToMany(mappedBy = "organizacion", cascade = CascadeType.ALL)
     private List<Contacto> contactos = new ArrayList<>();
 
     @OneToMany(mappedBy = "organizacion")
@@ -55,6 +52,11 @@ public class Organizacion extends BaseEntity {
     public void addSector(Sector sector) {
         sectores.add(sector);
         sector.setOrganizacion(this);
+    }
+
+    public void addContacto(Contacto contacto) {
+        contactos.add(contacto);
+        contacto.setOrganizacion(this);
     }
 
     public void addSolicitud(Solicitud solicitud) {

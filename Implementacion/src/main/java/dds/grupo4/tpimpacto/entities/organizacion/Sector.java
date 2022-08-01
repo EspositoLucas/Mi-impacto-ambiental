@@ -20,7 +20,7 @@ public class Sector extends BaseEntity {
 
     private String nombre;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "organizacion", nullable = false, foreignKey = @ForeignKey(name = "FK_Sectores_Organizacion"))
     private Organizacion organizacion;
 
@@ -29,7 +29,7 @@ public class Sector extends BaseEntity {
      * Si en un mismo Espacio pueden haber distintos Sectores, seria ManyToOne.
      * Si en cada Espacio solamente puede haber un Sector, seria un OneToOne.
      */
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(
             name = "espacio",
             nullable = false,
