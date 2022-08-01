@@ -40,6 +40,10 @@ public class RecordatorioRecomendacionesJob extends QuartzJobBean {
 
         // Mails o numeros de telefono, dependiendo de si es por Mail o por WhatsApp
         List<String> destinos = notificationContactsFinder.findContacts(organizacionService);
+        if (destinos.isEmpty()) {
+            log.info("!! No hay ningun mail/telefono para mandar el recordatorio !!");
+            return;
+        }
 
         String asunto = "Guia de Recomendaciones";
         String cuerpo = "<p>Haga click <a href=\"https://www.google.com\">aqui</a> para ver la guia de recomendaciones.</p>";

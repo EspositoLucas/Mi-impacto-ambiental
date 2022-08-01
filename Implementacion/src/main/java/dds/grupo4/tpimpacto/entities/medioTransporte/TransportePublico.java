@@ -5,9 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +22,14 @@ public class TransportePublico extends MedioDeTransporte {
     @OneToMany(mappedBy = "transportePublico")
     private List<Parada> paradas = new ArrayList<>();
 
+    @ManyToOne
+    @JoinColumn(
+            name = "combustible",
+            nullable = false,
+            foreignKey = @ForeignKey(name = "FK_TransportesPublicos_Combustible")
+    )
     private Combustible combustible;
+
     private double combustibleConsumidoPorKm;
 
     public TransportePublico(TipoTransportePublico tipoTransportePublico, String linea, List<Parada> paradas, Combustible combustible, double combustibleConsumidoPorKm) {

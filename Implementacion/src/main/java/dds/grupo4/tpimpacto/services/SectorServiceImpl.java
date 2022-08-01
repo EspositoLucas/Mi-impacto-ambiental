@@ -3,6 +3,7 @@ package dds.grupo4.tpimpacto.services;
 import dds.grupo4.tpimpacto.entities.organizacion.Sector;
 import dds.grupo4.tpimpacto.repositories.SectorRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,6 +18,7 @@ public class SectorServiceImpl implements SectorService {
     }
 
     @Override
+    @Transactional
     public void save(Sector obj) {
         if (sectorRepository.getAll().contains(obj)) {
             sectorRepository.merge(obj);
@@ -26,11 +28,13 @@ public class SectorServiceImpl implements SectorService {
     }
 
     @Override
+    @Transactional
     public List<Sector> getAll() {
         return sectorRepository.getAll();
     }
 
     @Override
+    @Transactional
     public Optional<Sector> getByNombreYOrganizacion(String nombreSector, String razonSocialOrganizacion) {
         return sectorRepository.getByNombreYOrganizacion(nombreSector, razonSocialOrganizacion);
     }

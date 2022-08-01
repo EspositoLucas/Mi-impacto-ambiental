@@ -9,10 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity(name = "VehiculoParticular")
 @Table(name = "vehiculos_particulares")
@@ -22,7 +19,15 @@ import javax.persistence.Table;
 public class VehiculoParticular extends MedioDeTransporte {
 
     private TipoVehiculoParticular tipoVehiculoParticular;
+
+    @ManyToOne
+    @JoinColumn(
+            name = "combustible",
+            nullable = false,
+            foreignKey = @ForeignKey(name = "FK_VehiculosParticulares_Combustible")
+    )
     private Combustible combustible;
+
     private double combustibleConsumidoPorKm;
 
     @ManyToOne

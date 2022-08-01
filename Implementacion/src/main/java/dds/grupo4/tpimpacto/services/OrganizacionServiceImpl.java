@@ -11,6 +11,7 @@ import dds.grupo4.tpimpacto.entities.organizacion.Solicitud;
 import dds.grupo4.tpimpacto.repositories.OrganizacionRepository;
 import dds.grupo4.tpimpacto.utils.StringUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -31,6 +32,7 @@ public class OrganizacionServiceImpl implements OrganizacionService {
     }
 
     @Override
+    @Transactional
     public void save(Organizacion organizacion) {
         if (organizacionRepository.getAll().contains(organizacion)) {
             organizacionRepository.merge(organizacion);
@@ -44,21 +46,25 @@ public class OrganizacionServiceImpl implements OrganizacionService {
     }
 
     @Override
+    @Transactional
     public List<Organizacion> getAll() {
         return organizacionRepository.getAll();
     }
 
     @Override
+    @Transactional
     public Optional<Organizacion> getByRazonSocial(String razonSocial) {
         return organizacionRepository.getByRazonSocial(razonSocial);
     }
 
     @Override
+    @Transactional
     public void agregarSolicitud(Organizacion organizacion, Solicitud solicitud) {
         organizacion.addSolicitud(solicitud);
     }
 
     @Override
+    @Transactional
     public void cargarMediciones(Organizacion organizacion, List<RowMedicionActividad> mediciones) {
         List<Medicion> medicionesParseadas = mediciones.stream()
                 .map(rowMedicionActividad -> rowToMedicion(organizacion, rowMedicionActividad))
@@ -72,6 +78,7 @@ public class OrganizacionServiceImpl implements OrganizacionService {
     }
 
     @Override
+    @Transactional
     public List<String> getMailsDeContactos() {
         return organizacionRepository.getMailsDeContactos();
     }

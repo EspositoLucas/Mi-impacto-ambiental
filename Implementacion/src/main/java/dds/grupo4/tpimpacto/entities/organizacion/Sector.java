@@ -26,10 +26,15 @@ public class Sector extends BaseEntity {
 
     /*
      * TODO: ver si esto es un OneToOne o un ManyToOne.
-     * Si en un mismo Espacio pueden haber distintos Sectores (que calculo que no),
-     * seria ManyToOne.
+     * Si en un mismo Espacio pueden haber distintos Sectores, seria ManyToOne.
      * Si en cada Espacio solamente puede haber un Sector, seria un OneToOne.
      */
+    @ManyToOne
+    @JoinColumn(
+            name = "espacio",
+            nullable = false,
+            foreignKey = @ForeignKey(name = "FK_Sectores_Espacio")
+    )
     private Espacio espacio;
 
     @OneToMany(mappedBy = "sector")
