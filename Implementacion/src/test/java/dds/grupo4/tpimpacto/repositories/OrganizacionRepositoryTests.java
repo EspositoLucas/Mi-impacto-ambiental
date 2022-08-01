@@ -1,6 +1,7 @@
 package dds.grupo4.tpimpacto.repositories;
 
 import dds.grupo4.tpimpacto.config.CustomTestAnnotation;
+import dds.grupo4.tpimpacto.config.SlowTests;
 import dds.grupo4.tpimpacto.entities.organizacion.Clasificacion;
 import dds.grupo4.tpimpacto.entities.organizacion.Contacto;
 import dds.grupo4.tpimpacto.entities.organizacion.Organizacion;
@@ -15,6 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 @CustomTestAnnotation
+@SlowTests
 public class OrganizacionRepositoryTests {
 
     private final OrganizacionRepository organizacionRepository;

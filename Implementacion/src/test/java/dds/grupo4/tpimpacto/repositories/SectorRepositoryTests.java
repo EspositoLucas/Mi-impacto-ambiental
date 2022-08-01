@@ -1,6 +1,7 @@
 package dds.grupo4.tpimpacto.repositories;
 
 import dds.grupo4.tpimpacto.config.CustomTestAnnotation;
+import dds.grupo4.tpimpacto.config.SlowTests;
 import dds.grupo4.tpimpacto.entities.organizacion.Clasificacion;
 import dds.grupo4.tpimpacto.entities.organizacion.Organizacion;
 import dds.grupo4.tpimpacto.entities.organizacion.Sector;
@@ -17,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 
 @CustomTestAnnotation
+@SlowTests
 public class SectorRepositoryTests {
 
     private final SectorRepository sectorRepository;

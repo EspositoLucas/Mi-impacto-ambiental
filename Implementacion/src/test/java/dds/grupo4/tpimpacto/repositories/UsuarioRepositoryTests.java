@@ -1,6 +1,7 @@
 package dds.grupo4.tpimpacto.repositories;
 
 import dds.grupo4.tpimpacto.config.CustomTestAnnotation;
+import dds.grupo4.tpimpacto.config.SlowTests;
 import dds.grupo4.tpimpacto.entities.seguridad.Usuario;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 
 @CustomTestAnnotation
+@SlowTests
 public class UsuarioRepositoryTests {
 
     private final UsuarioRepository usuarioRepository;
