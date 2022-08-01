@@ -5,34 +5,19 @@ import dds.grupo4.tpimpacto.repositories.TipoConsumoRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
-public class TipoConsumoServiceImpl implements TipoConsumoService {
-
-    private final TipoConsumoRepository tipoConsumoRepository;
+public class TipoConsumoServiceImpl extends BaseServiceImpl<TipoConsumo, TipoConsumoRepository> implements TipoConsumoService {
 
     public TipoConsumoServiceImpl(TipoConsumoRepository tipoConsumoRepository) {
-        this.tipoConsumoRepository = tipoConsumoRepository;
-    }
-
-    @Override
-    @Transactional
-    public void save(TipoConsumo tipoConsumo) {
-        tipoConsumoRepository.save(tipoConsumo);
-    }
-
-    @Override
-    @Transactional
-    public List<TipoConsumo> getAll() {
-        return tipoConsumoRepository.getAll();
+        super(tipoConsumoRepository);
     }
 
     @Override
     @Transactional
     public Optional<TipoConsumo> getByNombre(String nombreTipo) {
-        return tipoConsumoRepository.getByNombre(nombreTipo);
+        return repository.getByNombre(nombreTipo);
     }
 
 }

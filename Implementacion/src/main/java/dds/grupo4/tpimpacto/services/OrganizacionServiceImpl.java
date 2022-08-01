@@ -6,7 +6,6 @@ import dds.grupo4.tpimpacto.entities.medicion.Medicion;
 import dds.grupo4.tpimpacto.entities.medicion.Periodicidad;
 import dds.grupo4.tpimpacto.entities.medicion.TipoConsumo;
 import dds.grupo4.tpimpacto.entities.organizacion.Organizacion;
-import dds.grupo4.tpimpacto.entities.organizacion.Sector;
 import dds.grupo4.tpimpacto.entities.organizacion.Solicitud;
 import dds.grupo4.tpimpacto.repositories.OrganizacionRepository;
 import dds.grupo4.tpimpacto.utils.StringUtils;
@@ -18,43 +17,22 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class OrganizacionServiceImpl implements OrganizacionService {
+public class OrganizacionServiceImpl extends BaseServiceImpl<Organizacion, OrganizacionRepository> implements OrganizacionService {
 
-    private final OrganizacionRepository organizacionRepository;
     private final SectorService sectorService;
     private final TipoConsumoService tipoConsumoService;
 
     public OrganizacionServiceImpl(OrganizacionRepository organizacionRepository, SectorService sectorService,
                                    TipoConsumoService tipoConsumoService) {
-        this.organizacionRepository = organizacionRepository;
+        super(organizacionRepository);
         this.sectorService = sectorService;
         this.tipoConsumoService = tipoConsumoService;
     }
 
     @Override
     @Transactional
-    public void save(Organizacion organizacion) {
-        if (organizacionRepository.getAll().contains(organizacion)) {
-            organizacionRepository.merge(organizacion);
-        } else {
-            organizacionRepository.save(organizacion);
-        }
-
-        for (Sector sector : organizacion.getSectores()) {
-            sectorService.save(sector);
-        }
-    }
-
-    @Override
-    @Transactional
-    public List<Organizacion> getAll() {
-        return organizacionRepository.getAll();
-    }
-
-    @Override
-    @Transactional
     public Optional<Organizacion> getByRazonSocial(String razonSocial) {
-        return organizacionRepository.getByRazonSocial(razonSocial);
+        return repository.getByRazonSocial(razonSocial);
     }
 
     @Override
@@ -80,7 +58,7 @@ public class OrganizacionServiceImpl implements OrganizacionService {
     @Override
     @Transactional
     public List<String> getMailsDeContactos() {
-        return organizacionRepository.getMailsDeContactos();
+        return repository.getMailsDeContactos();
     }
 
     private Medicion rowToMedicion(Organizacion organizacion, RowMedicionActividad row) {

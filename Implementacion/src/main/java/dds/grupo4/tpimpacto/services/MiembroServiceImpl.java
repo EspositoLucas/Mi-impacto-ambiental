@@ -3,32 +3,17 @@ package dds.grupo4.tpimpacto.services;
 import dds.grupo4.tpimpacto.entities.organizacion.Miembro;
 import dds.grupo4.tpimpacto.repositories.MiembroRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
-public class MiembroServiceImpl implements MiembroService {
-
-    private final MiembroRepository miembroRepository;
+public class MiembroServiceImpl extends BaseServiceImpl<Miembro, MiembroRepository> implements MiembroService {
 
     public MiembroServiceImpl(MiembroRepository miembroRepository) {
-        this.miembroRepository = miembroRepository;
+        super(miembroRepository);
     }
 
-    @Override
-    @Transactional
-    public void save(Miembro miembro) {
-        if (miembroRepository.getAll().contains(miembro)) {
-            miembroRepository.merge(miembro);
-        } else {
-            miembroRepository.save(miembro);
-        }
-    }
+    /*
+    public CrearMiembro.Response crearMiembro(CrearMiembro.Request request) {
 
-    @Override
-    @Transactional
-    public List<Miembro> getAll() {
-        return miembroRepository.getAll();
     }
+    */
 }
