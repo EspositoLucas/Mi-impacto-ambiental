@@ -42,6 +42,10 @@ public class OrganizacionServiceImpl extends BaseServiceImpl<Organizacion, Organ
     @Transactional
     public AceptarSolicitud.Response aceptarSolicitud(AceptarSolicitud.Request request) {
         Solicitud solicitud = solicitudRepository.getById(request.getIdSolicitud());
+        if (solicitud == null) {
+            throw new IllegalArgumentException("No existe ninguna Solicitud con ID " + request.getIdSolicitud());
+        }
+
         solicitud.getOrganizacion().aceptarSolicitud(solicitud);
         solicitud.getMiembro().setFechaIngreso(LocalDate.now());
         return new AceptarSolicitud.Response();
