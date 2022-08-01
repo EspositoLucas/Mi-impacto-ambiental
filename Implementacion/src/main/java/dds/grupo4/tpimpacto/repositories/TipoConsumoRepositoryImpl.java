@@ -1,10 +1,12 @@
 package dds.grupo4.tpimpacto.repositories;
 
 import dds.grupo4.tpimpacto.entities.medicion.TipoConsumo;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import java.util.Optional;
 
+@Repository
 public class TipoConsumoRepositoryImpl extends BaseRepositoryImpl<TipoConsumo> implements TipoConsumoRepository {
 
     public TipoConsumoRepositoryImpl(EntityManager entityManager) {
@@ -13,7 +15,7 @@ public class TipoConsumoRepositoryImpl extends BaseRepositoryImpl<TipoConsumo> i
 
     @Override
     public Optional<TipoConsumo> getByNombre(String nombre) {
-        String query = "FROM TipoConsumo tipoConsumo" +
+        String query = "FROM TipoConsumo tipoConsumo " +
                 "WHERE tipoConsumo.nombre = :nombre";
         return entityManager.createQuery(query, TipoConsumo.class)
                 .setParameter("nombre", nombre)

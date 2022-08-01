@@ -15,7 +15,7 @@ public class SectorRepositoryImpl extends BaseRepositoryImpl<Sector> implements 
 
     @Override
     public Optional<Sector> getByNombreYOrganizacion(String nombreSector, String razonSocialOrganizacion) {
-        String query = "FROM Sector sector" +
+        String query = "FROM Sector sector " +
                 "WHERE sector.nombre = :nombreSector AND sector.organizacion.razonSocial = :razonSocialOrganizacion";
         return entityManager.createQuery(query, Sector.class)
                 .setParameter("nombreSector", nombreSector)

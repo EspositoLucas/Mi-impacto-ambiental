@@ -17,7 +17,8 @@ public class OrganizacionRepositoryImpl extends BaseRepositoryImpl<Organizacion>
 
     @Override
     public Optional<Organizacion> getByRazonSocial(String razonSocial) {
-        String query = "FROM Organizacion org WHERE org.razonSocial = :razonSocial";
+        String query = "FROM Organizacion org " +
+                "WHERE org.razonSocial = :razonSocial";
         return entityManager.createQuery(query, Organizacion.class)
                 .setParameter("razonSocial", razonSocial)
                 .getResultStream()
@@ -26,8 +27,8 @@ public class OrganizacionRepositoryImpl extends BaseRepositoryImpl<Organizacion>
 
     @Override
     public List<String> getMailsDeContactos() {
-        String query = "SELECT contacto.email" +
-                "FROM Organizacion org" +
+        String query = "SELECT contacto.email " +
+                "FROM Organizacion org " +
                 "JOIN org.contactos contacto";
         return entityManager.createQuery(query, String.class)
                 .getResultStream()

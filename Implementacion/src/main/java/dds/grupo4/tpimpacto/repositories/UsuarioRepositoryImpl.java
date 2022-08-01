@@ -15,7 +15,7 @@ public class UsuarioRepositoryImpl extends BaseRepositoryImpl<Usuario> implement
 
     @Override
     public Optional<Usuario> getByUsername(String username) {
-        String query = "FROM Usuario u" +
+        String query = "FROM Usuario u " +
                 "WHERE u.username = :username";
         return entityManager.createQuery(query, Usuario.class)
                 .setParameter("username", username)
