@@ -1,11 +1,7 @@
 package dds.grupo4.tpimpacto.services.calculodistancias.apidistancias;
 
 import dds.grupo4.tpimpacto.config.GeoApiConfig;
-import dds.grupo4.tpimpacto.entities.trayecto.Direccion;
-import dds.grupo4.tpimpacto.entities.trayecto.Lugar;
-import dds.grupo4.tpimpacto.services.calculodistancias.CalculadoraDistancias;
 import dds.grupo4.tpimpacto.services.calculodistancias.apidistancias.dtos.*;
-import dds.grupo4.tpimpacto.utils.UnitUtils;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import org.springframework.stereotype.Service;
@@ -13,9 +9,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
 import java.io.IOException;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class GeoServiceImpl implements GeoService {

@@ -19,10 +19,8 @@ public class Contacto extends BaseEntity {
     private String apellido;
     private String email;
     private String telefono;
-
-    private Boolean deseaRecibirPorWhatsapp ;
-
-    private Boolean deseaRecibirPorMail ;
+    private Boolean deseaRecibirPorWhatsapp;
+    private Boolean deseaRecibirPorMail;
 
     @ManyToOne
     @JoinColumn(name = "organizacion", nullable = false, foreignKey = @ForeignKey(name = "FK_Contactos_Organizacion"))

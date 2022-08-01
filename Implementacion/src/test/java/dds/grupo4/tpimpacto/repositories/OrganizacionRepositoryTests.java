@@ -1,10 +1,10 @@
 package dds.grupo4.tpimpacto.repositories;
 
 import dds.grupo4.tpimpacto.config.CustomTestAnnotation;
-import dds.grupo4.tpimpacto.entities.organizacion.*;
-import dds.grupo4.tpimpacto.entities.trayecto.Direccion;
-import dds.grupo4.tpimpacto.entities.trayecto.Espacio;
-import dds.grupo4.tpimpacto.entities.trayecto.TipoEspacio;
+import dds.grupo4.tpimpacto.entities.organizacion.Clasificacion;
+import dds.grupo4.tpimpacto.entities.organizacion.Contacto;
+import dds.grupo4.tpimpacto.entities.organizacion.Organizacion;
+import dds.grupo4.tpimpacto.entities.organizacion.TipoOrganizacion;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

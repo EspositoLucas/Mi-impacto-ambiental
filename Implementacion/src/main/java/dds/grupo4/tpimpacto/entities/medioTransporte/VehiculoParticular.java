@@ -1,9 +1,5 @@
 package dds.grupo4.tpimpacto.entities.medioTransporte;
 
-import dds.grupo4.tpimpacto.config.GeoApiConfig;
-import dds.grupo4.tpimpacto.entities.trayecto.Lugar;
-import dds.grupo4.tpimpacto.services.calculodistancias.apidistancias.GeoService;
-import dds.grupo4.tpimpacto.services.calculodistancias.apidistancias.GeoServiceImpl;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

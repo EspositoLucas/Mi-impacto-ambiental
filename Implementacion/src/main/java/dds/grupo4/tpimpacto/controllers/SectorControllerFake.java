@@ -1,10 +1,7 @@
 package dds.grupo4.tpimpacto.controllers;
 
-import com.sun.istack.NotNull;
-import dds.grupo4.tpimpacto.entities.organizacion.Miembro;
 import dds.grupo4.tpimpacto.entities.organizacion.Organizacion;
 import dds.grupo4.tpimpacto.entities.organizacion.Sector;
-import dds.grupo4.tpimpacto.entities.trayecto.Direccion;
 import dds.grupo4.tpimpacto.entities.trayecto.Espacio;
 import dds.grupo4.tpimpacto.entities.trayecto.TipoEspacio;
 import dds.grupo4.tpimpacto.extras.ConsoleHelper;

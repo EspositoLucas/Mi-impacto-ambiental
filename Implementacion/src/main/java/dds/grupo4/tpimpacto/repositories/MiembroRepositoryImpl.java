@@ -4,7 +4,6 @@ import dds.grupo4.tpimpacto.entities.organizacion.Miembro;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
-import java.util.List;
 
 @Repository
 public class MiembroRepositoryImpl extends BaseRepositoryImpl<Miembro> implements MiembroRepository {

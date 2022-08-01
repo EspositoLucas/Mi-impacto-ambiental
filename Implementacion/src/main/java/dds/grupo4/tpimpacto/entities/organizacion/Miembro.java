@@ -27,7 +27,7 @@ public class Miembro extends BaseEntity {
     @OneToOne
     private Usuario usuario;
 
-    private Date fechaIngreso ;
+    private Date fechaIngreso;
 
     @ManyToOne
     @JoinColumn(name = "sector", nullable = false, foreignKey = @ForeignKey(name = "FK_Miembros_Sector"))
