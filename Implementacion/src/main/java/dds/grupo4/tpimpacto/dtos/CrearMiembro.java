@@ -15,17 +15,17 @@ public class CrearMiembro {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class Request {
-        private int idPersona;
+        private long idPersona;
         private String username;
         private String password;
-        private int idOrganizacion;
-        private int idSector;
+        private long idOrganizacion;
+        private long idSector;
     }
 
     @Getter
     @Setter
     @AllArgsConstructor
     public static class Response {
-        private int idSolicitud;
+        private long idSolicitud;
     }
 }

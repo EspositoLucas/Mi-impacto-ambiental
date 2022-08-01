@@ -11,5 +11,5 @@ public interface BaseRepository<T extends BaseEntity> {
 
     List<T> getAll();
 
-    T getById(int id);
+    T getById(long id);
 }

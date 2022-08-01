@@ -32,7 +32,7 @@ public abstract class BaseRepositoryImpl<T extends BaseEntity> implements BaseRe
     }
 
     @Override
-    public T getById(int id) {
+    public T getById(long id) {
         return entityManager.find(getEntityClass(), id);
     }
 

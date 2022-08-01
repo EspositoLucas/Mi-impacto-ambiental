@@ -36,7 +36,7 @@ public class BaseServiceImpl<TEntity extends BaseEntity, TRepo extends BaseRepos
 
     @Override
     @Transactional
-    public TEntity getById(int id) {
+    public TEntity getById(long id) {
         return repository.getById(id);
     }
 }
