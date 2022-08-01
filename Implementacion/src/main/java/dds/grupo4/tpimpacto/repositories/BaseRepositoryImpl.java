@@ -31,6 +31,11 @@ public abstract class BaseRepositoryImpl<T extends BaseEntity> implements BaseRe
                 .getResultList();
     }
 
+    @Override
+    public T getById(int id) {
+        return entityManager.find(getEntityClass(), id);
+    }
+
     public abstract Class<T> getEntityClass();
 
     protected String getEntityName() {

@@ -10,4 +10,6 @@ public interface BaseRepository<T extends BaseEntity> {
     T merge(T obj);
 
     List<T> getAll();
+
+    T getById(int id);
 }
