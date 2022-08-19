@@ -9,16 +9,19 @@ import dds.grupo4.tpimpacto.entities.sectorTerritorial.SectorTerritorial;
 import dds.grupo4.tpimpacto.entities.trayecto.Tramo;
 import dds.grupo4.tpimpacto.entities.trayecto.Trayecto;
 
+import java.util.Date;
+
 public class CalculadoraHC {
 
-    public double calcularHCTramo(Tramo tramo) {
+    public double calcularHCTramo(Tramo tramo, Date mesInicio, Date mesFin) {
         return tramo.getDistanciaRecorrida() * tramo.getMedioDeTransporte().getFactorDeEmision().getValor();
     }
+
 
     public double calcularHCDatoActividad(Medicion medicion) {
         // TODO: ver de donde se saca este dato, porque en teoria depende del MedioDeTransporte pero aca
         //  no tenemos ninguna informacion sobre el MedioDeTransporte utilizado
-        double factorDeEmision = 123456789;
+        double factorDeEmision = medicion.getTipoConsumo().getFactorDeEmision().getValor();
 
         if (medicion.getActividad() == Actividad.LogisticaDeProductosYResiduos) {
             // TODO: ver de donde salen estos numeros (creeria que del Excel, asi que habria que meter la funcionalidad
@@ -73,6 +76,14 @@ public class CalculadoraHC {
         return trayecto.getTramos().stream()
                 .mapToDouble(this::calcularHCTramo)
                 .sum();
+    }
+
+
+    public double calcularHCTramoMensual(Tramo tramo,Trayecto trayecto) {
+        return this.calcularHCTramoSemanal(tramo,trayecto) * 4.5 ;
+    }
+    public double calcularHCTramoSemanal(Tramo tramo,Trayecto trayecto) {
+        return this.calcularHCTrayecto(trayecto) * tramo.getCantVecesPorSemana() * tramo.getPeso();
     }
 
 }

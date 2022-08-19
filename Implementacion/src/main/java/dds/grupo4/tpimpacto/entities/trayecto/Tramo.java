@@ -40,10 +40,11 @@ public class Tramo extends BaseEntity {
 
     private Double peso;
 
-    private Date mesDeInicio;
+    private Date mesDeInicio; // periodo de inicio
 
-    private Date mesDeFin;
+    private Date mesDeFin; // periodo de fin
 
+    private int cantVecesPorSemana ; // para el calculo HC semanal
     @ManyToMany
     @JoinTable(
             name = "miembros_por_tramo",
@@ -77,5 +78,6 @@ public class Tramo extends BaseEntity {
     public double combustibleConsumido() {
         return distanciaRecorrida * medioDeTransporte.getCombustibleConsumidoPorKm();
     }
+
 
 }

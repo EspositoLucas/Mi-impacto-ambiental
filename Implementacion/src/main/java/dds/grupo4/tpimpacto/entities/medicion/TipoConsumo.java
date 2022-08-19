@@ -6,8 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity(name = "TipoConsumo")
 @Table(name = "tipos_de_consumo")
@@ -17,14 +16,26 @@ import javax.persistence.Table;
 public class TipoConsumo extends BaseEntity {
     private String nombre;
     private Actividad actividad;
-    private UnidadFactorEmision unidadFactorEmision;
+    //private UnidadFactorEmision unidadFactorEmision; // no hace falta esto al tener el factor de emision ?
+
+    @OneToOne
+    @JoinColumn(
+            name = "factor_de_emision",
+            nullable = false,
+            foreignKey = @ForeignKey(name = "FK_MedioDeTransporte_FactorDeEmision")
+    )
+    private FactorDeEmision factorDeEmision ;
     private String alcance;
 
     public TipoConsumo(String nombre, Actividad actividad, UnidadFactorEmision unidadFactorEmision, String alcance) {
         this.nombre = nombre;
         this.actividad = actividad;
-        this.unidadFactorEmision = unidadFactorEmision;
+       // this.unidadFactorEmision = unidadFactorEmision;
         this.alcance = alcance;
+    }
+    public void setFactorDeEmision(FactorDeEmision factorDeEmision) {
+        this.factorDeEmision = factorDeEmision;
+        factorDeEmision.setTipoConsumo(this);
     }
 
 }

@@ -21,7 +21,8 @@ public class FactorDeEmision extends BaseEntity {
     // TODO: ver si no depende tambien de la Organizacion (ademas del MedioDeTransporte)
     @OneToOne(mappedBy = "factorDeEmision")
     private MedioDeTransporte medioDeTransporte;
-
+    @OneToOne(mappedBy = "factorDeEmision")
+    private TipoConsumo tipoConsumo ;
     private Double valor;
     private UnidadFactorEmision unidad;
 
