@@ -4,6 +4,8 @@ import dds.grupo4.tpimpacto.entities.BaseEntity;
 import dds.grupo4.tpimpacto.entities.medicion.Medicion;
 import dds.grupo4.tpimpacto.entities.sectorTerritorial.SectorTerritorial;
 import dds.grupo4.tpimpacto.entities.trayecto.Tramo;
+import dds.grupo4.tpimpacto.services.calculodistancias.CalculadoraDistancias;
+import dds.grupo4.tpimpacto.services.calculohc.CalculadoraHC;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -95,5 +97,4 @@ public class Organizacion extends BaseEntity {
                 .distinct()
                 .collect(Collectors.toList());
     }
-
 }

@@ -9,11 +9,15 @@ import dds.grupo4.tpimpacto.entities.sectorTerritorial.SectorTerritorial;
 import dds.grupo4.tpimpacto.entities.trayecto.Tramo;
 import dds.grupo4.tpimpacto.entities.trayecto.Trayecto;
 
+import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class CalculadoraHC {
 
-    public double calcularHCTramo(Tramo tramo, Date mesInicio, Date mesFin) {
+    public double calcularHCTramo(Tramo tramo) {
         return tramo.getDistanciaRecorrida() * tramo.getMedioDeTransporte().getFactorDeEmision().getValor();
     }
 
@@ -40,35 +44,41 @@ public class CalculadoraHC {
                 .sum();
     }
 
-    public double calcularHCOrganizacionMensual(Organizacion organizacion) {
-        double hcTramosMensual = -1;
-        double hcActividadesMensual = -1;
+    public double calcularHCOrganizacionMensual(Organizacion organizacion,LocalDate mesElegido) {
+        List<Tramo> tramosEnMesElegido =  organizacion.getTramosDeMiembros().stream().filter(t->t.getTrayecto().seRealizaEntre(mesElegido)).collect(Collectors.toList());
+        double hcTramosMensual = tramosEnMesElegido.stream().mapToDouble(this::calcularHCTramoMensual).sum();
+        List<Medicion> actividadesMensuales =  organizacion.getMediciones().stream().filter(m->m.getPeriodicidad().equals("MENSUAL")).collect(Collectors.toList());
+        double hcActividadesMensual = actividadesMensuales.stream().mapToDouble((this::calcularHCDatoActividad)).sum();
         return hcTramosMensual + hcActividadesMensual;
     }
+        //Revisar lo de las fechas
+    public double calcularHCOrganizacionAnual(Organizacion organizacion,int año) {
+       List<LocalDate> meses = null;
+        for (int i=1; i<= 12; i++ ){
+            meses.add( LocalDate.of(año, i,1) );
+            }
 
-    public double calcularHCOrganizacionAnual(Organizacion organizacion) {
-        double hcTramosAnual = -1;
-        double hcActividadesAnual = -1;
-        return hcTramosAnual + hcActividadesAnual;
+
+        return meses.stream().mapToDouble(mes->this.calcularHCOrganizacionMensual(organizacion,mes)).sum();
     }
 
-    public double calcularHCSectorPromedioMensual(Sector sector) {
-        return calcularHCOrganizacionMensual(sector.getOrganizacion()) / sector.getMiembros().size();
+    public double calcularHCSectorPromedioMensual(Sector sector,LocalDate mesElegido) {
+        return calcularHCOrganizacionMensual(sector.getOrganizacion(),mesElegido) / sector.getMiembros().size();
     }
 
-    public double calculoHCSectorPromedioAnual(Sector sector) {
-        return calcularHCOrganizacionAnual(sector.getOrganizacion()) / sector.getMiembros().size();
+    public double calculoHCSectorPromedioAnual(Sector sector,int anio) {
+        return calcularHCOrganizacionAnual(sector.getOrganizacion(),anio) / sector.getMiembros().size();
     }
 
-    public double calcularHCSectorTerritorialAnual(SectorTerritorial sectorTerritorial) {
+    public double calcularHCSectorTerritorialAnual(SectorTerritorial sectorTerritorial,int anio) {
         return sectorTerritorial.getOrganizaciones().stream()
-                .mapToDouble(this::calcularHCOrganizacionAnual)
+                .mapToDouble(organizacion-> this.calcularHCOrganizacionAnual(organizacion,anio))
                 .sum();
     }
 
-    public double calcularHCSectorTerritorialMensual(SectorTerritorial sectorTerritorial) {
+    public double calcularHCSectorTerritorialMensual(SectorTerritorial sectorTerritorial,LocalDate mesElegido) {
         return sectorTerritorial.getOrganizaciones().stream()
-                .mapToDouble(this::calcularHCOrganizacionMensual)
+                .mapToDouble(organizacion-> this.calcularHCOrganizacionMensual(organizacion,mesElegido))
                 .sum();
     }
 
@@ -79,11 +89,11 @@ public class CalculadoraHC {
     }
 
 
-    public double calcularHCTramoMensual(Tramo tramo,Trayecto trayecto) {
-        return this.calcularHCTramoSemanal(tramo,trayecto) * 4.5 ;
+    public double calcularHCTramoMensual(Tramo tramo) {
+        return this.calcularHCTramoSemanal(tramo) * 4.5 ;
     }
-    public double calcularHCTramoSemanal(Tramo tramo,Trayecto trayecto) {
-        return this.calcularHCTrayecto(trayecto) * tramo.getCantVecesPorSemana() * tramo.getPeso();
+    public double calcularHCTramoSemanal(Tramo tramo) {
+        return this.calcularHCTramo(tramo) * tramo.getCantVecesPorSemana() * tramo.getPeso();
     }
 
 }

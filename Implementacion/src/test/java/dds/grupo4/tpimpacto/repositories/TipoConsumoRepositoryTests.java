@@ -42,7 +42,7 @@ public class TipoConsumoRepositoryTests {
         Assertions.assertTrue(optionalTipoConsumoDeBD.isPresent());
         Assertions.assertEquals("tipoConsumoTest", optionalTipoConsumoDeBD.get().getNombre());
         Assertions.assertEquals(Actividad.LogisticaDeProductosYResiduos, optionalTipoConsumoDeBD.get().getActividad());
-        Assertions.assertEquals(UnidadFactorEmision.G, optionalTipoConsumoDeBD.get().getUnidadFactorEmision());
+       // Assertions.assertEquals(UnidadFactorEmision.G, optionalTipoConsumoDeBD.get().getUnidadFactorEmision());
         Assertions.assertEquals("alcance1", optionalTipoConsumoDeBD.get().getAlcance());
     }
 
