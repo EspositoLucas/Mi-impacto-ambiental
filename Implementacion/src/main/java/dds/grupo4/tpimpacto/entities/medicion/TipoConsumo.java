@@ -1,6 +1,7 @@
 package dds.grupo4.tpimpacto.entities.medicion;
 
 import dds.grupo4.tpimpacto.entities.BaseEntity;
+import dds.grupo4.tpimpacto.entities.medioTransporte.MedioDeTransporte;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,6 +27,13 @@ public class TipoConsumo extends BaseEntity {
     )
     private FactorDeEmision factorDeEmision ;
     private String alcance;
+
+    private MedioDeTransporte medioDeTransporte ;
+
+    private double distanciaMediaRecorrida;
+
+    private double peso;
+
 
     public TipoConsumo(String nombre, Actividad actividad, UnidadFactorEmision unidadFactorEmision, String alcance) {
         this.nombre = nombre;

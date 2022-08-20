@@ -23,16 +23,15 @@ public class CalculadoraHC {
 
 
     public double calcularHCDatoActividad(Medicion medicion) {
-        // TODO: ver de donde se saca este dato, porque en teoria depende del MedioDeTransporte pero aca
-        //  no tenemos ninguna informacion sobre el MedioDeTransporte utilizado
-        double factorDeEmision = medicion.getTipoConsumo().getFactorDeEmision().getValor();
 
+        double factorDeEmision = medicion.getTipoConsumo().getFactorDeEmision().getValor(); // el FE depende del tipo de consumo en las actividades menos de logistica
+        double factorDeEmisionLogisticaYProductos = medicion.getTipoConsumo().getMedioDeTransporte().getFactorDeEmision().getValor();
         if (medicion.getActividad() == Actividad.LogisticaDeProductosYResiduos) {
             // TODO: ver de donde salen estos numeros (creeria que del Excel, asi que habria que meter la funcionalidad
             //  para leer estos datos
-            double distanciaMediaRecorrida = 123456789,
-                    pesoTotalTransportado = 123456789;
-            return distanciaMediaRecorrida * pesoTotalTransportado * factorDeEmision * medicion.getOrganizacion().getFactorK();
+            double distanciaMediaRecorrida = medicion.getTipoConsumo().getDistanciaMediaRecorrida(),
+                    pesoTotalTransportado = medicion.getTipoConsumo().getPeso() ;
+            return distanciaMediaRecorrida * pesoTotalTransportado * factorDeEmisionLogisticaYProductos * medicion.getOrganizacion().getFactorK();
         }
 
         return medicion.getValor() * factorDeEmision;
