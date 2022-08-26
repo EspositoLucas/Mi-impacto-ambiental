@@ -3,6 +3,7 @@ package dds.grupo4.tpimpacto.entities.trayecto;
 import dds.grupo4.tpimpacto.entities.BaseEntity;
 import dds.grupo4.tpimpacto.entities.medioTransporte.MedioDeTransporte;
 import dds.grupo4.tpimpacto.entities.organizacion.Miembro;
+import dds.grupo4.tpimpacto.entities.organizacion.Organizacion;
 import dds.grupo4.tpimpacto.services.calculodistancias.CalculadoraDistancias;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -13,6 +14,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity(name = "Tramo")
 @Table(name = "tramos")

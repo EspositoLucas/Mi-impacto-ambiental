@@ -1,5 +1,6 @@
 package dds.grupo4.tpimpacto.cargamediciones;
 
+import dds.grupo4.tpimpacto.entities.medioTransporte.MedioDeTransporte;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -25,7 +26,20 @@ public class RowMedicionActividad {
 
     public static RowMedicionActividad fromRow(Row row) {
         String actividad = row.getCell(0).getStringCellValue();
+        if(actividad == "LogisticaYProductos" ) {
+            String tipoDeConsumo = row.getCell(1).getStringCellValue();
+            if(tipoDeConsumo == "Medio de trasnporte") {
+                // MedioDeTransporte medio = MedioDeTransporte
+                //  Class c = Class.forName("dds.grupo4.tpimpacto.entities.medioTransporte.MedioDeTransporte");
+                // tipoDeConsumo = c ;
+            } else if (tipoDeConsumo == "Distancia media recorrida") {
+                double distanciaMediaRecorrida =Double.parseDouble(tipoDeConsumo);
+            }else if(tipoDeConsumo == "Peso total transportado"){
+                double peso =Double.parseDouble(tipoDeConsumo);
+            }
+        }
         String tipoDeConsumo = row.getCell(1).getStringCellValue();
+
         double valor = row.getCell(2).getNumericCellValue();
         String periodicidad = row.getCell(3).getStringCellValue();
         String periodoImputacion = row.getCell(4).getStringCellValue();
