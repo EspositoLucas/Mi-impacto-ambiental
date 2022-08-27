@@ -76,6 +76,7 @@ public class CalculadoraHC {
         double hcTramosMensual = tramosEnMesElegido.stream().mapToDouble(this::calcularHCTramoMensual).sum();
         List<Medicion> actividadesMensuales =  organizacion.getMediciones().stream().filter(m->m.getPeriodicidad().equals("MENSUAL")).collect(Collectors.toList());
         double hcActividadesMensual = actividadesMensuales.stream().mapToDouble((this::calcularHCDatoActividad)).sum();
+        //Calcular hc de logistica
         return hcTramosMensual + hcActividadesMensual;
     }
         //Revisar lo de las fechas

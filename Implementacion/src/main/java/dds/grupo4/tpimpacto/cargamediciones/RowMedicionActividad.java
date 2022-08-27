@@ -26,7 +26,7 @@ public class RowMedicionActividad {
 
     public static RowMedicionActividad fromRow(Row row) {
         String actividad = row.getCell(0).getStringCellValue();
-        if(actividad == "LogisticaYProductos" ) {
+        if(actividad == "Logistica de productos y residuos" ) {
             String tipoDeConsumo = row.getCell(1).getStringCellValue();
             if(tipoDeConsumo == "Medio de trasnporte") {
                 // MedioDeTransporte medio = MedioDeTransporte

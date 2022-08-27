@@ -1,7 +1,6 @@
 package entities.medioTrasnporte;
 
-import dds.grupo4.tpimpacto.entities.medioTransporte.Parada;
-import dds.grupo4.tpimpacto.entities.medioTransporte.TransportePublico;
+import dds.grupo4.tpimpacto.entities.medioTransporte.*;
 import dds.grupo4.tpimpacto.entities.trayecto.Direccion;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -11,15 +10,15 @@ import java.util.List;
 
 public class TestCrearTransportePublico {
 
- //   @Test
-//    public void altaTransportePublico() {
-//        Parada liniers = new Parada(new Direccion("Rivadavia", 7000, 1234), 5,5);
-//        List<Parada> estaciones = Arrays.asList(liniers);
-//        Linea sarmiento = new Linea("Sarmiento", estaciones);
-//        TransportePublico transportePublico = new TransportePublico(TipoPublico.TREN,
-//                sarmiento);
-//        Assertions.assertEquals(transportePublico.getTipo(), TipoPublico.TREN);
-//        Assertions.assertEquals(transportePublico.getLinea(), sarmiento);
-//    }
+    @Test
+    public void altaTransportePublico() {
+        Parada liniers = new Parada(new Direccion("Av General Paz", "10880", "Argentina","Buenos Aires","","CABA","Liniers",1111), 5.5);
+        List<Parada> estaciones = Arrays.asList(liniers);
+        String linea = "Sarmiento";
+        Combustible combustible = new Combustible(TipoCombustible.ELECTRICO,UnidadCombustible.L);
+        TransportePublico transportePublico = new TransportePublico(TipoTransportePublico.TREN, linea,estaciones,combustible,0.7);
+        Assertions.assertEquals(transportePublico.getTipoTransportePublico(), TipoTransportePublico.TREN);
+        Assertions.assertEquals(transportePublico.getLinea(), linea);
+    }
 
 }
