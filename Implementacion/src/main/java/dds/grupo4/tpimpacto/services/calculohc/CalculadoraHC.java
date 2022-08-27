@@ -2,6 +2,7 @@ package dds.grupo4.tpimpacto.services.calculohc;
 
 import dds.grupo4.tpimpacto.entities.medicion.Actividad;
 import dds.grupo4.tpimpacto.entities.medicion.Medicion;
+import dds.grupo4.tpimpacto.entities.medioTransporte.MedioDeTransporte;
 import dds.grupo4.tpimpacto.entities.organizacion.Miembro;
 import dds.grupo4.tpimpacto.entities.organizacion.Organizacion;
 import dds.grupo4.tpimpacto.entities.organizacion.Sector;
@@ -13,7 +14,9 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class CalculadoraHC {
 
@@ -27,16 +30,16 @@ public class CalculadoraHC {
     public double calcularHCDatoActividad(Medicion medicion) {
 
         double factorDeEmision = medicion.getTipoConsumo().getFactorDeEmision().getValor(); // el FE depende del tipo de consumo en las actividades menos de logistica
-        double factorDeEmisionLogisticaYProductos = medicion.getTipoConsumo().getMedioDeTransporte().getFactorDeEmision().getValor();
+        /*double factorDeEmisionLogisticaYProductos = medicion.getTipoConsumo().getMedioDeTransporte().getFactorDeEmision().getValor();
         if (medicion.getActividad() == Actividad.LogisticaDeProductosYResiduos) {
             // TODO: ver de donde salen estos numeros (creeria que del Excel, asi que habria que meter la funcionalidad
             //  para leer estos datos
             double distanciaMediaRecorrida = medicion.getTipoConsumo().getDistanciaMediaRecorrida(),
                     pesoTotalTransportado = medicion.getTipoConsumo().getPeso() ;
             return distanciaMediaRecorrida * pesoTotalTransportado * factorDeEmisionLogisticaYProductos * medicion.getOrganizacion().getFactorK();
-        }
+        }*/
 
-        return medicion.getValor() * factorDeEmision;
+        return Double.parseDouble(medicion.getValor()) * factorDeEmision;
     }
 
     public double calcularHCMiembroMensual(Miembro miembro,LocalDate mesElegido) {
@@ -77,7 +80,17 @@ public class CalculadoraHC {
         List<Medicion> actividadesMensuales =  organizacion.getMediciones().stream().filter(m->m.getPeriodicidad().equals("MENSUAL")).collect(Collectors.toList());
         double hcActividadesMensual = actividadesMensuales.stream().mapToDouble((this::calcularHCDatoActividad)).sum();
         //Calcular hc de logistica
+        this.calcularHCActividadLogistica(actividadesMensuales.stream().filter(m->m.getActividad() ==Actividad.LogisticaDeProductosYResiduos).collect(Collectors.toList()));
+
         return hcTramosMensual + hcActividadesMensual;
+    }
+    //Falta ver como sacar el factor de emision del medio de transporte
+    public double calcularHCActividadLogistica(List<Medicion> mediciones){
+       String medioTransporte = mediciones.stream().filter(elememt ->elememt.getTipoConsumo().getNombre() == "Medio de transporte").collect(Collectors.toList()).get(0).getValor();
+      //Aca habria que buscar de la base cual es el factor del medio con una Query
+        Double distancia = Double.valueOf(mediciones.stream().filter(elememt ->elememt.getTipoConsumo().getNombre() == "Distancia media recorrida").collect(Collectors.toList()).get(0).getValor());
+        Double peso = Double.valueOf(mediciones.stream().filter(elememt ->elememt.getTipoConsumo().getNombre() == "Peso total transportado").collect(Collectors.toList()).get(0).getValor());
+        return peso * distancia * organizacionCalculo.getFactorK();
     }
         //Revisar lo de las fechas
     public double calcularHCOrganizacionAnual(Organizacion organizacion,int año) {

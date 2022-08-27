@@ -1,6 +1,5 @@
 package dds.grupo4.tpimpacto.cargamediciones;
 
-import dds.grupo4.tpimpacto.entities.medioTransporte.MedioDeTransporte;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,11 +10,11 @@ import org.apache.poi.ss.usermodel.Row;
 public class RowMedicionActividad {
     private final String actividad;
     private final String tipoDeConsumo;
-    private final double valor;
+    private final String  valor;
     private final String periodicidad;
     private final String periodoImputacion;
 
-    private RowMedicionActividad(String actividad, String tipoDeConsumo, double valor, String periodicidad,
+    private RowMedicionActividad(String actividad, String tipoDeConsumo, String valor, String periodicidad,
                                  String periodoImputacion) {
         this.actividad = actividad;
         this.tipoDeConsumo = tipoDeConsumo;
@@ -28,7 +27,7 @@ public class RowMedicionActividad {
         String actividad = row.getCell(0).getStringCellValue();
         if(actividad == "Logistica de productos y residuos" ) {
             String tipoDeConsumo = row.getCell(1).getStringCellValue();
-            if(tipoDeConsumo == "Medio de trasnporte") {
+            if(tipoDeConsumo == "Medio de transporte") {
                 // MedioDeTransporte medio = MedioDeTransporte
                 //  Class c = Class.forName("dds.grupo4.tpimpacto.entities.medioTransporte.MedioDeTransporte");
                 // tipoDeConsumo = c ;
@@ -40,7 +39,7 @@ public class RowMedicionActividad {
         }
         String tipoDeConsumo = row.getCell(1).getStringCellValue();
 
-        double valor = row.getCell(2).getNumericCellValue();
+        String valor = row.getCell(2).getStringCellValue();
         String periodicidad = row.getCell(3).getStringCellValue();
         String periodoImputacion = row.getCell(4).getStringCellValue();
 

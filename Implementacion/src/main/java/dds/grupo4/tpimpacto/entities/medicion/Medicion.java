@@ -28,7 +28,7 @@ public class Medicion extends BaseEntity {
     @JoinColumn(name = "tipo_consumo", nullable = false, foreignKey = @ForeignKey(name = "FK_Mediciones_TipoConsumo"))
     private TipoConsumo tipoConsumo;
 
-    private Double valor;
+    private String valor;
     private Periodicidad periodicidad;
 
     /**
@@ -46,7 +46,7 @@ public class Medicion extends BaseEntity {
     private MedioDeTransporte medioDeTransporte;
      */
 
-    public Medicion(Organizacion organizacion, Actividad actividad, TipoConsumo tipoConsumo, Double valor,
+    public Medicion(Organizacion organizacion, Actividad actividad, TipoConsumo tipoConsumo, String valor,
                     Periodicidad periodicidad, Integer mesImputacion, Integer anioImputacion) {
         this.organizacion = organizacion;
         this.actividad = actividad;
