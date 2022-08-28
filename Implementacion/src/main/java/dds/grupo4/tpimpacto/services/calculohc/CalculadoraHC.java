@@ -9,18 +9,20 @@ import dds.grupo4.tpimpacto.entities.organizacion.Sector;
 import dds.grupo4.tpimpacto.entities.sectorTerritorial.SectorTerritorial;
 import dds.grupo4.tpimpacto.entities.trayecto.Tramo;
 import dds.grupo4.tpimpacto.entities.trayecto.Trayecto;
+import dds.grupo4.tpimpacto.repositories.MedioDeTransporteRepositoryImpl;
 
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class CalculadoraHC {
 
+    private  MedioDeTransporteRepositoryImpl medioDeTransporteRepository ;
+
     private Organizacion organizacionCalculo;
+
+
 
     public double calcularHCTramo(Tramo tramo) {
         return tramo.getDistanciaRecorrida() * tramo.getMedioDeTransporte().getFactorDeEmision().getValor();
@@ -87,10 +89,16 @@ public class CalculadoraHC {
     //Falta ver como sacar el factor de emision del medio de transporte
     public double calcularHCActividadLogistica(List<Medicion> mediciones){
        String medioTransporte = mediciones.stream().filter(elememt ->elememt.getTipoConsumo().getNombre() == "Medio de transporte").collect(Collectors.toList()).get(0).getValor();
+
+        Optional<MedioDeTransporte> transporte = medioDeTransporteRepository.getByNombre(medioTransporte);
+
+        double factorDeEmision= transporte.get().getFactorDeEmision().getValor();
+
+
       //Aca habria que buscar de la base cual es el factor del medio con una Query
         Double distancia = Double.valueOf(mediciones.stream().filter(elememt ->elememt.getTipoConsumo().getNombre() == "Distancia media recorrida").collect(Collectors.toList()).get(0).getValor());
         Double peso = Double.valueOf(mediciones.stream().filter(elememt ->elememt.getTipoConsumo().getNombre() == "Peso total transportado").collect(Collectors.toList()).get(0).getValor());
-        return peso * distancia * organizacionCalculo.getFactorK();
+        return peso * distancia *  factorDeEmision * organizacionCalculo.getFactorK();
     }
         //Revisar lo de las fechas
     public double calcularHCOrganizacionAnual(Organizacion organizacion,int año) {
