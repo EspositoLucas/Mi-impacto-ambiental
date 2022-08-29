@@ -29,7 +29,7 @@ public class TipoConsumoRepositoryTests {
     @BeforeEach
     public void buildTipoConsumoTest() {
         tipoConsumoTest = new TipoConsumo("tipoConsumoTest", Actividad.LogisticaDeProductosYResiduos,
-                UnidadFactorEmision.G, "alcance1");
+               UnidadFactorEmision.GCO2eq, "alcance1");
     }
 
     @Test

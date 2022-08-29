@@ -1,7 +1,7 @@
 package dds.grupo4.tpimpacto.entities.medicion;
 
 public enum UnidadFactorEmision {
-    G,
-    KG,
-    TN
+    GCO2eq,
+    KGCO2eq,
+    TNCO2eq
 }

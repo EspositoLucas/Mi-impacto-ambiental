@@ -36,9 +36,10 @@ public class TipoConsumo extends BaseEntity {
 
 
     public TipoConsumo(String nombre, Actividad actividad, UnidadFactorEmision unidadFactorEmision, String alcance) {
+        UnidadFactorEmision unidadfe = this.factorDeEmision.getUnidad();
         this.nombre = nombre;
         this.actividad = actividad;
-       // this.unidadFactorEmision = unidadFactorEmision;
+        unidadfe = unidadFactorEmision;
         this.alcance = alcance;
     }
     public void setFactorDeEmision(FactorDeEmision factorDeEmision) {

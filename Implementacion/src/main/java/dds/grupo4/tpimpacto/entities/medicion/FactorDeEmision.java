@@ -30,5 +30,23 @@ public class FactorDeEmision extends BaseEntity {
         this.valor = valor;
         this.unidad = unidad;
     }
+    private void validarGramosEquivalentes() throws UnidadesIncorrectasException {
+        if (!(this.getUnidad().equals("GCO2eq"))) {
+            throw new UnidadesIncorrectasException(
+                    "La unidad a convertir debe ser GCO2eq");
+        }
+    }
+
+    public FactorDeEmision pasarAUnidadDeHCConveniente() throws UnidadesIncorrectasException {
+        this.validarGramosEquivalentes();
+        if (valor >= 1000 && valor < 1000000) {
+            this.valor = valor / 1000;
+            this.unidad = UnidadFactorEmision.KGCO2eq;
+        } else if (valor >= 1000000) {
+            this.valor = valor / 1000000;
+            this.unidad = UnidadFactorEmision.TNCO2eq;
+        }
+        return this;
+    }
 
 }
