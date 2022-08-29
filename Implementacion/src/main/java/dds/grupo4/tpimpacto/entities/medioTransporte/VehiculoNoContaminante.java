@@ -17,6 +17,7 @@ public class VehiculoNoContaminante extends MedioDeTransporte {
     private TipoVehiculoNoContaminante tipoVehiculoNoContaminante;
 
     public VehiculoNoContaminante(TipoVehiculoNoContaminante tipoVehiculoNoContaminante) {
+        this.setTipo(TipoMedioTransporte.VEHICULO_NO_CONTAMINANTE);
         this.tipoVehiculoNoContaminante = tipoVehiculoNoContaminante;
     }
 

@@ -17,13 +17,13 @@ import javax.persistence.*;
 public class TipoConsumo extends BaseEntity {
     private String nombre;
     private Actividad actividad;
-    //private UnidadFactorEmision unidadFactorEmision; // no hace falta esto al tener el factor de emision ?
+   // private UnidadFactorEmision unidadFactorEmision; // no hace falta esto al tener el factor de emision ?
 
     @OneToOne
     @JoinColumn(
             name = "factor_de_emision",
             nullable = false,
-            foreignKey = @ForeignKey(name = "FK_MedioDeTransporte_FactorDeEmision")
+            foreignKey = @ForeignKey(name = "FK_TipoConsumo_FactorDeEmision")
     )
     private FactorDeEmision factorDeEmision ;
     private String alcance;
@@ -35,11 +35,10 @@ public class TipoConsumo extends BaseEntity {
 //    private double peso;
 
 
-    public TipoConsumo(String nombre, Actividad actividad, UnidadFactorEmision unidadFactorEmision, String alcance) {
-        UnidadFactorEmision unidadfe = this.factorDeEmision.getUnidad();
+    public TipoConsumo(String nombre, Actividad actividad, FactorDeEmision factorDeEmision, String alcance) {
         this.nombre = nombre;
         this.actividad = actividad;
-        unidadfe = unidadFactorEmision;
+        this.factorDeEmision = factorDeEmision;
         this.alcance = alcance;
     }
     public void setFactorDeEmision(FactorDeEmision factorDeEmision) {

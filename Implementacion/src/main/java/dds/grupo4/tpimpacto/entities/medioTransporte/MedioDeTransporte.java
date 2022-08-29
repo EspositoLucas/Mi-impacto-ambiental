@@ -18,6 +18,7 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public abstract class MedioDeTransporte extends BaseEntity {
 
+    @Transient
     protected final String API_TOKEN = "dbNsJcYAneNbF8+i9DX735F7KR7mPZVELmu1wN+Nx0o=";
 
     private String nombre ;
@@ -34,10 +35,8 @@ public abstract class MedioDeTransporte extends BaseEntity {
     )
     private FactorDeEmision factorDeEmision;
 
-    public void setFactorDeEmision(FactorDeEmision factorDeEmision) {
-        this.factorDeEmision = factorDeEmision;
-        factorDeEmision.setMedioDeTransporte(this);
-    }
+    private TipoMedioTransporte tipo ;
+
 
     public abstract double getCombustibleConsumidoPorKm();
 

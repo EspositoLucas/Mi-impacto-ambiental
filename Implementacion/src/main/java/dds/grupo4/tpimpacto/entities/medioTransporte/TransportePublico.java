@@ -33,6 +33,7 @@ public class TransportePublico extends MedioDeTransporte {
     private double combustibleConsumidoPorKm;
 
     public TransportePublico(TipoTransportePublico tipoTransportePublico, String linea, List<Parada> paradas, Combustible combustible, double combustibleConsumidoPorKm) {
+        this.setTipo(TipoMedioTransporte.TRANSPORTE_PUBLICO);
         this.tipoTransportePublico = tipoTransportePublico;
         this.linea = linea;
         this.paradas = paradas;

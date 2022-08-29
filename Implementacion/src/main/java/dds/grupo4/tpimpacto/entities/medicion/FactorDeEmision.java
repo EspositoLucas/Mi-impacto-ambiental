@@ -2,6 +2,7 @@ package dds.grupo4.tpimpacto.entities.medicion;
 
 import dds.grupo4.tpimpacto.entities.BaseEntity;
 import dds.grupo4.tpimpacto.entities.medioTransporte.MedioDeTransporte;
+import dds.grupo4.tpimpacto.entities.medioTransporte.TipoMedioTransporte;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,9 +19,8 @@ import javax.persistence.Table;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class FactorDeEmision extends BaseEntity {
 
-    // TODO: ver si no depende tambien de la Organizacion (ademas del MedioDeTransporte)
-    @OneToOne(mappedBy = "factorDeEmision")
-    private MedioDeTransporte medioDeTransporte;
+    private TipoMedioTransporte tipoMedioDeTransporte;
+
     @OneToOne(mappedBy = "factorDeEmision")
     private TipoConsumo tipoConsumo ;
     private Double valor;

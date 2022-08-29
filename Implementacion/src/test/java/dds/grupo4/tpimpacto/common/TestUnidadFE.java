@@ -16,8 +16,9 @@ public class TestUnidadFE {
   }
 
   void crearFEConDistintasUnidades() {
-    TipoConsumo consumo = new TipoConsumo("Carbon", Actividad.CombustionFija,UnidadFactorEmision.GCO2eq,"Directo");
-    FactorDeEmision factorDistintaUnidad = new FactorDeEmision(0.7 , UnidadFactorEmision.KGCO2eq );
-    consumo.setFactorDeEmision(factorDistintaUnidad);
+    FactorDeEmision factorDistintaUnidad1 = new FactorDeEmision(0.7 , UnidadFactorEmision.KGCO2eq );
+    TipoConsumo consumo = new TipoConsumo("Carbon", Actividad.CombustionFija,factorDistintaUnidad1,"Directo");
+    FactorDeEmision factorDistintaUnidad2 = new FactorDeEmision(0.5 , UnidadFactorEmision.GCO2eq );
+    consumo.setFactorDeEmision(factorDistintaUnidad2);
   }
 }

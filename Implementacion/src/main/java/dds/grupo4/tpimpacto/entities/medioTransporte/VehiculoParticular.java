@@ -32,6 +32,7 @@ public class VehiculoParticular extends MedioDeTransporte {
 
     public VehiculoParticular(TipoVehiculoParticular tipoVehiculoParticular, Combustible combustible, TipoServicioContratado tipoServicioContratado, Double combustibleConsumidoPorKm) {
         this.tipoVehiculoParticular = tipoVehiculoParticular;
+        this.setTipo(TipoMedioTransporte.VEHICULO_PARTICULAR);
         this.combustible = combustible;
         this.tipoServicioContratado = tipoServicioContratado;
         this.combustibleConsumidoPorKm = combustibleConsumidoPorKm;

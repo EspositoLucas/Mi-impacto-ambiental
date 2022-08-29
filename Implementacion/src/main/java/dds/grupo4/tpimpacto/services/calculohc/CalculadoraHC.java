@@ -2,6 +2,7 @@ package dds.grupo4.tpimpacto.services.calculohc;
 
 import dds.grupo4.tpimpacto.entities.medicion.Actividad;
 import dds.grupo4.tpimpacto.entities.medicion.Medicion;
+import dds.grupo4.tpimpacto.entities.medicion.Periodicidad;
 import dds.grupo4.tpimpacto.entities.medioTransporte.MedioDeTransporte;
 import dds.grupo4.tpimpacto.entities.organizacion.Miembro;
 import dds.grupo4.tpimpacto.entities.organizacion.Organizacion;
@@ -79,7 +80,7 @@ public class CalculadoraHC {
         organizacionCalculo = organizacion;
         List<Tramo> tramosEnMesElegido =  organizacion.getTramosDeMiembros().stream().filter(t->t.getTrayecto().seRealizaEntre(mesElegido)).collect(Collectors.toList());
         double hcTramosMensual = tramosEnMesElegido.stream().mapToDouble(this::calcularHCTramoMensual).sum();
-        List<Medicion> actividadesMensuales =  organizacion.getMediciones().stream().filter(m->m.getPeriodicidad().equals("MENSUAL")).collect(Collectors.toList());
+        List<Medicion> actividadesMensuales =  organizacion.getMediciones().stream().filter(m->m.getPeriodicidad().equals(Periodicidad.MENSUAL)).collect(Collectors.toList());
         double hcActividadesMensual = actividadesMensuales.stream().mapToDouble((this::calcularHCDatoActividad)).sum();
         //Calcular hc de logistica
         this.calcularHCActividadLogistica(actividadesMensuales.stream().filter(m->m.getActividad() ==Actividad.LogisticaDeProductosYResiduos).collect(Collectors.toList()));
@@ -88,16 +89,17 @@ public class CalculadoraHC {
     }
     //Falta ver como sacar el factor de emision del medio de transporte
     public double calcularHCActividadLogistica(List<Medicion> mediciones){
-       String medioTransporte = mediciones.stream().filter(elememt ->elememt.getTipoConsumo().getNombre() == "Medio de transporte").collect(Collectors.toList()).get(0).getValor();
+       String medioTransporte = mediciones.stream().filter(elememt -> elememt.getTipoConsumo().getNombre().equals("Medio de transporte")).collect(Collectors.toList()).get(0).getValor();
 
         Optional<MedioDeTransporte> transporte = medioDeTransporteRepository.getByNombre(medioTransporte);
+        //TODO ACA HABRIA QUE USAR EL TIPO DE MEDIO DE TRANSPORTE Y SACRA EL FACTORDEEMiSION DEL TIPO CON UN GETBYTIPO
 
         double factorDeEmision= transporte.get().getFactorDeEmision().getValor();
 
 
       //Aca habria que buscar de la base cual es el factor del medio con una Query
-        Double distancia = Double.valueOf(mediciones.stream().filter(elememt ->elememt.getTipoConsumo().getNombre() == "Distancia media recorrida").collect(Collectors.toList()).get(0).getValor());
-        Double peso = Double.valueOf(mediciones.stream().filter(elememt ->elememt.getTipoConsumo().getNombre() == "Peso total transportado").collect(Collectors.toList()).get(0).getValor());
+        Double distancia = Double.valueOf(mediciones.stream().filter(elememt -> elememt.getTipoConsumo().getNombre().equals("Distancia media recorrida")).collect(Collectors.toList()).get(0).getValor());
+        Double peso = Double.valueOf(mediciones.stream().filter(elememt -> elememt.getTipoConsumo().getNombre().equals("Peso total transportado")).collect(Collectors.toList()).get(0).getValor());
         return peso * distancia *  factorDeEmision * organizacionCalculo.getFactorK();
     }
         //Revisar lo de las fechas

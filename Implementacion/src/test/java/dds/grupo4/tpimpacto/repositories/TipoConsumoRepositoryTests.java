@@ -3,6 +3,7 @@ package dds.grupo4.tpimpacto.repositories;
 import dds.grupo4.tpimpacto.config.CustomTestAnnotation;
 import dds.grupo4.tpimpacto.config.SlowTests;
 import dds.grupo4.tpimpacto.entities.medicion.Actividad;
+import dds.grupo4.tpimpacto.entities.medicion.FactorDeEmision;
 import dds.grupo4.tpimpacto.entities.medicion.TipoConsumo;
 import dds.grupo4.tpimpacto.entities.medicion.UnidadFactorEmision;
 import org.junit.jupiter.api.Assertions;
@@ -29,7 +30,7 @@ public class TipoConsumoRepositoryTests {
     @BeforeEach
     public void buildTipoConsumoTest() {
         tipoConsumoTest = new TipoConsumo("tipoConsumoTest", Actividad.LogisticaDeProductosYResiduos,
-               UnidadFactorEmision.GCO2eq, "alcance1");
+               null, "alcance1");
     }
 
     @Test
