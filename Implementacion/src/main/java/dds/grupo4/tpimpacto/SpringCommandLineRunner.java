@@ -1,6 +1,9 @@
 package dds.grupo4.tpimpacto;
 
-import dds.grupo4.tpimpacto.controllers.*;
+import dds.grupo4.tpimpacto.controllers.MiembroControllerFake;
+import dds.grupo4.tpimpacto.controllers.OrganizacionControllerFake;
+import dds.grupo4.tpimpacto.controllers.TipoServicioContratadoControllerFake;
+import dds.grupo4.tpimpacto.controllers.TransportePublicoControllerFake;
 import dds.grupo4.tpimpacto.extras.ConsoleHelper;
 import dds.grupo4.tpimpacto.extras.OperacionTesteo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,16 +21,14 @@ public class SpringCommandLineRunner implements CommandLineRunner {
     private final MiembroControllerFake miembroControllerFake;
     private final TipoServicioContratadoControllerFake tipoServicioContratadoControllerFake;
     private final TransportePublicoControllerFake transportePublicoControllerFake;
-    private final UsuarioControllerFake usuarioControllerFake;
 
     // Todos estos parametros los "inyecta" Spring directamente, no hay que pasarselos porque los configura solos
     @Autowired
-    public SpringCommandLineRunner(OrganizacionControllerFake organizacionControllerFake, MiembroControllerFake miembroControllerFake, TipoServicioContratadoControllerFake tipoServicioContratadoControllerFake, TransportePublicoControllerFake transportePublicoControllerFake, UsuarioControllerFake usuarioControllerFake) {
+    public SpringCommandLineRunner(OrganizacionControllerFake organizacionControllerFake, MiembroControllerFake miembroControllerFake, TipoServicioContratadoControllerFake tipoServicioContratadoControllerFake, TransportePublicoControllerFake transportePublicoControllerFake) {
         this.organizacionControllerFake = organizacionControllerFake;
         this.miembroControllerFake = miembroControllerFake;
         this.tipoServicioContratadoControllerFake = tipoServicioContratadoControllerFake;
         this.transportePublicoControllerFake = transportePublicoControllerFake;
-        this.usuarioControllerFake = usuarioControllerFake;
     }
 
     @Override
@@ -36,12 +37,6 @@ public class SpringCommandLineRunner implements CommandLineRunner {
         do {
             operacionTesteo = mostrarOperacionesYElegir();
             switch (operacionTesteo) {
-                case REGISTRO:
-                    usuarioControllerFake.registrarUsuario();
-                    break;
-                case LOGIN:
-                    usuarioControllerFake.logearse();
-                    break;
                 case CARGAR_MEDICIONES:
                     organizacionControllerFake.cargarMediciones();
                     break;
@@ -93,8 +88,6 @@ public class SpringCommandLineRunner implements CommandLineRunner {
     }
 
     private void mostrarOperaciones() {
-        ConsoleHelper.printLine("1- Login");
-        ConsoleHelper.printLine("2- Registrar usuario");
         ConsoleHelper.printLine("3- Cargar mediciones");
         ConsoleHelper.printLine("4- Crear organizacion");
         ConsoleHelper.printLine("5- Listar organizaciones");

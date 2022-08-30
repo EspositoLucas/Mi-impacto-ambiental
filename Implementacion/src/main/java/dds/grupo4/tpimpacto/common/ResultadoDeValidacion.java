@@ -23,13 +23,13 @@ public class ResultadoDeValidacion {
         this(valido, Arrays.asList(error));
     }
 
-    public List<String> getErrores() throws Exception {
+    public List<String> getErrores() {
         if (valido)
-            throw new Exception();
+            throw new RuntimeException("No se puede llamar a getErrores() en un ResultadoDeValidacion que es valido");
         return errores;
     }
 
-    public String getErroresEnLineas() throws Exception {
+    public String getErroresEnLineas() {
         return getErrores().stream()
                 .map(error -> "- " + error + "\n")
                 .collect(Collectors.joining());

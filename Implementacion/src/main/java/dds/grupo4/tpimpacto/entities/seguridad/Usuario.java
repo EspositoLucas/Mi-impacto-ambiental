@@ -31,10 +31,6 @@ public class Usuario extends BaseEntity {
         this.password = password;
     }
 
-    public boolean validarContrasenia(String password) {
-        return this.password.equals(password);
-    }
-
     public void logeoIncorrecto() {
         cantidadIntentosIncorrectos++;
         if (cantidadIntentosIncorrectos >= INTENTOS_DE_LOGEO_PERMITIDOS) {

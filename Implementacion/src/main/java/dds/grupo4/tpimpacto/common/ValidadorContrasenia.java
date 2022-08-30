@@ -1,7 +1,10 @@
 package dds.grupo4.tpimpacto.common;
 
+import org.springframework.stereotype.Component;
+
 import java.util.*;
 
+@Component
 public class ValidadorContrasenia {
 
     public static final String RUTA_ARCHIVO_CONTRASENIAS_INSEGURAS = "static/contraseniasInseguras.txt";

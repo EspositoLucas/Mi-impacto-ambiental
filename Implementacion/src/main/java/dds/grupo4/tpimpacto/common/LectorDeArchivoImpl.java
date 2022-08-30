@@ -1,5 +1,7 @@
 package dds.grupo4.tpimpacto.common;
 
+import org.springframework.stereotype.Component;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -8,11 +10,16 @@ import java.nio.file.Files;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Component
 public class LectorDeArchivoImpl implements LectorDeArchivo {
 
     @Override
     public List<String> leerLineas(String rutaResource) {
         URL resource = getClass().getClassLoader().getResource(rutaResource);
+        if (resource == null) {
+            throw new IllegalArgumentException("No se encontro el recurso especificado en rutaResource (" + rutaResource + ")");
+        }
+
         try {
             File file = new File(resource.toURI());
             List<String> lines = Files.readAllLines(file.toPath());
