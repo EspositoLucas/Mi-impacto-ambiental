@@ -2,6 +2,8 @@ package dds.grupo4.tpimpacto.entities.trayecto;
 
 import dds.grupo4.tpimpacto.entities.BaseEntity;
 import dds.grupo4.tpimpacto.entities.medioTransporte.MedioDeTransporte;
+import dds.grupo4.tpimpacto.entities.medioTransporte.Parada;
+import dds.grupo4.tpimpacto.entities.medioTransporte.TransportePublico;
 import dds.grupo4.tpimpacto.entities.organizacion.Miembro;
 import dds.grupo4.tpimpacto.services.calculodistancias.CalculadoraDistancias;
 import lombok.AccessLevel;
@@ -40,6 +42,7 @@ public class Tramo extends BaseEntity {
     private Double peso;
 
     private int cantVecesPorSemana; // para el calculo HC semanal
+
     @ManyToMany
     @JoinTable(
             name = "miembros_por_tramo",
@@ -67,12 +70,18 @@ public class Tramo extends BaseEntity {
     }
 
     public void calcularDistanciaRecorrida(CalculadoraDistancias calculadoraDistancias) {
-        distanciaRecorrida = calculadoraDistancias.calcularDistanciaRecorrida(lugarInicio, lugarFin);
+        if (medioDeTransporte instanceof TransportePublico) {
+            TransportePublico transportePublico = (TransportePublico) medioDeTransporte;
+            Parada paradaInicial = (Parada) lugarInicio;
+            Parada paradaFinal = (Parada) lugarFin;
+            distanciaRecorrida = calculadoraDistancias.calcularDistanciaTransportePublico(paradaInicial, paradaFinal);
+        } else {
+            distanciaRecorrida = calculadoraDistancias.calcularDistanciaConGeoService(lugarInicio, lugarFin);
+        }
     }
 
     public double combustibleConsumido() {
         return distanciaRecorrida * medioDeTransporte.getCombustibleConsumidoPorKm();
     }
-
 
 }
