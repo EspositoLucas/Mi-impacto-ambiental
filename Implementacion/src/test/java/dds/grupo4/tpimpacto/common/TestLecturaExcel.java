@@ -9,12 +9,12 @@ import org.junit.jupiter.api.Disabled;
 @Disabled
 public class TestLecturaExcel extends OrganizacionServiceTests {
 
-  private Medicion medicion0;
-  private Medicion medicion1;
+    private Medicion medicion0;
+    private Medicion medicion1;
 
 
-  @BeforeEach
-  void inicializarDatosDeActividades() {
+    @BeforeEach
+    void inicializarDatosDeActividades() {
 
 //    setUp();
 //    this.organizacionTest.cargarDatosDeActividades("/resources/DA.csv"); // POR QUÉ AHORA NO ABRE????
@@ -22,11 +22,11 @@ public class TestLecturaExcel extends OrganizacionServiceTests {
 //    medicion0 = organizacion.getDatosDeActividades().get(0);
 //    medicion1 = organizacion.getDatosDeActividades().get(1);
 
-  }
-  // así lee el excel:
-  // [["gas_natural" "12" "mensual" "12/2022"] ["nafta" "1.4" "anual" "2011"] ["este_tira_errores" "aaaa" "aaaa" "aaaa"]]
+    }
+    // así lee el excel:
+    // [["gas_natural" "12" "mensual" "12/2022"] ["nafta" "1.4" "anual" "2011"] ["este_tira_errores" "aaaa" "aaaa" "aaaa"]]
 
-  // PRIMER DATO
+    // PRIMER DATO
 /*
   @Test
   public void coincideElConsumoDelPrimerDato() {

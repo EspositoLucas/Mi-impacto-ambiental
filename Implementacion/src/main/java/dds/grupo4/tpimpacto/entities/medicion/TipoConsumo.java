@@ -1,7 +1,6 @@
 package dds.grupo4.tpimpacto.entities.medicion;
 
 import dds.grupo4.tpimpacto.entities.BaseEntity;
-import dds.grupo4.tpimpacto.entities.medioTransporte.MedioDeTransporte;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,7 +16,7 @@ import javax.persistence.*;
 public class TipoConsumo extends BaseEntity {
     private String nombre;
     private Actividad actividad;
-   // private UnidadFactorEmision unidadFactorEmision; // no hace falta esto al tener el factor de emision ?
+    // private UnidadFactorEmision unidadFactorEmision; // no hace falta esto al tener el factor de emision ?
 
     @OneToOne
     @JoinColumn(
@@ -25,9 +24,8 @@ public class TipoConsumo extends BaseEntity {
             nullable = false,
             foreignKey = @ForeignKey(name = "FK_TipoConsumo_FactorDeEmision")
     )
-    private FactorDeEmision factorDeEmision ;
+    private FactorDeEmision factorDeEmision;
     private String alcance;
-
 
 
     public TipoConsumo(String nombre, Actividad actividad, FactorDeEmision factorDeEmision, String alcance) {
@@ -36,6 +34,7 @@ public class TipoConsumo extends BaseEntity {
         this.factorDeEmision = factorDeEmision;
         this.alcance = alcance;
     }
+
     public void setFactorDeEmision(FactorDeEmision factorDeEmision) {
         this.factorDeEmision = factorDeEmision;
         factorDeEmision.setTipoConsumo(this);

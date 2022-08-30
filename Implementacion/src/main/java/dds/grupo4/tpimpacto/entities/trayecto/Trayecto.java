@@ -9,8 +9,6 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 @Entity(name = "Trayecto")
@@ -56,8 +54,9 @@ public class Trayecto extends BaseEntity {
                 .mapToDouble(Tramo::getDistanciaRecorrida)
                 .sum();
     }
+
     public boolean seRealizaEntre(LocalDate fecha) {
 
-        return mesDeInicio.compareTo(fecha) <0 && mesDeFin.compareTo(fecha) >=0;
+        return mesDeInicio.compareTo(fecha) < 0 && mesDeFin.compareTo(fecha) >= 0;
     }
 }

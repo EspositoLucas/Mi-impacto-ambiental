@@ -3,7 +3,6 @@ package dds.grupo4.tpimpacto.entities.trayecto;
 import dds.grupo4.tpimpacto.entities.BaseEntity;
 import dds.grupo4.tpimpacto.entities.medioTransporte.MedioDeTransporte;
 import dds.grupo4.tpimpacto.entities.organizacion.Miembro;
-import dds.grupo4.tpimpacto.entities.organizacion.Organizacion;
 import dds.grupo4.tpimpacto.services.calculodistancias.CalculadoraDistancias;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -12,9 +11,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Entity(name = "Tramo")
 @Table(name = "tramos")
@@ -42,7 +39,7 @@ public class Tramo extends BaseEntity {
 
     private Double peso;
 
-    private int cantVecesPorSemana ; // para el calculo HC semanal
+    private int cantVecesPorSemana; // para el calculo HC semanal
     @ManyToMany
     @JoinTable(
             name = "miembros_por_tramo",

@@ -10,5 +10,5 @@ public class PersonaServiceImpl extends BaseServiceImpl<Persona, PersonaReposito
     public PersonaServiceImpl(PersonaRepository repository) {
         super(repository);
     }
-    
+
 }

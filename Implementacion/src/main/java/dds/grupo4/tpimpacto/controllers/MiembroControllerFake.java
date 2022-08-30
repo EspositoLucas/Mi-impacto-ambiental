@@ -3,8 +3,6 @@ package dds.grupo4.tpimpacto.controllers;
 import dds.grupo4.tpimpacto.dtos.CrearMiembro;
 import dds.grupo4.tpimpacto.extras.ConsoleHelper;
 import dds.grupo4.tpimpacto.services.MiembroService;
-import dds.grupo4.tpimpacto.services.OrganizacionService;
-import dds.grupo4.tpimpacto.services.SectorService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 

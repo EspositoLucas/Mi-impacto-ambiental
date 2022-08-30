@@ -2,7 +2,6 @@ package dds.grupo4.tpimpacto.cargamediciones;
 
 import lombok.Getter;
 import lombok.Setter;
-
 import org.apache.poi.ss.usermodel.Row;
 
 @Getter
@@ -10,7 +9,7 @@ import org.apache.poi.ss.usermodel.Row;
 public class RowMedicionActividad {
     private final String actividad;
     private final String tipoDeConsumo;
-    private final String  valor;
+    private final String valor;
     private final String periodicidad;
     private final String periodoImputacion;
 
@@ -25,16 +24,20 @@ public class RowMedicionActividad {
 
     public static RowMedicionActividad fromRow(Row row) {
         String actividad = row.getCell(0).getStringCellValue();
-        if(actividad == "Logistica de productos y residuos" ) {
+        if (actividad.equals("Logistica de productos y residuos")) {
             String tipoDeConsumo = row.getCell(1).getStringCellValue();
-            if(tipoDeConsumo == "Medio de transporte") {
-                // MedioDeTransporte medio = MedioDeTransporte
-                //  Class c = Class.forName("dds.grupo4.tpimpacto.entities.medioTransporte.MedioDeTransporte");
-                // tipoDeConsumo = c ;
-            } else if (tipoDeConsumo == "Distancia media recorrida") {
-                double distanciaMediaRecorrida =Double.parseDouble(tipoDeConsumo);
-            }else if(tipoDeConsumo == "Peso total transportado"){
-                double peso =Double.parseDouble(tipoDeConsumo);
+            switch (tipoDeConsumo) {
+                case "Medio de transporte":
+                    // MedioDeTransporte medio = MedioDeTransporte
+                    //  Class c = Class.forName("dds.grupo4.tpimpacto.entities.medioTransporte.MedioDeTransporte");
+                    // tipoDeConsumo = c ;
+                    break;
+                case "Distancia media recorrida":
+                    double distanciaMediaRecorrida = Double.parseDouble(tipoDeConsumo);
+                    break;
+                case "Peso total transportado":
+                    double peso = Double.parseDouble(tipoDeConsumo);
+                    break;
             }
         }
         String tipoDeConsumo = row.getCell(1).getStringCellValue();

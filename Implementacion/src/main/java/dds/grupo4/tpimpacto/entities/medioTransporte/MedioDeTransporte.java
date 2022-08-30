@@ -6,7 +6,6 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.apache.poi.ss.formula.functions.T;
 
 import javax.persistence.*;
 
@@ -21,7 +20,7 @@ public abstract class MedioDeTransporte extends BaseEntity {
     @Transient
     protected final String API_TOKEN = "dbNsJcYAneNbF8+i9DX735F7KR7mPZVELmu1wN+Nx0o=";
 
-    private String nombre ;
+    private String nombre;
 
 
     // ? Esto supone que todas las Organizaciones usan el mismo FactorDeEmision para cada MedioDeTransporte.
@@ -35,7 +34,7 @@ public abstract class MedioDeTransporte extends BaseEntity {
     )
     private FactorDeEmision factorDeEmision;
 
-    private TipoMedioTransporte tipo ;
+    private TipoMedioTransporte tipo;
 
 
     public abstract double getCombustibleConsumidoPorKm();

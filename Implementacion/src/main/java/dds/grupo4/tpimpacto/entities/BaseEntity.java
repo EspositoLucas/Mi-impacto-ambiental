@@ -1,6 +1,5 @@
 package dds.grupo4.tpimpacto.entities;
 
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 

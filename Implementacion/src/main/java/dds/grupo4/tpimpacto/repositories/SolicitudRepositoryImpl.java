@@ -16,5 +16,5 @@ public class SolicitudRepositoryImpl extends BaseRepositoryImpl<Solicitud> imple
     public Class<Solicitud> getEntityClass() {
         return Solicitud.class;
     }
-    
+
 }

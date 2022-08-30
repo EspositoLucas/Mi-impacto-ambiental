@@ -9,7 +9,7 @@ import java.util.List;
 public class TrayectoControllerFake {
     private Direccion direccionInicio;
     private Direccion direccionDestino;
-    private List<Tramo> tramos = new ArrayList<>();
+    private final List<Tramo> tramos = new ArrayList<>();
 
     // TODO: completar dar de alta trayecto
 

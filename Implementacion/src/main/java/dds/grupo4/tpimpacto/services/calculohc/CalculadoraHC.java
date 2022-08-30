@@ -20,10 +20,9 @@ import java.util.stream.Collectors;
 
 public class CalculadoraHC {
 
-    private FactorDeEmisionRepositoryImpl factorDeEmisionRepository ;
+    private FactorDeEmisionRepositoryImpl factorDeEmisionRepository;
 
     private Organizacion organizacionCalculo;
-
 
 
     public double calcularHCTramo(Tramo tramo) {
@@ -46,95 +45,98 @@ public class CalculadoraHC {
         return Double.parseDouble(medicion.getValor()) * factorDeEmision;
     }
 
-    public double calcularHCMiembroMensual(Miembro miembro,LocalDate mesElegido) {
+    public double calcularHCMiembroMensual(Miembro miembro, LocalDate mesElegido) {
         organizacionCalculo = miembro.getOrganizacion();
-        List<Tramo> tramosEnMesElegido =  miembro.getTramos().stream().filter(t->t.getTrayecto().seRealizaEntre(mesElegido)).collect(Collectors.toList());
-         double hcTramosMensual = tramosEnMesElegido.stream().mapToDouble(this::calcularHCTramoMensual).sum();
+        List<Tramo> tramosEnMesElegido = miembro.getTramos().stream().filter(t -> t.getTrayecto().seRealizaEntre(mesElegido)).collect(Collectors.toList());
+        double hcTramosMensual = tramosEnMesElegido.stream().mapToDouble(this::calcularHCTramoMensual).sum();
 
-         return hcTramosMensual ;
+        return hcTramosMensual;
     }
-    public double calcularHCMiembroAnual(Miembro miembro,int año) {
+
+    public double calcularHCMiembroAnual(Miembro miembro, int anio) {
         List<LocalDate> meses = null;
-        for (int i=1; i<= 12; i++ ){
-            meses.add( LocalDate.of(año, i,1) );
+        for (int i = 1; i <= 12; i++) {
+            meses.add(LocalDate.of(anio, i, 1));
         }
 
 
-        return meses.stream().mapToDouble(mes->this.calcularHCMiembroMensual(miembro,mes)).sum();
+        return meses.stream().mapToDouble(mes -> this.calcularHCMiembroMensual(miembro, mes)).sum();
     }
 
     //Fijarse la repeticion
-    public double impactoHCMiembroMensual(Miembro miembro,LocalDate mesElegido) {
-        double calculoHCDeOrg = this.calcularHCOrganizacionMensual(miembro.getOrganizacion(), mesElegido) ;
-        double calculoHCMiembroMensual = this.calcularHCMiembroMensual(miembro,mesElegido);
-        double impacto = calculoHCMiembroMensual *100 / calculoHCDeOrg  ;
-        return  impacto;
-    }
-    public double impactoHCMiembroAnual(Miembro miembro,int año) {
-        double calculoHCDeOrg = this.calcularHCOrganizacionAnual(miembro.getOrganizacion(),año) ;
-        double calculoHCMiembroAnual = this.calcularHCMiembroAnual(miembro,año);
-        double impacto = calculoHCMiembroAnual *100 / calculoHCDeOrg  ;
-        return  impacto;
+    public double impactoHCMiembroMensual(Miembro miembro, LocalDate mesElegido) {
+        double calculoHCDeOrg = this.calcularHCOrganizacionMensual(miembro.getOrganizacion(), mesElegido);
+        double calculoHCMiembroMensual = this.calcularHCMiembroMensual(miembro, mesElegido);
+        double impacto = calculoHCMiembroMensual * 100 / calculoHCDeOrg;
+        return impacto;
     }
 
-    public double calcularHCOrganizacionMensual(Organizacion organizacion,LocalDate mesElegido) {
+    public double impactoHCMiembroAnual(Miembro miembro, int anio) {
+        double calculoHCDeOrg = this.calcularHCOrganizacionAnual(miembro.getOrganizacion(), anio);
+        double calculoHCMiembroAnual = this.calcularHCMiembroAnual(miembro, anio);
+        double impacto = calculoHCMiembroAnual * 100 / calculoHCDeOrg;
+        return impacto;
+    }
+
+    public double calcularHCOrganizacionMensual(Organizacion organizacion, LocalDate mesElegido) {
         organizacionCalculo = organizacion;
-        List<Tramo> tramosEnMesElegido =  organizacion.getTramosDeMiembros().stream().filter(t->t.getTrayecto().seRealizaEntre(mesElegido)).collect(Collectors.toList());
+        List<Tramo> tramosEnMesElegido = organizacion.getTramosDeMiembros().stream().filter(t -> t.getTrayecto().seRealizaEntre(mesElegido)).collect(Collectors.toList());
         double hcTramosMensual = tramosEnMesElegido.stream().mapToDouble(this::calcularHCTramoMensual).sum();
-        List<Medicion> actividadesMensuales =  organizacion.getMediciones().stream().filter(m->m.getPeriodicidad().equals(Periodicidad.MENSUAL)).collect(Collectors.toList());
+        List<Medicion> actividadesMensuales = organizacion.getMediciones().stream().filter(m -> m.getPeriodicidad().equals(Periodicidad.MENSUAL)).collect(Collectors.toList());
         double hcActividadesMensual = actividadesMensuales.stream().mapToDouble((this::calcularHCDatoActividad)).sum();
         //Calcular hc de logistica
-        this.calcularHCActividadLogistica(actividadesMensuales.stream().filter(m->m.getActividad() ==Actividad.LogisticaDeProductosYResiduos).collect(Collectors.toList()));
+        this.calcularHCActividadLogistica(actividadesMensuales.stream().filter(m -> m.getActividad() == Actividad.LogisticaDeProductosYResiduos).collect(Collectors.toList()));
 
         return hcTramosMensual + hcActividadesMensual;
     }
+
     //Falta ver como sacar el factor de emision del medio de transporte
-    public double calcularHCActividadLogistica(List<Medicion> mediciones){
-       String medioTransporte = mediciones.stream().filter(elememt -> elememt.getTipoConsumo().getNombre().equals("Medio de transporte")).collect(Collectors.toList()).get(0).getValor();
+    public double calcularHCActividadLogistica(List<Medicion> mediciones) {
+        String medioTransporte = mediciones.stream().filter(elememt -> elememt.getTipoConsumo().getNombre().equals("Medio de transporte")).collect(Collectors.toList()).get(0).getValor();
 
         Optional<FactorDeEmision> factorDeEmision = factorDeEmisionRepository.getByTipoDeTransporte(TipoMedioTransporte.valueOf(medioTransporte));
         //TODO ACA HABRIA QUE USAR EL TIPO DE MEDIO DE TRANSPORTE Y SACAR EL FACTOR DE EMiSION DEL TIPO CON UN GETBYTIPO
 
 
-
-      //Aca habria que buscar de la base cual es el factor del medio con una Query
+        //Aca habria que buscar de la base cual es el factor del medio con una Query
         Double distancia = Double.valueOf(mediciones.stream().filter(elememt -> elememt.getTipoConsumo().getNombre().equals("Distancia media recorrida")).collect(Collectors.toList()).get(0).getValor());
         Double peso = Double.valueOf(mediciones.stream().filter(elememt -> elememt.getTipoConsumo().getNombre().equals("Peso total transportado")).collect(Collectors.toList()).get(0).getValor());
-        return peso * distancia *  factorDeEmision.get().getValor() * organizacionCalculo.getFactorK();
+        return peso * distancia * factorDeEmision.get().getValor() * organizacionCalculo.getFactorK();
     }
-        //Revisar lo de las fechas
-    public double calcularHCOrganizacionAnual(Organizacion organizacion,int año) {
-       List<LocalDate> meses = null;
-        for (int i=1; i<= 12; i++ ){
-            meses.add( LocalDate.of(año, i,1) );
-            }
 
-        List<Medicion> actividadesAnuales =  organizacion.getMediciones().stream().filter(m->m.getPeriodicidad().equals(Periodicidad.ANUAL)).collect(Collectors.toList());
+    //Revisar lo de las fechas
+    public double calcularHCOrganizacionAnual(Organizacion organizacion, int anio) {
+        List<LocalDate> meses = null;
+        for (int i = 1; i <= 12; i++) {
+            meses.add(LocalDate.of(anio, i, 1));
+        }
+
+        List<Medicion> actividadesAnuales = organizacion.getMediciones().stream().filter(m -> m.getPeriodicidad().equals(Periodicidad.ANUAL)).collect(Collectors.toList());
         double hcActividadesAnual = actividadesAnuales.stream().mapToDouble((this::calcularHCDatoActividad)).sum();
 
         //Calcular hc anual de logistica
-        this.calcularHCActividadLogistica(actividadesAnuales.stream().filter(m->m.getActividad() ==Actividad.LogisticaDeProductosYResiduos).collect(Collectors.toList()));
+        this.calcularHCActividadLogistica(actividadesAnuales.stream().filter(m -> m.getActividad() == Actividad.LogisticaDeProductosYResiduos).collect(Collectors.toList()));
 
-        return meses.stream().mapToDouble(mes->this.calcularHCOrganizacionMensual(organizacion,mes)).sum() + hcActividadesAnual;
+        return meses.stream().mapToDouble(mes -> this.calcularHCOrganizacionMensual(organizacion, mes)).sum() + hcActividadesAnual;
     }
 
-    public double calcularHCSectorPromedioMensual(Sector sector,LocalDate mesElegido) {
-        return calcularHCOrganizacionMensual(sector.getOrganizacion(),mesElegido) / sector.getMiembros().size();
+    public double calcularHCSectorPromedioMensual(Sector sector, LocalDate mesElegido) {
+        return calcularHCOrganizacionMensual(sector.getOrganizacion(), mesElegido) / sector.getMiembros().size();
     }
 
-    public double calculoHCSectorPromedioAnual(Sector sector,int anio) {
-        return calcularHCOrganizacionAnual(sector.getOrganizacion(),anio) / sector.getMiembros().size();
+    public double calculoHCSectorPromedioAnual(Sector sector, int anio) {
+        return calcularHCOrganizacionAnual(sector.getOrganizacion(), anio) / sector.getMiembros().size();
     }
 
-    public double calcularHCSectorTerritorialAnual(SectorTerritorial sectorTerritorial,int anio) {
+    public double calcularHCSectorTerritorialAnual(SectorTerritorial sectorTerritorial, int anio) {
         return sectorTerritorial.getOrganizaciones().stream()
-                .mapToDouble(organizacion-> this.calcularHCOrganizacionAnual(organizacion,anio))
+                .mapToDouble(organizacion -> this.calcularHCOrganizacionAnual(organizacion, anio))
                 .sum();
     }
 
-    public double calcularHCSectorTerritorialMensual(SectorTerritorial sectorTerritorial,LocalDate mesElegido) {
+    public double calcularHCSectorTerritorialMensual(SectorTerritorial sectorTerritorial, LocalDate mesElegido) {
         return sectorTerritorial.getOrganizaciones().stream()
-                .mapToDouble(organizacion-> this.calcularHCOrganizacionMensual(organizacion,mesElegido))
+                .mapToDouble(organizacion -> this.calcularHCOrganizacionMensual(organizacion, mesElegido))
                 .sum();
     }
 
@@ -146,11 +148,12 @@ public class CalculadoraHC {
 
 
     public double calcularHCTramoMensual(Tramo tramo) {
-        return this.calcularHCTramoSemanal(tramo) * 4.5 ;
+        return this.calcularHCTramoSemanal(tramo) * 4.5;
     }
+
     public double calcularHCTramoSemanal(Tramo tramo) {
-        return this.calcularHCTramo(tramo) / tramo.getMiembros().stream().filter(miembro -> miembro.getOrganizacion().getRazonSocial() == organizacionCalculo.getRazonSocial()).count() * tramo.getCantVecesPorSemana(); // sin peso
-       // return this.calcularHCTramo(tramo) / tramo.getMiembros().stream().filter(miembro -> miembro.getOrganizacion().getRazonSocial() == organizacionCalculo.getRazonSocial()).count() * tramo.getCantVecesPorSemana() * tramo.getPeso(); // con peso
+        return this.calcularHCTramo(tramo) / tramo.getMiembros().stream().filter(miembro -> miembro.getOrganizacion().getRazonSocial().equals(organizacionCalculo.getRazonSocial())).count() * tramo.getCantVecesPorSemana(); // sin peso
+        // return this.calcularHCTramo(tramo) / tramo.getMiembros().stream().filter(miembro -> miembro.getOrganizacion().getRazonSocial() == organizacionCalculo.getRazonSocial()).count() * tramo.getCantVecesPorSemana() * tramo.getPeso(); // con peso
     }
 
 }

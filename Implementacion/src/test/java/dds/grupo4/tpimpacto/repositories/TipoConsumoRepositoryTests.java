@@ -3,9 +3,7 @@ package dds.grupo4.tpimpacto.repositories;
 import dds.grupo4.tpimpacto.config.CustomTestAnnotation;
 import dds.grupo4.tpimpacto.config.SlowTests;
 import dds.grupo4.tpimpacto.entities.medicion.Actividad;
-import dds.grupo4.tpimpacto.entities.medicion.FactorDeEmision;
 import dds.grupo4.tpimpacto.entities.medicion.TipoConsumo;
-import dds.grupo4.tpimpacto.entities.medicion.UnidadFactorEmision;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -30,7 +28,7 @@ public class TipoConsumoRepositoryTests {
     @BeforeEach
     public void buildTipoConsumoTest() {
         tipoConsumoTest = new TipoConsumo("tipoConsumoTest", Actividad.LogisticaDeProductosYResiduos,
-               null, "alcance1");
+                null, "alcance1");
     }
 
     @Test
@@ -43,7 +41,7 @@ public class TipoConsumoRepositoryTests {
         Assertions.assertTrue(optionalTipoConsumoDeBD.isPresent());
         Assertions.assertEquals("tipoConsumoTest", optionalTipoConsumoDeBD.get().getNombre());
         Assertions.assertEquals(Actividad.LogisticaDeProductosYResiduos, optionalTipoConsumoDeBD.get().getActividad());
-       // Assertions.assertEquals(UnidadFactorEmision.G, optionalTipoConsumoDeBD.get().getUnidadFactorEmision());
+        // Assertions.assertEquals(UnidadFactorEmision.G, optionalTipoConsumoDeBD.get().getUnidadFactorEmision());
         Assertions.assertEquals("alcance1", optionalTipoConsumoDeBD.get().getAlcance());
     }
 

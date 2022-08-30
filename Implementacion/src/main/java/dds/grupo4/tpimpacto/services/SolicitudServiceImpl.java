@@ -10,5 +10,5 @@ public class SolicitudServiceImpl extends BaseServiceImpl<Solicitud, SolicitudRe
     public SolicitudServiceImpl(SolicitudRepository repository) {
         super(repository);
     }
-    
+
 }

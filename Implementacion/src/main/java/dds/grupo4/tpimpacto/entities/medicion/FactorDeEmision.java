@@ -1,7 +1,6 @@
 package dds.grupo4.tpimpacto.entities.medicion;
 
 import dds.grupo4.tpimpacto.entities.BaseEntity;
-import dds.grupo4.tpimpacto.entities.medioTransporte.MedioDeTransporte;
 import dds.grupo4.tpimpacto.entities.medioTransporte.TipoMedioTransporte;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -22,7 +21,7 @@ public class FactorDeEmision extends BaseEntity {
     private TipoMedioTransporte tipoMedioDeTransporte;
 
     @OneToOne(mappedBy = "factorDeEmision")
-    private TipoConsumo tipoConsumo ;
+    private TipoConsumo tipoConsumo;
     private Double valor;
     private UnidadFactorEmision unidad;
 
@@ -30,8 +29,9 @@ public class FactorDeEmision extends BaseEntity {
         this.valor = valor;
         this.unidad = unidad;
     }
+
     private void validarGramosEquivalentes() throws UnidadesIncorrectasException {
-        if (!(this.getUnidad().equals("GCO2eq"))) {
+        if (!this.getUnidad().equals(UnidadFactorEmision.GCO2eq)) {
             throw new UnidadesIncorrectasException(
                     "La unidad a convertir debe ser GCO2eq");
         }
