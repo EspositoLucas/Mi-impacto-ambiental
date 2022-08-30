@@ -12,5 +12,5 @@ import lombok.Setter;
 public class RegistrarUsuarioRequest {
     private String username;
     private String password;
-    private Long idMiembro; // Si es distinto de NULL, entonces vincula al Usuario creado con el Miembro
+    private long idMiembro;
 }

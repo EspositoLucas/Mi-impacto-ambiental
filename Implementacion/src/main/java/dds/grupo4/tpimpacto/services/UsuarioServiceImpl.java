@@ -11,7 +11,6 @@ import dds.grupo4.tpimpacto.entities.seguridad.Usuario;
 import dds.grupo4.tpimpacto.repositories.MiembroRepository;
 import dds.grupo4.tpimpacto.repositories.UsuarioRepository;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,67 +31,59 @@ public class UsuarioServiceImpl extends BaseServiceImpl<Usuario, UsuarioReposito
 
     @Override
     @Transactional
-    public ResponseEntity<RegistrarUsuarioResponse> register(RegistrarUsuarioRequest request) {
+    public RegistrarUsuarioResponse register(RegistrarUsuarioRequest request) {
         if (existeUsuarioConUsername(request.getUsername())) {
-            RegistrarUsuarioResponse response = new RegistrarUsuarioResponse("Ya existe otro usuario con ese username");
-            return ResponseEntity.badRequest().body(response);
+            return new RegistrarUsuarioResponse(HttpStatus.BAD_REQUEST, "Ya existe otro usuario con ese username");
         }
 
         ResultadoDeValidacion resultado = validadorContrasenia.validarContrasenia(request.getPassword());
         if (!resultado.isValido()) {
-            RegistrarUsuarioResponse response = new RegistrarUsuarioResponse(
+            return new RegistrarUsuarioResponse(
+                    HttpStatus.BAD_REQUEST,
                     "Su contrasenia no cumple con los requisitos minimos",
                     resultado.getErrores()
             );
-            return ResponseEntity.badRequest().body(response);
+        }
+
+        Miembro miembro = miembroRepository.getById(request.getIdMiembro());
+        if (miembro == null) {
+            return new RegistrarUsuarioResponse(HttpStatus.BAD_REQUEST, "No se encontro al Miembro con el ID especificado");
         }
 
         // Ver de hashear la contrasenia antes de guardar el Usuario
         Usuario nuevoUsuario = new Usuario(request.getUsername(), request.getPassword());
-
-        if (request.getIdMiembro() != null) {
-            Miembro miembro = miembroRepository.getById(request.getIdMiembro());
-            if (miembro == null) {
-                RegistrarUsuarioResponse response = new RegistrarUsuarioResponse("No se encontro al Miembro con el ID especificado");
-                return ResponseEntity.badRequest().body(response);
-            }
-            miembro.setUsuario(nuevoUsuario);
-        }
+        miembro.setUsuario(nuevoUsuario);
 
         this.save(nuevoUsuario);
-        RegistrarUsuarioResponse response = new RegistrarUsuarioResponse("Usuario creado exitosamente");
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        return new RegistrarUsuarioResponse(HttpStatus.CREATED, "Usuario creado exitosamente");
     }
 
     @Override
     @Transactional
-    public ResponseEntity<BaseResponse> login(LoginRequest request) {
+    public BaseResponse login(LoginRequest request) {
         Optional<Usuario> optionalUsuario = repository.getByUsername(request.getUsername());
         if (!optionalUsuario.isPresent()) {
-            BaseResponse response = new BaseResponse("No existe ningun usuario con el username especificado");
-            return ResponseEntity.badRequest().body(response);
+            return new BaseResponse(HttpStatus.BAD_REQUEST, "No existe ningun usuario con el username especificado");
         }
 
         Usuario user = optionalUsuario.get();
 
         if (user.estaBloqueado()) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-            BaseResponse response = new BaseResponse(
+            return new BaseResponse(
+                    HttpStatus.LOCKED,
                     "El usuario esta bloqueado hasta la fecha " + user.getBloqueadoHasta().format(formatter)
             );
-            return ResponseEntity.status(HttpStatus.LOCKED).body(response);
         }
 
         if (!user.getPassword().equals(request.getPassword())) {
             user.logeoIncorrecto();
-            BaseResponse response = new BaseResponse("Contrasenia incorrecta");
-            return ResponseEntity.badRequest().body(response);
+            return new BaseResponse(HttpStatus.BAD_REQUEST, "Contrasenia incorrecta");
         }
 
         // TODO: implementar JWTs
         user.logeoCorrecto();
-        BaseResponse response = new BaseResponse("OK");
-        return ResponseEntity.ok(response);
+        return new BaseResponse(HttpStatus.OK, "OK");
     }
 
     @Override
