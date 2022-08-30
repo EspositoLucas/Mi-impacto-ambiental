@@ -18,7 +18,7 @@ public class TipoConsumo extends BaseEntity {
     private Actividad actividad;
     // private UnidadFactorEmision unidadFactorEmision; // no hace falta esto al tener el factor de emision ?
 
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(
             name = "factor_de_emision",
             nullable = false,

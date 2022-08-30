@@ -34,7 +34,6 @@ public abstract class MedioDeTransporte extends BaseEntity {
 
     private TipoMedioTransporte tipo;
 
-
     public abstract double getCombustibleConsumidoPorKm();
 
 }
