@@ -2,9 +2,9 @@ package dds.grupo4.tpimpacto.services;
 
 import dds.grupo4.tpimpacto.config.CustomTestAnnotation;
 import dds.grupo4.tpimpacto.config.FastTests;
-import dds.grupo4.tpimpacto.dtos.CrearMiembro;
+import dds.grupo4.tpimpacto.dtos.CrearMiembroRequest;
+import dds.grupo4.tpimpacto.dtos.CrearMiembroResponse;
 import dds.grupo4.tpimpacto.entities.organizacion.*;
-import dds.grupo4.tpimpacto.entities.seguridad.Usuario;
 import dds.grupo4.tpimpacto.repositories.MiembroRepository;
 import dds.grupo4.tpimpacto.repositories.PersonaRepository;
 import dds.grupo4.tpimpacto.repositories.SectorRepository;
@@ -53,16 +53,13 @@ public class MiembroServiceTests {
     @Test
     @Transactional
     public void crearMiembro_cuandoExistenTodosLosDatos_creaAlMiembroYLaSolicitudDeVinculacion() {
-        CrearMiembro.Request request = new CrearMiembro.Request(1, "usernameTest", "passwordTest", 2, 3);
+        CrearMiembroRequest request = new CrearMiembroRequest(1, 2, 3);
         ArgumentCaptor<Solicitud> captor = ArgumentCaptor.forClass(Solicitud.class);
 
-        CrearMiembro.Response response = miembroService.crearMiembro(request);
+        CrearMiembroResponse response = miembroService.crearMiembro(request);
 
         Mockito.verify(solicitudRepository).save(captor.capture());
         Solicitud solicitudGenerada = captor.getValue();
-        Usuario usuarioGenerado = solicitudGenerada.getMiembro().getUsuario();
-        Assertions.assertEquals("usernameTest", usuarioGenerado.getUsername());
-        Assertions.assertEquals("passwordTest", usuarioGenerado.getPassword());
         Assertions.assertEquals(1, solicitudGenerada.getMiembro().getPersona().getId());
         Assertions.assertEquals(2, solicitudGenerada.getOrganizacion().getId());
         Assertions.assertEquals(3, solicitudGenerada.getSector().getId());
@@ -78,7 +75,7 @@ public class MiembroServiceTests {
         Mockito.when(sectorRepository.getById(20)).thenReturn(sector);
         int idSector = 20, idOrganizacion = 99; // El idOrganizacion correcto seria el 10, lo pongo mal a proposito
 
-        CrearMiembro.Request request = new CrearMiembro.Request(1, "usernameTest", "passwordTest", idOrganizacion, idSector);
+        CrearMiembroRequest request = new CrearMiembroRequest(1, idOrganizacion, idSector);
 
         Assertions.assertThrows(IllegalArgumentException.class, () -> miembroService.crearMiembro(request));
     }

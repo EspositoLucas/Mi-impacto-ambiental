@@ -36,9 +36,8 @@ public class Miembro extends BaseEntity {
     @ManyToMany(mappedBy = "miembros")
     private List<Tramo> tramos = new ArrayList<>();
 
-    public Miembro(Persona persona, Usuario usuario) {
+    public Miembro(Persona persona) {
         this.persona = persona;
-        this.usuario = usuario;
     }
 
     public void addTramo(Tramo tramo) {

@@ -1,6 +1,5 @@
 package dds.grupo4.tpimpacto;
 
-import dds.grupo4.tpimpacto.controllers.MiembroControllerFake;
 import dds.grupo4.tpimpacto.controllers.OrganizacionControllerFake;
 import dds.grupo4.tpimpacto.controllers.TipoServicioContratadoControllerFake;
 import dds.grupo4.tpimpacto.controllers.TransportePublicoControllerFake;
@@ -18,15 +17,13 @@ public class SpringCommandLineRunner implements CommandLineRunner {
     // y quede el codigo separado segun cada entidad (Organizacion, Miembro...). En un futuro habria que convertir
     // los Controllers a RestController, para usarlos en la API
     private final OrganizacionControllerFake organizacionControllerFake;
-    private final MiembroControllerFake miembroControllerFake;
     private final TipoServicioContratadoControllerFake tipoServicioContratadoControllerFake;
     private final TransportePublicoControllerFake transportePublicoControllerFake;
 
     // Todos estos parametros los "inyecta" Spring directamente, no hay que pasarselos porque los configura solos
     @Autowired
-    public SpringCommandLineRunner(OrganizacionControllerFake organizacionControllerFake, MiembroControllerFake miembroControllerFake, TipoServicioContratadoControllerFake tipoServicioContratadoControllerFake, TransportePublicoControllerFake transportePublicoControllerFake) {
+    public SpringCommandLineRunner(OrganizacionControllerFake organizacionControllerFake, TipoServicioContratadoControllerFake tipoServicioContratadoControllerFake, TransportePublicoControllerFake transportePublicoControllerFake) {
         this.organizacionControllerFake = organizacionControllerFake;
-        this.miembroControllerFake = miembroControllerFake;
         this.tipoServicioContratadoControllerFake = tipoServicioContratadoControllerFake;
         this.transportePublicoControllerFake = transportePublicoControllerFake;
     }
@@ -45,9 +42,6 @@ public class SpringCommandLineRunner implements CommandLineRunner {
                     break;
                 case LISTAR_ORGANIZACIONES:
                     organizacionControllerFake.listarOrganizaciones();
-                    break;
-                case CREAR_MIEMBRO:
-                    miembroControllerFake.crearMiembro();
                     break;
                 case ACEPTAR_SOLICITUD:
                     organizacionControllerFake.aceptarSolicitud();
