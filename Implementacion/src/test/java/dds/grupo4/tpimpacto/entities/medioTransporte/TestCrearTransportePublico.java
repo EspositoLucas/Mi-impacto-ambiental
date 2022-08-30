@@ -1,4 +1,4 @@
-package entities.medioTrasnporte;
+package dds.grupo4.tpimpacto.entities.medioTransporte;
 
 import dds.grupo4.tpimpacto.entities.medioTransporte.*;
 import dds.grupo4.tpimpacto.entities.trayecto.Direccion;
