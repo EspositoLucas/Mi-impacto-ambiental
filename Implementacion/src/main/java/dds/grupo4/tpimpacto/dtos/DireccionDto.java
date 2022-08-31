@@ -11,7 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DireccionDto {
-    private long id;
+    private Long id;
     private String calle;
     private String altura;
     private String pais;

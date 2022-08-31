@@ -12,5 +12,5 @@ import lombok.Setter;
 public class CrearSectorRequest {
     private String nombre;
     private long idOrganizacion;
-    private long idEspacio;
+    private EspacioDto espacio;
 }

@@ -24,4 +24,8 @@ public class Espacio extends Lugar {
         this.tipoEspacio = tipoEspacio;
     }
 
+    @Override
+    public String toString() {
+        return nombre;
+    }
 }
