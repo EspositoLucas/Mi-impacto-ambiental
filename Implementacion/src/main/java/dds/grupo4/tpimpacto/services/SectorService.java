@@ -1,10 +1,9 @@
 package dds.grupo4.tpimpacto.services;
 
+import dds.grupo4.tpimpacto.dtos.CrearSectorRequest;
+import dds.grupo4.tpimpacto.dtos.base.BaseResponse;
 import dds.grupo4.tpimpacto.entities.organizacion.Sector;
 
-import java.util.Optional;
-
 public interface SectorService extends BaseService<Sector> {
-    Optional<Sector> getByNombreYOrganizacion(String nombreSector, String razonSocialOrganizacion);
-
+    BaseResponse crearSector(CrearSectorRequest request);
 }
