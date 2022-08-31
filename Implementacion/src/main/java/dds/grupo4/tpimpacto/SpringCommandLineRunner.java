@@ -1,6 +1,5 @@
 package dds.grupo4.tpimpacto;
 
-import dds.grupo4.tpimpacto.controllers.TransportePublicoControllerFake;
 import dds.grupo4.tpimpacto.extras.ConsoleHelper;
 import dds.grupo4.tpimpacto.extras.OperacionTesteo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +13,10 @@ public class SpringCommandLineRunner implements CommandLineRunner {
     // Todos estos Controllers son "Fakes" porque unicamente estan para que no quede toda la logica en el Main,
     // y quede el codigo separado segun cada entidad (Organizacion, Miembro...). En un futuro habria que convertir
     // los Controllers a RestController, para usarlos en la API
-    private final TransportePublicoControllerFake transportePublicoControllerFake;
 
     // Todos estos parametros los "inyecta" Spring directamente, no hay que pasarselos porque los configura solos
     @Autowired
-    public SpringCommandLineRunner(TransportePublicoControllerFake transportePublicoControllerFake) {
-        this.transportePublicoControllerFake = transportePublicoControllerFake;
+    public SpringCommandLineRunner() {
     }
 
     @Override
@@ -28,9 +25,6 @@ public class SpringCommandLineRunner implements CommandLineRunner {
         do {
             operacionTesteo = mostrarOperacionesYElegir();
             switch (operacionTesteo) {
-                case CREAR_TRANSPORTE_PUBLICO:
-                    transportePublicoControllerFake.crearLinea();
-                    break;
             }
 
             ConsoleHelper.print("\n\n");

@@ -14,6 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 public class OrganizacionDto {
 
+    private long id;
     private String razonSocial;
     private String tipoOrganizacion;
     private String clasificacion;
@@ -24,6 +25,7 @@ public class OrganizacionDto {
 
     public static OrganizacionDto from(Organizacion organizacion) {
         OrganizacionDto dto = new OrganizacionDto();
+        dto.setId(organizacion.getId());
         dto.setRazonSocial(organizacion.getRazonSocial());
         dto.setTipoOrganizacion(organizacion.getTipoOrganizacion().toString());
         dto.setClasificacion(organizacion.getClasificacion().toString());

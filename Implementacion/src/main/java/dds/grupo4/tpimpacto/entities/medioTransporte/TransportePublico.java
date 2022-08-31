@@ -19,7 +19,7 @@ public class TransportePublico extends MedioDeTransporte {
     private TipoTransportePublico tipoTransportePublico;
     private String linea;
 
-    @OneToMany(mappedBy = "transportePublico")
+    @OneToMany(mappedBy = "transportePublico", cascade = CascadeType.ALL)
     private List<Parada> paradas = new ArrayList<>();
 
     @ManyToOne
@@ -32,11 +32,10 @@ public class TransportePublico extends MedioDeTransporte {
 
     private double combustibleConsumidoPorKm;
 
-    public TransportePublico(TipoTransportePublico tipoTransportePublico, String linea, List<Parada> paradas, Combustible combustible, double combustibleConsumidoPorKm) {
+    public TransportePublico(TipoTransportePublico tipoTransportePublico, String linea, Combustible combustible, double combustibleConsumidoPorKm) {
         this.setTipo(TipoMedioTransporte.TRANSPORTE_PUBLICO);
         this.tipoTransportePublico = tipoTransportePublico;
         this.linea = linea;
-        this.paradas = paradas;
         this.combustible = combustible;
         this.combustibleConsumidoPorKm = combustibleConsumidoPorKm;
     }

@@ -2,10 +2,12 @@ package dds.grupo4.tpimpacto.repositories;
 
 import dds.grupo4.tpimpacto.entities.medicion.FactorDeEmision;
 import dds.grupo4.tpimpacto.entities.medioTransporte.TipoMedioTransporte;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import java.util.Optional;
 
+@Repository
 public class FactorDeEmisionRepositoryImpl extends BaseRepositoryImpl<FactorDeEmision> implements FactorDeEmisionRepository {
 
     public FactorDeEmisionRepositoryImpl(EntityManager entityManager) {
