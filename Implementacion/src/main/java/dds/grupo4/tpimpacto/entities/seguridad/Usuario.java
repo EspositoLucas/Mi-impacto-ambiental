@@ -52,4 +52,8 @@ public class Usuario extends BaseEntity {
         return bloqueadoHasta != null && LocalDateTime.now().isBefore(bloqueadoHasta);
     }
 
+    @Override
+    public String toString() {
+        return username;
+    }
 }

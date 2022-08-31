@@ -18,6 +18,8 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class SectorTerritorial extends BaseEntity {
 
+    private String nombre;
+
     @OneToMany(mappedBy = "sectorTerritorial")
     private List<AgenteSectorial> agentesSectoriales = new ArrayList<>();
 
@@ -33,10 +35,15 @@ public class SectorTerritorial extends BaseEntity {
 
     private TipoSectorTerritorial tipoSectorTerritorial;
 
-    public SectorTerritorial(List<AgenteSectorial> agentesSectoriales, List<Organizacion> organizaciones, TipoSectorTerritorial tipo) {
+    public SectorTerritorial(String nombre, List<AgenteSectorial> agentesSectoriales, List<Organizacion> organizaciones, TipoSectorTerritorial tipo) {
+        this.nombre = nombre;
         this.agentesSectoriales = agentesSectoriales;
         this.organizaciones = organizaciones;
         this.tipoSectorTerritorial = tipo;
     }
 
+    @Override
+    public String toString() {
+        return nombre;
+    }
 }

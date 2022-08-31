@@ -52,4 +52,8 @@ public class Miembro extends BaseEntity {
         return persona.getDocumento();
     }
 
+    @Override
+    public String toString() {
+        return persona.toString();
+    }
 }

@@ -39,4 +39,8 @@ public class Persona extends BaseEntity {
         miembro.setPersona(this);
     }
 
+    @Override
+    public String toString() {
+        return nombre + " " + apellido + " (" + documento + ")";
+    }
 }

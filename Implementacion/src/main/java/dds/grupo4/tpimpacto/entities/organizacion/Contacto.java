@@ -33,4 +33,10 @@ public class Contacto extends BaseEntity {
         this.telefono = telefono;
     }
 
+    @Override
+    public String toString() {
+        String mail = email != null ? email : "-";
+        String telef = telefono != null ? telefono : "-";
+        return nombre + " " + apellido + " (Mail: " + mail + ", Telefono: " + telef + ")";
+    }
 }

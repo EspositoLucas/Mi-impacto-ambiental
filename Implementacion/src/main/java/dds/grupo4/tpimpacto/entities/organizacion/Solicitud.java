@@ -34,4 +34,12 @@ public class Solicitud extends BaseEntity {
         this.organizacion = organizacion;
     }
 
+    @Override
+    public String toString() {
+        return "{" +
+                "miembro=" + miembro.toString() +
+                ", sector=" + sector.toString() +
+                ", organizacion=" + organizacion.toString() +
+                '}';
+    }
 }

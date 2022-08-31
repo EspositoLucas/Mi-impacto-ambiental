@@ -51,4 +51,8 @@ public class Sector extends BaseEntity {
         miembro.setSector(this);
     }
 
+    @Override
+    public String toString() {
+        return nombre + " (Org: " + organizacion.toString() + ")";
+    }
 }

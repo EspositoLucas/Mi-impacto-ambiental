@@ -95,4 +95,9 @@ public class Organizacion extends BaseEntity {
                 .distinct()
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public String toString() {
+        return razonSocial;
+    }
 }

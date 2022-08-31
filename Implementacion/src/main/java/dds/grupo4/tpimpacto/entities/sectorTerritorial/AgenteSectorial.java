@@ -29,4 +29,8 @@ public class AgenteSectorial extends BaseEntity {
         this.apellido = apellido;
     }
 
+    @Override
+    public String toString() {
+        return nombre + " " + apellido;
+    }
 }
