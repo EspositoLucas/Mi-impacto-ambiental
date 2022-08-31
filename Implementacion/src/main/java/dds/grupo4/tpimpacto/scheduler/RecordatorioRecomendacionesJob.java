@@ -8,7 +8,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.quartz.DisallowConcurrentExecution;
 import org.quartz.JobDataMap;
 import org.quartz.JobExecutionContext;
-import org.quartz.JobExecutionException;
 import org.springframework.scheduling.quartz.QuartzJobBean;
 import org.springframework.stereotype.Component;
 
@@ -31,7 +30,7 @@ public class RecordatorioRecomendacionesJob extends QuartzJobBean {
     }
 
     @Override
-    protected void executeInternal(JobExecutionContext context) throws JobExecutionException {
+    protected void executeInternal(JobExecutionContext context) {
         log.info("!! Empezando Job de envio de recordatorios !!");
 
         JobDataMap jobDataMap = context.getJobDetail().getJobDataMap();

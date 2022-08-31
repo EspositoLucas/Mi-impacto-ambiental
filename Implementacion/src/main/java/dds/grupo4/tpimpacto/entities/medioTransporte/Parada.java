@@ -27,7 +27,6 @@ public class Parada extends Lugar {
     @JoinColumn(
             name = "parada_siguiente",
             unique = true,
-            nullable = true,
             foreignKey = @ForeignKey(name = "FK_Paradas_ParadaSiguiente")
     )
     private Parada paradaSiguiente;
@@ -36,7 +35,6 @@ public class Parada extends Lugar {
     @JoinColumn(
             name = "parada_anterior",
             unique = true,
-            nullable = true,
             foreignKey = @ForeignKey(name = "FK_Paradas_ParadaAnterior")
     )
     private Parada paradaAnterior;
