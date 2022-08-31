@@ -1,6 +1,19 @@
 package dds.grupo4.tpimpacto.repositories;
 
 import dds.grupo4.tpimpacto.entities.medioTransporte.Combustible;
+import org.springframework.stereotype.Repository;
 
-public interface CombustibleRepository extends BaseRepository<Combustible> {
+import javax.persistence.EntityManager;
+
+@Repository
+public class CombustibleRepository extends BaseRepository<Combustible> {
+
+    public CombustibleRepository(EntityManager entityManager) {
+        super(entityManager);
+    }
+
+    @Override
+    public Class<Combustible> getEntityClass() {
+        return Combustible.class;
+    }
 }

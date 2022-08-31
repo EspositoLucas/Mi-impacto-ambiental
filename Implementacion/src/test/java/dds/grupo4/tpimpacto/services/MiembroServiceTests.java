@@ -37,7 +37,7 @@ public class MiembroServiceTests {
 
     @BeforeEach
     public void setUp() {
-        miembroService = new MiembroServiceImpl(miembroRepository, personaRepository, solicitudRepository, sectorRepository);
+        miembroService = new MiembroService(miembroRepository, personaRepository, solicitudRepository, sectorRepository);
 
         Persona personaTest = new Persona("nombrePersonaTest", "apellidoPersonaTest", TipoDocumento.DNI, "documentoPersonaTest");
         personaTest.setId(1);

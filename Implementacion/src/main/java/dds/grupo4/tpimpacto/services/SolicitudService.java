@@ -1,6 +1,14 @@
 package dds.grupo4.tpimpacto.services;
 
 import dds.grupo4.tpimpacto.entities.organizacion.Solicitud;
+import dds.grupo4.tpimpacto.repositories.SolicitudRepository;
+import org.springframework.stereotype.Service;
 
-public interface SolicitudService extends BaseService<Solicitud> {
+@Service
+public class SolicitudService extends BaseService<Solicitud, SolicitudRepository> {
+
+    public SolicitudService(SolicitudRepository repository) {
+        super(repository);
+    }
+
 }

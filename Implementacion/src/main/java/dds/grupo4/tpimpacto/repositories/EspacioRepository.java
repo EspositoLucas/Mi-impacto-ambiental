@@ -1,6 +1,19 @@
 package dds.grupo4.tpimpacto.repositories;
 
 import dds.grupo4.tpimpacto.entities.trayecto.Espacio;
+import org.springframework.stereotype.Repository;
 
-public interface EspacioRepository extends BaseRepository<Espacio> {
+import javax.persistence.EntityManager;
+
+@Repository
+public class EspacioRepository extends BaseRepository<Espacio> {
+
+    public EspacioRepository(EntityManager entityManager) {
+        super(entityManager);
+    }
+
+    @Override
+    public Class<Espacio> getEntityClass() {
+        return Espacio.class;
+    }
 }

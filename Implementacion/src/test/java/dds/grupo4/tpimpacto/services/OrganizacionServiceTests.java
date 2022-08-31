@@ -39,7 +39,7 @@ public class OrganizacionServiceTests {
 
     @BeforeEach
     public void setUp() {
-        organizacionService = new OrganizacionServiceImpl(organizacionRepository, solicitudRepository, tipoConsumoService);
+        organizacionService = new OrganizacionService(organizacionRepository, solicitudRepository, tipoConsumoService);
 
         miembroTest = new Miembro(null);
         miembroTest.setId(1);

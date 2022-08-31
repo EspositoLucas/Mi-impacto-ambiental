@@ -11,7 +11,7 @@ import dds.grupo4.tpimpacto.entities.organizacion.Sector;
 import dds.grupo4.tpimpacto.entities.sectorTerritorial.SectorTerritorial;
 import dds.grupo4.tpimpacto.entities.trayecto.Tramo;
 import dds.grupo4.tpimpacto.entities.trayecto.Trayecto;
-import dds.grupo4.tpimpacto.repositories.FactorDeEmisionRepositoryImpl;
+import dds.grupo4.tpimpacto.repositories.FactorDeEmisionRepository;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 
 public class CalculadoraHC {
 
-    private FactorDeEmisionRepositoryImpl factorDeEmisionRepository;
+    private FactorDeEmisionRepository factorDeEmisionRepository;
 
     private Organizacion organizacionCalculo;
 
