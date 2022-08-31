@@ -16,16 +16,23 @@ public class DireccionService extends BaseService<Direccion, DireccionRepository
 
     @Transactional
     public Direccion getOrCreateDireccion(DireccionDto direccionDto) {
-        Optional<Direccion> direccionOptional = repository.getByDireccionEntera(
-                direccionDto.getCalle(),
-                direccionDto.getAltura(),
-                direccionDto.getPais(),
-                direccionDto.getProvincia(),
-                direccionDto.getMunicipio(),
-                direccionDto.getLocalidad(),
-                direccionDto.getBarrio(),
-                direccionDto.getCodigoPostal()
-        );
+        Optional<Direccion> direccionOptional;
+        if (direccionDto.getId() != null && direccionDto.getId() != 0) {
+            Direccion direccion = repository.getById(direccionDto.getId());
+            direccionOptional = Optional.ofNullable(direccion);
+        } else {
+            direccionOptional = repository.getByDireccionEntera(
+                    direccionDto.getCalle(),
+                    direccionDto.getAltura(),
+                    direccionDto.getPais(),
+                    direccionDto.getProvincia(),
+                    direccionDto.getMunicipio(),
+                    direccionDto.getLocalidad(),
+                    direccionDto.getBarrio(),
+                    direccionDto.getCodigoPostal()
+            );
+        }
+
         if (direccionOptional.isPresent()) {
             return direccionOptional.get();
         }
