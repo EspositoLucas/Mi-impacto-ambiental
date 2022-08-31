@@ -1,16 +1,20 @@
 package dds.grupo4.tpimpacto.services;
 
 import dds.grupo4.tpimpacto.cargamediciones.RowMedicionActividad;
-import dds.grupo4.tpimpacto.dtos.AceptarSolicitud;
+import dds.grupo4.tpimpacto.dtos.*;
+import dds.grupo4.tpimpacto.dtos.base.BaseResponse;
 import dds.grupo4.tpimpacto.entities.medicion.Actividad;
 import dds.grupo4.tpimpacto.entities.medicion.Medicion;
 import dds.grupo4.tpimpacto.entities.medicion.Periodicidad;
 import dds.grupo4.tpimpacto.entities.medicion.TipoConsumo;
+import dds.grupo4.tpimpacto.entities.organizacion.Clasificacion;
 import dds.grupo4.tpimpacto.entities.organizacion.Organizacion;
 import dds.grupo4.tpimpacto.entities.organizacion.Solicitud;
+import dds.grupo4.tpimpacto.entities.organizacion.TipoOrganizacion;
 import dds.grupo4.tpimpacto.repositories.OrganizacionRepository;
 import dds.grupo4.tpimpacto.repositories.SolicitudRepository;
 import dds.grupo4.tpimpacto.utils.StringUtils;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,21 +38,58 @@ public class OrganizacionServiceImpl extends BaseServiceImpl<Organizacion, Organ
 
     @Override
     @Transactional
+    public BaseResponse crearOrganizacion(CrearOrganizacionRequest request) {
+        if (repository.getByRazonSocial(request.getRazonSocial()).isPresent()) {
+            return new BaseResponse(HttpStatus.BAD_REQUEST, "Ya existe una Organizacion con esa razon social");
+        }
+
+        TipoOrganizacion tipoOrganizacion = TipoOrganizacion.valueOf(request.getTipoOrganizacion());
+        Clasificacion clasificacion = Clasificacion.valueOf(request.getClasificacion());
+        Organizacion nuevaOrganizacion = new Organizacion(request.getRazonSocial(), tipoOrganizacion, clasificacion);
+        this.save(nuevaOrganizacion);
+        return new BaseResponse(HttpStatus.OK);
+    }
+
+    @Override
+    @Transactional
+    public ListarOrganizacionesResponse listarOrganizaciones() {
+        List<Organizacion> organizaciones = this.getAll();
+        List<OrganizacionDto> dtos = organizaciones.stream()
+                .map(OrganizacionDto::from)
+                .collect(Collectors.toList());
+        return new ListarOrganizacionesResponse(HttpStatus.OK, dtos);
+    }
+
+    @Override
+    @Transactional
+    public ListarMiembrosResponse listarMiembros(long idOrganizacion) {
+        Organizacion organizacion = this.getById(idOrganizacion);
+        List<MiembroDto> miembrosDtos = organizacion.getMiembros().stream()
+                .map(MiembroDto::from)
+                .collect(Collectors.toList());
+        return new ListarMiembrosResponse(HttpStatus.OK, miembrosDtos);
+    }
+
+    @Override
+    @Transactional
     public Optional<Organizacion> getByRazonSocial(String razonSocial) {
         return repository.getByRazonSocial(razonSocial);
     }
 
     @Override
     @Transactional
-    public AceptarSolicitud.Response aceptarSolicitud(AceptarSolicitud.Request request) {
+    public BaseResponse aceptarSolicitud(AceptarSolicitudRequest request) {
         Solicitud solicitud = solicitudRepository.getById(request.getIdSolicitud());
         if (solicitud == null) {
-            throw new IllegalArgumentException("No existe ninguna Solicitud con ID " + request.getIdSolicitud());
+            return new BaseResponse(
+                    HttpStatus.BAD_REQUEST,
+                    "No existe ninguna Solicitud con el ID ingresado"
+            );
         }
 
         solicitud.getOrganizacion().aceptarSolicitud(solicitud);
         solicitud.getMiembro().setFechaIngreso(LocalDate.now());
-        return new AceptarSolicitud.Response();
+        return new BaseResponse(HttpStatus.ACCEPTED, "Miembro asociado correctamente con la Organizacion");
     }
 
     @Override

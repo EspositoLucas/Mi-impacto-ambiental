@@ -1,6 +1,5 @@
 package dds.grupo4.tpimpacto;
 
-import dds.grupo4.tpimpacto.controllers.OrganizacionControllerFake;
 import dds.grupo4.tpimpacto.controllers.TipoServicioContratadoControllerFake;
 import dds.grupo4.tpimpacto.controllers.TransportePublicoControllerFake;
 import dds.grupo4.tpimpacto.extras.ConsoleHelper;
@@ -16,39 +15,22 @@ public class SpringCommandLineRunner implements CommandLineRunner {
     // Todos estos Controllers son "Fakes" porque unicamente estan para que no quede toda la logica en el Main,
     // y quede el codigo separado segun cada entidad (Organizacion, Miembro...). En un futuro habria que convertir
     // los Controllers a RestController, para usarlos en la API
-    private final OrganizacionControllerFake organizacionControllerFake;
     private final TipoServicioContratadoControllerFake tipoServicioContratadoControllerFake;
     private final TransportePublicoControllerFake transportePublicoControllerFake;
 
     // Todos estos parametros los "inyecta" Spring directamente, no hay que pasarselos porque los configura solos
     @Autowired
-    public SpringCommandLineRunner(OrganizacionControllerFake organizacionControllerFake, TipoServicioContratadoControllerFake tipoServicioContratadoControllerFake, TransportePublicoControllerFake transportePublicoControllerFake) {
-        this.organizacionControllerFake = organizacionControllerFake;
+    public SpringCommandLineRunner(TipoServicioContratadoControllerFake tipoServicioContratadoControllerFake, TransportePublicoControllerFake transportePublicoControllerFake) {
         this.tipoServicioContratadoControllerFake = tipoServicioContratadoControllerFake;
         this.transportePublicoControllerFake = transportePublicoControllerFake;
     }
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
         OperacionTesteo operacionTesteo;
         do {
             operacionTesteo = mostrarOperacionesYElegir();
             switch (operacionTesteo) {
-                case CARGAR_MEDICIONES:
-                    organizacionControllerFake.cargarMediciones();
-                    break;
-                case CREAR_ORGANIZACION:
-                    organizacionControllerFake.crearOrganizacion();
-                    break;
-                case LISTAR_ORGANIZACIONES:
-                    organizacionControllerFake.listarOrganizaciones();
-                    break;
-                case ACEPTAR_SOLICITUD:
-                    organizacionControllerFake.aceptarSolicitud();
-                    break;
-                case LISTAR_MIEMBROS_DE_ORGANIZACION:
-                    organizacionControllerFake.listarMiembros();
-                    break;
                 case CREAR_TIPO_SERVICIO_CONTRATADO:
                     tipoServicioContratadoControllerFake.crearTipoServicioContratado();
                     break;

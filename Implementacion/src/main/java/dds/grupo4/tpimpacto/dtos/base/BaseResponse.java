@@ -14,6 +14,10 @@ public class BaseResponse {
 
     private String message;
 
+    public BaseResponse(HttpStatus status) {
+        this.status = status;
+    }
+
     public BaseResponse(HttpStatus status, String message) {
         this.status = status;
         this.message = message;
