@@ -5,7 +5,6 @@ import dds.grupo4.tpimpacto.config.SlowTests;
 import dds.grupo4.tpimpacto.entities.medicion.Actividad;
 import dds.grupo4.tpimpacto.entities.medicion.FactorDeEmision;
 import dds.grupo4.tpimpacto.entities.medicion.TipoConsumo;
-import dds.grupo4.tpimpacto.entities.medicion.UnidadFactorEmision;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -29,7 +28,7 @@ public class TipoConsumoRepositoryTests {
 
     @BeforeEach
     public void buildTipoConsumoTest() {
-        FactorDeEmision factorDeEmision = new FactorDeEmision(10d, UnidadFactorEmision.KGCO2eq);
+        FactorDeEmision factorDeEmision = new FactorDeEmision(10d);
         tipoConsumoTest = new TipoConsumo("tipoConsumoTest", Actividad.LogisticaDeProductosYResiduos,
                 factorDeEmision, "alcance1");
     }

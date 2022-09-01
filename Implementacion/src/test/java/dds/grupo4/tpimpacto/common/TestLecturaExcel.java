@@ -17,7 +17,7 @@ public class TestLecturaExcel extends OrganizacionServiceTests {
 
 
     @BeforeEach
-    void inicializarDatosDeActividades() {
+    void inicializarMediciones() {
 
     setUp();
 //    this.organizacionService.cargarMediciones();

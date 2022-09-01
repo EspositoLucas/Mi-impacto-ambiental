@@ -55,7 +55,11 @@ public class CalculadoraHC {
 
     public double calcularHCMiembroAnual(Miembro miembro, int anio) {
         List<LocalDate> meses = null;
-        for (int i = 1; i <= 12; i++) {
+        int mesActual;
+        if (LocalDate.now().getYear() == anio) mesActual = LocalDate.now().getMonthValue();
+        else mesActual = 12;
+
+        for (int i = 1; i <= mesActual-1; i++) {
             meses.add(LocalDate.of(anio, i, 1));
         }
 
@@ -90,15 +94,11 @@ public class CalculadoraHC {
         return hcTramosMensual + hcActividadesMensual;
     }
 
-    //Falta ver como sacar el factor de emision del medio de transporte
     public double calcularHCActividadLogistica(List<Medicion> mediciones) {
         String medioTransporte = mediciones.stream().filter(elememt -> elememt.getTipoConsumo().getNombre().equals("Medio de transporte")).collect(Collectors.toList()).get(0).getValor();
 
         Optional<FactorDeEmision> factorDeEmision = factorDeEmisionRepository.getByTipoDeTransporte(TipoMedioTransporte.valueOf(medioTransporte));
-        //TODO ACA HABRIA QUE USAR EL TIPO DE MEDIO DE TRANSPORTE Y SACAR EL FACTOR DE EMiSION DEL TIPO CON UN GETBYTIPO
 
-
-        //Aca habria que buscar de la base cual es el factor del medio con una Query
         Double distancia = Double.valueOf(mediciones.stream().filter(elememt -> elememt.getTipoConsumo().getNombre().equals("Distancia media recorrida")).collect(Collectors.toList()).get(0).getValor());
         Double peso = Double.valueOf(mediciones.stream().filter(elememt -> elememt.getTipoConsumo().getNombre().equals("Peso total transportado")).collect(Collectors.toList()).get(0).getValor());
         return peso * distancia * factorDeEmision.get().getValor() * organizacionCalculo.getFactorK();
@@ -106,10 +106,10 @@ public class CalculadoraHC {
 
     //Revisar lo de las fechas
     public double calcularHCOrganizacionAnual(Organizacion organizacion, int anio) {
-        List<LocalDate> meses = null;
-        for (int i = 1; i <= 12; i++) {
-            meses.add(LocalDate.of(anio, i, 1));
-        }
+        int mesActual;
+        if (LocalDate.now().getYear() == anio) mesActual = LocalDate.now().getMonthValue() -1;
+        else mesActual = 12;
+
 
         List<Medicion> actividadesAnuales = organizacion.getMediciones().stream().filter(m -> m.getPeriodicidad().equals(Periodicidad.ANUAL)).collect(Collectors.toList());
         double hcActividadesAnual = actividadesAnuales.stream().mapToDouble((this::calcularHCDatoActividad)).sum() ;
@@ -117,7 +117,11 @@ public class CalculadoraHC {
         //Calcular hc anual de logistica
         this.calcularHCActividadLogistica(actividadesAnuales.stream().filter(m -> m.getActividad() == Actividad.LogisticaDeProductosYResiduos).collect(Collectors.toList()));
 
-        return meses.stream().mapToDouble(mes -> this.calcularHCOrganizacionMensual(organizacion, mes) / (mes.getMonthValue() - 1)).sum() + hcActividadesAnual;
+        double hcTramosMensuales = organizacion.getMiembros().stream().mapToDouble(c -> this.calcularHCMiembroAnual(c,anio)).sum();
+
+        return (hcTramosMensuales + hcActividadesAnual) / mesActual ; // prorrateo de los meses
+
+        //TODO calculosHcService para persistir los calculos HC
     }
 
     public double calcularHCSectorPromedioMensual(Sector sector, LocalDate mesElegido) {
