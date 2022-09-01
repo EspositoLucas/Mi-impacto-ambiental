@@ -70,4 +70,15 @@ public class CantidadTests {
         Assertions.assertEquals(2000, resultado.getValor());
         Assertions.assertEquals(Unidad.M, resultado.getUnidad());
     }
+
+    @Test
+    public void add_cuandoLasUnidadesSonDeDistintasCategoriasDiferentes_tiraExcepcion() {
+        Cantidad left = new Cantidad(Unidad.M, 1);
+        Cantidad right = new Cantidad(Unidad.KG, 1);
+
+        Assertions.assertThrows(
+                IllegalArgumentException.class,
+                () -> left.add(right)
+        );
+    }
 }
