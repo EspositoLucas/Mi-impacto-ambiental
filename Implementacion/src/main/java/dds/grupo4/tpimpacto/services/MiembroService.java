@@ -2,6 +2,8 @@ package dds.grupo4.tpimpacto.services;
 
 import dds.grupo4.tpimpacto.dtos.CrearMiembroRequest;
 import dds.grupo4.tpimpacto.dtos.CrearMiembroResponse;
+import dds.grupo4.tpimpacto.dtos.MiembroDto;
+import dds.grupo4.tpimpacto.dtos.base.ResponseWithResults;
 import dds.grupo4.tpimpacto.entities.organizacion.Miembro;
 import dds.grupo4.tpimpacto.entities.organizacion.Persona;
 import dds.grupo4.tpimpacto.entities.organizacion.Sector;
@@ -14,6 +16,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -53,5 +58,13 @@ public class MiembroService extends BaseService<Miembro, MiembroRepository> {
                 " creada para vincular al nuevo miembro al sector de ID " + sector.getId());
 
         return new CrearMiembroResponse(HttpStatus.CREATED, "OK", solicitud.getId());
+    }
+
+    @Transactional
+    public ResponseWithResults<MiembroDto> listarMiembros() {
+        List<MiembroDto> dtos = this.getAll().stream()
+                .map(MiembroDto::from)
+                .collect(Collectors.toList());
+        return new ResponseWithResults<>(HttpStatus.OK, dtos);
     }
 }
