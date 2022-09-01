@@ -83,7 +83,7 @@ public class CalculadoraHC {
         List<Tramo> tramosEnMesElegido = organizacion.getTramosDeMiembros().stream().filter(t -> t.getTrayecto().seRealizaEntre(mesElegido)).collect(Collectors.toList());
         double hcTramosMensual = tramosEnMesElegido.stream().mapToDouble(this::calcularHCTramoMensual).sum();
         List<Medicion> actividadesMensuales = organizacion.getMediciones().stream().filter(m -> m.getPeriodicidad().equals(Periodicidad.MENSUAL)).collect(Collectors.toList());
-        double hcActividadesMensual = actividadesMensuales.stream().mapToDouble((this::calcularHCDatoActividad)).sum();
+        double hcActividadesMensual = actividadesMensuales.stream().mapToDouble((this::calcularHCDatoActividad)).sum() ;
         //Calcular hc de logistica
         this.calcularHCActividadLogistica(actividadesMensuales.stream().filter(m -> m.getActividad() == Actividad.LogisticaDeProductosYResiduos).collect(Collectors.toList()));
 
@@ -112,12 +112,12 @@ public class CalculadoraHC {
         }
 
         List<Medicion> actividadesAnuales = organizacion.getMediciones().stream().filter(m -> m.getPeriodicidad().equals(Periodicidad.ANUAL)).collect(Collectors.toList());
-        double hcActividadesAnual = actividadesAnuales.stream().mapToDouble((this::calcularHCDatoActividad)).sum();
+        double hcActividadesAnual = actividadesAnuales.stream().mapToDouble((this::calcularHCDatoActividad)).sum() ;
 
         //Calcular hc anual de logistica
         this.calcularHCActividadLogistica(actividadesAnuales.stream().filter(m -> m.getActividad() == Actividad.LogisticaDeProductosYResiduos).collect(Collectors.toList()));
 
-        return meses.stream().mapToDouble(mes -> this.calcularHCOrganizacionMensual(organizacion, mes)).sum() + hcActividadesAnual;
+        return meses.stream().mapToDouble(mes -> this.calcularHCOrganizacionMensual(organizacion, mes) / (mes.getMonthValue() - 1)).sum() + hcActividadesAnual;
     }
 
     public double calcularHCSectorPromedioMensual(Sector sector, LocalDate mesElegido) {
@@ -152,8 +152,7 @@ public class CalculadoraHC {
     }
 
     public double calcularHCTramoSemanal(Tramo tramo) {
-        return this.calcularHCTramo(tramo) / tramo.getMiembros().stream().filter(miembro -> miembro.getOrganizacion().getRazonSocial().equals(organizacionCalculo.getRazonSocial())).count() * tramo.getCantVecesPorSemana(); // sin peso
-        // return this.calcularHCTramo(tramo) / tramo.getMiembros().stream().filter(miembro -> miembro.getOrganizacion().getRazonSocial() == organizacionCalculo.getRazonSocial()).count() * tramo.getCantVecesPorSemana() * tramo.getPeso(); // con peso
+        return this.calcularHCTramo(tramo) / tramo.getMiembros().stream().filter(miembro -> miembro.getOrganizacion().getRazonSocial() == organizacionCalculo.getRazonSocial()).count() * organizacionCalculo.getCantDiasPorSemana() * tramo.getPeso(); // con peso
     }
 
 }

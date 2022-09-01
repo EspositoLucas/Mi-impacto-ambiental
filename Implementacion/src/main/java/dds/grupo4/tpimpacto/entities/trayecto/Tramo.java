@@ -41,7 +41,6 @@ public class Tramo extends BaseEntity {
 
     private Double peso;
 
-    private int cantVecesPorSemana; // para el calculo HC semanal
 
     @ManyToMany
     @JoinTable(

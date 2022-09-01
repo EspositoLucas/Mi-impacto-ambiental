@@ -43,6 +43,8 @@ public class Organizacion extends BaseEntity {
 
     private Double factorK;
 
+    private int cantDiasPorSemana; // para el calculo HC semanal
+
     public Organizacion(String razonSocial, TipoOrganizacion tipoOrganizacion, Clasificacion clasificacion) {
         this.razonSocial = razonSocial;
         this.tipoOrganizacion = tipoOrganizacion;

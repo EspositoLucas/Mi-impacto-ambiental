@@ -24,22 +24,19 @@ public class RowMedicionActividad {
 
     public static RowMedicionActividad fromRow(Row row) {
         String actividad = row.getCell(0).getStringCellValue();
-        if (actividad.equals("Logistica de productos y residuos")) {
-            String tipoDeConsumo = row.getCell(1).getStringCellValue();
-            switch (tipoDeConsumo) {
-                case "Medio de transporte":
-                    // MedioDeTransporte medio = MedioDeTransporte
-                    //  Class c = Class.forName("dds.grupo4.tpimpacto.entities.medioTransporte.MedioDeTransporte");
-                    // tipoDeConsumo = c ;
-                    break;
-                case "Distancia media recorrida":
-                    double distanciaMediaRecorrida = Double.parseDouble(tipoDeConsumo);
-                    break;
-                case "Peso total transportado":
-                    double peso = Double.parseDouble(tipoDeConsumo);
-                    break;
-            }
-        }
+//        if (actividad.equals("Logistica de productos y residuos")) {
+//            String tipoDeConsumo = row.getCell(1).getStringCellValue();
+//            switch (tipoDeConsumo) {
+//                case "Medio de transporte":
+//                    break;
+//                case "Distancia media recorrida":
+//                    double distanciaMediaRecorrida = Double.parseDouble(tipoDeConsumo);
+//                    break;
+//                case "Peso total transportado":
+//                    double peso = Double.parseDouble(tipoDeConsumo);
+//                    break;
+//            }
+//        }
         String tipoDeConsumo = row.getCell(1).getStringCellValue();
 
         String valor = row.getCell(2).getStringCellValue();
