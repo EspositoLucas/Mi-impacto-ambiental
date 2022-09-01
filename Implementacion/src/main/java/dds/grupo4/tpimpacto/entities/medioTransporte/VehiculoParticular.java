@@ -27,7 +27,11 @@ public class VehiculoParticular extends MedioDeTransporte {
     private double combustibleConsumidoPorKm;
 
     @ManyToOne
-    @JoinColumn(name = "tipo_servicio_contratado", nullable = false)
+    @JoinColumn(
+            name = "tipo_servicio_contratado",
+            nullable = false,
+            foreignKey = @ForeignKey(name = "FK_VehiculosParticulares_TipoServicioContratado")
+    )
     private TipoServicioContratado tipoServicioContratado;
 
     public VehiculoParticular(TipoVehiculoParticular tipoVehiculoParticular, Combustible combustible, TipoServicioContratado tipoServicioContratado, Double combustibleConsumidoPorKm) {

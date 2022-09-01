@@ -24,14 +24,18 @@ public class Miembro extends BaseEntity {
     @JoinColumn(name = "persona", nullable = false, foreignKey = @ForeignKey(name = "FK_Miembros_Persona"))
     private Persona persona;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "usuario", foreignKey = @ForeignKey(name = "FK_Miembros_Usuario"))
     private Usuario usuario;
 
     private LocalDate fechaIngreso;
 
     @ManyToOne
-    @JoinColumn(name = "sector", nullable = false, foreignKey = @ForeignKey(name = "FK_Miembros_Sector"))
+    @JoinColumn(name = "sector", foreignKey = @ForeignKey(name = "FK_Miembros_Sector"))
     private Sector sector;
+
+    @OneToOne(mappedBy = "miembro")
+    private Solicitud solicitud;
 
     @ManyToMany(mappedBy = "miembros")
     private List<Tramo> tramos = new ArrayList<>();

@@ -1,12 +1,14 @@
 package dds.grupo4.tpimpacto.entities.seguridad;
 
 import dds.grupo4.tpimpacto.entities.BaseEntity;
+import dds.grupo4.tpimpacto.entities.organizacion.Miembro;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
 
@@ -19,12 +21,14 @@ public class Usuario extends BaseEntity {
 
     public static final int INTENTOS_DE_LOGEO_PERMITIDOS = 3; // Cuantas veces puede poner mal su password antes de que empiecen a correr los bloqueos
 
+    @OneToOne(mappedBy = "usuario")
+    private Miembro miembro;
+
     private String username;
     private String password;
     private LocalDateTime bloqueadoHasta; // Hasta que fecha esta bloqueado
     private int cantidadIntentosIncorrectos = 0; // Cuantos logeos incorrectos seguidos hizo
-
-    private Boolean esAdmin;
+    private boolean esAdmin;
 
     public Usuario(String username, String password) {
         this.username = username;
