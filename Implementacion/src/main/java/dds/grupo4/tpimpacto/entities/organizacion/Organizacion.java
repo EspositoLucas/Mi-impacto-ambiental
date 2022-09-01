@@ -12,7 +12,6 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Entity(name = "Organizacion")
@@ -25,6 +24,7 @@ public class Organizacion extends BaseEntity {
     private String razonSocial;
     private TipoOrganizacion tipoOrganizacion;
     private Clasificacion clasificacion;
+    private Double factorK;
 
     @OneToMany(mappedBy = "organizacion")
     private List<Sector> sectores = new ArrayList<>();
@@ -33,15 +33,10 @@ public class Organizacion extends BaseEntity {
     private List<Contacto> contactos = new ArrayList<>();
 
     @OneToMany(mappedBy = "organizacion")
-    private List<Solicitud> solicitudes = new ArrayList<>();
-
-    @OneToMany(mappedBy = "organizacion")
     private List<Medicion> mediciones = new ArrayList<>();
 
     @ManyToMany(mappedBy = "organizaciones")
     private List<SectorTerritorial> sectoresTerritoriales = new ArrayList<>();
-
-    private Double factorK;
 
     private int cantDiasPorSemana; // para el calculo HC semanal
 
@@ -61,29 +56,16 @@ public class Organizacion extends BaseEntity {
         contacto.setOrganizacion(this);
     }
 
-    public void addSolicitud(Solicitud solicitud) {
-        solicitudes.add(solicitud);
-        solicitud.setOrganizacion(this);
-    }
-
-    public Optional<Solicitud> getSolicitudDeMiembro(String documento) {
-        return solicitudes.stream()
-                .filter(solicitud -> solicitud.getMiembro().getDocumento().equals(documento))
-                .findFirst();
-    }
-
-    /**
-     * Metodo para aceptar vinculacion del miembro con la organizacion
-     */
-    public void aceptarSolicitud(Solicitud solicitud) {
-        solicitud.getSector().addMiembro(solicitud.getMiembro());
-        this.solicitudes.remove(solicitud);
-    }
-
     public List<Miembro> getMiembros() { // Para saber los miembros que tiene una organizacion de cada sector que tiene
         return sectores.stream()
                 .flatMap(s -> s.getMiembros().stream())
                 .distinct()
+                .collect(Collectors.toList());
+    }
+
+    public List<Solicitud> getSolicitudes() {
+        return sectores.stream()
+                .flatMap(sector -> sector.getSolicitudes().stream())
                 .collect(Collectors.toList());
     }
 

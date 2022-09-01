@@ -47,9 +47,9 @@ public class OrganizacionServiceTests {
         organizacionTest.setId(2);
         sectorTest = new Sector("sectorTest", organizacionTest, null);
         sectorTest.setId(3);
-        solicitudTest = new Solicitud(miembroTest, sectorTest, organizacionTest);
+        solicitudTest = new Solicitud(miembroTest, sectorTest);
         solicitudTest.setId(4);
-        organizacionTest.addSolicitud(solicitudTest);
+        sectorTest.addSolicitud(solicitudTest);
         Mockito.when(solicitudRepository.getById(4)).thenReturn(solicitudTest);
     }
 

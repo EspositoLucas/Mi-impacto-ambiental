@@ -86,7 +86,7 @@ public class OrganizacionService extends BaseService<Organizacion, OrganizacionR
             );
         }
 
-        solicitud.getOrganizacion().aceptarSolicitud(solicitud);
+        solicitud.getSector().aceptarSolicitud(solicitud);
         solicitud.getMiembro().setFechaIngreso(LocalDate.now());
         return new BaseResponse(HttpStatus.ACCEPTED, "Miembro asociado correctamente con la Organizacion");
     }

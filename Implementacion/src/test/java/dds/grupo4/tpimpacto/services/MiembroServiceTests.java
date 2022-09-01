@@ -61,7 +61,7 @@ public class MiembroServiceTests {
         Mockito.verify(solicitudRepository).save(captor.capture());
         Solicitud solicitudGenerada = captor.getValue();
         Assertions.assertEquals(1, solicitudGenerada.getMiembro().getPersona().getId());
-        Assertions.assertEquals(2, solicitudGenerada.getOrganizacion().getId());
+        Assertions.assertEquals(2, solicitudGenerada.getSector().getOrganizacion().getId());
         Assertions.assertEquals(3, solicitudGenerada.getSector().getId());
     }
 
