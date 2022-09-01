@@ -1,9 +1,12 @@
 package dds.grupo4.tpimpacto.common;
 
+import dds.grupo4.tpimpacto.cargamediciones.RowMedicionActividad;
 import dds.grupo4.tpimpacto.entities.medicion.Medicion;
+import dds.grupo4.tpimpacto.entities.organizacion.Organizacion;
 import dds.grupo4.tpimpacto.services.OrganizacionServiceTests;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
+
 
 
 @Disabled
@@ -16,57 +19,57 @@ public class TestLecturaExcel extends OrganizacionServiceTests {
     @BeforeEach
     void inicializarDatosDeActividades() {
 
-//    setUp();
-//    this.organizacionTest.cargarDatosDeActividades("/resources/DA.csv"); // POR QUÉ AHORA NO ABRE????
+    setUp();
+//    this.organizacionService.cargarMediciones();
 //
-//    medicion0 = organizacion.getDatosDeActividades().get(0);
-//    medicion1 = organizacion.getDatosDeActividades().get(1);
+//    medicion0 = organizacion.getMediciones().get(0);
+//    medicion1 = organizacion.getMediciones().get(1);
 
     }
     // así lee el excel:
-    // [["gas_natural" "12" "mensual" "12/2022"] ["nafta" "1.4" "anual" "2011"] ["este_tira_errores" "aaaa" "aaaa" "aaaa"]]
+    // [ ["gas_natural" "12" "mensual" "12/2022"] ["nafta" "1.4" "anual" "2011"] [
 
-    // PRIMER DATO
+    // PRIMER DATO MENSUAL
 /*
   @Test
   public void coincideElConsumoDelPrimerDato() {
-    Assertions.assertEquals(RepositorioConsumos.tipoDeConsumo("gas_natural"), tipoDeConsumo0.getConsumo());
+    Assertions.assertEquals("Gas natural", medicion0.getTipoDeConsumo().getNombre());
   }
 
   @Test
   public void coincideElValorDelPrimerDato() {
-    Assertions.assertEquals(12, tipoDeConsumo0.getCantidadConsumida());
+    Assertions.assertEquals("12",  medicion0.getValor());
   }
 
   @Test
   public void coincideLaPeriodicidadDelPrimerDato() {
-    Assertions.assertEquals(Periodicidad.MENSUAL, tipoDeConsumo0.getPeriodicidad());
+    Assertions.assertEquals(Periodicidad.MENSUAL,  medicion0.getPeriodicidad);
   }
 
   @Test
   public void coincideElPeriodoDeImputacionDelPrimerDato() {
-    Assertions.assertEquals(LocalDate.parse("12/2022"), tipoDeConsumo0.getPeriodoDeImputacion());
+    Assertions.assertEquals(LocalDate.parse("12/2022", medicicion.getPeriodoDeImputacion());
   }
 
-  // SEGUNDO DATO
+  // SEGUNDO DATO ANUAL
 
   @Test
   public void coincideElConsumoDelSegundoDato() {
-    Assertions.assertEquals(RepositorioConsumos.tipoDeConsumo("nafta"), tipoDeConsumo1.getConsumo());
+    Assertions.assertEquals("Nafta", medicion1.getTipoDeConsumo().getNombre());
   }
 
   @Test
   public void coincideElValorDelSegundoDato() {
-    Assertions.assertEquals(1.4, tipoDeConsumo1.getCantidadConsumida());
+    Assertions.assertEquals("1.4", medicion1.getValor());
   }
 
   @Test
   public void coincideLaPeriodicidadDelSegundoDato() {
-    Assertions.assertEquals(Periodicidad.ANUAL, tipoDeConsumo1.);
+    Assertions.assertEquals(Periodicidad.ANUAL, medicion1.getPeriodicidad());
   }
 
   @Test
   public void coincideElPeriodoDeImputacionDelSegundoDato() {
-    Assertions.assertEquals(LocalDate.parse("2011"), tipoDeConsumo1.getPeriodoDeImputacion());
+    Assertions.assertEquals(LocalDate.parse("2011", medicicion1.getPeriodoDeImputacion());
   }*/
 }
