@@ -17,7 +17,7 @@ import javax.persistence.*;
 public class Parada extends Lugar {
 
     @ManyToOne
-    @JoinColumn(name = "transporte_publico", nullable = false)
+    @JoinColumn(name = "transporte_publico", nullable = false, foreignKey = @ForeignKey(name = "FK_Paradas_TransportePublico"))
     private TransportePublico transportePublico;
 
     private Double distanciaParadaSiguiente;
