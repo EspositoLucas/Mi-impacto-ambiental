@@ -15,8 +15,7 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Solicitud extends BaseEntity {
 
-    // Tal vez esto tendria que ser un OneToOne
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "miembro", nullable = false, foreignKey = @ForeignKey(name = "FK_Solicitudes_Miembro"))
     private Miembro miembro;
 
@@ -24,14 +23,9 @@ public class Solicitud extends BaseEntity {
     @JoinColumn(name = "sector", nullable = false, foreignKey = @ForeignKey(name = "FK_Solicitudes_Sector"))
     private Sector sector;
 
-    @ManyToOne
-    @JoinColumn(name = "organizacion", nullable = false, foreignKey = @ForeignKey(name = "FK_Solicitudes_Organizacion"))
-    private Organizacion organizacion;
-
-    public Solicitud(Miembro miembro, Sector sector, Organizacion organizacion) {
+    public Solicitud(Miembro miembro, Sector sector) {
         this.miembro = miembro;
         this.sector = sector;
-        this.organizacion = organizacion;
     }
 
     @Override
@@ -39,7 +33,6 @@ public class Solicitud extends BaseEntity {
         return "{" +
                 "miembro=" + miembro.toString() +
                 ", sector=" + sector.toString() +
-                ", organizacion=" + organizacion.toString() +
                 '}';
     }
 }

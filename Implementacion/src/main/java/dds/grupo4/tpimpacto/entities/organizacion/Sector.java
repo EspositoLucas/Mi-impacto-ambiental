@@ -40,10 +40,23 @@ public class Sector extends BaseEntity {
     @OneToMany(mappedBy = "sector")
     private List<Miembro> miembros = new ArrayList<>();
 
+    @OneToMany(mappedBy = "sector", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Solicitud> solicitudes = new ArrayList<>();
+
     public Sector(String nombre, Organizacion organizacion, Espacio espacio) {
         this.nombre = nombre;
         this.organizacion = organizacion;
         this.espacio = espacio;
+    }
+
+    public void addSolicitud(Solicitud solicitud) {
+        solicitudes.add(solicitud);
+        solicitud.setSector(this);
+    }
+
+    public void aceptarSolicitud(Solicitud solicitud) {
+        this.addMiembro(solicitud.getMiembro());
+        solicitudes.remove(solicitud);
     }
 
     public void addMiembro(Miembro miembro) {

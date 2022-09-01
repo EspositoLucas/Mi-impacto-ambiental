@@ -51,7 +51,7 @@ public class MiembroService extends BaseService<Miembro, MiembroRepository> {
 
         Miembro miembro = new Miembro(persona);
         this.save(miembro);
-        Solicitud solicitud = new Solicitud(miembro, sector, sector.getOrganizacion());
+        Solicitud solicitud = new Solicitud(miembro, sector);
         solicitudRepository.save(solicitud);
 
         log.debug("Solicitud con ID " + solicitud.getId() +
