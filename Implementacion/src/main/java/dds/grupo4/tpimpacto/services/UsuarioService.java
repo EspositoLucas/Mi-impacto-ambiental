@@ -49,11 +49,9 @@ public class UsuarioService extends BaseService<Usuario, UsuarioRepository> {
             return new RegistrarUsuarioResponse(HttpStatus.BAD_REQUEST, "No se encontro al Miembro con el ID especificado");
         }
 
-        // Ver de hashear la contrasenia antes de guardar el Usuario
+        // TODO: ver de hashear la contrasenia antes de guardar el Usuario
         Usuario nuevoUsuario = new Usuario(request.getUsername(), request.getPassword());
         miembro.setUsuario(nuevoUsuario);
-
-        this.save(nuevoUsuario);
         return new RegistrarUsuarioResponse(HttpStatus.CREATED, "Usuario creado exitosamente");
     }
 
