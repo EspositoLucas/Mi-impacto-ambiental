@@ -2,9 +2,10 @@ package dds.grupo4.tpimpacto.controllers;
 
 import dds.grupo4.tpimpacto.dtos.AceptarSolicitudRequest;
 import dds.grupo4.tpimpacto.dtos.CrearOrganizacionRequest;
-import dds.grupo4.tpimpacto.dtos.ListarMiembrosResponse;
-import dds.grupo4.tpimpacto.dtos.ListarOrganizacionesResponse;
+import dds.grupo4.tpimpacto.dtos.MiembroDto;
+import dds.grupo4.tpimpacto.dtos.OrganizacionDto;
 import dds.grupo4.tpimpacto.dtos.base.BaseResponse;
+import dds.grupo4.tpimpacto.dtos.base.ResponseWithResults;
 import dds.grupo4.tpimpacto.services.OrganizacionService;
 import dds.grupo4.tpimpacto.utils.ResponseEntityUtils;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +29,7 @@ public class OrganizacionController {
     }
 
     @GetMapping
-    public ResponseEntity<ListarOrganizacionesResponse> listarOrganizaciones() {
+    public ResponseEntity<ResponseWithResults<OrganizacionDto>> listarOrganizaciones() {
         return ResponseEntityUtils.toResponseEntity(organizacionService.listarOrganizaciones());
     }
 
@@ -38,7 +39,7 @@ public class OrganizacionController {
     }
 
     @GetMapping("/miembros/{id}")
-    public ResponseEntity<ListarMiembrosResponse> listarMiembros(@PathVariable long id) {
+    public ResponseEntity<ResponseWithResults<MiembroDto>> listarMiembros(@PathVariable long id) {
         return ResponseEntityUtils.toResponseEntity(organizacionService.listarMiembros(id));
     }
 

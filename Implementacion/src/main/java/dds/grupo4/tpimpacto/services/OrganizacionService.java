@@ -1,8 +1,12 @@
 package dds.grupo4.tpimpacto.services;
 
 import dds.grupo4.tpimpacto.cargamediciones.RowMedicionActividad;
-import dds.grupo4.tpimpacto.dtos.*;
+import dds.grupo4.tpimpacto.dtos.AceptarSolicitudRequest;
+import dds.grupo4.tpimpacto.dtos.CrearOrganizacionRequest;
+import dds.grupo4.tpimpacto.dtos.MiembroDto;
+import dds.grupo4.tpimpacto.dtos.OrganizacionDto;
 import dds.grupo4.tpimpacto.dtos.base.BaseResponse;
+import dds.grupo4.tpimpacto.dtos.base.ResponseWithResults;
 import dds.grupo4.tpimpacto.entities.medicion.Actividad;
 import dds.grupo4.tpimpacto.entities.medicion.Medicion;
 import dds.grupo4.tpimpacto.entities.medicion.Periodicidad;
@@ -50,21 +54,21 @@ public class OrganizacionService extends BaseService<Organizacion, OrganizacionR
     }
 
     @Transactional
-    public ListarOrganizacionesResponse listarOrganizaciones() {
+    public ResponseWithResults<OrganizacionDto> listarOrganizaciones() {
         List<Organizacion> organizaciones = this.getAll();
         List<OrganizacionDto> dtos = organizaciones.stream()
                 .map(OrganizacionDto::from)
                 .collect(Collectors.toList());
-        return new ListarOrganizacionesResponse(HttpStatus.OK, dtos);
+        return new ResponseWithResults<>(HttpStatus.OK, dtos);
     }
 
     @Transactional
-    public ListarMiembrosResponse listarMiembros(long idOrganizacion) {
+    public ResponseWithResults<MiembroDto> listarMiembros(long idOrganizacion) {
         Organizacion organizacion = this.getById(idOrganizacion);
         List<MiembroDto> miembrosDtos = organizacion.getMiembros().stream()
                 .map(MiembroDto::from)
                 .collect(Collectors.toList());
-        return new ListarMiembrosResponse(HttpStatus.OK, miembrosDtos);
+        return new ResponseWithResults<>(HttpStatus.OK, miembrosDtos);
     }
 
     @Transactional
@@ -85,11 +89,6 @@ public class OrganizacionService extends BaseService<Organizacion, OrganizacionR
         solicitud.getOrganizacion().aceptarSolicitud(solicitud);
         solicitud.getMiembro().setFechaIngreso(LocalDate.now());
         return new BaseResponse(HttpStatus.ACCEPTED, "Miembro asociado correctamente con la Organizacion");
-    }
-
-    @Transactional
-    public void agregarSolicitud(Organizacion organizacion, Solicitud solicitud) {
-        organizacion.addSolicitud(solicitud);
     }
 
     @Transactional
