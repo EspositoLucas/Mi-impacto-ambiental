@@ -1,44 +1,44 @@
 package dds.grupo4.tpimpacto.units;
 
+import dds.grupo4.tpimpacto.entities.BaseEntity;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+import javax.persistence.*;
+
+@Entity(name = "Unidad")
+@Table(name = "unidades")
 @Getter
-public enum Unidad {
-    /** Metros cubicos (BASE) */
-    M3(TipoUnidad.VOLUMEN, true, 1d),
-    /** Litros */
-    LT(TipoUnidad.VOLUMEN, false, 1d/1000),
-    /** Kilogramos (BASE) */
-    KG(TipoUnidad.PESO, true, 1d),
-    /** Gramos */
-    G(TipoUnidad.PESO, false, 1d/1000),
-    /** Kilowatt-Hora (BASE) */
-    KWH(TipoUnidad.ENERGIA, true, 1d),
-    /** Kilometro (BASE) */
-    KM(TipoUnidad.DISTANCIA, true, 1d),
-    /** Metro */
-    M(TipoUnidad.DISTANCIA, false, 1d/1000),
-    /** Gramo equivalente carbono (BASE) */
-    GCO2eq(TipoUnidad.EQUIVALENTE_CARBONO, true, 1d),
-    /** Kilogramo equivalente carbono */
-    KGCO2eq(TipoUnidad.EQUIVALENTE_CARBONO, false, 1000d),
-    /** Tonelada equivalente carbono */
-    TNCO2eq(TipoUnidad.EQUIVALENTE_CARBONO, false, 1_000_000d);
+@Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public class Unidad extends BaseEntity {
 
-    private final TipoUnidad tipoUnidad;
-    private final boolean base;
-    private final double factorConversionAUnidadBase;
+    private String simbolo;
+    private String nombre;
 
-    Unidad(TipoUnidad tipoUnidad, boolean base, double factorConversionAUnidadBase) {
-        this.tipoUnidad = tipoUnidad;
+    @ManyToOne
+    @JoinColumn(
+            name = "tipo_unidad",
+            nullable = false,
+            foreignKey = @ForeignKey(name = "FK_Unidades_TipoUnidad")
+    )
+    private TipoUnidad tipoUnidad;
+
+    @Column(name = "es_base")
+    private boolean base; // Si es la unidad base del TipoUnidad que le corresponde
+
+    private double factorDeConversionAUnidadBase;
+
+    public Unidad(String simbolo, String nombre, boolean base, double factorDeConversionAUnidadBase) {
+        this.simbolo = simbolo;
+        this.nombre = nombre;
         this.base = base;
-        this.factorConversionAUnidadBase = factorConversionAUnidadBase;
-        if (this.base) {
-            this.tipoUnidad.setUnidadBase(this);
-        }
+        this.factorDeConversionAUnidadBase = factorDeConversionAUnidadBase;
     }
 
-    public double factorConversionDesdeUnidadBase() {
-        return 1d / factorConversionAUnidadBase;
+    public double getFactorDeConversionDesdeUnidadBase() {
+        return 1 / factorDeConversionAUnidadBase;
     }
 }

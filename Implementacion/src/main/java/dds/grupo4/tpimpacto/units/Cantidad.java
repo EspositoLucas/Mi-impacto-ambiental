@@ -3,16 +3,20 @@ package dds.grupo4.tpimpacto.units;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.util.Assert;
 
 import javax.persistence.Embeddable;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Embeddable
 @Getter
 @Setter
 @NoArgsConstructor
 public class Cantidad {
+    @ManyToOne
+    @JoinColumn(name = "unidad", nullable = false)
     private Unidad unidad;
+
     private double valor;
 
     public Cantidad(Unidad unidad, double valor) {
@@ -25,11 +29,11 @@ public class Cantidad {
     }
 
     public Cantidad toUnidad(Unidad nuevaUnidad) {
-        if (this.unidad == nuevaUnidad) {
+        if (this.unidad.equals(nuevaUnidad)) {
             return this;
         }
 
-        assertUnidadesSonDeLaMismaCategoria(this.unidad, nuevaUnidad);
+        assertUnidadesSonDelMismoTipo(this.unidad, nuevaUnidad);
 
         if (nuevaUnidad.isBase()) {
             return this.toUnidadBase();
@@ -45,11 +49,11 @@ public class Cantidad {
 
     public Cantidad add(Cantidad other) {
         // Si las Cantidades son de la misma Unidad, las puedo sumar directamente
-        if (this.unidad == other.unidad) {
+        if (this.unidad.equals(other.unidad)) {
             return new Cantidad(this.unidad, this.valor + other.valor);
         }
 
-        assertUnidadesSonDeLaMismaCategoria(this.unidad, other.unidad);
+        assertUnidadesSonDelMismoTipo(this.unidad, other.unidad);
 
         Cantidad thisEnUnidadBase = this.toUnidadBase();
         Cantidad otherEnUnidadBase = other.toUnidadBase();
@@ -57,20 +61,21 @@ public class Cantidad {
         return resultadoEnUnidadBase.toUnidad(this.unidad);
     }
 
-    private void assertUnidadesSonDeLaMismaCategoria(Unidad unidad1, Unidad unidad2) {
-        Assert.isTrue(
-                unidad1.getTipoUnidad() == unidad2.getTipoUnidad(),
-                "No se pueden sumar dos Cantidades cuyas unidades son de distintas categorias " +
-                        "(LeftUnit = \"" + unidad1.getTipoUnidad().toString() + "\", " +
-                        "RightUnit = \"" + unidad2.getTipoUnidad().toString() + "\")"
-        );
+    private void assertUnidadesSonDelMismoTipo(Unidad unidad1, Unidad unidad2) {
+        if (!unidad1.getTipoUnidad().equals(unidad2.getTipoUnidad())) {
+            throw new IllegalArgumentException(
+                    "No se pueden sumar dos Cantidades cuyas unidades son de distintos tipos " +
+                            "(LeftUnit = \"" + unidad1.getTipoUnidad().toString() + "\", " +
+                            "RightUnit = \"" + unidad2.getTipoUnidad().toString() + "\")"
+            );
+        }
     }
 
     private double getValorEquivalenteEnUnidadBase() {
-        return unidad.getFactorConversionAUnidadBase() * valor;
+        return unidad.getFactorDeConversionAUnidadBase() * valor;
     }
 
     private double getValorEquivalenteDesdeBaseANuevaUnidad(double valorEnUnidadBase, Unidad nuevaUnidad) {
-        return nuevaUnidad.factorConversionDesdeUnidadBase() * valorEnUnidadBase;
+        return nuevaUnidad.getFactorDeConversionDesdeUnidadBase() * valorEnUnidadBase;
     }
 }
