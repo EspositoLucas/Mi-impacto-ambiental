@@ -7,6 +7,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Entity(name = "Unidad")
 @Table(name = "unidades")
@@ -17,6 +21,10 @@ public class Unidad extends BaseEntity {
 
     private String simbolo;
     private String nombre;
+    private double factorDeConversionAUnidadBase;
+
+    @Column(name = "es_base")
+    private boolean base; // Si es la unidad base del TipoUnidad que le corresponde
 
     @ManyToOne
     @JoinColumn(
@@ -26,10 +34,17 @@ public class Unidad extends BaseEntity {
     )
     private TipoUnidad tipoUnidad;
 
-    @Column(name = "es_base")
-    private boolean base; // Si es la unidad base del TipoUnidad que le corresponde
+    @OneToMany(mappedBy = "unidadIzquierda")
+    private List<RelacionUnidades> relacionesUnidadesEnIzquierda = new ArrayList<>();
 
-    private double factorDeConversionAUnidadBase;
+    @OneToMany(mappedBy = "unidadDerecha")
+    private List<RelacionUnidades> relacionesUnidadesEnDerecha = new ArrayList<>();
+
+    @OneToMany(mappedBy = "unidadProducto")
+    private List<RelacionUnidades> relacionesUnidadesProducto = new ArrayList<>();
+
+    @OneToMany(mappedBy = "unidadCociente")
+    private List<RelacionUnidades> relacionesUnidadesCociente = new ArrayList<>();
 
     public Unidad(String simbolo, String nombre, boolean base, double factorDeConversionAUnidadBase) {
         this.simbolo = simbolo;
@@ -40,5 +55,18 @@ public class Unidad extends BaseEntity {
 
     public double getFactorDeConversionDesdeUnidadBase() {
         return 1 / factorDeConversionAUnidadBase;
+    }
+
+    public List<RelacionUnidades> getAllRelacionesUnidades() {
+        return Stream.concat(
+                relacionesUnidadesEnIzquierda.stream(),
+                Stream.concat(
+                        relacionesUnidadesEnDerecha.stream(),
+                        Stream.concat(
+                                relacionesUnidadesProducto.stream(),
+                                relacionesUnidadesCociente.stream()
+                        )
+                )
+        ).collect(Collectors.toList());
     }
 }
