@@ -21,7 +21,7 @@ public class CantidadTests {
         masa.setId(1);
         KG = new Unidad("kg", "Kilogramos", true, 1d);
         KG.setId(2);
-        G = new Unidad("g", "Gramos", false, 1d/1000);
+        G = new Unidad("g", "Gramos", false, 1d / 1000);
         G.setId(3);
         TN = new Unidad("tn", "Toneladas", false, 1000d);
         TN.setId(4);
@@ -31,7 +31,7 @@ public class CantidadTests {
 
         TipoUnidad distancia = new TipoUnidad("Distancia");
         distancia.setId(5);
-        M = new Unidad("m", "Metros", false, 1d/1000);
+        M = new Unidad("m", "Metros", false, 1d / 1000);
         M.setId(6);
         distancia.addUnidad(M);
     }

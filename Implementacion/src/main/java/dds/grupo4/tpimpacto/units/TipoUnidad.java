@@ -20,18 +20,22 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class TipoUnidad extends BaseEntity {
 
-    private String tipo;
+    private String nombre;
 
     @OneToMany(mappedBy = "tipoUnidad", cascade = CascadeType.ALL)
     private List<Unidad> unidades = new ArrayList<>();
 
-    public TipoUnidad(String tipo) {
-        this.tipo = tipo;
+    public TipoUnidad(String nombre) {
+        this.nombre = nombre;
     }
 
     public void addUnidad(Unidad unidad) {
         unidades.add(unidad);
         unidad.setTipoUnidad(this);
+    }
+
+    public void addUnidades(List<Unidad> unidades) {
+        unidades.forEach(this::addUnidad);
     }
 
     public Unidad getUnidadBase() {
