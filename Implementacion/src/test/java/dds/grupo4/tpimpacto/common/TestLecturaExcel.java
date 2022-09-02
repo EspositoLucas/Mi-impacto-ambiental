@@ -26,8 +26,6 @@ public class TestLecturaExcel extends OrganizacionServiceTests {
 //    medicion1 = organizacion.getMediciones().get(1);
 
     }
-    // así lee el excel:
-    // [ ["gas_natural" "12" "mensual" "12/2022"] ["nafta" "1.4" "anual" "2011"] [
 
     // PRIMER DATO MENSUAL
 /*
