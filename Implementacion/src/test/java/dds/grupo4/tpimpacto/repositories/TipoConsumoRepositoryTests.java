@@ -30,8 +30,7 @@ public class TipoConsumoRepositoryTests {
     @BeforeEach
     public void buildTipoConsumoTest() {
         FactorDeEmision factorDeEmision = new FactorDeEmision(10d, UnidadFactorEmision.KGCO2eq);
-        tipoConsumoTest = new TipoConsumo("tipoConsumoTest", Actividad.LogisticaDeProductosYResiduos,
-                factorDeEmision, "alcance1");
+        tipoConsumoTest = new TipoConsumo("tipoConsumoTest", Actividad.LogisticaDeProductosYResiduos, "alcance1");
     }
 
     @Test

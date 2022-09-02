@@ -21,17 +21,14 @@ public class TipoConsumo extends BaseEntity {
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(
             name = "factor_de_emision",
-            nullable = false,
             foreignKey = @ForeignKey(name = "FK_TipoConsumo_FactorDeEmision")
     )
     private FactorDeEmision factorDeEmision;
     private String alcance;
 
-
-    public TipoConsumo(String nombre, Actividad actividad, FactorDeEmision factorDeEmision, String alcance) {
+    public TipoConsumo(String nombre, Actividad actividad, String alcance) {
         this.nombre = nombre;
         this.actividad = actividad;
-        this.factorDeEmision = factorDeEmision;
         this.alcance = alcance;
     }
 
