@@ -108,4 +108,15 @@ public class CantidadTests {
                 () -> left.add(right)
         );
     }
+
+    @Test
+    public void add_cuandoUnaCantidadNoTieneUnidadesYLaOtraSi_tiraExcepcion() {
+        Cantidad cantidadConUnidades = new Cantidad(KG, 1);
+        Cantidad cantidadSinUnidades = new Cantidad(null, 2);
+
+        Assertions.assertThrows(
+                IllegalArgumentException.class,
+                () -> cantidadConUnidades.add(cantidadSinUnidades)
+        );
+    }
 }
