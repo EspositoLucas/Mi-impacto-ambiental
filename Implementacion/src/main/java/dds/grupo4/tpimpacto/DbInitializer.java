@@ -1,7 +1,7 @@
 package dds.grupo4.tpimpacto;
 
 import dds.grupo4.tpimpacto.services.TipoConsumoService;
-import dds.grupo4.tpimpacto.services.TipoUnidadService;
+import dds.grupo4.tpimpacto.services.UnidadService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -13,11 +13,11 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class DbInitializer implements ApplicationRunner {
 
-    private final TipoUnidadService tipoUnidadService;
+    private final UnidadService unidadService;
     private final TipoConsumoService tipoConsumoService;
 
-    public DbInitializer(TipoUnidadService tipoUnidadService, TipoConsumoService tipoConsumoService) {
-        this.tipoUnidadService = tipoUnidadService;
+    public DbInitializer(UnidadService unidadService, TipoConsumoService tipoConsumoService) {
+        this.unidadService = unidadService;
         this.tipoConsumoService = tipoConsumoService;
     }
 
@@ -25,8 +25,7 @@ public class DbInitializer implements ApplicationRunner {
     public void run(ApplicationArguments args) {
         log.info("Corriendo el DbInitializer");
 
-        tipoUnidadService.seedData();
-
+        unidadService.seedData();
         tipoConsumoService.seedData();
     }
 }

@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -31,6 +32,7 @@ public class BaseService<TEntity extends BaseEntity, TRepo extends BaseRepositor
     @Transactional
     public List<TEntity> saveAll(List<TEntity> entities) {
         return entities.stream()
+                .filter(Objects::nonNull)
                 .map(this::save)
                 .collect(Collectors.toList());
     }

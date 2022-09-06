@@ -17,7 +17,6 @@ public class RelacionUnidades extends BaseEntity {
     @ManyToOne
     @JoinColumn(
             name = "unidad_izquierda",
-            nullable = false,
             foreignKey = @ForeignKey(name = "FK_RelacionesUnidades_UnidadIzquierda")
     )
     private Unidad unidadIzquierda;
@@ -25,7 +24,6 @@ public class RelacionUnidades extends BaseEntity {
     @ManyToOne
     @JoinColumn(
             name = "unidad_derecha",
-            nullable = false,
             foreignKey = @ForeignKey(name = "FK_RelacionesUnidades_UnidadDerecha")
     )
     private Unidad unidadDerecha;

@@ -34,16 +34,16 @@ public class Unidad extends BaseEntity {
     )
     private TipoUnidad tipoUnidad;
 
-    @OneToMany(mappedBy = "unidadIzquierda")
+    @OneToMany(mappedBy = "unidadIzquierda", cascade = CascadeType.ALL)
     private List<RelacionUnidades> relacionesUnidadesEnIzquierda = new ArrayList<>();
 
-    @OneToMany(mappedBy = "unidadDerecha")
+    @OneToMany(mappedBy = "unidadDerecha", cascade = CascadeType.ALL)
     private List<RelacionUnidades> relacionesUnidadesEnDerecha = new ArrayList<>();
 
-    @OneToMany(mappedBy = "unidadProducto")
+    @OneToMany(mappedBy = "unidadProducto", cascade = CascadeType.ALL)
     private List<RelacionUnidades> relacionesUnidadesProducto = new ArrayList<>();
 
-    @OneToMany(mappedBy = "unidadCociente")
+    @OneToMany(mappedBy = "unidadCociente", cascade = CascadeType.ALL)
     private List<RelacionUnidades> relacionesUnidadesCociente = new ArrayList<>();
 
     public Unidad(String simbolo, String nombre, boolean base, double factorDeConversionAUnidadBase) {
@@ -68,5 +68,36 @@ public class Unidad extends BaseEntity {
                         )
                 )
         ).collect(Collectors.toList());
+    }
+
+    public void addRelacionEnIzquierda(RelacionUnidades relacionUnidades) {
+        relacionesUnidadesEnIzquierda.add(relacionUnidades);
+        relacionUnidades.setUnidadIzquierda(this);
+    }
+
+    public void addRelacionEnDerecha(RelacionUnidades relacionUnidades) {
+        relacionesUnidadesEnDerecha.add(relacionUnidades);
+        relacionUnidades.setUnidadDerecha(this);
+    }
+
+    public void addRelacionEnProducto(RelacionUnidades relacionUnidades) {
+        relacionesUnidadesProducto.add(relacionUnidades);
+        relacionUnidades.setUnidadProducto(this);
+    }
+
+    public void addRelacionEnCociente(RelacionUnidades relacionUnidades) {
+        relacionesUnidadesCociente.add(relacionUnidades);
+        relacionUnidades.setUnidadCociente(this);
+    }
+
+    public static String toString(Unidad unidad) {
+        if (unidad == null)
+            return "-";
+        return unidad.toString();
+    }
+
+    @Override
+    public String toString() {
+        return simbolo;
     }
 }
