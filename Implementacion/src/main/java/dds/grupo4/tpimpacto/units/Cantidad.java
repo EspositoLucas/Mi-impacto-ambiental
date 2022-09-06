@@ -1,5 +1,6 @@
 package dds.grupo4.tpimpacto.units;
 
+import dds.grupo4.tpimpacto.services.RelacionUnidadesService;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -72,6 +73,17 @@ public class Cantidad {
         Cantidad otherEnUnidadBase = other.toUnidadBase();
         Cantidad resultadoEnUnidadBase = thisEnUnidadBase.add(otherEnUnidadBase);
         return resultadoEnUnidadBase.toUnidad(this.unidad);
+    }
+
+    public Cantidad times(Cantidad other, RelacionUnidadesService relacionUnidadesService) {
+        Unidad nuevaUnidad = relacionUnidadesService.getUnidadResultanteDeProducto(this.unidad, other.unidad);
+        double nuevoValor = this.valor * other.valor;
+        return new Cantidad(nuevaUnidad, nuevoValor);
+    }
+
+    public Cantidad times(double factor) {
+        double nuevoValor = this.valor * factor;
+        return new Cantidad(this.unidad, nuevoValor);
     }
 
     public boolean tieneUnidad() {

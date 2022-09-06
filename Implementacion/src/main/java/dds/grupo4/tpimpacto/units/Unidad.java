@@ -53,6 +53,12 @@ public class Unidad extends BaseEntity {
         this.factorDeConversionAUnidadBase = factorDeConversionAUnidadBase;
     }
 
+    public static String toString(Unidad unidad) {
+        if (unidad == null)
+            return "-";
+        return unidad.toString();
+    }
+
     public double getFactorDeConversionDesdeUnidadBase() {
         return 1 / factorDeConversionAUnidadBase;
     }
@@ -88,12 +94,6 @@ public class Unidad extends BaseEntity {
     public void addRelacionEnCociente(RelacionUnidades relacionUnidades) {
         relacionesUnidadesCociente.add(relacionUnidades);
         relacionUnidades.setUnidadCociente(this);
-    }
-
-    public static String toString(Unidad unidad) {
-        if (unidad == null)
-            return "-";
-        return unidad.toString();
     }
 
     @Override
