@@ -18,7 +18,7 @@ public class OrganizacionDto {
     private String razonSocial;
     private String tipoOrganizacion;
     private String clasificacion;
-    private Double factorK;
+    private CantidadDto factorK;
     private List<IdTextPair> sectores = new ArrayList<>();
     private List<IdTextPair> contactos = new ArrayList<>();
     private List<IdTextPair> solicitudes = new ArrayList<>();
@@ -29,7 +29,7 @@ public class OrganizacionDto {
         dto.setRazonSocial(organizacion.getRazonSocial());
         dto.setTipoOrganizacion(organizacion.getTipoOrganizacion().toString());
         dto.setClasificacion(organizacion.getClasificacion().toString());
-        dto.setFactorK(organizacion.getFactorK());
+        dto.setFactorK(CantidadDto.from(organizacion.getFactorK()));
         dto.setSectores(ListUtils.toIdTextPairList(organizacion.getSectores()));
         dto.setContactos(ListUtils.toIdTextPairList(organizacion.getContactos()));
         dto.setSolicitudes(ListUtils.toIdTextPairList(organizacion.getSolicitudes()));

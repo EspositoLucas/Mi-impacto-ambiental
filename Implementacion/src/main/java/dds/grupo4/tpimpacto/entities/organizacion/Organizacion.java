@@ -4,6 +4,7 @@ import dds.grupo4.tpimpacto.entities.BaseEntity;
 import dds.grupo4.tpimpacto.entities.medicion.Medicion;
 import dds.grupo4.tpimpacto.entities.sectorTerritorial.SectorTerritorial;
 import dds.grupo4.tpimpacto.entities.trayecto.Tramo;
+import dds.grupo4.tpimpacto.units.Cantidad;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,7 +25,9 @@ public class Organizacion extends BaseEntity {
     private String razonSocial;
     private TipoOrganizacion tipoOrganizacion;
     private Clasificacion clasificacion;
-    private Double factorK;
+
+    @Embedded
+    private Cantidad factorK;
 
     @OneToMany(mappedBy = "organizacion")
     private List<Sector> sectores = new ArrayList<>();

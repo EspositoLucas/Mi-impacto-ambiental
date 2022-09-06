@@ -1,13 +1,13 @@
 package dds.grupo4.tpimpacto.entities.medioTransporte;
 
 import dds.grupo4.tpimpacto.entities.BaseEntity;
+import dds.grupo4.tpimpacto.units.Unidad;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity(name = "Combustible")
 @Table(name = "combustibles")
@@ -17,9 +17,16 @@ import javax.persistence.Table;
 public class Combustible extends BaseEntity {
 
     private TipoCombustible tipoCombustible;
-    private UnidadCombustible unidad;
 
-    public Combustible(TipoCombustible tipoCombustible, UnidadCombustible unidad) {
+    @ManyToOne
+    @JoinColumn(
+            name = "unidad",
+            nullable = false,
+            foreignKey = @ForeignKey(name = "FK_Combustibles_Unidad")
+    )
+    private Unidad unidad;
+
+    public Combustible(TipoCombustible tipoCombustible, Unidad unidad) {
         this.tipoCombustible = tipoCombustible;
         this.unidad = unidad;
     }
