@@ -12,12 +12,14 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CantidadDto {
+    private Long id;
     private String unidad;
     private Long idUnidad;
     private double valor;
 
     public static CantidadDto from(Cantidad cantidad) {
         CantidadDto dto = new CantidadDto();
+        dto.setId(cantidad.getId());
         dto.setUnidad(Unidad.toString(cantidad.getUnidad()));
         if (cantidad.tieneUnidad()) {
             dto.setIdUnidad(cantidad.getUnidad().getId());

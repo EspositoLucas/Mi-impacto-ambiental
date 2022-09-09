@@ -1,23 +1,25 @@
 package dds.grupo4.tpimpacto.units;
 
+import dds.grupo4.tpimpacto.entities.BaseEntity;
 import dds.grupo4.tpimpacto.services.RelacionUnidadesService;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.javatuples.Pair;
 
-import javax.persistence.Embeddable;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.util.Objects;
 
-@Embeddable
+@Entity(name = "Cantidad")
+@Table(name = "cantidades")
 @Getter
 @Setter
-@NoArgsConstructor
-public class Cantidad {
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public class Cantidad extends BaseEntity {
+
     @ManyToOne
-    @JoinColumn(name = "unidad")
+    @JoinColumn(name = "unidad", foreignKey = @ForeignKey(name = "FK_Cantidades_Unidad"))
     private Unidad unidad;
 
     private double valor;

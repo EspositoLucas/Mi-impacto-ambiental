@@ -26,7 +26,8 @@ public class Organizacion extends BaseEntity {
     private TipoOrganizacion tipoOrganizacion;
     private Clasificacion clasificacion;
 
-    @Embedded
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "factor_k", nullable = false, foreignKey = @ForeignKey(name = "FK_Organizaciones_FactorK"))
     private Cantidad factorK;
 
     @OneToMany(mappedBy = "organizacion")
