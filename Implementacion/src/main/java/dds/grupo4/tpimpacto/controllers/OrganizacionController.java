@@ -1,9 +1,6 @@
 package dds.grupo4.tpimpacto.controllers;
 
-import dds.grupo4.tpimpacto.dtos.AceptarSolicitudRequest;
-import dds.grupo4.tpimpacto.dtos.CrearOrganizacionRequest;
-import dds.grupo4.tpimpacto.dtos.MiembroDto;
-import dds.grupo4.tpimpacto.dtos.OrganizacionDto;
+import dds.grupo4.tpimpacto.dtos.*;
 import dds.grupo4.tpimpacto.dtos.base.BaseResponse;
 import dds.grupo4.tpimpacto.dtos.base.ResponseWithResults;
 import dds.grupo4.tpimpacto.services.OrganizacionService;
@@ -43,20 +40,9 @@ public class OrganizacionController {
         return ResponseEntityUtils.toResponseEntity(organizacionService.listarMiembros(id));
     }
 
-    public void cargarMediciones() throws IOException {
-        // TODO: ver como recibir archivos (creo que es algo de MultiPart)
-        /*
-        Organizacion organizacion = buscarOrganizacionPorRazonSocial();
-
-
-        URL resource = getClass().getClassLoader().getResource(pathPrueba);
-        String filePath = resource.getPath();
-        File file = new File(filePath);
-
-        MedicionesDataLoader dataLoader = new MedicionesDataLoader();
-        List<RowMedicionActividad> mediciones = dataLoader.loadData(file);
-        organizacionService.cargarMediciones(organizacion, mediciones);
-        */
+    public ResponseEntity cargarMediciones(CargarMedicionesRequest request) throws IOException {
+        organizacionService.cargarMediciones(request);
+        return ResponseEntity.ok().build();
     }
 
 }

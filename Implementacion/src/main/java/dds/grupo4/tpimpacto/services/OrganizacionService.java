@@ -1,10 +1,7 @@
 package dds.grupo4.tpimpacto.services;
 
 import dds.grupo4.tpimpacto.cargamediciones.RowMedicionActividad;
-import dds.grupo4.tpimpacto.dtos.AceptarSolicitudRequest;
-import dds.grupo4.tpimpacto.dtos.CrearOrganizacionRequest;
-import dds.grupo4.tpimpacto.dtos.MiembroDto;
-import dds.grupo4.tpimpacto.dtos.OrganizacionDto;
+import dds.grupo4.tpimpacto.dtos.*;
 import dds.grupo4.tpimpacto.dtos.base.BaseResponse;
 import dds.grupo4.tpimpacto.dtos.base.ResponseWithResults;
 import dds.grupo4.tpimpacto.entities.medicion.*;
@@ -21,6 +18,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -33,16 +32,18 @@ public class OrganizacionService extends BaseService<Organizacion, OrganizacionR
     private final UnidadService unidadService;
     private final RegistroCalculoHCDatoActividadService registroCalculoHCDatoActividadService;
     private final CalculadoraHC calculadoraHC;
+    private final ExcelService excelService;
 
     public OrganizacionService(OrganizacionRepository organizacionRepository, SolicitudRepository solicitudRepository,
                                TipoConsumoService tipoConsumoService, UnidadService unidadService, CalculadoraHC calculadoraHC,
-                               RegistroCalculoHCDatoActividadService registroCalculoHCDatoActividadService) {
+                               RegistroCalculoHCDatoActividadService registroCalculoHCDatoActividadService, ExcelService excelService) {
         super(organizacionRepository);
         this.solicitudRepository = solicitudRepository;
         this.tipoConsumoService = tipoConsumoService;
         this.unidadService = unidadService;
         this.calculadoraHC = calculadoraHC;
         this.registroCalculoHCDatoActividadService = registroCalculoHCDatoActividadService;
+        this.excelService = excelService;
     }
 
     @Transactional
@@ -102,8 +103,10 @@ public class OrganizacionService extends BaseService<Organizacion, OrganizacionR
     }
 
     @Transactional
-    public void cargarMediciones(List<RowMedicionActividad> mediciones) {
-        Organizacion organizacion = null; // TODO: sacarlo de la Request (recibirla por parametro)
+    public void cargarMediciones(CargarMedicionesRequest request) throws IOException {
+        Organizacion organizacion = this.getById(request.getIdOrganizacion());
+        InputStream inputStream = request.getFile().getInputStream();
+        List<RowMedicionActividad> mediciones = excelService.loadData(inputStream, "Hoja1", 2, RowMedicionActividad::fromRow);
 
         List<Medicion> medicionesParseadas = mediciones.stream()
                 .map(rowMedicionActividad -> rowToMedicion(rowMedicionActividad))
