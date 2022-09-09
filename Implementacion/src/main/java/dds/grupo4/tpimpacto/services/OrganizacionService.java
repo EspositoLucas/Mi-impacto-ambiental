@@ -7,26 +7,22 @@ import dds.grupo4.tpimpacto.dtos.MiembroDto;
 import dds.grupo4.tpimpacto.dtos.OrganizacionDto;
 import dds.grupo4.tpimpacto.dtos.base.BaseResponse;
 import dds.grupo4.tpimpacto.dtos.base.ResponseWithResults;
-import dds.grupo4.tpimpacto.entities.medicion.Actividad;
-import dds.grupo4.tpimpacto.entities.medicion.Medicion;
-import dds.grupo4.tpimpacto.entities.medicion.Periodicidad;
-import dds.grupo4.tpimpacto.entities.medicion.TipoConsumo;
+import dds.grupo4.tpimpacto.entities.medicion.*;
 import dds.grupo4.tpimpacto.entities.organizacion.Clasificacion;
 import dds.grupo4.tpimpacto.entities.organizacion.Organizacion;
 import dds.grupo4.tpimpacto.entities.organizacion.Solicitud;
 import dds.grupo4.tpimpacto.entities.organizacion.TipoOrganizacion;
 import dds.grupo4.tpimpacto.repositories.OrganizacionRepository;
 import dds.grupo4.tpimpacto.repositories.SolicitudRepository;
+import dds.grupo4.tpimpacto.services.calculohc.CalculadoraHC;
 import dds.grupo4.tpimpacto.units.Cantidad;
 import dds.grupo4.tpimpacto.units.Unidad;
-import dds.grupo4.tpimpacto.utils.StringUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -35,13 +31,18 @@ public class OrganizacionService extends BaseService<Organizacion, OrganizacionR
     private final SolicitudRepository solicitudRepository;
     private final TipoConsumoService tipoConsumoService;
     private final UnidadService unidadService;
+    private final RegistroCalculoHCDatoActividadService registroCalculoHCDatoActividadService;
+    private final CalculadoraHC calculadoraHC;
 
     public OrganizacionService(OrganizacionRepository organizacionRepository, SolicitudRepository solicitudRepository,
-                               TipoConsumoService tipoConsumoService, UnidadService unidadService) {
+                               TipoConsumoService tipoConsumoService, UnidadService unidadService, CalculadoraHC calculadoraHC,
+                               RegistroCalculoHCDatoActividadService registroCalculoHCDatoActividadService) {
         super(organizacionRepository);
         this.solicitudRepository = solicitudRepository;
         this.tipoConsumoService = tipoConsumoService;
         this.unidadService = unidadService;
+        this.calculadoraHC = calculadoraHC;
+        this.registroCalculoHCDatoActividadService = registroCalculoHCDatoActividadService;
     }
 
     @Transactional
@@ -101,16 +102,15 @@ public class OrganizacionService extends BaseService<Organizacion, OrganizacionR
     }
 
     @Transactional
-    public void cargarMediciones(Organizacion organizacion, List<RowMedicionActividad> mediciones) {
+    public void cargarMediciones(List<RowMedicionActividad> mediciones) {
+        Organizacion organizacion = null; // TODO: sacarlo de la Request (recibirla por parametro)
+
         List<Medicion> medicionesParseadas = mediciones.stream()
-                .map(rowMedicionActividad -> rowToMedicion(organizacion, rowMedicionActividad))
+                .map(rowMedicionActividad -> rowToMedicion(rowMedicionActividad))
                 .collect(Collectors.toList());
+        organizacion.addMediciones(medicionesParseadas);
 
-        for (Medicion medicion : medicionesParseadas) {
-            organizacion.addMedicion(medicion);
-        }
-
-        save(organizacion);
+        calcularHCDatosActividadYGuardarRegistroCalculo(organizacion, medicionesParseadas);
     }
 
     @Transactional
@@ -118,25 +118,84 @@ public class OrganizacionService extends BaseService<Organizacion, OrganizacionR
         return repository.getMailsDeContactos();
     }
 
-    private Medicion rowToMedicion(Organizacion organizacion, RowMedicionActividad row) {
-        Actividad actividad = Actividad.from(StringUtils.sacarAcentos(row.getActividad()));
-        TipoConsumo tipoConsumo = tipoConsumoService.getByNombre(StringUtils.sacarAcentos(row.getTipoDeConsumo())).get();
+    private Medicion rowToMedicion(RowMedicionActividad row) {
+        Actividad actividad = Actividad.from(row.getActividad());
+        TipoConsumo tipoConsumo = tipoConsumoService.getByNombre(row.getTipoDeConsumo())
+                .orElseThrow(() -> new IllegalArgumentException("No existe un TipoConsumo con el nombre '" + row.getTipoDeConsumo() + "'"));
         Periodicidad periodicidad = Periodicidad.from(row.getPeriodicidad());
+        return new Medicion(actividad, tipoConsumo, periodicidad, row.getPeriodoImputacion(), row.getValor());
+    }
 
-        Integer mesImputacion, anioImputacion;
-        String[] periodoImputacionSeparado = row.getPeriodoImputacion().split("/");
-        if (periodicidad == Periodicidad.MENSUAL) {
-            // MM/YYYY
-            mesImputacion = Integer.parseInt(periodoImputacionSeparado[0]);
-            anioImputacion = Integer.parseInt(periodoImputacionSeparado[1]);
-        } else {
-            // YYYY
-            mesImputacion = null;
-            anioImputacion = Integer.parseInt(periodoImputacionSeparado[0]);
+    private void calcularHCDatosActividadYGuardarRegistroCalculo(Organizacion organizacion, List<Medicion> mediciones) {
+        Map<LocalDate, Cantidad> huellasDeCarbonoMensuales = new HashMap<>();
+        Map<LocalDate, Cantidad> huellasDeCarbonoAnuales = new HashMap<>();
+        Set<Medicion> medicionesYaProcesadas = new HashSet<>();
+
+        for (Medicion medicion : mediciones) {
+            if (medicionesYaProcesadas.contains(medicion))
+                continue;
+
+            medicionesYaProcesadas.add(medicion);
+            Cantidad valorHuellaDeCarbono;
+            if (medicion.getActividad() == Actividad.LOGISTICA_DE_PRODUCTOS_Y_RESIDUOS) {
+                List<Medicion> medicionesCorrespondientes = getMedicionesCorrespondientesDeLogistica(medicion, mediciones);
+                valorHuellaDeCarbono = calculadoraHC.calcularHCDatoActividadLogistica(medicionesCorrespondientes);
+                // Para que no se vuelvan a procesar las Mediciones que corresponden con la Medicion actual (se procesan todas juntas)
+                medicionesYaProcesadas.addAll(medicionesCorrespondientes);
+            } else {
+                valorHuellaDeCarbono = calculadoraHC.calcularHCDatoActividadNoLogistica(medicion);
+            }
+
+            if (medicion.getPeriodicidad() == Periodicidad.MENSUAL) {
+                huellasDeCarbonoMensuales.merge(medicion.getPeriodoImputacion(), valorHuellaDeCarbono,
+                        Cantidad::add);
+            } else {
+                huellasDeCarbonoAnuales.merge(medicion.getPeriodoImputacion(), valorHuellaDeCarbono,
+                        Cantidad::add);
+            }
         }
 
-        return new Medicion(organizacion, actividad, tipoConsumo, row.getValor(),
-                periodicidad, mesImputacion, anioImputacion);
+        guardarRegistrosCalculoHCMensuales(organizacion, huellasDeCarbonoMensuales);
+        guardarRegistrosCalculoHCAnuales(organizacion, huellasDeCarbonoAnuales);
+    }
+
+    private void guardarRegistrosCalculoHCMensuales(Organizacion organizacion, Map<LocalDate, Cantidad> huellasDeCarbono) {
+        huellasDeCarbono.forEach((periodoImputacion, valorHC) -> {
+            RegistroCalculoHCDatoActividad registroCalculoHC = new RegistroCalculoHCDatoActividad(
+                    Periodicidad.MENSUAL, periodoImputacion, valorHC);
+            organizacion.addRegistroCalculoHC(registroCalculoHC);
+            registroCalculoHCDatoActividadService.save(registroCalculoHC);
+        });
+    }
+
+    private void guardarRegistrosCalculoHCAnuales(Organizacion organizacion, Map<LocalDate, Cantidad> huellasDeCarbono) {
+        huellasDeCarbono.forEach((periodoImputacion, valorHC) -> {
+            valorHC = calculadoraHC.calcularHCAnualProrrateadoDatoActividad(valorHC, periodoImputacion);
+            Optional<RegistroCalculoHCDatoActividad> optionalRegistroCalculoHC = registroCalculoHCDatoActividadService.getRegistroCalculoHCParaPeriodo(
+                    organizacion.getId(), Periodicidad.ANUAL, periodoImputacion
+            );
+            if (optionalRegistroCalculoHC.isPresent()) {
+                RegistroCalculoHCDatoActividad registroExistenteCalculoHC = optionalRegistroCalculoHC.get();
+                registroExistenteCalculoHC.setValor(valorHC);
+            } else {
+                RegistroCalculoHCDatoActividad registroCalculoHC = new RegistroCalculoHCDatoActividad(
+                        Periodicidad.ANUAL, periodoImputacion, valorHC);
+                organizacion.addRegistroCalculoHC(registroCalculoHC);
+                registroCalculoHCDatoActividadService.save(registroCalculoHC);
+            }
+        });
+    }
+
+    /**
+     * Retorna todas las Mediciones que se corresponden con la Medicion que recibe por parametro (coinciden la Periodicidad
+     * y el PeriodoImputacion).
+     */
+    private List<Medicion> getMedicionesCorrespondientesDeLogistica(Medicion medicionAComparar, List<Medicion> mediciones) {
+        return mediciones.stream()
+                .filter(medicion -> medicion.getActividad() == Actividad.LOGISTICA_DE_PRODUCTOS_Y_RESIDUOS &&
+                        medicion.getPeriodicidad() == medicionAComparar.getPeriodicidad() &&
+                        medicion.getPeriodoImputacion().equals(medicionAComparar.getPeriodoImputacion()))
+                .collect(Collectors.toList());
     }
 
 }

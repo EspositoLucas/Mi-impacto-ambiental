@@ -5,10 +5,10 @@ public enum Periodicidad {
     ANUAL;
 
     public static Periodicidad from(String periodicidad) {
-        switch (periodicidad) {
-            case "Anual":
+        switch (periodicidad.toUpperCase()) {
+            case "ANUAL":
                 return ANUAL;
-            case "Mensual":
+            case "MENSUAL":
                 return MENSUAL;
             default:
                 throw new IllegalArgumentException("No se reconoce la periodicidad: " + periodicidad);

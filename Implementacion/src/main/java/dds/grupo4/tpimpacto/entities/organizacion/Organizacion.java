@@ -2,6 +2,7 @@ package dds.grupo4.tpimpacto.entities.organizacion;
 
 import dds.grupo4.tpimpacto.entities.BaseEntity;
 import dds.grupo4.tpimpacto.entities.medicion.Medicion;
+import dds.grupo4.tpimpacto.entities.medicion.RegistroCalculoHCDatoActividad;
 import dds.grupo4.tpimpacto.entities.sectorTerritorial.SectorTerritorial;
 import dds.grupo4.tpimpacto.entities.trayecto.Tramo;
 import dds.grupo4.tpimpacto.units.Cantidad;
@@ -25,6 +26,7 @@ public class Organizacion extends BaseEntity {
     private String razonSocial;
     private TipoOrganizacion tipoOrganizacion;
     private Clasificacion clasificacion;
+    private int cantDiasHabilesPorSemana;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "factor_k", nullable = false, foreignKey = @ForeignKey(name = "FK_Organizaciones_FactorK"))
@@ -36,13 +38,14 @@ public class Organizacion extends BaseEntity {
     @OneToMany(mappedBy = "organizacion", cascade = CascadeType.ALL)
     private List<Contacto> contactos = new ArrayList<>();
 
-    @OneToMany(mappedBy = "organizacion")
+    @OneToMany(mappedBy = "organizacion", cascade = CascadeType.ALL)
     private List<Medicion> mediciones = new ArrayList<>();
 
     @ManyToMany(mappedBy = "organizaciones")
     private List<SectorTerritorial> sectoresTerritoriales = new ArrayList<>();
 
-    private int cantDiasHabilesPorSemana;
+    @OneToMany(mappedBy = "organizacion", cascade = CascadeType.ALL)
+    private List<RegistroCalculoHCDatoActividad> registrosCalculoHCDatoActividad = new ArrayList<>();
 
     public Organizacion(String razonSocial, TipoOrganizacion tipoOrganizacion, Clasificacion clasificacion,
                         Cantidad factorK, int cantDiasHabilesPorSemana) {
@@ -82,6 +85,11 @@ public class Organizacion extends BaseEntity {
 
     public void addMedicion(Medicion medicion) {
         mediciones.add(medicion);
+    }
+
+    public void addRegistroCalculoHC(RegistroCalculoHCDatoActividad registroCalculoHC) {
+        registroCalculoHC.setOrganizacion(this);
+        registrosCalculoHCDatoActividad.add(registroCalculoHC);
     }
 
     public List<Tramo> getTramosDeMiembros() {

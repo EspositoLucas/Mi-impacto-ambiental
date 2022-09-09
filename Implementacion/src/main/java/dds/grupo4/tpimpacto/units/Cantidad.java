@@ -95,6 +95,11 @@ public class Cantidad extends BaseEntity {
         return new Cantidad(this.unidad, nuevoValor);
     }
 
+    public Cantidad divide(double factor) {
+        double nuevoValor = this.valor / factor;
+        return new Cantidad(this.unidad, nuevoValor);
+    }
+
     public boolean tieneUnidad() {
         return unidad != null;
     }

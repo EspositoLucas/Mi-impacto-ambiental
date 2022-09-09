@@ -221,4 +221,13 @@ public class CantidadTests {
         Assertions.assertEquals(10, resultado.getValor());
         Assertions.assertEquals(KG, resultado.getUnidad());
     }
+
+    @Test
+    public void divide_cuandoSeDividePorUnFactorNumerico_retornaCantidadCorrectaConMismaUnidad() {
+        Cantidad cantidad = new Cantidad(KG, 10);
+        Cantidad resultado = cantidad.divide(10);
+
+        Assertions.assertEquals(1, resultado.getValor());
+        Assertions.assertEquals(KG, resultado.getUnidad());
+    }
 }
