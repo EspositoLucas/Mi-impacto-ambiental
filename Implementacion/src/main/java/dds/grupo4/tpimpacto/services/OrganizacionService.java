@@ -17,6 +17,8 @@ import dds.grupo4.tpimpacto.entities.organizacion.Solicitud;
 import dds.grupo4.tpimpacto.entities.organizacion.TipoOrganizacion;
 import dds.grupo4.tpimpacto.repositories.OrganizacionRepository;
 import dds.grupo4.tpimpacto.repositories.SolicitudRepository;
+import dds.grupo4.tpimpacto.units.Cantidad;
+import dds.grupo4.tpimpacto.units.Unidad;
 import dds.grupo4.tpimpacto.utils.StringUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -32,12 +34,14 @@ public class OrganizacionService extends BaseService<Organizacion, OrganizacionR
 
     private final SolicitudRepository solicitudRepository;
     private final TipoConsumoService tipoConsumoService;
+    private final UnidadService unidadService;
 
     public OrganizacionService(OrganizacionRepository organizacionRepository, SolicitudRepository solicitudRepository,
-                               TipoConsumoService tipoConsumoService) {
+                               TipoConsumoService tipoConsumoService, UnidadService unidadService) {
         super(organizacionRepository);
         this.solicitudRepository = solicitudRepository;
         this.tipoConsumoService = tipoConsumoService;
+        this.unidadService = unidadService;
     }
 
     @Transactional
@@ -48,7 +52,12 @@ public class OrganizacionService extends BaseService<Organizacion, OrganizacionR
 
         TipoOrganizacion tipoOrganizacion = TipoOrganizacion.valueOf(request.getTipoOrganizacion());
         Clasificacion clasificacion = Clasificacion.valueOf(request.getClasificacion());
-        Organizacion nuevaOrganizacion = new Organizacion(request.getRazonSocial(), tipoOrganizacion, clasificacion);
+        Unidad unidadFactorK = request.getCantidad().getIdUnidad() != null
+                ? unidadService.getById(request.getCantidad().getIdUnidad())
+                : null;
+        Cantidad factorK = new Cantidad(unidadFactorK, request.getCantidad().getValor());
+        Organizacion nuevaOrganizacion = new Organizacion(request.getRazonSocial(), tipoOrganizacion, clasificacion,
+                factorK, request.getCantDiasHabilesPorSemana());
         this.save(nuevaOrganizacion);
         return new BaseResponse(HttpStatus.OK);
     }

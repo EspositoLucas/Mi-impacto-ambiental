@@ -5,6 +5,7 @@ import dds.grupo4.tpimpacto.config.SlowTests;
 import dds.grupo4.tpimpacto.entities.medicion.Actividad;
 import dds.grupo4.tpimpacto.entities.medicion.FactorDeEmision;
 import dds.grupo4.tpimpacto.entities.medicion.TipoConsumo;
+import dds.grupo4.tpimpacto.units.Cantidad;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -28,9 +29,8 @@ public class TipoConsumoRepositoryTests {
 
     @BeforeEach
     public void buildTipoConsumoTest() {
-        FactorDeEmision factorDeEmision = new FactorDeEmision(10d);
-        tipoConsumoTest = new TipoConsumo("tipoConsumoTest", Actividad.LogisticaDeProductosYResiduos,
-                factorDeEmision, "alcance1");
+        FactorDeEmision factorDeEmision = new FactorDeEmision(new Cantidad(null, 10d));
+        tipoConsumoTest = new TipoConsumo("tipoConsumoTest", Actividad.LOGISTICA_DE_PRODUCTOS_Y_RESIDUOS, "alcance1", null);
     }
 
     @Test
@@ -42,7 +42,7 @@ public class TipoConsumoRepositoryTests {
 
         Assertions.assertTrue(optionalTipoConsumoDeBD.isPresent());
         Assertions.assertEquals("tipoConsumoTest", optionalTipoConsumoDeBD.get().getNombre());
-        Assertions.assertEquals(Actividad.LogisticaDeProductosYResiduos, optionalTipoConsumoDeBD.get().getActividad());
+        Assertions.assertEquals(Actividad.LOGISTICA_DE_PRODUCTOS_Y_RESIDUOS, optionalTipoConsumoDeBD.get().getActividad());
         // Assertions.assertEquals(UnidadFactorEmision.G, optionalTipoConsumoDeBD.get().getUnidadFactorEmision());
         Assertions.assertEquals("alcance1", optionalTipoConsumoDeBD.get().getAlcance());
     }

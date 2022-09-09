@@ -13,4 +13,6 @@ public class CrearOrganizacionRequest {
     private String razonSocial;
     private String tipoOrganizacion;
     private String clasificacion;
+    private CantidadDto cantidad;
+    private int cantDiasHabilesPorSemana;
 }

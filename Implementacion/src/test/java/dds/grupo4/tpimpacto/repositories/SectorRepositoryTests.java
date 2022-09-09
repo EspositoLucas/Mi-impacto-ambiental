@@ -9,6 +9,7 @@ import dds.grupo4.tpimpacto.entities.organizacion.TipoOrganizacion;
 import dds.grupo4.tpimpacto.entities.trayecto.Direccion;
 import dds.grupo4.tpimpacto.entities.trayecto.Espacio;
 import dds.grupo4.tpimpacto.entities.trayecto.TipoEspacio;
+import dds.grupo4.tpimpacto.units.Cantidad;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -33,7 +34,7 @@ public class SectorRepositoryTests {
     @BeforeEach
     public void buildSectorTest() {
         Organizacion organizacionTest = new Organizacion("organizacionTest", TipoOrganizacion.EMPRESA,
-                Clasificacion.EMPRESA_SECTOR_PRIMARIO);
+                Clasificacion.EMPRESA_SECTOR_PRIMARIO, new Cantidad(null, 1), 5);
         Direccion direccionTest = new Direccion("calle", "altura", "pais", "provincia",
                 "municipio", "localidad", "barrio", 1234);
         Espacio espacioTest = new Espacio(direccionTest, "espacioTest", TipoEspacio.TRABAJO);
