@@ -50,4 +50,9 @@ public class TipoConsumo extends BaseEntity {
         factorDeEmision.setTipoConsumo(this);
     }
 
+    public boolean tieneValorNumerico() {
+        // Si el TipoConsumo no tiene unidad, es porque su valor no se mide con numeros
+        return unidad != null;
+    }
+
 }

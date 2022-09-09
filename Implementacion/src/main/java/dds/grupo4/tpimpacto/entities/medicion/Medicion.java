@@ -1,7 +1,11 @@
 package dds.grupo4.tpimpacto.entities.medicion;
 
 import dds.grupo4.tpimpacto.entities.BaseEntity;
+import dds.grupo4.tpimpacto.entities.medioTransporte.MedioDeTransporte;
 import dds.grupo4.tpimpacto.entities.organizacion.Organizacion;
+import dds.grupo4.tpimpacto.units.Cantidad;
+import dds.grupo4.tpimpacto.units.Unidad;
+import dds.grupo4.tpimpacto.utils.DateTimeUtils;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,7 +32,6 @@ public class Medicion extends BaseEntity {
     @JoinColumn(name = "tipo_consumo", nullable = false, foreignKey = @ForeignKey(name = "FK_Mediciones_TipoConsumo"))
     private TipoConsumo tipoConsumo;
 
-    private String valor;
     private Periodicidad periodicidad;
 
     /**
@@ -38,26 +41,30 @@ public class Medicion extends BaseEntity {
      */
     private LocalDate periodoImputacion;
 
-    /*
-    TODO: para que seria esto?
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "valor_numerico", foreignKey = @ForeignKey(name = "FK_Mediciones_ValorNumerico"))
+    private Cantidad valorNumerico;
+
+    private String valorString;
+
+    // TODO: ver si las mediciones de Logistica tienen un MedioDeTransporte o un TipoDeMedioDeTransporte
     @ManyToOne
     @JoinColumn(name = "medio_de_transporte", nullable = false,
             foreignKey = @ForeignKey(name = "FK_Mediciones_MedioDeTransporte"))
     private MedioDeTransporte medioDeTransporte;
-     */
 
-    public Medicion(Organizacion organizacion, Actividad actividad, TipoConsumo tipoConsumo, String valor,
-                    Periodicidad periodicidad, Integer mesImputacion, Integer anioImputacion) {
-        this.organizacion = organizacion;
+    public Medicion(Actividad actividad, TipoConsumo tipoConsumo, Periodicidad periodicidad,
+                    String periodoImputacion, String valor) {
         this.actividad = actividad;
         this.tipoConsumo = tipoConsumo;
-        this.valor = valor;
         this.periodicidad = periodicidad;
+        this.periodoImputacion = DateTimeUtils.getDateFromString(periodoImputacion);
 
-        if (this.periodicidad == Periodicidad.MENSUAL) {
-            this.periodoImputacion = LocalDate.of(anioImputacion, mesImputacion, 1);
+        if (tipoConsumo.tieneValorNumerico()) {
+            Unidad unidad = tipoConsumo.getUnidad();
+            this.valorNumerico = new Cantidad(unidad, Double.parseDouble(valor));
         } else {
-            this.periodoImputacion = LocalDate.of(anioImputacion, 1, 1);
+            this.valorString = valor;
         }
     }
 

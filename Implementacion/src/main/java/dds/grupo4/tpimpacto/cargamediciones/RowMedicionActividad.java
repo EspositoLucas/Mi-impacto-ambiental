@@ -24,34 +24,19 @@ public class RowMedicionActividad {
 
     public static RowMedicionActividad fromRow(Row row) {
         String actividad = row.getCell(0).getStringCellValue();
-//        if (actividad.equals("Logistica de productos y residuos")) {
-//            String tipoDeConsumo = row.getCell(1).getStringCellValue();
-//            switch (tipoDeConsumo) {
-//                case "Medio de transporte":
-//                    break;
-//                case "Distancia media recorrida":
-//                    double distanciaMediaRecorrida = Double.parseDouble(tipoDeConsumo);
-//                    break;
-//                case "Peso total transportado":
-//                    double peso = Double.parseDouble(tipoDeConsumo);
-//                    break;
-//            }
-//        }
         String tipoDeConsumo = row.getCell(1).getStringCellValue();
-
         String valor = row.getCell(2).getStringCellValue();
         String periodicidad = row.getCell(3).getStringCellValue();
         String periodoImputacion = row.getCell(4).getStringCellValue();
-
         return new RowMedicionActividad(actividad, tipoDeConsumo, valor, periodicidad, periodoImputacion);
     }
 
     @Override
     public String toString() {
-        return "RowDatoActividad{" +
+        return "RowMedicionActividad{" +
                 "actividad='" + actividad + '\'' +
                 ", tipoDeConsumo='" + tipoDeConsumo + '\'' +
-                ", valor=" + valor +
+                ", valor='" + valor + '\'' +
                 ", periodicidad='" + periodicidad + '\'' +
                 ", periodoImputacion='" + periodoImputacion + '\'' +
                 '}';

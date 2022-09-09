@@ -76,6 +76,10 @@ public class Organizacion extends BaseEntity {
                 .collect(Collectors.toList());
     }
 
+    public void addMediciones(List<Medicion> mediciones) {
+        mediciones.forEach(this::addMedicion);
+    }
+
     public void addMedicion(Medicion medicion) {
         mediciones.add(medicion);
     }
