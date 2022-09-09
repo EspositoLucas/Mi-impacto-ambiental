@@ -43,7 +43,7 @@ public class MiembroServiceTests {
         personaTest.setId(1);
         Mockito.when(personaRepository.getById(1)).thenReturn(personaTest);
 
-        Organizacion organizacionTest = new Organizacion("organizacionTest", TipoOrganizacion.EMPRESA, Clasificacion.EMPRESA_SECTOR_PRIMARIO);
+        Organizacion organizacionTest = new Organizacion("organizacionTest", TipoOrganizacion.EMPRESA, Clasificacion.EMPRESA_SECTOR_PRIMARIO, null, 5);
         organizacionTest.setId(2);
         Sector sectorTest = new Sector("sectorTest", organizacionTest, null);
         sectorTest.setId(3);
@@ -68,7 +68,7 @@ public class MiembroServiceTests {
     @Test
     @Transactional
     public void crearMiembro_cuandoElSectorNoPerteneceALaOrganizacion_tiraExcepcion() {
-        Organizacion organizacion = new Organizacion("organizacionTest", TipoOrganizacion.EMPRESA, Clasificacion.EMPRESA_SECTOR_PRIMARIO);
+        Organizacion organizacion = new Organizacion("organizacionTest", TipoOrganizacion.EMPRESA, Clasificacion.EMPRESA_SECTOR_PRIMARIO, null, 5);
         organizacion.setId(10);
         Sector sector = new Sector("sectorTest", organizacion, null);
         sector.setId(20);

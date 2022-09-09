@@ -4,6 +4,7 @@ import dds.grupo4.tpimpacto.services.RelacionUnidadesService;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.javatuples.Pair;
 
 import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
@@ -27,7 +28,7 @@ public class Cantidad {
     }
 
     public Cantidad toUnidadBase() {
-        if (unidad == null) {
+        if (unidad == null || unidad.isBase()) {
             return this;
         }
         return new Cantidad(unidad.getTipoUnidad().getUnidadBase(), getValorEquivalenteEnUnidadBase());
@@ -76,9 +77,15 @@ public class Cantidad {
     }
 
     public Cantidad times(Cantidad other, RelacionUnidadesService relacionUnidadesService) {
-        Unidad nuevaUnidad = relacionUnidadesService.getUnidadResultanteDeProducto(this.unidad, other.unidad);
-        double nuevoValor = this.valor * other.valor;
-        return new Cantidad(nuevaUnidad, nuevoValor);
+        Cantidad this_ = this, other_ = other;
+        Pair<Unidad, Boolean> resultadoUnidad = relacionUnidadesService.getUnidadResultanteDeProducto(this_.unidad, other_.unidad);
+        if (!resultadoUnidad.getValue1()) {
+            this_ = this_.toUnidadBase();
+            other_ = other_.toUnidadBase();
+            resultadoUnidad = relacionUnidadesService.getUnidadResultanteDeProducto(this_.unidad, other_.unidad);
+        }
+        double nuevoValor = this_.valor * other_.valor;
+        return new Cantidad(resultadoUnidad.getValue0(), nuevoValor);
     }
 
     public Cantidad times(double factor) {

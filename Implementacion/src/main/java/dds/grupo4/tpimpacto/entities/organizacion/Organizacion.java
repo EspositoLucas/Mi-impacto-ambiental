@@ -41,12 +41,15 @@ public class Organizacion extends BaseEntity {
     @ManyToMany(mappedBy = "organizaciones")
     private List<SectorTerritorial> sectoresTerritoriales = new ArrayList<>();
 
-    private int cantDiasPorSemana; // para el calculo HC semanal
+    private int cantDiasHabilesPorSemana;
 
-    public Organizacion(String razonSocial, TipoOrganizacion tipoOrganizacion, Clasificacion clasificacion) {
+    public Organizacion(String razonSocial, TipoOrganizacion tipoOrganizacion, Clasificacion clasificacion,
+                        Cantidad factorK, int cantDiasHabilesPorSemana) {
         this.razonSocial = razonSocial;
         this.tipoOrganizacion = tipoOrganizacion;
         this.clasificacion = clasificacion;
+        this.factorK = factorK;
+        this.cantDiasHabilesPorSemana = cantDiasHabilesPorSemana;
     }
 
     public void addSector(Sector sector) {

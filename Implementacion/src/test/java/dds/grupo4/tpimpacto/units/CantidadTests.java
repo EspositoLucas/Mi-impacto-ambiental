@@ -203,6 +203,17 @@ public class CantidadTests {
     }
 
     @Test
+    public void times_cuandoUnaUnidadNoEsBase_retornaUnidadCorrectaConConversionDeValor() {
+        // 1000g == 1kg, y 1kg*2(1/kg) == 2 (se cancelan las unidades)
+        Cantidad left = new Cantidad(G, 1000);
+        Cantidad right = new Cantidad(UNO_SOBRE_KG, 2);
+        Cantidad resultado = left.times(right, relacionUnidadesService);
+
+        Assertions.assertEquals(2, resultado.getValor());
+        Assertions.assertNull(resultado.getUnidad());
+    }
+
+    @Test
     public void times_cuandoElProductoEsPorUnFactorNumerico_retornaCantidadConMismaUnidad() {
         Cantidad cantidad = new Cantidad(KG, 5);
         Cantidad resultado = cantidad.times(2);

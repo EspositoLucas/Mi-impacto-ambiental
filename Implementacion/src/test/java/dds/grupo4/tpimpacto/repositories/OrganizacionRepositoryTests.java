@@ -6,6 +6,7 @@ import dds.grupo4.tpimpacto.entities.organizacion.Clasificacion;
 import dds.grupo4.tpimpacto.entities.organizacion.Contacto;
 import dds.grupo4.tpimpacto.entities.organizacion.Organizacion;
 import dds.grupo4.tpimpacto.entities.organizacion.TipoOrganizacion;
+import dds.grupo4.tpimpacto.units.Cantidad;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -31,7 +32,7 @@ public class OrganizacionRepositoryTests {
     @BeforeEach
     public void buildOrganizacionTest() {
         organizacionTest = new Organizacion("organizacionTest", TipoOrganizacion.EMPRESA,
-                Clasificacion.EMPRESA_SECTOR_PRIMARIO);
+                Clasificacion.EMPRESA_SECTOR_PRIMARIO, new Cantidad(null, 0), 5);
     }
 
     @Test

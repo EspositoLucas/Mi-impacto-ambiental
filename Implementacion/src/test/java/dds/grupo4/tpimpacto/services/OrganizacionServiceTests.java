@@ -39,11 +39,11 @@ public class OrganizacionServiceTests {
 
     @BeforeEach
     public void setUp() {
-        organizacionService = new OrganizacionService(organizacionRepository, solicitudRepository, tipoConsumoService);
+        organizacionService = new OrganizacionService(organizacionRepository, solicitudRepository, tipoConsumoService, null);
 
         miembroTest = new Miembro(null);
         miembroTest.setId(1);
-        organizacionTest = new Organizacion("organizacionTest", TipoOrganizacion.EMPRESA, Clasificacion.EMPRESA_SECTOR_PRIMARIO);
+        organizacionTest = new Organizacion("organizacionTest", TipoOrganizacion.EMPRESA, Clasificacion.EMPRESA_SECTOR_PRIMARIO, null, 5);
         organizacionTest.setId(2);
         sectorTest = new Sector("sectorTest", organizacionTest, null);
         sectorTest.setId(3);
