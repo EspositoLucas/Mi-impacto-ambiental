@@ -1,12 +1,13 @@
 package dds.grupo4.tpimpacto.repositories;
 
 import dds.grupo4.tpimpacto.units.RelacionUnidades;
+import dds.grupo4.tpimpacto.units.RelacionUnidades_;
 import dds.grupo4.tpimpacto.units.Unidad;
-import org.javatuples.Pair;
+import dds.grupo4.tpimpacto.units.Unidad_;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
+import javax.persistence.criteria.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -19,30 +20,41 @@ public class RelacionUnidadesRepository extends BaseRepository<RelacionUnidades>
     }
 
     public Optional<RelacionUnidades> getByUnidades(Unidad izquierda, Unidad derecha, Unidad producto, Unidad cociente) {
-        List<String> condiciones = new ArrayList<>();
-        List<Pair<String, Object>> parameters = new ArrayList<>();
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+
+        CriteriaQuery<RelacionUnidades> criteria = builder.createQuery(RelacionUnidades.class);
+        Root<RelacionUnidades> root = criteria.from(RelacionUnidades.class);
+
+        List<Predicate> condiciones = new ArrayList<>();
         if (izquierda != null) {
-            condiciones.add("relacion.unidadIzquierda.simbolo = :simboloUnidadIzquierda");
-            parameters.add(Pair.with("simboloUnidadIzquierda", izquierda.getSimbolo()));
+            Join<RelacionUnidades, Unidad> joinUnidadIzquierda = root.join(RelacionUnidades_.unidadIzquierda);
+            condiciones.add(
+                    builder.equal(joinUnidadIzquierda.get(Unidad_.simbolo), izquierda.getSimbolo())
+            );
         }
         if (derecha != null) {
-            condiciones.add("relacion.unidadDerecha.simbolo = :simboloUnidadDerecha");
-            parameters.add(Pair.with("simboloUnidadDerecha", derecha.getSimbolo()));
+            Join<RelacionUnidades, Unidad> joinUnidadDerecha = root.join(RelacionUnidades_.unidadDerecha);
+            condiciones.add(
+                    builder.equal(joinUnidadDerecha.get(Unidad_.simbolo), derecha.getSimbolo())
+            );
         }
         if (producto != null) {
-            condiciones.add("relacion.unidadProducto.simbolo = :simboloUnidadProducto");
-            parameters.add(Pair.with("simboloUnidadProducto", producto.getSimbolo()));
+            Join<RelacionUnidades, Unidad> joinUnidadProducto = root.join(RelacionUnidades_.unidadProducto);
+            condiciones.add(
+                    builder.equal(joinUnidadProducto.get(Unidad_.simbolo), producto.getSimbolo())
+            );
         }
         if (cociente != null) {
-            condiciones.add("relacion.unidadCociente.simbolo = :simboloUnidadCociente");
-            parameters.add(Pair.with("simboloUnidadCociente", cociente.getSimbolo()));
+            Join<RelacionUnidades, Unidad> joinUnidadCociente = root.join(RelacionUnidades_.unidadCociente);
+            condiciones.add(
+                    builder.equal(joinUnidadCociente.get(Unidad_.simbolo), cociente.getSimbolo())
+            );
         }
-        String joinedCondiciones = String.join(" AND ", condiciones);
-        String qlString = "FROM RelacionUnidades relacion WHERE " + joinedCondiciones;
 
-        TypedQuery<RelacionUnidades> typedQuery = entityManager.createQuery(qlString, RelacionUnidades.class);
-        parameters.forEach(p -> typedQuery.setParameter(p.getValue0(), p.getValue1()));
-        return typedQuery
+        criteria.select(root)
+                .where(condiciones.toArray(new Predicate[0]));
+
+        return entityManager.createQuery(criteria)
                 .getResultStream()
                 .findFirst();
     }
