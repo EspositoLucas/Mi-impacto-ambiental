@@ -1,5 +1,6 @@
 package dds.grupo4.tpimpacto;
 
+import dds.grupo4.tpimpacto.services.OrganizacionService;
 import dds.grupo4.tpimpacto.services.TipoConsumoService;
 import dds.grupo4.tpimpacto.services.UnidadService;
 import lombok.extern.slf4j.Slf4j;
@@ -15,10 +16,12 @@ public class DbInitializer implements ApplicationRunner {
 
     private final UnidadService unidadService;
     private final TipoConsumoService tipoConsumoService;
+    private final OrganizacionService organizacionService;
 
-    public DbInitializer(UnidadService unidadService, TipoConsumoService tipoConsumoService) {
+    public DbInitializer(UnidadService unidadService, TipoConsumoService tipoConsumoService, OrganizacionService organizacionService) {
         this.unidadService = unidadService;
         this.tipoConsumoService = tipoConsumoService;
+        this.organizacionService = organizacionService;
     }
 
     @Override
@@ -27,5 +30,6 @@ public class DbInitializer implements ApplicationRunner {
 
         unidadService.seedData();
         tipoConsumoService.seedData();
+        organizacionService.seedData();
     }
 }

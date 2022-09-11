@@ -85,6 +85,7 @@ public class Organizacion extends BaseEntity {
 
     public void addMedicion(Medicion medicion) {
         mediciones.add(medicion);
+        medicion.setOrganizacion(this);
     }
 
     public void addRegistroCalculoHC(RegistroCalculoHCDatoActividad registroCalculoHC) {

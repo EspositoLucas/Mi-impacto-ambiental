@@ -14,6 +14,7 @@ import dds.grupo4.tpimpacto.repositories.SolicitudRepository;
 import dds.grupo4.tpimpacto.services.calculohc.CalculadoraHC;
 import dds.grupo4.tpimpacto.units.Cantidad;
 import dds.grupo4.tpimpacto.units.Unidad;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,6 +26,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 public class OrganizacionService extends BaseService<Organizacion, OrganizacionRepository> {
 
     private final SolicitudRepository solicitudRepository;
@@ -54,10 +56,10 @@ public class OrganizacionService extends BaseService<Organizacion, OrganizacionR
 
         TipoOrganizacion tipoOrganizacion = TipoOrganizacion.valueOf(request.getTipoOrganizacion());
         Clasificacion clasificacion = Clasificacion.valueOf(request.getClasificacion());
-        Unidad unidadFactorK = request.getCantidad().getIdUnidad() != null
-                ? unidadService.getById(request.getCantidad().getIdUnidad())
+        Unidad unidadFactorK = request.getFactorK().getUnidad() != null
+                ? unidadService.getById(request.getFactorK().getUnidad().getId())
                 : null;
-        Cantidad factorK = new Cantidad(unidadFactorK, request.getCantidad().getValor());
+        Cantidad factorK = new Cantidad(unidadFactorK, request.getFactorK().getValor());
         Organizacion nuevaOrganizacion = new Organizacion(request.getRazonSocial(), tipoOrganizacion, clasificacion,
                 factorK, request.getCantDiasHabilesPorSemana());
         this.save(nuevaOrganizacion);
@@ -119,6 +121,25 @@ public class OrganizacionService extends BaseService<Organizacion, OrganizacionR
     @Transactional
     public List<String> getMailsDeContactos() {
         return repository.getMailsDeContactos();
+    }
+
+    @Transactional
+    public void seedData() {
+        if (this.hasData()) {
+            log.debug("Ya existen registros de Organizacion creados");
+            return;
+        }
+
+        log.debug("Se crean los Organizacion iniciales");
+
+        Organizacion organizacion = new Organizacion(
+                "Organización TEST",
+                TipoOrganizacion.EMPRESA,
+                Clasificacion.EMPRESA_SECTOR_PRIMARIO,
+                new Cantidad(unidadService.getBySimbolo("1/kg").get(), 2),
+                5
+        );
+        this.saveAll(Arrays.asList(organizacion));
     }
 
     private Medicion rowToMedicion(RowMedicionActividad row) {

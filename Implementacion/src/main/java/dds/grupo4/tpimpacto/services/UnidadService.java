@@ -1,11 +1,14 @@
 package dds.grupo4.tpimpacto.services;
 
+import dds.grupo4.tpimpacto.dtos.UnidadDto;
+import dds.grupo4.tpimpacto.dtos.base.ResponseWithResults;
 import dds.grupo4.tpimpacto.repositories.UnidadRepository;
 import dds.grupo4.tpimpacto.units.RelacionUnidades;
 import dds.grupo4.tpimpacto.units.RowRelacionUnidades;
 import dds.grupo4.tpimpacto.units.TipoUnidad;
 import dds.grupo4.tpimpacto.units.Unidad;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,6 +18,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -32,6 +36,14 @@ public class UnidadService extends BaseService<Unidad, UnidadRepository> {
     @Transactional
     public Optional<Unidad> getBySimbolo(String simbolo) {
         return repository.getBySimbolo(simbolo);
+    }
+
+    @Transactional
+    public ResponseWithResults<UnidadDto> listarUnidades() {
+        List<UnidadDto> dtos = this.getAll().stream()
+                .map(UnidadDto::from)
+                .collect(Collectors.toList());
+        return new ResponseWithResults<>(HttpStatus.OK, dtos);
     }
 
     @Transactional

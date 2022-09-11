@@ -38,10 +38,7 @@ public class ExcelService {
     }
 
     public static boolean cellIsEmpty(Cell cell) {
-        if (cell == null)
-            return true;
-
-        if (cell.getCellType() == CellType.BLANK)
+        if (cell == null || cell.getCellType() == CellType.BLANK)
             return true;
 
         if (cell.getCellType() == CellType.STRING) {
@@ -57,5 +54,10 @@ public class ExcelService {
         if (cellIsEmpty(cell))
             return null;
         return cell.getStringCellValue().trim();
+    }
+
+    public static String readCellAsString(Cell cell) {
+        DataFormatter dataFormatter = new DataFormatter();
+        return dataFormatter.formatCellValue(cell);
     }
 }

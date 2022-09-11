@@ -49,7 +49,7 @@ public class Medicion extends BaseEntity {
 
     // TODO: ver si las mediciones de Logistica tienen un MedioDeTransporte o un TipoDeMedioDeTransporte
     @ManyToOne
-    @JoinColumn(name = "medio_de_transporte", nullable = false,
+    @JoinColumn(name = "medio_de_transporte",
             foreignKey = @ForeignKey(name = "FK_Mediciones_MedioDeTransporte"))
     private MedioDeTransporte medioDeTransporte;
 

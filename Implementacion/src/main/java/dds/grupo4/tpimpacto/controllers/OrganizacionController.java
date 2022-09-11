@@ -5,6 +5,7 @@ import dds.grupo4.tpimpacto.dtos.base.BaseResponse;
 import dds.grupo4.tpimpacto.dtos.base.ResponseWithResults;
 import dds.grupo4.tpimpacto.services.OrganizacionService;
 import dds.grupo4.tpimpacto.utils.ResponseEntityUtils;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,9 +41,10 @@ public class OrganizacionController {
         return ResponseEntityUtils.toResponseEntity(organizacionService.listarMiembros(id));
     }
 
-    public ResponseEntity cargarMediciones(CargarMedicionesRequest request) throws IOException {
+    @PostMapping("/cargar-mediciones")
+    public ResponseEntity<BaseResponse> cargarMediciones(CargarMedicionesRequest request) throws IOException {
         organizacionService.cargarMediciones(request);
-        return ResponseEntity.ok().build();
+        return ResponseEntityUtils.toResponseEntity(new BaseResponse(HttpStatus.OK));
     }
 
 }

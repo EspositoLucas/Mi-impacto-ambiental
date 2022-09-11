@@ -1,5 +1,6 @@
 package dds.grupo4.tpimpacto.cargamediciones;
 
+import dds.grupo4.tpimpacto.services.ExcelService;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.poi.ss.usermodel.Row;
@@ -23,11 +24,11 @@ public class RowMedicionActividad {
     }
 
     public static RowMedicionActividad fromRow(Row row) {
-        String actividad = row.getCell(0).getStringCellValue();
-        String tipoDeConsumo = row.getCell(1).getStringCellValue();
-        String valor = row.getCell(2).getStringCellValue();
-        String periodicidad = row.getCell(3).getStringCellValue();
-        String periodoImputacion = row.getCell(4).getStringCellValue();
+        String actividad = ExcelService.readCellAsString(row.getCell(0));
+        String tipoDeConsumo = ExcelService.readCellAsString(row.getCell(1));
+        String valor = ExcelService.readCellAsString(row.getCell(2));
+        String periodicidad = ExcelService.readCellAsString(row.getCell(3));
+        String periodoImputacion = ExcelService.readCellAsString(row.getCell(4));
         return new RowMedicionActividad(actividad, tipoDeConsumo, valor, periodicidad, periodoImputacion);
     }
 

@@ -1,23 +1,28 @@
 package dds.grupo4.tpimpacto.entities.medicion;
 
-public enum Actividad {
-    COMBUSTION_FIJA,
-    COMBUSTION_MOVIL,
-    ELECTRICIDAD_ADQUIRIDA_Y_CONSUMIDA,
-    LOGISTICA_DE_PRODUCTOS_Y_RESIDUOS;
+import java.util.stream.Stream;
 
-    public static Actividad from(String actividad) {
-        switch (actividad) {
-            case "Combustión fija":
-                return COMBUSTION_FIJA;
-            case "Combustión móvil":
-                return COMBUSTION_MOVIL;
-            case "Electricidad adquirida y consumida":
-                return ELECTRICIDAD_ADQUIRIDA_Y_CONSUMIDA;
-            case "Logística de productos y residuos":
-                return LOGISTICA_DE_PRODUCTOS_Y_RESIDUOS;
-            default:
-                throw new IllegalArgumentException("No se reconoce la actividad: " + actividad);
-        }
+public enum Actividad {
+    COMBUSTION_FIJA("Combustión fija"),
+    COMBUSTION_MOVIL("Combustión móvil"),
+    ELECTRICIDAD_ADQUIRIDA_Y_CONSUMIDA("Electricidad adquirida y consumida"),
+    LOGISTICA_DE_PRODUCTOS_Y_RESIDUOS("Logística de productos y residuos");
+
+    private final String nombre;
+
+    Actividad(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public static Actividad from(String nombre) {
+        return Stream.of(Actividad.values())
+                .filter(actividad -> actividad.nombre.equals(nombre))
+                .findAny()
+                .orElseThrow(() -> new IllegalArgumentException("No se reconoce la actividad: " + nombre));
+    }
+
+    @Override
+    public String toString() {
+        return nombre;
     }
 }

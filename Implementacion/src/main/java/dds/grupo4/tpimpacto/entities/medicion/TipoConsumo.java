@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Objects;
 
 @Entity(name = "TipoConsumo")
 @Table(name = "tipos_de_consumo")
@@ -39,13 +38,6 @@ public class TipoConsumo extends BaseEntity {
     }
 
     public void setFactorDeEmision(FactorDeEmision factorDeEmision) {
-        if (!Objects.equals(factorDeEmision.getCantidad().getUnidad(), this.unidad)) {
-            throw new IllegalArgumentException(
-                    "La unidad del TipoConsumo '" + nombre + "' es '" + Unidad.toString(unidad) + "', " +
-                            "y se le intento settear un FactorDeEmision con " +
-                            "unidad '" + Unidad.toString(factorDeEmision.getCantidad().getUnidad()) + "'"
-            );
-        }
         this.factorDeEmision = factorDeEmision;
         factorDeEmision.setTipoConsumo(this);
     }
