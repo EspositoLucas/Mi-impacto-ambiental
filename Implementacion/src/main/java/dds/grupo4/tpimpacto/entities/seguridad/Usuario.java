@@ -28,7 +28,7 @@ public class Usuario extends BaseEntity {
     private String password;
     private LocalDateTime bloqueadoHasta; // Hasta que fecha esta bloqueado
     private int cantidadIntentosIncorrectos = 0; // Cuantos logeos incorrectos seguidos hizo
-    private boolean esAdmin;
+    private boolean admin;
 
     public Usuario(String username, String password) {
         this.username = username;
