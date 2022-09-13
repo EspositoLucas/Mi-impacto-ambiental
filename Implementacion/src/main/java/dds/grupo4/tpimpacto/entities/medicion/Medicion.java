@@ -10,12 +10,17 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Immutable;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity(name = "Medicion")
 @Table(name = "mediciones")
+@Immutable
+@Cacheable
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

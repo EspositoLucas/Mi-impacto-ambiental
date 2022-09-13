@@ -10,6 +10,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -17,6 +18,8 @@ import java.util.List;
 
 @Entity(name = "Tramo")
 @Table(name = "tramos")
+@Cacheable
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -40,7 +43,6 @@ public class Tramo extends BaseEntity {
     private Lugar lugarFin;
 
     private Double peso;
-
 
     @ManyToMany
     @JoinTable(

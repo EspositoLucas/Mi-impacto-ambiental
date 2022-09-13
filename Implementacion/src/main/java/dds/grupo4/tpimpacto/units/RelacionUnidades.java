@@ -4,11 +4,14 @@ import dds.grupo4.tpimpacto.entities.BaseEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 
 @Entity(name = "RelacionUnidades")
 @Table(name = "relaciones_unidades")
+@Cacheable
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Getter
 @Setter
 @NoArgsConstructor
