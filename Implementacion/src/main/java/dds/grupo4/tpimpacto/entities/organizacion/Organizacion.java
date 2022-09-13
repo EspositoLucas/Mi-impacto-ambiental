@@ -35,7 +35,7 @@ public class Organizacion extends BaseEntity {
     @JoinColumn(name = "factor_k", nullable = false, foreignKey = @ForeignKey(name = "FK_Organizaciones_FactorK"))
     private Cantidad factorK;
 
-    @OneToMany(mappedBy = "organizacion")
+    @OneToMany(mappedBy = "organizacion", cascade = CascadeType.ALL)
     private List<Sector> sectores = new ArrayList<>();
 
     @OneToMany(mappedBy = "organizacion", cascade = CascadeType.ALL)

@@ -23,6 +23,15 @@ public class SectorRepository extends BaseRepository<Sector> {
                 .findFirst();
     }
 
+    public Optional<Sector> getByNombre(String nombreSector) {
+        String query = "FROM Sector sector " +
+                "WHERE sector.nombre = :nombreSector";
+        return entityManager.createQuery(query, Sector.class)
+                .setParameter("nombreSector", nombreSector)
+                .getResultStream()
+                .findFirst();
+    }
+
     @Override
     public Class<Sector> getEntityClass() {
         return Sector.class;

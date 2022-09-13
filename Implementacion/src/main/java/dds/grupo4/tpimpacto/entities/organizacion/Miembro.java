@@ -59,6 +59,11 @@ public class Miembro extends BaseEntity {
         return persona.getDocumento();
     }
 
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+        usuario.setMiembro(this);
+    }
+
     @Override
     public String toString() {
         return persona.toString();

@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -24,7 +25,7 @@ public class Persona extends BaseEntity {
     private TipoDocumento tipoDocumento;
     private String documento;
 
-    @OneToMany(mappedBy = "persona")
+    @OneToMany(mappedBy = "persona", cascade = CascadeType.ALL)
     private List<Miembro> miembros = new ArrayList<>();
 
     public Persona(String nombre, String apellido, TipoDocumento tipoDocumento, String documento) {

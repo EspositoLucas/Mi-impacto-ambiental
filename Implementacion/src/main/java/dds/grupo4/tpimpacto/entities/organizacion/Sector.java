@@ -29,7 +29,7 @@ public class Sector extends BaseEntity {
      * Si en un mismo Espacio pueden haber distintos Sectores, seria ManyToOne.
      * Si en cada Espacio solamente puede haber un Sector, seria un OneToOne.
      */
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(
             name = "espacio",
             nullable = false,

@@ -5,10 +5,10 @@ import dds.grupo4.tpimpacto.dtos.*;
 import dds.grupo4.tpimpacto.dtos.base.BaseResponse;
 import dds.grupo4.tpimpacto.dtos.base.ResponseWithResults;
 import dds.grupo4.tpimpacto.entities.medicion.*;
-import dds.grupo4.tpimpacto.entities.organizacion.Clasificacion;
-import dds.grupo4.tpimpacto.entities.organizacion.Organizacion;
-import dds.grupo4.tpimpacto.entities.organizacion.Solicitud;
-import dds.grupo4.tpimpacto.entities.organizacion.TipoOrganizacion;
+import dds.grupo4.tpimpacto.entities.organizacion.*;
+import dds.grupo4.tpimpacto.entities.trayecto.Direccion;
+import dds.grupo4.tpimpacto.entities.trayecto.Espacio;
+import dds.grupo4.tpimpacto.entities.trayecto.TipoEspacio;
 import dds.grupo4.tpimpacto.repositories.OrganizacionRepository;
 import dds.grupo4.tpimpacto.repositories.SolicitudRepository;
 import dds.grupo4.tpimpacto.services.calculohc.CalculadoraHC;
@@ -111,7 +111,7 @@ public class OrganizacionService extends BaseService<Organizacion, OrganizacionR
         List<RowMedicionActividad> mediciones = excelService.loadData(inputStream, "Hoja1", 2, RowMedicionActividad::fromRow);
 
         List<Medicion> medicionesParseadas = mediciones.stream()
-                .map(rowMedicionActividad -> rowToMedicion(rowMedicionActividad))
+                .map(this::rowToMedicion)
                 .collect(Collectors.toList());
         organizacion.addMediciones(medicionesParseadas);
 
@@ -126,19 +126,25 @@ public class OrganizacionService extends BaseService<Organizacion, OrganizacionR
     @Transactional
     public void seedData() {
         if (this.hasData()) {
-            log.debug("Ya existen registros de Organizacion creados");
+            log.debug("Seed: ya hay Organizaciones creadas");
             return;
         }
 
-        log.debug("Se crean los Organizacion iniciales");
+        log.debug("Seed: se crean las Organizaciones iniciales");
 
         Organizacion organizacion = new Organizacion(
-                "Organización TEST",
+                "Organizacion TEST",
                 TipoOrganizacion.EMPRESA,
                 Clasificacion.EMPRESA_SECTOR_PRIMARIO,
                 new Cantidad(unidadService.getBySimbolo("1/kg").get(), 2),
                 5
         );
+        Direccion direccionEspacio = new Direccion("MEDRANO", "951", "ARGENTINA",
+                "CIUDAD DE BUENOS AIRES", "CIUDAD DE BUENOS AIRES", "ALMAGRO",
+                "ALMAGRO", 1213);
+        Espacio espacio = new Espacio(direccionEspacio, "Espacio TEST", TipoEspacio.TRABAJO);
+        Sector sector = new Sector("Sector TEST", organizacion, espacio);
+        organizacion.addSector(sector);
         this.saveAll(Arrays.asList(organizacion));
     }
 

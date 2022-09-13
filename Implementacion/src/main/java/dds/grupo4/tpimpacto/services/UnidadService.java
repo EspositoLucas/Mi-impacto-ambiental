@@ -49,7 +49,7 @@ public class UnidadService extends BaseService<Unidad, UnidadRepository> {
     @Transactional
     public void seedData() {
         if (this.hasData()) {
-            log.debug("Ya existen registros de Unidad creados");
+            log.debug("Seed: ya hay Unidades creadas");
             return;
         }
 
@@ -58,7 +58,7 @@ public class UnidadService extends BaseService<Unidad, UnidadRepository> {
     }
 
     private void seedUnidades() {
-        log.debug("Se crean los Unidad iniciales");
+        log.debug("Seed: se crean las Unidades iniciales");
 
         TipoUnidad longitud = new TipoUnidad("Longitud");
         Unidad KM = new Unidad("km", "Kilometro", true, 1d);

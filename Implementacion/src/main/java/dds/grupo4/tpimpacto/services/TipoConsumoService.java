@@ -32,11 +32,11 @@ public class TipoConsumoService extends BaseService<TipoConsumo, TipoConsumoRepo
     @Transactional
     public void seedData() {
         if (this.hasData()) {
-            log.debug("Ya existen registros de TipoConsumo creados");
+            log.debug("Seed: ya hay TiposConsumo creados");
             return;
         }
 
-        log.debug("Se crean los TipoConsumo iniciales");
+        log.debug("Seed: se crean los TiposConsumo iniciales");
         seedTiposDeConsumoParaAlcanceEmisionesDirectas();
         seedTiposDeConsumoParaAlcanceEmisionesIndirectas();
         seedTiposDeConsumoParaAlcanceOtrasEmisionesIndirectas();
