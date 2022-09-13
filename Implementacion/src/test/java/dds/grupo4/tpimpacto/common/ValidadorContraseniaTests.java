@@ -1,36 +1,42 @@
 package dds.grupo4.tpimpacto.common;
 
+import dds.grupo4.tpimpacto.config.CustomTestAnnotation;
+import dds.grupo4.tpimpacto.config.FastTests;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+import org.mockito.Mock;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+@CustomTestAnnotation
+@FastTests
 public class ValidadorContraseniaTests {
 
+    @Mock
     private LectorDeArchivo mockLector;
-    private ValidadorContrasenia validadorContrasenia;
 
-    @BeforeAll
-    public void initialSetUp() {
-        mockLector = mock(LectorDeArchivo.class);
-        when(mockLector.leerLineas(ValidadorContrasenia.RUTA_ARCHIVO_CONTRASENIAS_INSEGURAS)).thenReturn(Arrays.asList("masUsada01, masUsada02, masUsada03"));
-    }
+    private ValidadorContrasenia validadorContrasenia;
 
     @BeforeEach
     public void setUp() {
+        List<String> contraseniasInseguras = new ArrayList<>(
+                Arrays.asList("masUsada01", "UNAcontraSEGURAperoMASusada123!!**")
+        );
+        when(mockLector.leerLineas(ValidadorContrasenia.RUTA_ARCHIVO_CONTRASENIAS_INSEGURAS))
+                .thenReturn(contraseniasInseguras);
         validadorContrasenia = new ValidadorContrasenia(mockLector);
     }
 
     @Test
     public void validarContrasenia_cuandoLaContraseniaEstaEnLaListaDeMasUsadas_retornaError() {
-        ResultadoDeValidacion resultado = validadorContrasenia.validarContrasenia("masUsada01");
+        ResultadoDeValidacion resultado = validadorContrasenia.validarContrasenia("UNAcontraSEGURAperoMASusada123!!**");
         Assertions.assertFalse(resultado.isValido());
     }
 
