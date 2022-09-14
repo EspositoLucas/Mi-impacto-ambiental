@@ -16,7 +16,7 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Parada extends Lugar {
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "transporte_publico", nullable = false, foreignKey = @ForeignKey(name = "FK_Paradas_TransportePublico"))
     private TransportePublico transportePublico;
 
@@ -44,4 +44,8 @@ public class Parada extends Lugar {
         this.distanciaParadaSiguiente = distanciaParadaSiguiente;
     }
 
+    @Override
+    public String toString() {
+        return "Parada de " + transportePublico.toString() + " en " + direccion.toString();
+    }
 }

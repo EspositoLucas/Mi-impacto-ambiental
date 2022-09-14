@@ -1,6 +1,7 @@
 package dds.grupo4.tpimpacto.entities.trayecto;
 
 import dds.grupo4.tpimpacto.entities.BaseEntity;
+import dds.grupo4.tpimpacto.utils.DateTimeUtils;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,7 +25,7 @@ public class Trayecto extends BaseEntity {
             nullable = false,
             foreignKey = @ForeignKey(name = "FK_Trayectos_Inicio")
     )
-    private Direccion inicio;
+    private Lugar inicio;
 
     @ManyToOne
     @JoinColumn(
@@ -32,31 +33,30 @@ public class Trayecto extends BaseEntity {
             nullable = false,
             foreignKey = @ForeignKey(name = "FK_Trayectos_Fin")
     )
-    private Direccion fin;
+    private Lugar fin;
+
+    @OneToMany(mappedBy = "trayecto")
+    private List<MiembroPorTrayecto> miembrosPorTrayecto;
 
     @OneToMany(mappedBy = "trayecto")
     private List<Tramo> tramos = new ArrayList<>();
 
+    private LocalDate fechaInicio;
+    private LocalDate fechaFin;
 
-    private LocalDate mesDeInicio; // periodo de inicio - esto coincide con la fecha de ingreso del miembro pero para el primer trayecto
-
-    private LocalDate mesDeFin; // periodo de fin
-
-
-    public Trayecto(Direccion inicio, Direccion fin, List<Tramo> tramos) {
+    public Trayecto(Lugar inicio, Lugar fin, List<Tramo> tramos) {
         this.inicio = inicio;
         this.fin = fin;
         this.tramos = tramos;
     }
 
-    public double calcularDistanciaTotal() {
+    public double getDistanciaTotalRecorrida() {
         return tramos.stream()
                 .mapToDouble(Tramo::getDistanciaRecorrida)
                 .sum();
     }
 
-    public boolean seRealizaEntre(LocalDate fecha) {
-
-        return mesDeInicio.compareTo(fecha) < 0 && mesDeFin.compareTo(fecha) >= 0;
+    public boolean seRealizaEnFecha(LocalDate fecha) {
+        return DateTimeUtils.isAfterOrEqual(fecha, fechaInicio) && DateTimeUtils.isBeforeOrEqual(fecha, fechaFin);
     }
 }

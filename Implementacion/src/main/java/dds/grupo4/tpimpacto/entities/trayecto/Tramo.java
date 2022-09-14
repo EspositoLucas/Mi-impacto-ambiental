@@ -42,8 +42,6 @@ public class Tramo extends BaseEntity {
     @JoinColumn(name = "lugar_fin", nullable = false, foreignKey = @ForeignKey(name = "FK_Tramos_LugarFin"))
     private Lugar lugarFin;
 
-    private Double peso;
-
     @ManyToMany
     @JoinTable(
             name = "miembros_por_tramo",

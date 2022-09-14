@@ -23,4 +23,18 @@ public class DateTimeUtils {
         return LocalDate.of(year, month, day);
     }
 
+    /**
+     * @return True si <code>dateToTest</code> es menor o igual a <code>referenceDate</code>
+     */
+    public static boolean isBeforeOrEqual(LocalDate dateToTest, LocalDate referenceDate) {
+        return (dateToTest.isBefore(referenceDate) || dateToTest.isEqual(referenceDate));
+    }
+
+    /**
+     * @return True si <code>dateToTest</code> es mayor o igual a <code>referenceDate</code>
+     */
+    public static boolean isAfterOrEqual(LocalDate dateToTest, LocalDate referenceDate) {
+        return (dateToTest.isAfter(referenceDate) || dateToTest.isEqual(referenceDate));
+    }
+
 }

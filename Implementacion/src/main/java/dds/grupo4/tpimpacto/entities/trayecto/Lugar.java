@@ -18,7 +18,7 @@ public abstract class Lugar extends BaseEntity {
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "direccion", nullable = false, foreignKey = @ForeignKey(name = "FK_Lugares_Direccion"))
-    private Direccion direccion;
+    protected Direccion direccion;
 
     public Lugar(Direccion direccion) {
         this.direccion = direccion;
