@@ -16,31 +16,16 @@ public class DireccionRepository extends BaseRepository<Direccion> {
     public Optional<Direccion> getByDireccionEntera(
             String calle,
             String altura,
-            String pais,
-            String provincia,
-            String municipio,
-            String localidad,
-            String barrio,
-            int codigoPostal
+            long idLocalidad
     ) {
         String query = "FROM Direccion direccion " +
                 "WHERE direccion.calle = :calle " +
                 "AND direccion.altura = :altura " +
-                "AND direccion.pais = :pais " +
-                "AND direccion.provincia = :provincia " +
-                "AND direccion.municipio = :municipio " +
-                "AND direccion.localidad = :localidad " +
-                "AND direccion.barrio = :barrio " +
-                "AND direccion.codigoPostal = :codigoPostal";
+                "AND direccion.localidad.id = :idLocalidad ";
         return entityManager.createQuery(query, Direccion.class)
                 .setParameter("calle", calle)
                 .setParameter("altura", altura)
-                .setParameter("pais", pais)
-                .setParameter("provincia", provincia)
-                .setParameter("municipio", municipio)
-                .setParameter("localidad", localidad)
-                .setParameter("barrio", barrio)
-                .setParameter("codigoPostal", codigoPostal)
+                .setParameter("idLocalidad", idLocalidad)
                 .getResultStream()
                 .findFirst();
     }

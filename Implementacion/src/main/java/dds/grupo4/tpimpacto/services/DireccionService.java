@@ -1,8 +1,10 @@
 package dds.grupo4.tpimpacto.services;
 
 import dds.grupo4.tpimpacto.dtos.DireccionDto;
+import dds.grupo4.tpimpacto.entities.geo.Localidad;
 import dds.grupo4.tpimpacto.entities.trayecto.Direccion;
 import dds.grupo4.tpimpacto.repositories.DireccionRepository;
+import dds.grupo4.tpimpacto.repositories.LocalidadRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -10,8 +12,12 @@ import java.util.Optional;
 
 @Service
 public class DireccionService extends BaseService<Direccion, DireccionRepository> {
-    public DireccionService(DireccionRepository repository) {
+
+    private final LocalidadRepository localidadRepository;
+
+    public DireccionService(DireccionRepository repository, LocalidadRepository localidadRepository) {
         super(repository);
+        this.localidadRepository = localidadRepository;
     }
 
     @Transactional
@@ -24,12 +30,7 @@ public class DireccionService extends BaseService<Direccion, DireccionRepository
             direccionOptional = repository.getByDireccionEntera(
                     direccionDto.getCalle(),
                     direccionDto.getAltura(),
-                    direccionDto.getPais(),
-                    direccionDto.getProvincia(),
-                    direccionDto.getMunicipio(),
-                    direccionDto.getLocalidad(),
-                    direccionDto.getBarrio(),
-                    direccionDto.getCodigoPostal()
+                    direccionDto.getLocalidad().getId()
             );
         }
 
@@ -37,16 +38,9 @@ public class DireccionService extends BaseService<Direccion, DireccionRepository
             return direccionOptional.get();
         }
 
-        Direccion direccion = new Direccion(
-                direccionDto.getCalle(),
-                direccionDto.getAltura(),
-                direccionDto.getPais(),
-                direccionDto.getProvincia(),
-                direccionDto.getMunicipio(),
-                direccionDto.getLocalidad(),
-                direccionDto.getBarrio(),
-                direccionDto.getCodigoPostal()
-        );
+        Direccion direccion = new Direccion(direccionDto.getCalle(), direccionDto.getAltura());
+        Localidad localidad = localidadRepository.getById(direccionDto.getLocalidad().getId());
+        localidad.addDireccion(direccion);
         return this.save(direccion);
     }
 }

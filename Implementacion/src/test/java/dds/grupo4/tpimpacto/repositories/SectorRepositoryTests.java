@@ -2,6 +2,10 @@ package dds.grupo4.tpimpacto.repositories;
 
 import dds.grupo4.tpimpacto.config.CustomTestAnnotation;
 import dds.grupo4.tpimpacto.config.SlowTests;
+import dds.grupo4.tpimpacto.entities.geo.Localidad;
+import dds.grupo4.tpimpacto.entities.geo.Municipio;
+import dds.grupo4.tpimpacto.entities.geo.Pais;
+import dds.grupo4.tpimpacto.entities.geo.Provincia;
 import dds.grupo4.tpimpacto.entities.organizacion.Clasificacion;
 import dds.grupo4.tpimpacto.entities.organizacion.Organizacion;
 import dds.grupo4.tpimpacto.entities.organizacion.Sector;
@@ -33,10 +37,18 @@ public class SectorRepositoryTests {
 
     @BeforeEach
     public void buildSectorTest() {
+        Pais paisTest = new Pais(1, "Argentina");
+        Provincia provinciaTest = new Provincia(2, "Provincia");
+        Municipio municipioTest = new Municipio(3, "Municipio");
+        Localidad localidadTest = new Localidad(4, "Localidad", "1234");
+        Direccion direccionTest = new Direccion("calle", "altura");
+        municipioTest.addLocalidad(localidadTest);
+        provinciaTest.addMunicipio(municipioTest);
+        paisTest.addProvincia(provinciaTest);
+        localidadTest.addDireccion(direccionTest);
+
         Organizacion organizacionTest = new Organizacion("organizacionTest", TipoOrganizacion.EMPRESA,
                 Clasificacion.EMPRESA_SECTOR_PRIMARIO, new Cantidad(null, 1), 5);
-        Direccion direccionTest = new Direccion("calle", "altura", "pais", "provincia",
-                "municipio", "localidad", "barrio", 1234);
         Espacio espacioTest = new Espacio(direccionTest, "espacioTest", TipoEspacio.TRABAJO);
         sectorTest = new Sector("sectorTest", organizacionTest, espacioTest);
     }
@@ -58,7 +70,7 @@ public class SectorRepositoryTests {
 
         Direccion direccionDeEspacioDeBD = optionalSectorDeBD.get().getEspacio().getDireccion();
         Assertions.assertEquals("calle", direccionDeEspacioDeBD.getCalle());
-        Assertions.assertEquals(1234, direccionDeEspacioDeBD.getCodigoPostal());
+        Assertions.assertEquals("1234", direccionDeEspacioDeBD.getCodigoPostal());
     }
 
     @Test

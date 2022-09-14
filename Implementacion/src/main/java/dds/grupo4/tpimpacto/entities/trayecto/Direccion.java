@@ -1,6 +1,10 @@
 package dds.grupo4.tpimpacto.entities.trayecto;
 
 import dds.grupo4.tpimpacto.entities.BaseEntity;
+import dds.grupo4.tpimpacto.entities.geo.Localidad;
+import dds.grupo4.tpimpacto.entities.geo.Municipio;
+import dds.grupo4.tpimpacto.entities.geo.Pais;
+import dds.grupo4.tpimpacto.entities.geo.Provincia;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,9 +12,7 @@ import lombok.Setter;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Immutable;
 
-import javax.persistence.Cacheable;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity(name = "Direccion")
 @Table(name = "direcciones")
@@ -24,22 +26,30 @@ public class Direccion extends BaseEntity {
 
     private String calle;
     private String altura;
-    private String pais;
-    private String provincia;
-    private String municipio;
-    private String localidad;
-    private String barrio;
-    private int codigoPostal;
 
-    public Direccion(String calle, String altura, String pais, String provincia, String municipio, String localidad, String barrio, int codigoPostal) {
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name = "localidad", nullable = false, foreignKey = @ForeignKey(name = "FK_Direcciones_Localidad"))
+    private Localidad localidad;
+
+    public Direccion(String calle, String altura) {
         this.calle = calle;
         this.altura = altura;
-        this.pais = pais;
-        this.provincia = provincia;
-        this.municipio = municipio;
-        this.localidad = localidad;
-        this.barrio = barrio;
-        this.codigoPostal = codigoPostal;
+    }
+
+    public Municipio getMunicipio() {
+        return localidad.getMunicipio();
+    }
+
+    public Provincia getProvincia() {
+        return getMunicipio().getProvincia();
+    }
+
+    public Pais getPais() {
+        return getProvincia().getPais();
+    }
+
+    public String getCodigoPostal() {
+        return localidad.getCodigoPostal();
     }
 
 }

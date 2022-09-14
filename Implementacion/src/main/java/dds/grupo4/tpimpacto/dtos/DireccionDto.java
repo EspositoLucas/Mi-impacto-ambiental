@@ -14,23 +14,21 @@ public class DireccionDto {
     private Long id;
     private String calle;
     private String altura;
-    private String pais;
-    private String provincia;
-    private String municipio;
-    private String localidad;
-    private String barrio;
-    private int codigoPostal;
+    private IdTextPair pais;
+    private IdTextPair provincia;
+    private IdTextPair municipio;
+    private IdTextPair localidad;
+    private String codigoPostal;
 
     public static DireccionDto from(Direccion direccion) {
         DireccionDto dto = new DireccionDto();
         dto.setId(direccion.getId());
         dto.setCalle(direccion.getCalle());
         dto.setAltura(direccion.getAltura());
-        dto.setPais(direccion.getPais());
-        dto.setProvincia(direccion.getProvincia());
-        dto.setMunicipio(direccion.getMunicipio());
-        dto.setLocalidad(direccion.getLocalidad());
-        dto.setBarrio(direccion.getBarrio());
+        dto.setPais(new IdTextPair(direccion.getPais()));
+        dto.setProvincia(new IdTextPair(direccion.getProvincia()));
+        dto.setMunicipio(new IdTextPair(direccion.getMunicipio()));
+        dto.setLocalidad(new IdTextPair(direccion.getLocalidad()));
         dto.setCodigoPostal(direccion.getCodigoPostal());
         return dto;
     }

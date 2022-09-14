@@ -139,9 +139,7 @@ public class OrganizacionService extends BaseService<Organizacion, OrganizacionR
                 new Cantidad(unidadService.getBySimbolo("1/kg").get(), 2),
                 5
         );
-        Direccion direccionEspacio = new Direccion("MEDRANO", "951", "ARGENTINA",
-                "CIUDAD DE BUENOS AIRES", "CIUDAD DE BUENOS AIRES", "ALMAGRO",
-                "ALMAGRO", 1213);
+        Direccion direccionEspacio = new Direccion("MEDRANO", "951");
         Espacio espacio = new Espacio(direccionEspacio, "Espacio TEST", TipoEspacio.TRABAJO);
         Sector sector = new Sector("Sector TEST", organizacion, espacio);
         organizacion.addSector(sector);

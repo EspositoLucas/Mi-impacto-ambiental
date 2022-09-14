@@ -6,17 +6,11 @@ import dds.grupo4.tpimpacto.entities.trayecto.Lugar;
 import dds.grupo4.tpimpacto.services.UnidadService;
 import dds.grupo4.tpimpacto.services.calculodistancias.apidistancias.GeoService;
 import dds.grupo4.tpimpacto.services.calculodistancias.apidistancias.dtos.DistanciaDto;
-import dds.grupo4.tpimpacto.services.calculodistancias.apidistancias.dtos.LocalidadDto;
-import dds.grupo4.tpimpacto.services.calculodistancias.apidistancias.dtos.MunicipioDto;
-import dds.grupo4.tpimpacto.services.calculodistancias.apidistancias.dtos.ProvinciaDto;
 import dds.grupo4.tpimpacto.units.Cantidad;
 import dds.grupo4.tpimpacto.units.Unidad;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 @Service
 public class CalculadoraDistancias {
@@ -45,17 +39,8 @@ public class CalculadoraDistancias {
             Direccion direccionInicio = lugarInicio.getDireccion();
             Direccion direccionFin = lugarFin.getDireccion();
 
-            int paisInicioId = getPaisId(direccionInicio.getPais());
-            int paisFinId = getPaisId(direccionFin.getPais());
-
-            int provinciaInicioId = getProvinciaId(paisInicioId, direccionInicio.getProvincia());
-            int provinciaFinId = getProvinciaId(paisFinId, direccionFin.getProvincia());
-
-            int municipioInicioId = getMunicipioId(provinciaInicioId, direccionInicio.getMunicipio());
-            int municipioFinId = getMunicipioId(provinciaFinId, direccionFin.getMunicipio());
-
-            int localidadInicioId = getLocalidadId(municipioInicioId, direccionInicio.getLocalidad());
-            int localidadFinId = getLocalidadId(municipioFinId, direccionFin.getLocalidad());
+            int localidadInicioId = direccionInicio.getLocalidad().getIdSegunApi();
+            int localidadFinId = direccionFin.getLocalidad().getIdSegunApi();
 
             DistanciaDto distanciaDto = geoService.getDistancia(localidadInicioId, direccionInicio.getCalle(), direccionInicio.getAltura(), localidadFinId, direccionFin.getCalle(), direccionFin.getAltura());
             Unidad unidadDistancia = unidadService.getBySimbolo(distanciaDto.getUnidad().toLowerCase()).get();
@@ -64,69 +49,5 @@ public class CalculadoraDistancias {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    private int getPaisId(String pais) throws IOException {
-        return geoService.getPaises(1).stream()
-                .filter(paisDto -> paisDto.getNombre().equals(pais))
-                .findFirst().get()
-                .getId();
-    }
-
-    private int getProvinciaId(int paisId, String provincia) throws IOException {
-        Set<ProvinciaDto> provincias = new HashSet<>();
-
-        int offset = 1;
-        while (true) {
-            List<ProvinciaDto> resultados = geoService.getProvincias(offset, paisId);
-            if (resultados.isEmpty()) {
-                break;
-            }
-            provincias.addAll(resultados);
-            offset++;
-        }
-
-        return provincias.stream()
-                .filter(provinciaDto -> provinciaDto.getNombre().equals(provincia))
-                .findFirst().get()
-                .getId();
-    }
-
-    private int getMunicipioId(int provinciaId, String municipio) throws IOException {
-        Set<MunicipioDto> municipios = new HashSet<>();
-
-        int offset = 1;
-        while (true) {
-            List<MunicipioDto> resultados = geoService.getMunicipios(offset, provinciaId);
-            if (resultados.isEmpty()) {
-                break;
-            }
-            municipios.addAll(resultados);
-            offset++;
-        }
-
-        return municipios.stream()
-                .filter(municipioDto -> municipioDto.getNombre().equals(municipio))
-                .findFirst().get()
-                .getId();
-    }
-
-    private int getLocalidadId(int municipioId, String localidad) throws IOException {
-        Set<LocalidadDto> localidades = new HashSet<>();
-
-        int offset = 1;
-        while (true) {
-            List<LocalidadDto> resultados = geoService.getLocalidades(offset, municipioId);
-            if (resultados.isEmpty()) {
-                break;
-            }
-            localidades.addAll(resultados);
-            offset++;
-        }
-
-        return localidades.stream()
-                .filter(localidadDto -> localidadDto.getNombre().equals(localidad))
-                .findFirst().get()
-                .getId();
     }
 }
