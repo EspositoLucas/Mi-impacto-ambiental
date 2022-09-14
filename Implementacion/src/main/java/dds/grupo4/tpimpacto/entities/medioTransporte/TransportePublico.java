@@ -22,7 +22,7 @@ public class TransportePublico extends MedioDeTransporte {
     @OneToMany(mappedBy = "transportePublico", cascade = CascadeType.ALL)
     private List<Parada> paradas = new ArrayList<>();
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(
             name = "combustible",
             nullable = false,
@@ -45,4 +45,12 @@ public class TransportePublico extends MedioDeTransporte {
         parada.setTransportePublico(this);
     }
 
+    public void addParadas(List<Parada> paradas) {
+        paradas.forEach(this::addParada);
+    }
+
+    @Override
+    public String toString() {
+        return "Linea " + linea + " (" + tipoTransportePublico.toString() + ")";
+    }
 }

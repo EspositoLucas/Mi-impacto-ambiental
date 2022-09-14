@@ -23,7 +23,7 @@ public abstract class MedioDeTransporte extends BaseEntity {
     // ? Esto supone que todas las Organizaciones usan el mismo FactorDeEmision para cada MedioDeTransporte.
     // Si cada Organizacion puede tener su propio FE para cada MedioDeTransporte, entonces habria que hacer
     // un ManyToMany con una tabla intermedia.
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(
             name = "factor_de_emision",
             nullable = false,

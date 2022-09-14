@@ -52,4 +52,8 @@ public class Direccion extends BaseEntity {
         return localidad.getCodigoPostal();
     }
 
+    @Override
+    public String toString() {
+        return calle + altura + ", " + localidad.toString();
+    }
 }

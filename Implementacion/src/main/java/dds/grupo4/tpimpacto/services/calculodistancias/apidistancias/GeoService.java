@@ -72,7 +72,7 @@ public class GeoService {
 
     @Transactional
     @Async
-    public CompletableFuture<?> seedData() {
+    public CompletableFuture<Void> seedData() {
         if (paisRepository.hasData()) {
             log.debug("Seed: ya hay Paises creados");
             return CompletableFuture.completedFuture(null);

@@ -9,6 +9,7 @@ import dds.grupo4.tpimpacto.units.TipoUnidad;
 import dds.grupo4.tpimpacto.units.Unidad;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +18,7 @@ import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -47,14 +49,16 @@ public class UnidadService extends BaseService<Unidad, UnidadRepository> {
     }
 
     @Transactional
-    public void seedData() {
+    @Async
+    public CompletableFuture<Void> seedData() {
         if (this.hasData()) {
             log.debug("Seed: ya hay Unidades creadas");
-            return;
+            return CompletableFuture.completedFuture(null);
         }
 
         seedUnidades();
         seedRelacionesUnidades();
+        return CompletableFuture.completedFuture(null);
     }
 
     private void seedUnidades() {

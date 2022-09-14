@@ -41,4 +41,12 @@ public class Localidad extends BaseGeoDato {
         direccion.setLocalidad(this);
     }
 
+    public void addDirecciones(List<Direccion> direcciones) {
+        direcciones.forEach(this::addDireccion);
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + " (CP: " + codigoPostal + ")";
+    }
 }
