@@ -12,6 +12,16 @@ public class LocalidadRepository extends BaseRepository<Localidad> {
         super(entityManager);
     }
 
+    public Localidad getByNombre(String nombre) {
+        String query = "from Localidad l " +
+                "where l.nombre = :nombre";
+        return entityManager.createQuery(query, Localidad.class)
+                .setParameter("nombre", nombre)
+                .getResultStream()
+                .findFirst()
+                .orElse(null);
+    }
+
     @Override
     public Class<Localidad> getEntityClass() {
         return Localidad.class;

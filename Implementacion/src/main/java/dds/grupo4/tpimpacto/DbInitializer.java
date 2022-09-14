@@ -34,10 +34,10 @@ public class DbInitializer implements ApplicationRunner {
     public void run(ApplicationArguments args) {
         log.info("Corriendo el DbInitializer");
 
-        unidadService.seedData();
-        tipoConsumoService.seedData();
-        organizacionService.seedData();
-        personaService.seedData();
-        geoService.seedData();
+        geoService.seedData()
+                .thenRunAsync(unidadService::seedData)
+                .thenRunAsync(tipoConsumoService::seedData)
+                .thenRunAsync(organizacionService::seedData)
+                .thenRunAsync(personaService::seedData);
     }
 }

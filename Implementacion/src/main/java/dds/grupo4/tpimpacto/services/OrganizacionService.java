@@ -4,11 +4,13 @@ import dds.grupo4.tpimpacto.cargamediciones.RowMedicionActividad;
 import dds.grupo4.tpimpacto.dtos.*;
 import dds.grupo4.tpimpacto.dtos.base.BaseResponse;
 import dds.grupo4.tpimpacto.dtos.base.ResponseWithResults;
+import dds.grupo4.tpimpacto.entities.geo.Localidad;
 import dds.grupo4.tpimpacto.entities.medicion.*;
 import dds.grupo4.tpimpacto.entities.organizacion.*;
 import dds.grupo4.tpimpacto.entities.trayecto.Direccion;
 import dds.grupo4.tpimpacto.entities.trayecto.Espacio;
 import dds.grupo4.tpimpacto.entities.trayecto.TipoEspacio;
+import dds.grupo4.tpimpacto.repositories.LocalidadRepository;
 import dds.grupo4.tpimpacto.repositories.OrganizacionRepository;
 import dds.grupo4.tpimpacto.repositories.SolicitudRepository;
 import dds.grupo4.tpimpacto.services.calculohc.CalculadoraHC;
@@ -16,6 +18,7 @@ import dds.grupo4.tpimpacto.units.Cantidad;
 import dds.grupo4.tpimpacto.units.Unidad;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,10 +38,12 @@ public class OrganizacionService extends BaseService<Organizacion, OrganizacionR
     private final RegistroCalculoHCDatoActividadService registroCalculoHCDatoActividadService;
     private final CalculadoraHC calculadoraHC;
     private final ExcelService excelService;
+    private final LocalidadRepository localidadRepository;
 
     public OrganizacionService(OrganizacionRepository organizacionRepository, SolicitudRepository solicitudRepository,
                                TipoConsumoService tipoConsumoService, UnidadService unidadService, CalculadoraHC calculadoraHC,
-                               RegistroCalculoHCDatoActividadService registroCalculoHCDatoActividadService, ExcelService excelService) {
+                               RegistroCalculoHCDatoActividadService registroCalculoHCDatoActividadService, ExcelService excelService,
+                               LocalidadRepository localidadRepository) {
         super(organizacionRepository);
         this.solicitudRepository = solicitudRepository;
         this.tipoConsumoService = tipoConsumoService;
@@ -46,6 +51,7 @@ public class OrganizacionService extends BaseService<Organizacion, OrganizacionR
         this.calculadoraHC = calculadoraHC;
         this.registroCalculoHCDatoActividadService = registroCalculoHCDatoActividadService;
         this.excelService = excelService;
+        this.localidadRepository = localidadRepository;
     }
 
     @Transactional
@@ -124,6 +130,7 @@ public class OrganizacionService extends BaseService<Organizacion, OrganizacionR
     }
 
     @Transactional
+    @Async
     public void seedData() {
         if (this.hasData()) {
             log.debug("Seed: ya hay Organizaciones creadas");
@@ -140,6 +147,8 @@ public class OrganizacionService extends BaseService<Organizacion, OrganizacionR
                 5
         );
         Direccion direccionEspacio = new Direccion("MEDRANO", "951");
+        Localidad localidad = localidadRepository.getByNombre("ALMAGRO");
+        localidad.addDireccion(direccionEspacio);
         Espacio espacio = new Espacio(direccionEspacio, "Espacio TEST", TipoEspacio.TRABAJO);
         Sector sector = new Sector("Sector TEST", organizacion, espacio);
         organizacion.addSector(sector);

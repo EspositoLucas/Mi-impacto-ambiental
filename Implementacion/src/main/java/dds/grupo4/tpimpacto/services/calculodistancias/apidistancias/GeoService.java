@@ -19,6 +19,7 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 @Service
 @Slf4j
@@ -71,10 +72,10 @@ public class GeoService {
 
     @Transactional
     @Async
-    public void seedData() {
+    public CompletableFuture<?> seedData() {
         if (paisRepository.hasData()) {
             log.debug("Seed: ya hay Paises creados");
-            return;
+            return CompletableFuture.completedFuture(null);
         }
 
         List<PaisDto> paisesDtos = getAllPaisesDesdeApi();
@@ -104,6 +105,8 @@ public class GeoService {
             log.debug("Pais " + pais.getNombre() + " agregado");
             paisRepository.save(pais);
         }
+
+        return CompletableFuture.completedFuture(null);
     }
 
     private List<PaisDto> getAllPaisesDesdeApi() {

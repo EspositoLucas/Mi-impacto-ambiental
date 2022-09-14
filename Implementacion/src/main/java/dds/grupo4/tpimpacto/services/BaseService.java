@@ -22,8 +22,8 @@ public class BaseService<TEntity extends BaseEntity, TRepo extends BaseRepositor
     public TEntity save(TEntity obj) {
         try {
             repository.save(obj);
-        } catch (Exception e) {
-            log.error("Error al llamar a save(), asi que se llama a merge()\nEl error es: " + e.getMessage());
+        } catch (Exception ex) {
+            log.error("Error al llamar a save(), asi que se llama a merge()", ex);
             obj = repository.merge(obj);
         }
         return obj;
