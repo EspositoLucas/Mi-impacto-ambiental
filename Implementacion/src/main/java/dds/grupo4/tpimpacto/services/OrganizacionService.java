@@ -130,7 +130,6 @@ public class OrganizacionService extends BaseService<Organizacion, OrganizacionR
     }
 
     @Transactional
-    @Async
     public void seedData() {
         if (this.hasData()) {
             log.debug("Seed: ya hay Organizaciones creadas");

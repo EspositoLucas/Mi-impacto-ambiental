@@ -40,12 +40,12 @@ public class DbInitializer implements ApplicationRunner {
 
         CompletableFuture<Void> tasksTerminadas = CompletableFuture.allOf(geoServiceTask, unidadServiceTask);
 
-        tasksTerminadas.whenComplete((value, ex) -> {
+        tasksTerminadas.thenRunAsync(transportePublicoService::seedData);
+
+        tasksTerminadas.thenRun(() -> {
             tipoConsumoService.seedData();
             organizacionService.seedData();
             personaService.seedData();
         });
-
-        tasksTerminadas.whenCompleteAsync((value, ex) -> transportePublicoService.seedData());
     }
 }

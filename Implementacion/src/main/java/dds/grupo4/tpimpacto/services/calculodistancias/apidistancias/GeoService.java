@@ -78,6 +78,8 @@ public class GeoService {
             return CompletableFuture.completedFuture(null);
         }
 
+        log.debug("Seed: se crean los Paises iniciales");
+
         List<PaisDto> paisesDtos = getAllPaisesDesdeApi();
         for (PaisDto paisDto : paisesDtos) {
             Pais pais = paisDto.toPais();

@@ -59,16 +59,26 @@ public class PersonaService extends BaseService<Persona, PersonaRepository> {
 
         log.debug("Seed: se crean las Personas iniciales (con miembro y usuario)");
 
-        Persona persona = new Persona("Ezequiel", "Saidman", TipoDocumento.DNI, "12345678");
-        Miembro miembro = new Miembro(persona);
-        persona.addMiembro(miembro);
+        Persona personaEchi = new Persona("Ezequiel", "Saidman", TipoDocumento.DNI, "12345678");
+        Miembro miembroEchi = new Miembro(personaEchi);
+        personaEchi.addMiembro(miembroEchi);
+
+        Persona personaMili = new Persona("Milagros", "Ramos", TipoDocumento.DNI, "87654321");
+        Miembro miembroMili = new Miembro(personaMili);
+        personaMili.addMiembro(miembroMili);
 
         Sector sector = sectorRepository.getByNombre("Sector TEST").get();
-        sector.addMiembro(miembro);
-        miembro.setFechaIngreso(LocalDate.now());
-        Usuario usuario = usuarioService.crearUsuario("echisaidman", "echisaidman", true);
-        miembro.setUsuario(usuario);
-        this.saveAll(Arrays.asList(persona));
+        sector.addMiembro(miembroEchi);
+        miembroEchi.setFechaIngreso(LocalDate.now());
+        sector.addMiembro(miembroMili);
+        miembroMili.setFechaIngreso(LocalDate.now());
+
+        Usuario usuarioEchi = usuarioService.crearUsuario("echisaidman", "echisaidman", true);
+        miembroEchi.setUsuario(usuarioEchi);
+
+        Usuario usuarioMili = usuarioService.crearUsuario("miliramos", "miliramos", true);
+        miembroMili.setUsuario(usuarioMili);
+        this.saveAll(Arrays.asList(personaEchi, personaMili));
     }
 
 }
