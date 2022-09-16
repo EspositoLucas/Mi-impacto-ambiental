@@ -35,19 +35,20 @@ public class Trayecto extends BaseEntity {
     )
     private Lugar fin;
 
-    @OneToMany(mappedBy = "trayecto")
-    private List<MiembroPorTrayecto> miembrosPorTrayecto;
+    @OneToMany(mappedBy = "trayecto", cascade = CascadeType.ALL)
+    private List<MiembroPorTrayecto> miembrosPorTrayecto = new ArrayList<>();
 
-    @OneToMany(mappedBy = "trayecto")
+    @OneToMany(mappedBy = "trayecto", cascade = CascadeType.ALL)
     private List<Tramo> tramos = new ArrayList<>();
 
     private LocalDate fechaInicio;
     private LocalDate fechaFin;
 
-    public Trayecto(Lugar inicio, Lugar fin, List<Tramo> tramos) {
+    public Trayecto(Lugar inicio, Lugar fin, LocalDate fechaInicio, LocalDate fechaFin) {
         this.inicio = inicio;
         this.fin = fin;
-        this.tramos = tramos;
+        this.fechaInicio = fechaInicio;
+        this.fechaFin = fechaFin;
     }
 
     public double getDistanciaTotalRecorrida() {
@@ -58,5 +59,21 @@ public class Trayecto extends BaseEntity {
 
     public boolean seRealizaEnFecha(LocalDate fecha) {
         return DateTimeUtils.isAfterOrEqual(fecha, fechaInicio) && DateTimeUtils.isBeforeOrEqual(fecha, fechaFin);
+    }
+
+    public void addTramo(Tramo tramo) {
+        tramos.add(tramo);
+        tramo.setTrayecto(this);
+    }
+
+    public void addTramos(List<Tramo> tramos) {
+        tramos.forEach(this::addTramo);
+    }
+
+    public void addMiembros(List<MiembroPorTrayecto> miembrosPorTrayecto) {
+        miembrosPorTrayecto.forEach(miembroPorTrayecto -> {
+            this.miembrosPorTrayecto.add(miembroPorTrayecto);
+            miembroPorTrayecto.setTrayecto(this);
+        });
     }
 }

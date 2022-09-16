@@ -68,6 +68,10 @@ public class Tramo extends BaseEntity {
         miembro.addTramo(this);
     }
 
+    public void addMiembros(List<Miembro> miembros) {
+        miembros.forEach(this::addMiembro);
+    }
+
     public void calcularDistanciaRecorrida(CalculadoraDistancias calculadoraDistancias) {
         if (medioDeTransporte instanceof TransportePublico) {
             TransportePublico transportePublico = (TransportePublico) medioDeTransporte;

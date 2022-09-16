@@ -26,4 +26,9 @@ public class VehiculoNoContaminante extends MedioDeTransporte {
         // Un vehiculo no contaminante no usa combustible, asi que gasta siempre 0
         return 0;
     }
+
+    @Override
+    public String toString() {
+        return tipoVehiculoNoContaminante.toString();
+    }
 }

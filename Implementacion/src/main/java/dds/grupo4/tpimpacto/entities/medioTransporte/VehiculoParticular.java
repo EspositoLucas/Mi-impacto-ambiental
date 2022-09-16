@@ -42,4 +42,8 @@ public class VehiculoParticular extends MedioDeTransporte {
         this.combustibleConsumidoPorKm = combustibleConsumidoPorKm;
     }
 
+    @Override
+    public String toString() {
+        return tipoVehiculoParticular.toString();
+    }
 }

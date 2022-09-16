@@ -24,7 +24,7 @@ public class MiembroPorTrayecto extends BaseEntity {
     @JoinColumn(name = "miembro", nullable = false, foreignKey = @ForeignKey(name = "FK_MiembrosPorTrayecto_Miembro"))
     private Miembro miembro;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "trayecto", nullable = false, foreignKey = @ForeignKey(name = "FK_MiembrosPorTrayecto_Trayecto"))
     private Trayecto trayecto;
 
