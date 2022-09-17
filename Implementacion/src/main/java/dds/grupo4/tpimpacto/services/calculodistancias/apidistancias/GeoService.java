@@ -72,6 +72,7 @@ public class GeoService {
     public void seedData() {
         if (paisRepository.hasData()) {
             log.debug("Seed: ya hay Paises creados");
+            return;
         }
 
         log.debug("Seed: se crean los Paises iniciales");

@@ -50,6 +50,7 @@ public class UnidadService extends BaseService<Unidad, UnidadRepository> {
     public void seedData() {
         if (this.hasData()) {
             log.debug("Seed: ya hay Unidades creadas");
+            return;
         }
 
         seedUnidades();

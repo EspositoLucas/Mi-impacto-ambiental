@@ -88,6 +88,7 @@ public class TransportePublicoService extends BaseService<TransportePublico, Tra
     public void seedData() {
         if (this.hasData()) {
             log.debug("Seed: ya hay TransportesPublicos creados");
+            return;
         }
 
         log.debug("Seed: se crean los TransportesPublicos iniciales");
