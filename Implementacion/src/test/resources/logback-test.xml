@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-    <include resource="org/springframework/boot/logging/logback/defaults.xml" />
-    <include resource="org/springframework/boot/logging/logback/console-appender.xml" />
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
 
     <root level="INFO">
-        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="CONSOLE"/>
     </root>
 
+    <logger name="dds.grupo4.tpimpacto" level="TRACE"/>
     <logger name="org.springframework.web" level="DEBUG"/>
     <logger name="org.hibernate.SQL" level="DEBUG"/>
     <logger name="org.hibernate.type.descriptor.sql" level="TRACE"/>
