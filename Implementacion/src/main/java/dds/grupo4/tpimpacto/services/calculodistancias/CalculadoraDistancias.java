@@ -23,18 +23,17 @@ public class CalculadoraDistancias {
         this.unidadService = unidadService;
     }
 
-    public double calcularDistanciaTransportePublico(Parada paradaInicial, Parada paradaFinal) {
-        double distanciaRecorrida = 0;
+    public Cantidad calcularDistanciaTransportePublico(Parada paradaInicial, Parada paradaFinal) {
+        Cantidad distanciaRecorrida = new Cantidad(unidadService.getBySimbolo("km").get(), 0);
         Parada paradaActual = paradaInicial;
         while (!paradaActual.equals(paradaFinal)) {
-            distanciaRecorrida += paradaActual.getDistanciaParadaSiguiente();
+            distanciaRecorrida = distanciaRecorrida.add(paradaActual.getDistanciaParadaSiguiente());
             paradaActual = paradaActual.getParadaSiguiente();
         }
-
         return distanciaRecorrida;
     }
 
-    public double calcularDistanciaConGeoService(Lugar lugarInicio, Lugar lugarFin) {
+    public Cantidad calcularDistanciaConGeoService(Lugar lugarInicio, Lugar lugarFin) {
         try {
             Direccion direccionInicio = lugarInicio.getDireccion();
             Direccion direccionFin = lugarFin.getDireccion();
@@ -45,7 +44,7 @@ public class CalculadoraDistancias {
             DistanciaDto distanciaDto = geoService.getDistancia(localidadInicioId, direccionInicio.getCalle(), direccionInicio.getAltura(), localidadFinId, direccionFin.getCalle(), direccionFin.getAltura());
             Unidad unidadDistancia = unidadService.getBySimbolo(distanciaDto.getUnidad().toLowerCase()).get();
             Unidad KM = unidadService.getBySimbolo("km").get();
-            return new Cantidad(unidadDistancia, distanciaDto.getValor()).toUnidad(KM).getValor();
+            return new Cantidad(unidadDistancia, distanciaDto.getValor()).toUnidad(KM);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

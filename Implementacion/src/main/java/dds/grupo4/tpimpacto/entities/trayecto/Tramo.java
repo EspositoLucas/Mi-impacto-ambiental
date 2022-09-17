@@ -6,6 +6,7 @@ import dds.grupo4.tpimpacto.entities.medioTransporte.Parada;
 import dds.grupo4.tpimpacto.entities.medioTransporte.TransportePublico;
 import dds.grupo4.tpimpacto.entities.organizacion.Miembro;
 import dds.grupo4.tpimpacto.services.calculodistancias.CalculadoraDistancias;
+import dds.grupo4.tpimpacto.units.Cantidad;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -54,7 +55,9 @@ public class Tramo extends BaseEntity {
 
     // Desnormaliza el dato de la distancia recorrida en el tramo, una vez que se calcula no tiene sentido volver
     // a calcularlo asi que se guarda aca.
-    private Double distanciaRecorrida;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "distancia_recorrida", foreignKey = @ForeignKey(name = "FK_Tramos_DistanciaRecorrida"))
+    private Cantidad distanciaRecorrida;
 
     public Tramo(Trayecto trayecto, MedioDeTransporte medioDeTransporte, Lugar lugarInicio, Lugar lugarFin) {
         this.trayecto = trayecto;
@@ -84,7 +87,7 @@ public class Tramo extends BaseEntity {
     }
 
     public double combustibleConsumido() {
-        return distanciaRecorrida * medioDeTransporte.getCombustibleConsumidoPorKm();
+        return distanciaRecorrida.getValor() * medioDeTransporte.getCombustibleConsumidoPorKm();
     }
 
 }

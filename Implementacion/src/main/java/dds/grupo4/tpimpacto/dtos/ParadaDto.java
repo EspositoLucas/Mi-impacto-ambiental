@@ -12,7 +12,7 @@ import lombok.Setter;
 public class ParadaDto extends BaseEntityDto {
     private IdTextPair transportePublico;
     private DireccionDto direccion;
-    private Double distanciaParadaSiguiente;
+    private CantidadDto distanciaParadaSiguiente;
     private long idParadaSiguiente;
 
     private ParadaDto(Parada parada) {
@@ -23,7 +23,7 @@ public class ParadaDto extends BaseEntityDto {
         ParadaDto dto = new ParadaDto(parada);
         dto.setTransportePublico(new IdTextPair(parada.getTransportePublico()));
         dto.setDireccion(DireccionDto.from(parada.getDireccion()));
-        dto.setDistanciaParadaSiguiente(parada.getDistanciaParadaSiguiente());
+        dto.setDistanciaParadaSiguiente(CantidadDto.from(parada.getDistanciaParadaSiguiente()));
         if (parada.getParadaSiguiente() != null) {
             dto.setIdParadaSiguiente(parada.getParadaSiguiente().getId());
         }

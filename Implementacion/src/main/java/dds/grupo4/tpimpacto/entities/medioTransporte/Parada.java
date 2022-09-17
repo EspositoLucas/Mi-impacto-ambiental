@@ -2,6 +2,7 @@ package dds.grupo4.tpimpacto.entities.medioTransporte;
 
 import dds.grupo4.tpimpacto.entities.trayecto.Direccion;
 import dds.grupo4.tpimpacto.entities.trayecto.Lugar;
+import dds.grupo4.tpimpacto.units.Cantidad;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,8 +21,9 @@ public class Parada extends Lugar {
     @JoinColumn(name = "transporte_publico", nullable = false, foreignKey = @ForeignKey(name = "FK_Paradas_TransportePublico"))
     private TransportePublico transportePublico;
 
-    private Double distanciaParadaSiguiente;
-    private Double distanciaParadaAnterior;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "distancia_parada_siguiente", foreignKey = @ForeignKey(name = "FK_Paradas_DistanciaParadaSiguiente"))
+    private Cantidad distanciaParadaSiguiente;
 
     @OneToOne
     @JoinColumn(
@@ -31,15 +33,7 @@ public class Parada extends Lugar {
     )
     private Parada paradaSiguiente;
 
-    @OneToOne
-    @JoinColumn(
-            name = "parada_anterior",
-            unique = true,
-            foreignKey = @ForeignKey(name = "FK_Paradas_ParadaAnterior")
-    )
-    private Parada paradaAnterior;
-
-    public Parada(Direccion direccion, Double distanciaParadaSiguiente) {
+    public Parada(Direccion direccion, Cantidad distanciaParadaSiguiente) {
         super(direccion);
         this.distanciaParadaSiguiente = distanciaParadaSiguiente;
     }

@@ -1,7 +1,10 @@
 package dds.grupo4.tpimpacto.services.calculohc;
 
 import dds.grupo4.tpimpacto.entities.medicion.Medicion;
+import dds.grupo4.tpimpacto.entities.organizacion.Miembro;
 import dds.grupo4.tpimpacto.entities.organizacion.Organizacion;
+import dds.grupo4.tpimpacto.entities.trayecto.Tramo;
+import dds.grupo4.tpimpacto.entities.trayecto.Trayecto;
 import dds.grupo4.tpimpacto.services.RelacionUnidadesService;
 import dds.grupo4.tpimpacto.units.Cantidad;
 import dds.grupo4.tpimpacto.utils.ListUtils;
@@ -9,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CalculadoraHC {
@@ -54,12 +58,31 @@ public class CalculadoraHC {
         return valorHC.divide(mesActual - 1);
     }
 
-    /*
-
-    public double calcularHCTramo(Tramo tramo) {
-        return tramo.getDistanciaRecorrida() * tramo.getMedioDeTransporte().getFactorDeEmision().getValor();
+    public Cantidad calcularHCBaseTramo(Tramo tramo) {
+        // HC = Distancia * FE (del MedioTransporte)
+        return tramo.getDistanciaRecorrida()
+                .times(tramo.getMedioDeTransporte().getFactorDeEmision().getCantidad(), relacionUnidadesService);
     }
 
+    public Cantidad calcularHCMensualTrayectoParaMiembro(Trayecto trayecto, Miembro miembro) {
+        List<Tramo> tramosDelMiembro = trayecto.getTramosDelMiembro(miembro);
+        List<Cantidad> hcsBasesTramos = tramosDelMiembro.stream()
+                .map(this::calcularHCBaseTramo)
+                .collect(Collectors.toList());
+        Cantidad hcBaseTramos = hcsBasesTramos.stream()
+                .reduce(Cantidad::add)
+                .get();
+
+        // HCsemanal = HCbase * PesoTrayecto * CantDiasXSemana
+        Cantidad hcSemanal = hcBaseTramos
+                .times(trayecto.getPesoTrayectoDelMiembro(miembro))
+                .times(miembro.getOrganizacion().getCantDiasHabilesPorSemana());
+
+        // HC mensual = HCsemanal * 4.5
+        return hcSemanal.times(4.5);
+    }
+
+    /*
     public double calcularHCMiembroMensual(Miembro miembro, LocalDate mesElegido) {
         organizacionCalculo = miembro.getOrganizacion();
         List<Tramo> tramosEnMesElegido = miembro.getTramos().stream().filter(t -> t.getTrayecto().seRealizaEntre(mesElegido)).collect(Collectors.toList());

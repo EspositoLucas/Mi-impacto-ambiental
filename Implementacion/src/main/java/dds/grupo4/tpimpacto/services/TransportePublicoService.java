@@ -9,16 +9,15 @@ import dds.grupo4.tpimpacto.entities.medioTransporte.*;
 import dds.grupo4.tpimpacto.entities.trayecto.Direccion;
 import dds.grupo4.tpimpacto.repositories.*;
 import dds.grupo4.tpimpacto.units.Cantidad;
+import dds.grupo4.tpimpacto.units.Unidad;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
 
 @Service
 @Slf4j
@@ -51,7 +50,16 @@ public class TransportePublicoService extends BaseService<TransportePublico, Tra
         List<Parada> paradas = new ArrayList<>();
         for (ParadaDto paradaDto : request.getParadas()) {
             Direccion direccion = direccionService.getOrCreateDireccion(paradaDto.getDireccion());
-            Parada parada = new Parada(direccion, paradaDto.getDistanciaParadaSiguiente());
+
+            Cantidad distanciaParadaSiguiente = null;
+            if (paradaDto.getDistanciaParadaSiguiente() != null) {
+                distanciaParadaSiguiente = new Cantidad(
+                        unidadRepository.getById(paradaDto.getDistanciaParadaSiguiente().getUnidad().getId()),
+                        paradaDto.getDistanciaParadaSiguiente().getValor()
+                );
+            }
+
+            Parada parada = new Parada(direccion, distanciaParadaSiguiente);
             paradaRepository.save(parada);
             paradas.add(parada);
         }
@@ -77,11 +85,9 @@ public class TransportePublicoService extends BaseService<TransportePublico, Tra
     }
 
     @Transactional
-    @Async
-    public CompletableFuture<Void> seedData() {
+    public void seedData() {
         if (this.hasData()) {
             log.debug("Seed: ya hay TransportesPublicos creados");
-            return CompletableFuture.completedFuture(null);
         }
 
         log.debug("Seed: se crean los TransportesPublicos iniciales");
@@ -91,14 +97,19 @@ public class TransportePublicoService extends BaseService<TransportePublico, Tra
 
         Localidad localidadVillaCrespo = localidadRepository.getByNombre("VILLA CRESPO");
 
+        Unidad KM = unidadRepository.getBySimbolo("km").get();
+
         Direccion direccion1 = new Direccion("Scalabrini Ortiz", "100");
-        Parada parada1 = new Parada(direccion1, 100d);
+        Cantidad distanciaParadaSiguiente1 = new Cantidad(KM, 0.1);
+        Parada parada1 = new Parada(direccion1, distanciaParadaSiguiente1);
 
         Direccion direccion2 = new Direccion("Scalabrini Ortiz", "200");
-        Parada parada2 = new Parada(direccion2, 200d);
+        Cantidad distanciaParadaSiguiente2 = new Cantidad(KM, 0.2);
+        Parada parada2 = new Parada(direccion2, distanciaParadaSiguiente2);
 
         Direccion direccion3 = new Direccion("Scalabrini Ortiz", "400");
-        Parada parada3 = new Parada(direccion3, 300d);
+        Cantidad distanciaParadaSiguiente3 = new Cantidad(KM, 0.3);
+        Parada parada3 = new Parada(direccion3, distanciaParadaSiguiente3);
 
         Direccion direccion4 = new Direccion("Scalabrini Ortiz", "700");
         Parada parada4 = new Parada(direccion4, null);
@@ -116,6 +127,5 @@ public class TransportePublicoService extends BaseService<TransportePublico, Tra
         linea15.setFactorDeEmision(factorDeEmision);
 
         this.saveAll(Arrays.asList(linea15));
-        return CompletableFuture.completedFuture(null);
     }
 }

@@ -1,6 +1,8 @@
 package dds.grupo4.tpimpacto.entities.trayecto;
 
 import dds.grupo4.tpimpacto.entities.BaseEntity;
+import dds.grupo4.tpimpacto.entities.organizacion.Miembro;
+import dds.grupo4.tpimpacto.units.Cantidad;
 import dds.grupo4.tpimpacto.utils.DateTimeUtils;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -11,6 +13,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity(name = "Trayecto")
 @Table(name = "trayectos")
@@ -51,10 +54,10 @@ public class Trayecto extends BaseEntity {
         this.fechaFin = fechaFin;
     }
 
-    public double getDistanciaTotalRecorrida() {
+    public Cantidad getDistanciaTotalRecorrida() {
         return tramos.stream()
-                .mapToDouble(Tramo::getDistanciaRecorrida)
-                .sum();
+                .map(Tramo::getDistanciaRecorrida)
+                .reduce(Cantidad::add).get();
     }
 
     public boolean seRealizaEnFecha(LocalDate fecha) {
@@ -75,5 +78,18 @@ public class Trayecto extends BaseEntity {
             this.miembrosPorTrayecto.add(miembroPorTrayecto);
             miembroPorTrayecto.setTrayecto(this);
         });
+    }
+
+    public List<Tramo> getTramosDelMiembro(Miembro miembro) {
+        return tramos.stream()
+                .filter(tramo -> tramo.getMiembros().contains(miembro))
+                .collect(Collectors.toList());
+    }
+
+    public double getPesoTrayectoDelMiembro(Miembro miembro) {
+        return miembrosPorTrayecto.stream()
+                .filter(miembroPorTrayecto -> miembroPorTrayecto.getMiembro().equals(miembro))
+                .findFirst().get()
+                .getPeso();
     }
 }
