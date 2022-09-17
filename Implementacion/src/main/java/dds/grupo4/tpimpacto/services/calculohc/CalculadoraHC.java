@@ -80,7 +80,7 @@ public class CalculadoraHC {
                 .times(trayecto.getPesoTrayectoDelMiembro(miembro))
                 .times(miembro.getOrganizacion().getCantDiasHabilesPorSemana());
 
-        // HC mensual = HCsemanal * 4.5
+        // HCmensual = HCsemanal * 4.5
         return hcSemanal.times(4.5);
     }
 

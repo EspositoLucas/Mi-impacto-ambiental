@@ -73,11 +73,13 @@ public class Trayecto extends BaseEntity {
         tramos.forEach(this::addTramo);
     }
 
+    public void addMiembro(MiembroPorTrayecto miembroPorTrayecto) {
+        this.miembrosPorTrayecto.add(miembroPorTrayecto);
+        miembroPorTrayecto.setTrayecto(this);
+    }
+
     public void addMiembros(List<MiembroPorTrayecto> miembrosPorTrayecto) {
-        miembrosPorTrayecto.forEach(miembroPorTrayecto -> {
-            this.miembrosPorTrayecto.add(miembroPorTrayecto);
-            miembroPorTrayecto.setTrayecto(this);
-        });
+        miembrosPorTrayecto.forEach(this::addMiembro);
     }
 
     public List<Tramo> getTramosDelMiembro(Miembro miembro) {

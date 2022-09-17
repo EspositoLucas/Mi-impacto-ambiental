@@ -6,9 +6,10 @@ import dds.grupo4.tpimpacto.config.FastTests;
 import dds.grupo4.tpimpacto.entities.medicion.*;
 import dds.grupo4.tpimpacto.entities.medioTransporte.MedioDeTransporte;
 import dds.grupo4.tpimpacto.entities.medioTransporte.TransportePublico;
-import dds.grupo4.tpimpacto.entities.organizacion.Clasificacion;
-import dds.grupo4.tpimpacto.entities.organizacion.Organizacion;
-import dds.grupo4.tpimpacto.entities.organizacion.TipoOrganizacion;
+import dds.grupo4.tpimpacto.entities.organizacion.*;
+import dds.grupo4.tpimpacto.entities.trayecto.MiembroPorTrayecto;
+import dds.grupo4.tpimpacto.entities.trayecto.Tramo;
+import dds.grupo4.tpimpacto.entities.trayecto.Trayecto;
 import dds.grupo4.tpimpacto.services.RelacionUnidadesService;
 import dds.grupo4.tpimpacto.services.TipoConsumoService;
 import dds.grupo4.tpimpacto.services.UnidadService;
@@ -50,7 +51,8 @@ public class CalculadoraHCTests {
     private TipoConsumo tipoConsumoDistanciaMediaRecorrida;
     private TipoConsumo tipoConsumoMedioDeTransporte;
     private Organizacion organizacion;
-
+    private Sector sector;
+    private MedioDeTransporte medioDeTransporte;
 
     @Autowired
     public CalculadoraHCTests(UnidadService unidadService, RelacionUnidadesService relacionUnidadesService, TipoConsumoService tipoConsumoService) {
@@ -87,7 +89,11 @@ public class CalculadoraHCTests {
                 new Cantidad(UNO_SOBRE_KG, 2),
                 5
         );
+        sector = new Sector("SectorTest", organizacion, null);
+        organizacion.addSector(sector);
 
+        medioDeTransporte = new TransportePublico(null, "LineaTest", null, 0);
+        medioDeTransporte.setFactorDeEmision(new FactorDeEmision(new Cantidad(GCO2eq_SOBRE_KM, 20)));
     }
 
     @Test
@@ -123,8 +129,6 @@ public class CalculadoraHCTests {
         );
         medicionDistanciaMediaRecorrida.setOrganizacion(organizacion);
 
-        MedioDeTransporte medioDeTransporte = new TransportePublico(null, "LineaTest", null, 0);
-        medioDeTransporte.setFactorDeEmision(new FactorDeEmision(new Cantidad(GCO2eq_SOBRE_KM, 20)));
         Medicion medicionMedioDeTransporte = new Medicion(
                 Actividad.COMBUSTION_FIJA,
                 tipoConsumoMedioDeTransporte,
@@ -164,5 +168,52 @@ public class CalculadoraHCTests {
 
         Assertions.assertEquals(GCO2eq, valorHCProrrateado.getUnidad());
         Assertions.assertEquals(24d / 12, valorHCProrrateado.getValor());
+    }
+
+    @Test
+    @Transactional
+    public void calcularHCBaseTramo_retornaHCCorrectoParaUnTramo() {
+        // HC = Distancia * FE (del MedioTransporte)
+        Tramo tramo = new Tramo(null, medioDeTransporte, null, null);
+        tramo.setDistanciaRecorrida(new Cantidad(KM, 10));
+
+        Cantidad hcTramo = calculadoraHC.calcularHCBaseTramo(tramo);
+
+        Assertions.assertEquals(GCO2eq, hcTramo.getUnidad());
+        Assertions.assertEquals(200, hcTramo.getValor());
+    }
+
+    @Test
+    @Transactional
+    public void calcularHCMensualTrayectoParaMiembro_retornaHCCorrectoParaUnMiembroUsandoElPeso() {
+        Miembro miembro = new Miembro(null);
+        sector.addMiembro(miembro);
+
+        Trayecto trayecto = new Trayecto(null, null, null, null);
+        trayecto.addMiembro(new MiembroPorTrayecto(miembro, trayecto, 0.5));
+
+        Tramo tramo1 = new Tramo(trayecto, medioDeTransporte, null, null);
+        tramo1.addMiembro(miembro);
+        tramo1.setDistanciaRecorrida(new Cantidad(KM, 1));
+        Tramo tramo2 = new Tramo(trayecto, medioDeTransporte, null, null);
+        tramo2.addMiembro(miembro);
+        tramo2.setDistanciaRecorrida(new Cantidad(KM, 2));
+        Tramo tramo3SinMiembro = new Tramo(trayecto, medioDeTransporte, null, null);
+        tramo3SinMiembro.setDistanciaRecorrida(new Cantidad(KM, 3));
+
+        trayecto.addTramos(Arrays.asList(tramo1, tramo2, tramo3SinMiembro));
+
+        // HCbase = suma(HCtramos)
+        double hcTramo1 = 1d * 20;
+        double hcTramo2 = 2d * 20;
+        double hcBase = hcTramo1 + hcTramo2;
+        // HCsemanal = HCbase * PesoTrayecto * CantDiasXSemana
+        double hcSemanal = hcBase * 0.5 * 5;
+        // HCmensual = HCsemanal * 4.5
+        double hcMensual = hcSemanal * 4.5;
+
+        Cantidad resultado = calculadoraHC.calcularHCMensualTrayectoParaMiembro(trayecto, miembro);
+
+        Assertions.assertEquals(hcMensual, resultado.getValor());
     }
 }
