@@ -8,8 +8,6 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
-import java.util.concurrent.CompletableFuture;
-
 @Profile("!test")
 @Component
 @Slf4j
@@ -35,17 +33,13 @@ public class DbInitializer implements ApplicationRunner {
     public void run(ApplicationArguments args) {
         log.info("Corriendo el DbInitializer");
 
-        CompletableFuture<Void> geoServiceTask = geoService.seedData();
-        CompletableFuture<Void> unidadServiceTask = unidadService.seedData();
+        geoService.seedData();
+        unidadService.seedData();
 
-        CompletableFuture<Void> tasksTerminadas = CompletableFuture.allOf(geoServiceTask, unidadServiceTask);
+        transportePublicoService.seedData();
 
-        tasksTerminadas.thenRunAsync(transportePublicoService::seedData);
-
-        tasksTerminadas.thenRun(() -> {
-            tipoConsumoService.seedData();
-            organizacionService.seedData();
-            personaService.seedData();
-        });
+        tipoConsumoService.seedData();
+        organizacionService.seedData();
+        personaService.seedData();
     }
 }

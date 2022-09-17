@@ -10,7 +10,6 @@ import dds.grupo4.tpimpacto.services.calculodistancias.apidistancias.dtos.*;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import retrofit2.Retrofit;
@@ -19,7 +18,6 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
 
 @Service
 @Slf4j
@@ -71,11 +69,9 @@ public class GeoService {
     }
 
     @Transactional
-    @Async
-    public CompletableFuture<Void> seedData() {
+    public void seedData() {
         if (paisRepository.hasData()) {
             log.debug("Seed: ya hay Paises creados");
-            return CompletableFuture.completedFuture(null);
         }
 
         log.debug("Seed: se crean los Paises iniciales");
@@ -107,8 +103,6 @@ public class GeoService {
             log.debug("Pais " + pais.getNombre() + " agregado");
             paisRepository.save(pais);
         }
-
-        return CompletableFuture.completedFuture(null);
     }
 
     private List<PaisDto> getAllPaisesDesdeApi() {
