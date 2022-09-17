@@ -8,7 +8,7 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
-@Profile("!test")
+// @Profile("!test")
 @Component
 @Slf4j
 public class DbInitializer implements ApplicationRunner {

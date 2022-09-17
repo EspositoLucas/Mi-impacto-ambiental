@@ -1,5 +1,6 @@
 package dds.grupo4.tpimpacto.services.calculohc;
 
+import dds.grupo4.tpimpacto.common.DateTimeService;
 import dds.grupo4.tpimpacto.entities.medicion.Medicion;
 import dds.grupo4.tpimpacto.entities.organizacion.Miembro;
 import dds.grupo4.tpimpacto.entities.organizacion.Organizacion;
@@ -10,7 +11,6 @@ import dds.grupo4.tpimpacto.units.Cantidad;
 import dds.grupo4.tpimpacto.utils.ListUtils;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,9 +18,11 @@ import java.util.stream.Collectors;
 public class CalculadoraHC {
 
     private final RelacionUnidadesService relacionUnidadesService;
+    private final DateTimeService dateTimeService;
 
-    public CalculadoraHC(RelacionUnidadesService relacionUnidadesService) {
+    public CalculadoraHC(RelacionUnidadesService relacionUnidadesService, DateTimeService dateTimeService) {
         this.relacionUnidadesService = relacionUnidadesService;
+        this.dateTimeService = dateTimeService;
     }
 
     public Cantidad calcularHCDatoActividadNoLogistica(Medicion medicion) {
@@ -44,8 +46,8 @@ public class CalculadoraHC {
                 .times(factorDeEmision, relacionUnidadesService);
     }
 
-    public Cantidad calcularHCAnualProrrateadoDatoActividad(Cantidad valorHC, LocalDate periodo) {
-        if (periodo.getYear() < LocalDate.now().getYear()) {
+    public Cantidad calcularHCAnualProrrateadoDatoActividad(Cantidad valorHC, int anioImputacion) {
+        if (anioImputacion < dateTimeService.getCurrentDate().getYear()) {
             // Si el DatoActividad es para el 2021 y estamos en el 2022, entonces el HC es a anio completo,
             //  asi que se prorratea a 12 meses
             return valorHC.divide(12);
@@ -54,7 +56,7 @@ public class CalculadoraHC {
         // Si el DatoActividad es para el anio actual, entonces se prorratea en (N-1) meses, donde N es el mes actual.
         //  Por ejemplo: si estamos en Abril, el valor se prorratea a 3 meses (Enero, Febrero y Marzo)
         // TODO: ver si se debería poder leer un dato Anual 2022 en Enero (habria que ver a que mes aplica)
-        int mesActual = LocalDate.now().getMonth().getValue();
+        int mesActual = dateTimeService.getCurrentDate().getMonth().getValue();
         return valorHC.divide(mesActual - 1);
     }
 

@@ -206,7 +206,7 @@ public class OrganizacionService extends BaseService<Organizacion, OrganizacionR
 
     private void guardarRegistrosCalculoHCAnuales(Organizacion organizacion, Map<LocalDate, Cantidad> huellasDeCarbono) {
         huellasDeCarbono.forEach((periodoImputacion, valorHC) -> {
-            valorHC = calculadoraHC.calcularHCAnualProrrateadoDatoActividad(valorHC, periodoImputacion);
+            valorHC = calculadoraHC.calcularHCAnualProrrateadoDatoActividad(valorHC, periodoImputacion.getYear());
             Optional<RegistroCalculoHCDatoActividad> optionalRegistroCalculoHC = registroCalculoHCDatoActividadService.getRegistroCalculoHCParaPeriodo(
                     organizacion.getId(), Periodicidad.ANUAL, periodoImputacion
             );
