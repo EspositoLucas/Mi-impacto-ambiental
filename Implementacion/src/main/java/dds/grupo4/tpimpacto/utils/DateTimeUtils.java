@@ -37,4 +37,8 @@ public class DateTimeUtils {
         return (dateToTest.isAfter(referenceDate) || dateToTest.isEqual(referenceDate));
     }
 
+    public static LocalDate dateWithOnlyYearAndMonth(LocalDate date) {
+        return LocalDate.of(date.getYear(), date.getMonth(), 1);
+    }
+
 }

@@ -14,10 +14,12 @@ import dds.grupo4.tpimpacto.repositories.MedioDeTransporteRepository;
 import dds.grupo4.tpimpacto.repositories.MiembroRepository;
 import dds.grupo4.tpimpacto.repositories.TrayectoRepository;
 import dds.grupo4.tpimpacto.services.calculodistancias.CalculadoraDistancias;
+import dds.grupo4.tpimpacto.utils.DateTimeUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -42,7 +44,10 @@ public class TrayectoService extends BaseService<Trayecto, TrayectoRepository> {
         Lugar lugarInicio = lugarRepository.getById(trayectoDto.getLugarInicio().getId());
         Lugar lugarFin = lugarRepository.getById(trayectoDto.getLugarFin().getId());
 
-        Trayecto trayecto = new Trayecto(lugarInicio, lugarFin, trayectoDto.getFechaInicio(), trayectoDto.getFechaFin());
+        LocalDate fechaInicio = DateTimeUtils.dateWithOnlyYearAndMonth(trayectoDto.getFechaInicio());
+        LocalDate fechaFin = DateTimeUtils.dateWithOnlyYearAndMonth(trayectoDto.getFechaFin());
+
+        Trayecto trayecto = new Trayecto(lugarInicio, lugarFin, fechaInicio, fechaFin);
 
         List<MiembroPorTrayecto> miembros = trayectoDto.getMiembrosPorTrayecto().stream()
                 .map(miembroPorTrayectoDto -> new MiembroPorTrayecto(
