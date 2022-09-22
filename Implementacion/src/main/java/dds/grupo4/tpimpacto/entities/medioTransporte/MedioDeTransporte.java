@@ -17,18 +17,17 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public abstract class MedioDeTransporte extends BaseEntity {
 
-    // ? Esto supone que todas las Organizaciones usan el mismo FactorDeEmision para cada MedioDeTransporte.
-    // Si cada Organizacion puede tener su propio FE para cada MedioDeTransporte, entonces habria que hacer
-    // un ManyToMany con una tabla intermedia.
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(
-            name = "factor_de_emision",
+            name = "tipo_medio_de_transporte",
             nullable = false,
-            foreignKey = @ForeignKey(name = "FK_MedioDeTransporte_FactorDeEmision")
+            foreignKey = @ForeignKey(name = "FK_MediosDeTransporte_TipoMedioDeTransporte")
     )
-    private FactorDeEmision factorDeEmision;
+    private TipoMedioDeTransporte tipoMedioDeTransporte;
 
-    private TipoMedioTransporte tipo;
+    public FactorDeEmision getFactorDeEmision() {
+        return tipoMedioDeTransporte.getFactorDeEmision();
+    }
 
     public abstract double getCombustibleConsumidoPorKm();
 

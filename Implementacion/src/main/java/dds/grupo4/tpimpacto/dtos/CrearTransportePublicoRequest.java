@@ -14,7 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 public class CrearTransportePublicoRequest {
     private String linea;
-    private String tipoTransportePublico;
+    private IdTextPair tipoMedioDeTransporte;
     private long idCombustible;
     private double combustibleConsumidoPorKm;
     // FactorDeEmision???

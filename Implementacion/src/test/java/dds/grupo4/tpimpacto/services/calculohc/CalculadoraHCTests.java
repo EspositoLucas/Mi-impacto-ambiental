@@ -5,6 +5,7 @@ import dds.grupo4.tpimpacto.config.CustomTestAnnotation;
 import dds.grupo4.tpimpacto.config.FastTests;
 import dds.grupo4.tpimpacto.entities.medicion.*;
 import dds.grupo4.tpimpacto.entities.medioTransporte.MedioDeTransporte;
+import dds.grupo4.tpimpacto.entities.medioTransporte.TipoMedioDeTransporte;
 import dds.grupo4.tpimpacto.entities.medioTransporte.TransportePublico;
 import dds.grupo4.tpimpacto.entities.organizacion.*;
 import dds.grupo4.tpimpacto.entities.trayecto.MiembroPorTrayecto;
@@ -92,8 +93,10 @@ public class CalculadoraHCTests {
         sector = new Sector("SectorTest", organizacion, null);
         organizacion.addSector(sector);
 
-        medioDeTransporte = new TransportePublico(null, "LineaTest", null, 0);
-        medioDeTransporte.setFactorDeEmision(new FactorDeEmision(new Cantidad(GCO2eq_SOBRE_KM, 20)));
+        TipoMedioDeTransporte tipoMedioDeTransporte = new TipoMedioDeTransporte("TipoMedioDeTransporte Test");
+        tipoMedioDeTransporte.setFactorDeEmision(new FactorDeEmision(new Cantidad(GCO2eq_SOBRE_KM, 20)));
+        medioDeTransporte = new TransportePublico("LineaTest", null, 0);
+        tipoMedioDeTransporte.addMedioDeTransporte(medioDeTransporte);
     }
 
     @Test

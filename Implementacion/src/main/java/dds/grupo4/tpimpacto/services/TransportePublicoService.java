@@ -4,7 +4,6 @@ import dds.grupo4.tpimpacto.dtos.CrearTransportePublicoRequest;
 import dds.grupo4.tpimpacto.dtos.ParadaDto;
 import dds.grupo4.tpimpacto.dtos.base.BaseResponse;
 import dds.grupo4.tpimpacto.entities.geo.Localidad;
-import dds.grupo4.tpimpacto.entities.medicion.FactorDeEmision;
 import dds.grupo4.tpimpacto.entities.medioTransporte.*;
 import dds.grupo4.tpimpacto.entities.trayecto.Direccion;
 import dds.grupo4.tpimpacto.repositories.*;
@@ -24,14 +23,16 @@ import java.util.List;
 public class TransportePublicoService extends BaseService<TransportePublico, TransportePublicoRepository> {
 
     private final DireccionService direccionService;
+    private final TipoMedioDeTransporteService tipoMedioDeTransporteService;
     private final CombustibleRepository combustibleRepository;
     private final ParadaRepository paradaRepository;
     private final UnidadRepository unidadRepository;
     private final LocalidadRepository localidadRepository;
 
-    public TransportePublicoService(TransportePublicoRepository repository, DireccionService direccionService, CombustibleRepository combustibleRepository, ParadaRepository paradaRepository, UnidadRepository unidadRepository, LocalidadRepository localidadRepository) {
+    public TransportePublicoService(TransportePublicoRepository repository, DireccionService direccionService, TipoMedioDeTransporteService tipoMedioDeTransporteService, CombustibleRepository combustibleRepository, ParadaRepository paradaRepository, UnidadRepository unidadRepository, LocalidadRepository localidadRepository) {
         super(repository);
         this.direccionService = direccionService;
+        this.tipoMedioDeTransporteService = tipoMedioDeTransporteService;
         this.combustibleRepository = combustibleRepository;
         this.paradaRepository = paradaRepository;
         this.unidadRepository = unidadRepository;
@@ -44,7 +45,6 @@ public class TransportePublicoService extends BaseService<TransportePublico, Tra
             return new BaseResponse(HttpStatus.BAD_REQUEST, "Ya existe un TransportePublico con la linea especificada");
         }
 
-        TipoTransportePublico tipoTransportePublico = TipoTransportePublico.valueOf(request.getTipoTransportePublico());
         Combustible combustible = combustibleRepository.getById(request.getIdCombustible());
 
         List<Parada> paradas = new ArrayList<>();
@@ -65,11 +65,13 @@ public class TransportePublicoService extends BaseService<TransportePublico, Tra
         }
 
         TransportePublico transportePublico = new TransportePublico(
-                tipoTransportePublico,
                 request.getLinea(),
                 combustible,
                 request.getCombustibleConsumidoPorKm()
         );
+
+        TipoMedioDeTransporte tipoMedioDeTransporte = tipoMedioDeTransporteService.getById(request.getTipoMedioDeTransporte().getId());
+        tipoMedioDeTransporte.addMedioDeTransporte(transportePublico);
 
         // Le seteo la Parada siguiente a cada Parada y la agrego al transportePublico
         for (int i = 0; i < paradas.size(); i++) {
@@ -93,8 +95,12 @@ public class TransportePublicoService extends BaseService<TransportePublico, Tra
 
         log.debug("Seed: se crean los TransportesPublicos iniciales");
 
-        TransportePublico linea15 = new TransportePublico(TipoTransportePublico.COLECTIVO, "15",
-                new Combustible(TipoCombustible.NAFTA, unidadRepository.getBySimbolo("m3").get()), 10);
+        TipoMedioDeTransporte colectivo = tipoMedioDeTransporteService.getByNombre("Colectivo");
+
+        TransportePublico linea15 = new TransportePublico(
+                "15", new Combustible(TipoCombustible.NAFTA, unidadRepository.getBySimbolo("m3").get()),
+                10);
+        colectivo.addMedioDeTransporte(linea15);
 
         Localidad localidadVillaCrespo = localidadRepository.getByNombre("VILLA CRESPO");
 
@@ -122,10 +128,6 @@ public class TransportePublicoService extends BaseService<TransportePublico, Tra
         parada3.setParadaSiguiente(parada4);
 
         linea15.addParadas(Arrays.asList(parada1, parada2, parada3, parada4));
-
-        FactorDeEmision factorDeEmision = new FactorDeEmision(
-                new Cantidad(unidadRepository.getBySimbolo("gCO2eq/km").get(), 100));
-        linea15.setFactorDeEmision(factorDeEmision);
 
         this.saveAll(Arrays.asList(linea15));
     }

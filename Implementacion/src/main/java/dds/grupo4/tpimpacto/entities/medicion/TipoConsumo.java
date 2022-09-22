@@ -26,11 +26,7 @@ public class TipoConsumo extends BaseEntity {
     @JoinColumn(name = "unidad", foreignKey = @ForeignKey(name = "FK_TiposDeConsumo_Unidad"))
     private Unidad unidad;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(
-            name = "factor_de_emision",
-            foreignKey = @ForeignKey(name = "FK_TipoConsumo_FactorDeEmision")
-    )
+    @OneToOne(mappedBy = "tipoConsumo", cascade = CascadeType.ALL)
     private FactorDeEmision factorDeEmision;
 
     public TipoConsumo(String nombre, Actividad actividad, String alcance, Unidad unidad) {

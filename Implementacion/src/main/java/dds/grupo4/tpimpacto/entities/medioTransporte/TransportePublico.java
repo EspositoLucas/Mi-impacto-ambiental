@@ -16,7 +16,6 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class TransportePublico extends MedioDeTransporte {
 
-    private TipoTransportePublico tipoTransportePublico;
     private String linea;
 
     @OneToMany(mappedBy = "transportePublico", cascade = CascadeType.ALL)
@@ -32,9 +31,7 @@ public class TransportePublico extends MedioDeTransporte {
 
     private double combustibleConsumidoPorKm;
 
-    public TransportePublico(TipoTransportePublico tipoTransportePublico, String linea, Combustible combustible, double combustibleConsumidoPorKm) {
-        this.setTipo(TipoMedioTransporte.TRANSPORTE_PUBLICO);
-        this.tipoTransportePublico = tipoTransportePublico;
+    public TransportePublico(String linea, Combustible combustible, double combustibleConsumidoPorKm) {
         this.linea = linea;
         this.combustible = combustible;
         this.combustibleConsumidoPorKm = combustibleConsumidoPorKm;
@@ -51,6 +48,6 @@ public class TransportePublico extends MedioDeTransporte {
 
     @Override
     public String toString() {
-        return "Linea " + linea + " (" + tipoTransportePublico.toString() + ")";
+        return "Linea " + linea + " (" + getTipoMedioDeTransporte().toString() + ")";
     }
 }

@@ -14,13 +14,6 @@ import javax.persistence.Table;
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class VehiculoNoContaminante extends MedioDeTransporte {
-    private TipoVehiculoNoContaminante tipoVehiculoNoContaminante;
-
-    public VehiculoNoContaminante(TipoVehiculoNoContaminante tipoVehiculoNoContaminante) {
-        this.setTipo(TipoMedioTransporte.VEHICULO_NO_CONTAMINANTE);
-        this.tipoVehiculoNoContaminante = tipoVehiculoNoContaminante;
-    }
-
     @Override
     public double getCombustibleConsumidoPorKm() {
         // Un vehiculo no contaminante no usa combustible, asi que gasta siempre 0
@@ -29,6 +22,6 @@ public class VehiculoNoContaminante extends MedioDeTransporte {
 
     @Override
     public String toString() {
-        return tipoVehiculoNoContaminante.toString();
+        return getTipoMedioDeTransporte().toString();
     }
 }

@@ -1,7 +1,7 @@
 package dds.grupo4.tpimpacto.entities.medicion;
 
 import dds.grupo4.tpimpacto.entities.BaseEntity;
-import dds.grupo4.tpimpacto.entities.medioTransporte.TipoMedioTransporte;
+import dds.grupo4.tpimpacto.entities.medioTransporte.TipoMedioDeTransporte;
 import dds.grupo4.tpimpacto.units.Cantidad;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -20,9 +20,18 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class FactorDeEmision extends BaseEntity {
 
-    private TipoMedioTransporte tipoMedioDeTransporte;
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(
+            name = "tipo_medio_de_transporte",
+            foreignKey = @ForeignKey(name = "FK_FactoresDeEmision_TipoMedioDeTransporte")
+    )
+    private TipoMedioDeTransporte tipoMedioDeTransporte;
 
-    @OneToOne(mappedBy = "factorDeEmision")
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(
+            name = "tipo_consumo",
+            foreignKey = @ForeignKey(name = "FK_FactoresDeEmision_TipoConsumo")
+    )
     private TipoConsumo tipoConsumo;
 
     @OneToOne(cascade = CascadeType.ALL)

@@ -14,8 +14,6 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class VehiculoParticular extends MedioDeTransporte {
 
-    private TipoVehiculoParticular tipoVehiculoParticular;
-
     @ManyToOne
     @JoinColumn(
             name = "combustible",
@@ -34,9 +32,7 @@ public class VehiculoParticular extends MedioDeTransporte {
     )
     private TipoServicioContratado tipoServicioContratado;
 
-    public VehiculoParticular(TipoVehiculoParticular tipoVehiculoParticular, Combustible combustible, TipoServicioContratado tipoServicioContratado, Double combustibleConsumidoPorKm) {
-        this.tipoVehiculoParticular = tipoVehiculoParticular;
-        this.setTipo(TipoMedioTransporte.VEHICULO_PARTICULAR);
+    public VehiculoParticular(Combustible combustible, TipoServicioContratado tipoServicioContratado, Double combustibleConsumidoPorKm) {
         this.combustible = combustible;
         this.tipoServicioContratado = tipoServicioContratado;
         this.combustibleConsumidoPorKm = combustibleConsumidoPorKm;
@@ -44,6 +40,6 @@ public class VehiculoParticular extends MedioDeTransporte {
 
     @Override
     public String toString() {
-        return tipoVehiculoParticular.toString();
+        return getTipoMedioDeTransporte().toString();
     }
 }
