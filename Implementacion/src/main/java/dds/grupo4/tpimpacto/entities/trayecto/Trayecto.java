@@ -1,6 +1,7 @@
 package dds.grupo4.tpimpacto.entities.trayecto;
 
 import dds.grupo4.tpimpacto.entities.BaseEntity;
+import dds.grupo4.tpimpacto.entities.medicion.RegistroCalculoHCTrayecto;
 import dds.grupo4.tpimpacto.entities.organizacion.Miembro;
 import dds.grupo4.tpimpacto.units.Cantidad;
 import dds.grupo4.tpimpacto.utils.DateTimeUtils;
@@ -47,6 +48,9 @@ public class Trayecto extends BaseEntity {
     private LocalDate fechaInicio;
     private LocalDate fechaFin;
 
+    @OneToMany(mappedBy = "trayecto", cascade = CascadeType.ALL)
+    private List<RegistroCalculoHCTrayecto> registrosCalculoHC = new ArrayList<>();
+
     public Trayecto(Lugar inicio, Lugar fin, LocalDate fechaInicio, LocalDate fechaFin) {
         this.inicio = inicio;
         this.fin = fin;
@@ -80,6 +84,15 @@ public class Trayecto extends BaseEntity {
 
     public void addMiembros(List<MiembroPorTrayecto> miembrosPorTrayecto) {
         miembrosPorTrayecto.forEach(this::addMiembro);
+    }
+
+    public void addRegistroCalculoHCTrayecto(RegistroCalculoHCTrayecto registroCalculoHCTrayecto) {
+        registrosCalculoHC.add(registroCalculoHCTrayecto);
+        registroCalculoHCTrayecto.setTrayecto(this);
+    }
+
+    public void addRegistrosCalculoHCTrayecto(List<RegistroCalculoHCTrayecto> registrosCalculoHCTrayecto) {
+        registrosCalculoHCTrayecto.forEach(this::addRegistroCalculoHCTrayecto);
     }
 
     public List<Tramo> getTramosDelMiembro(Miembro miembro) {

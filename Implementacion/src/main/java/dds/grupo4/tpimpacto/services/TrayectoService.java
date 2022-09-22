@@ -3,6 +3,7 @@ package dds.grupo4.tpimpacto.services;
 import dds.grupo4.tpimpacto.dtos.TramoDto;
 import dds.grupo4.tpimpacto.dtos.TrayectoDto;
 import dds.grupo4.tpimpacto.dtos.base.ResponseWithResults;
+import dds.grupo4.tpimpacto.entities.medicion.RegistroCalculoHCTrayecto;
 import dds.grupo4.tpimpacto.entities.medioTransporte.MedioDeTransporte;
 import dds.grupo4.tpimpacto.entities.organizacion.Miembro;
 import dds.grupo4.tpimpacto.entities.trayecto.Lugar;
@@ -14,6 +15,8 @@ import dds.grupo4.tpimpacto.repositories.MedioDeTransporteRepository;
 import dds.grupo4.tpimpacto.repositories.MiembroRepository;
 import dds.grupo4.tpimpacto.repositories.TrayectoRepository;
 import dds.grupo4.tpimpacto.services.calculodistancias.CalculadoraDistancias;
+import dds.grupo4.tpimpacto.services.calculohc.CalculadoraHC;
+import dds.grupo4.tpimpacto.units.Cantidad;
 import dds.grupo4.tpimpacto.utils.DateTimeUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -30,13 +33,15 @@ public class TrayectoService extends BaseService<Trayecto, TrayectoRepository> {
     private final MiembroRepository miembroRepository;
     private final MedioDeTransporteRepository medioDeTransporteRepository;
     private final CalculadoraDistancias calculadoraDistancias;
+    private final CalculadoraHC calculadoraHC;
 
-    public TrayectoService(TrayectoRepository repository, LugarRepository lugarRepository, MiembroRepository miembroRepository, MedioDeTransporteRepository medioDeTransporteRepository, CalculadoraDistancias calculadoraDistancias) {
+    public TrayectoService(TrayectoRepository repository, LugarRepository lugarRepository, MiembroRepository miembroRepository, MedioDeTransporteRepository medioDeTransporteRepository, CalculadoraDistancias calculadoraDistancias, CalculadoraHC calculadoraHC) {
         super(repository);
         this.lugarRepository = lugarRepository;
         this.miembroRepository = miembroRepository;
         this.medioDeTransporteRepository = medioDeTransporteRepository;
         this.calculadoraDistancias = calculadoraDistancias;
+        this.calculadoraHC = calculadoraHC;
     }
 
     @Transactional
@@ -64,7 +69,7 @@ public class TrayectoService extends BaseService<Trayecto, TrayectoRepository> {
         }
         this.save(trayecto);
 
-        // TODO: calcular el HC del Trayecto y ver como guardarlo para no tener que recalcularlo
+        calcularHCTrayectoYGuardarRegistroCalculo(trayecto);
     }
 
     @Transactional
@@ -87,5 +92,14 @@ public class TrayectoService extends BaseService<Trayecto, TrayectoRepository> {
         tramo.addMiembros(miembros);
         tramo.calcularDistanciaRecorrida(calculadoraDistancias);
         return tramo;
+    }
+
+    private void calcularHCTrayectoYGuardarRegistroCalculo(Trayecto trayecto) {
+        for (MiembroPorTrayecto miembroPorTrayecto : trayecto.getMiembrosPorTrayecto()) {
+            Miembro miembro = miembroPorTrayecto.getMiembro();
+            Cantidad hcMensualTrayectoParaMiembro = calculadoraHC.calcularHCMensualTrayectoParaMiembro(trayecto, miembro);
+            RegistroCalculoHCTrayecto registroCalculoHCTrayecto = new RegistroCalculoHCTrayecto(miembro, hcMensualTrayectoParaMiembro);
+            trayecto.addRegistroCalculoHCTrayecto(registroCalculoHCTrayecto);
+        }
     }
 }
