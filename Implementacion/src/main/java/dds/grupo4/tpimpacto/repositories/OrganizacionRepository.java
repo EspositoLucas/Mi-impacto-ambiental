@@ -1,5 +1,6 @@
 package dds.grupo4.tpimpacto.repositories;
 
+import dds.grupo4.tpimpacto.entities.organizacion.Clasificacion;
 import dds.grupo4.tpimpacto.entities.organizacion.Organizacion;
 import org.springframework.stereotype.Repository;
 
@@ -32,6 +33,14 @@ public class OrganizacionRepository extends BaseRepository<Organizacion> {
                 .getResultStream()
                 .distinct()
                 .collect(Collectors.toList());
+    }
+
+    public List<Organizacion> getOrganizacionesConClasificacion(Clasificacion clasificacion) {
+        String query = "FROM Organizacion org " +
+                "WHERE org.clasificacion = :clasificacion";
+        return entityManager.createQuery(query, Organizacion.class)
+                .setParameter("clasificacion", clasificacion)
+                .getResultList();
     }
 
     @Override

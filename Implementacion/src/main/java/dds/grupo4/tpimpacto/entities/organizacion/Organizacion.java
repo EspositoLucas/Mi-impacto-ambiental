@@ -5,6 +5,7 @@ import dds.grupo4.tpimpacto.entities.medicion.Medicion;
 import dds.grupo4.tpimpacto.entities.medicion.RegistroCalculoHCDatoActividad;
 import dds.grupo4.tpimpacto.entities.sectorTerritorial.SectorTerritorial;
 import dds.grupo4.tpimpacto.entities.trayecto.Tramo;
+import dds.grupo4.tpimpacto.entities.trayecto.Trayecto;
 import dds.grupo4.tpimpacto.units.Cantidad;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -13,6 +14,7 @@ import lombok.Setter;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -72,6 +74,13 @@ public class Organizacion extends BaseEntity {
     public List<Miembro> getMiembros() { // Para saber los miembros que tiene una organizacion de cada sector que tiene
         return sectores.stream()
                 .flatMap(s -> s.getMiembros().stream())
+                .distinct()
+                .collect(Collectors.toList());
+    }
+
+    public List<Trayecto> getTrayectosRealizadosPorMiembrosEnFecha(LocalDate date) {
+        return getMiembros().stream()
+                .flatMap(miembro -> miembro.getTrayectosRealizadosEnFecha(date).stream())
                 .distinct()
                 .collect(Collectors.toList());
     }

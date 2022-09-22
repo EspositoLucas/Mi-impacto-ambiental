@@ -3,10 +3,7 @@ package dds.grupo4.tpimpacto.services;
 import dds.grupo4.tpimpacto.dtos.UnidadDto;
 import dds.grupo4.tpimpacto.dtos.base.ResponseWithResults;
 import dds.grupo4.tpimpacto.repositories.UnidadRepository;
-import dds.grupo4.tpimpacto.units.RelacionUnidades;
-import dds.grupo4.tpimpacto.units.RowRelacionUnidades;
-import dds.grupo4.tpimpacto.units.TipoUnidad;
-import dds.grupo4.tpimpacto.units.Unidad;
+import dds.grupo4.tpimpacto.units.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -44,6 +41,13 @@ public class UnidadService extends BaseService<Unidad, UnidadRepository> {
                 .map(UnidadDto::from)
                 .collect(Collectors.toList());
         return new ResponseWithResults<>(HttpStatus.OK, dtos);
+    }
+
+    @Transactional
+    public Cantidad sumarCantidades(List<Cantidad> cantidades, String unidadPorDefecto) {
+        return cantidades.stream()
+                .reduce(Cantidad::add)
+                .orElse(new Cantidad(this.getBySimbolo(unidadPorDefecto).get(), 0));
     }
 
     @Transactional

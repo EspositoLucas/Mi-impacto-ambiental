@@ -1,6 +1,7 @@
 package dds.grupo4.tpimpacto.utils;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class DateTimeUtils {
 
@@ -39,6 +40,21 @@ public class DateTimeUtils {
 
     public static LocalDate dateWithOnlyYearAndMonth(LocalDate date) {
         return LocalDate.of(date.getYear(), date.getMonth(), 1);
+    }
+
+    public static String dateToString(LocalDate date, boolean includeDay) {
+        DateTimeFormatter formatter = includeDay
+                ? DateTimeFormatter.ofPattern("dd/MM/yyyy")
+                : DateTimeFormatter.ofPattern("MM/yyyy");
+        return date.format(formatter);
+    }
+
+    public static int mesesEntreFechas(LocalDate fechaInicioInclusiva, LocalDate fechaFinExclusiva) {
+        // Ejemplo: entre el 01/2022 y el 02/2022 hay 1 mes
+        // Ejemplo: entre el 12/2021 y el 01/2022 hay 1 mes
+        int diffAnios = fechaFinExclusiva.getYear() - fechaInicioInclusiva.getYear();
+        int diffMeses = fechaFinExclusiva.getMonthValue() - fechaInicioInclusiva.getMonthValue();
+        return diffAnios * 12 + diffMeses;
     }
 
 }

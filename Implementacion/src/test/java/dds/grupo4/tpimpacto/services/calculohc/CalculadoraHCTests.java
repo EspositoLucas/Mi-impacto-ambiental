@@ -11,6 +11,7 @@ import dds.grupo4.tpimpacto.entities.organizacion.*;
 import dds.grupo4.tpimpacto.entities.trayecto.MiembroPorTrayecto;
 import dds.grupo4.tpimpacto.entities.trayecto.Tramo;
 import dds.grupo4.tpimpacto.entities.trayecto.Trayecto;
+import dds.grupo4.tpimpacto.repositories.OrganizacionRepository;
 import dds.grupo4.tpimpacto.services.RelacionUnidadesService;
 import dds.grupo4.tpimpacto.services.TipoConsumoService;
 import dds.grupo4.tpimpacto.services.UnidadService;
@@ -77,7 +78,8 @@ public class CalculadoraHCTests {
 
     @BeforeEach
     public void forEachSetup() {
-        calculadoraHC = new CalculadoraHC(relacionUnidadesService, dateTimeService);
+        OrganizacionRepository organizacionRepository = null;
+        calculadoraHC = new CalculadoraHC(unidadService, relacionUnidadesService, dateTimeService, organizacionRepository);
 
         tipoConsumoParaNoLogistica = new TipoConsumo("TipoConsumo para no logistica", Actividad.COMBUSTION_FIJA,
                 "AlcanceTest", KM);

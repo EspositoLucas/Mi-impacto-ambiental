@@ -3,6 +3,7 @@ package dds.grupo4.tpimpacto.entities.trayecto;
 import dds.grupo4.tpimpacto.entities.BaseEntity;
 import dds.grupo4.tpimpacto.entities.medicion.RegistroCalculoHCTrayecto;
 import dds.grupo4.tpimpacto.entities.organizacion.Miembro;
+import dds.grupo4.tpimpacto.entities.organizacion.Organizacion;
 import dds.grupo4.tpimpacto.units.Cantidad;
 import dds.grupo4.tpimpacto.utils.DateTimeUtils;
 import lombok.AccessLevel;
@@ -45,11 +46,11 @@ public class Trayecto extends BaseEntity {
     @OneToMany(mappedBy = "trayecto", cascade = CascadeType.ALL)
     private List<Tramo> tramos = new ArrayList<>();
 
-    private LocalDate fechaInicio;
-    private LocalDate fechaFin;
+    private LocalDate fechaInicio; // Inclusivo
+    private LocalDate fechaFin; // NO inclusivo
 
     @OneToMany(mappedBy = "trayecto", cascade = CascadeType.ALL)
-    private List<RegistroCalculoHCTrayecto> registrosCalculoHC = new ArrayList<>();
+    private List<RegistroCalculoHCTrayecto> registrosCalculoHCTrayectos = new ArrayList<>();
 
     public Trayecto(Lugar inicio, Lugar fin, LocalDate fechaInicio, LocalDate fechaFin) {
         this.inicio = inicio;
@@ -65,7 +66,7 @@ public class Trayecto extends BaseEntity {
     }
 
     public boolean seRealizaEnFecha(LocalDate fecha) {
-        return DateTimeUtils.isAfterOrEqual(fecha, fechaInicio) && DateTimeUtils.isBeforeOrEqual(fecha, fechaFin);
+        return DateTimeUtils.isAfterOrEqual(fecha, fechaInicio) && fecha.isBefore(fechaFin);
     }
 
     public void addTramo(Tramo tramo) {
@@ -87,7 +88,7 @@ public class Trayecto extends BaseEntity {
     }
 
     public void addRegistroCalculoHCTrayecto(RegistroCalculoHCTrayecto registroCalculoHCTrayecto) {
-        registrosCalculoHC.add(registroCalculoHCTrayecto);
+        registrosCalculoHCTrayectos.add(registroCalculoHCTrayecto);
         registroCalculoHCTrayecto.setTrayecto(this);
     }
 
@@ -106,5 +107,16 @@ public class Trayecto extends BaseEntity {
                 .filter(miembroPorTrayecto -> miembroPorTrayecto.getMiembro().equals(miembro))
                 .findFirst().get()
                 .getPeso();
+    }
+
+    public List<Miembro> getMiembrosDeOrganizacion(Organizacion organizacion) {
+        return miembrosPorTrayecto.stream()
+                .map(MiembroPorTrayecto::getMiembro)
+                .filter(miembro -> miembro.getOrganizacion().equals(organizacion))
+                .collect(Collectors.toList());
+    }
+
+    public int getCantidadDeMesesDeDuracion() {
+        return DateTimeUtils.mesesEntreFechas(fechaInicio, fechaFin);
     }
 }

@@ -1,8 +1,11 @@
 package dds.grupo4.tpimpacto.entities.organizacion;
 
 import dds.grupo4.tpimpacto.entities.BaseEntity;
+import dds.grupo4.tpimpacto.entities.medicion.RegistroCalculoHCTrayecto;
 import dds.grupo4.tpimpacto.entities.seguridad.Usuario;
 import dds.grupo4.tpimpacto.entities.trayecto.Tramo;
+import dds.grupo4.tpimpacto.entities.trayecto.Trayecto;
+import dds.grupo4.tpimpacto.units.Cantidad;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,6 +16,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity(name = "Miembro")
 @Table(name = "miembros")
@@ -43,6 +47,9 @@ public class Miembro extends BaseEntity {
     @ManyToMany(mappedBy = "miembros")
     private List<Tramo> tramos = new ArrayList<>();
 
+    @OneToMany(mappedBy = "miembro", cascade = CascadeType.ALL)
+    private List<RegistroCalculoHCTrayecto> registrosCalculoHCTrayectos;
+
     public Miembro(Persona persona) {
         this.persona = persona;
     }
@@ -62,6 +69,21 @@ public class Miembro extends BaseEntity {
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
         usuario.setMiembro(this);
+    }
+
+    public List<Trayecto> getTrayectosRealizadosEnFecha(LocalDate date) {
+        return tramos.stream()
+                .map(Tramo::getTrayecto)
+                .filter(trayecto -> trayecto.seRealizaEnFecha(date))
+                .distinct()
+                .collect(Collectors.toList());
+    }
+
+    public Cantidad getHCDeTrayecto(Trayecto trayecto) {
+        return registrosCalculoHCTrayectos.stream()
+                .filter(registro -> registro.getTrayecto().equals(trayecto))
+                .findFirst().map(RegistroCalculoHCTrayecto::getValor)
+                .orElseThrow(() -> new IllegalArgumentException("El Miembro no tiene ningun registro de HC para el Trayecto especificado"));
     }
 
     @Override
