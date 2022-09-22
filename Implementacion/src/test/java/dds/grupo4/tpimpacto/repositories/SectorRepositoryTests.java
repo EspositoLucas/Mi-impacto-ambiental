@@ -37,10 +37,10 @@ public class SectorRepositoryTests {
 
     @BeforeEach
     public void buildSectorTest() {
-        Pais paisTest = new Pais(1, "Argentina");
-        Provincia provinciaTest = new Provincia(2, "Provincia");
-        Municipio municipioTest = new Municipio(3, "Municipio");
-        Localidad localidadTest = new Localidad(4, "Localidad", "1234");
+        Pais paisTest = new Pais(1, "PaisTest");
+        Provincia provinciaTest = new Provincia(2, "ProvinciaTest");
+        Municipio municipioTest = new Municipio(3, "MunicipioTest");
+        Localidad localidadTest = new Localidad(4, "LocalidadTest", "1234");
         Direccion direccionTest = new Direccion("calle", "altura");
         municipioTest.addLocalidad(localidadTest);
         provinciaTest.addMunicipio(municipioTest);

@@ -40,7 +40,7 @@ public class CalculadoraHC {
         Cantidad distancia = ListUtils.getMedicionConTipoConsumo(mediciones, "Distancia media recorrida")
                 .getValorNumerico();
         Cantidad factorDeEmision = ListUtils.getMedicionConTipoConsumo(mediciones, "Medio de transporte")
-                .getMedioDeTransporte().getFactorDeEmision().getCantidad();
+                .getTipoMedioDeTransporte().getFactorDeEmision().getCantidad();
         return peso.times(factorK, relacionUnidadesService)
                 .times(distancia, relacionUnidadesService)
                 .times(factorDeEmision, relacionUnidadesService);

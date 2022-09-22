@@ -6,6 +6,7 @@ import dds.grupo4.tpimpacto.dtos.base.BaseResponse;
 import dds.grupo4.tpimpacto.dtos.base.ResponseWithResults;
 import dds.grupo4.tpimpacto.entities.geo.Localidad;
 import dds.grupo4.tpimpacto.entities.medicion.*;
+import dds.grupo4.tpimpacto.entities.medioTransporte.TipoMedioDeTransporte;
 import dds.grupo4.tpimpacto.entities.organizacion.*;
 import dds.grupo4.tpimpacto.entities.trayecto.Direccion;
 import dds.grupo4.tpimpacto.entities.trayecto.Espacio;
@@ -13,12 +14,12 @@ import dds.grupo4.tpimpacto.entities.trayecto.TipoEspacio;
 import dds.grupo4.tpimpacto.repositories.LocalidadRepository;
 import dds.grupo4.tpimpacto.repositories.OrganizacionRepository;
 import dds.grupo4.tpimpacto.repositories.SolicitudRepository;
+import dds.grupo4.tpimpacto.repositories.TipoMedioDeTransporteRepository;
 import dds.grupo4.tpimpacto.services.calculohc.CalculadoraHC;
 import dds.grupo4.tpimpacto.units.Cantidad;
 import dds.grupo4.tpimpacto.units.Unidad;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -39,11 +40,12 @@ public class OrganizacionService extends BaseService<Organizacion, OrganizacionR
     private final CalculadoraHC calculadoraHC;
     private final ExcelService excelService;
     private final LocalidadRepository localidadRepository;
+    private final TipoMedioDeTransporteRepository tipoMedioDeTransporteRepository;
 
     public OrganizacionService(OrganizacionRepository organizacionRepository, SolicitudRepository solicitudRepository,
                                TipoConsumoService tipoConsumoService, UnidadService unidadService, CalculadoraHC calculadoraHC,
                                RegistroCalculoHCDatoActividadService registroCalculoHCDatoActividadService, ExcelService excelService,
-                               LocalidadRepository localidadRepository) {
+                               LocalidadRepository localidadRepository, TipoMedioDeTransporteRepository tipoMedioDeTransporteRepository) {
         super(organizacionRepository);
         this.solicitudRepository = solicitudRepository;
         this.tipoConsumoService = tipoConsumoService;
@@ -52,6 +54,7 @@ public class OrganizacionService extends BaseService<Organizacion, OrganizacionR
         this.registroCalculoHCDatoActividadService = registroCalculoHCDatoActividadService;
         this.excelService = excelService;
         this.localidadRepository = localidadRepository;
+        this.tipoMedioDeTransporteRepository = tipoMedioDeTransporteRepository;
     }
 
     @Transactional
@@ -159,7 +162,15 @@ public class OrganizacionService extends BaseService<Organizacion, OrganizacionR
         TipoConsumo tipoConsumo = tipoConsumoService.getByNombre(row.getTipoDeConsumo())
                 .orElseThrow(() -> new IllegalArgumentException("No existe un TipoConsumo con el nombre '" + row.getTipoDeConsumo() + "'"));
         Periodicidad periodicidad = Periodicidad.from(row.getPeriodicidad());
-        return new Medicion(actividad, tipoConsumo, periodicidad, row.getPeriodoImputacion(), row.getValor());
+        Medicion medicion = new Medicion(actividad, tipoConsumo, periodicidad, row.getPeriodoImputacion(), row.getValor());
+
+        if (medicion.getTipoConsumo().getNombre().equals("Medio de transporte")) {
+            String nombreTipoMedioDeTransporte = medicion.getValorString();
+            TipoMedioDeTransporte tipoMedioDeTransporte = tipoMedioDeTransporteRepository.getByNombre(nombreTipoMedioDeTransporte);
+            medicion.setTipoMedioDeTransporte(tipoMedioDeTransporte);
+        }
+
+        return medicion;
     }
 
     private void calcularHCDatosActividadYGuardarRegistroCalculo(Organizacion organizacion, List<Medicion> mediciones) {

@@ -1,7 +1,7 @@
 package dds.grupo4.tpimpacto.entities.medicion;
 
 import dds.grupo4.tpimpacto.entities.BaseEntity;
-import dds.grupo4.tpimpacto.entities.medioTransporte.MedioDeTransporte;
+import dds.grupo4.tpimpacto.entities.medioTransporte.TipoMedioDeTransporte;
 import dds.grupo4.tpimpacto.entities.organizacion.Organizacion;
 import dds.grupo4.tpimpacto.units.Cantidad;
 import dds.grupo4.tpimpacto.units.Unidad;
@@ -52,11 +52,10 @@ public class Medicion extends BaseEntity {
 
     private String valorString;
 
-    // TODO: ver si las mediciones de Logistica tienen un MedioDeTransporte o un TipoDeMedioDeTransporte
     @ManyToOne
-    @JoinColumn(name = "medio_de_transporte",
-            foreignKey = @ForeignKey(name = "FK_Mediciones_MedioDeTransporte"))
-    private MedioDeTransporte medioDeTransporte;
+    @JoinColumn(name = "tipo_medio_de_transporte",
+            foreignKey = @ForeignKey(name = "FK_Mediciones_TipoMedioDeTransporte"))
+    private TipoMedioDeTransporte tipoMedioDeTransporte;
 
     public Medicion(Actividad actividad, TipoConsumo tipoConsumo, Periodicidad periodicidad,
                     String periodoImputacion, String valor) {

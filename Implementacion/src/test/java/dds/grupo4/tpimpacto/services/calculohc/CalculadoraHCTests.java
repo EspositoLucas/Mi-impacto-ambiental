@@ -53,6 +53,7 @@ public class CalculadoraHCTests {
     private TipoConsumo tipoConsumoMedioDeTransporte;
     private Organizacion organizacion;
     private Sector sector;
+    private TipoMedioDeTransporte tipoMedioDeTransporte;
     private MedioDeTransporte medioDeTransporte;
 
     @Autowired
@@ -93,7 +94,7 @@ public class CalculadoraHCTests {
         sector = new Sector("SectorTest", organizacion, null);
         organizacion.addSector(sector);
 
-        TipoMedioDeTransporte tipoMedioDeTransporte = new TipoMedioDeTransporte("TipoMedioDeTransporte Test");
+        tipoMedioDeTransporte = new TipoMedioDeTransporte("TipoMedioDeTransporte Test");
         tipoMedioDeTransporte.setFactorDeEmision(new FactorDeEmision(new Cantidad(GCO2eq_SOBRE_KM, 20)));
         medioDeTransporte = new TransportePublico("LineaTest", null, 0);
         tipoMedioDeTransporte.addMedioDeTransporte(medioDeTransporte);
@@ -139,7 +140,7 @@ public class CalculadoraHCTests {
                 "01/2022",
                 ""
         );
-        medicionMedioDeTransporte.setMedioDeTransporte(medioDeTransporte);
+        medicionMedioDeTransporte.setTipoMedioDeTransporte(tipoMedioDeTransporte);
         medicionMedioDeTransporte.setOrganizacion(organizacion);
 
         List<Medicion> medicionesLogistica = Arrays.asList(medicionPesoTotalTransportado, medicionDistanciaMediaRecorrida, medicionMedioDeTransporte);
