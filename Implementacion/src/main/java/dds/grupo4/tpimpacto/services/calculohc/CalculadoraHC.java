@@ -30,6 +30,10 @@ import java.util.stream.Collectors;
 @Service
 public class CalculadoraHC {
 
+    // Anio hardcodeado en el que suponemos se empezaron a tomar las mediciones
+    // (se usa para calcular el HC total)
+    private static final int ANIO_INICIO_CALCULOS = 2020;
+
     private final UnidadService unidadService;
     private final RelacionUnidadesService relacionUnidadesService;
     private final DateTimeService dateTimeService;
@@ -143,6 +147,16 @@ public class CalculadoraHC {
         return hcAnual;
     }
 
+    public Cantidad hcTotalDatosActividadOrganizacion(Organizacion organizacion) {
+        Unidad GCO2eq = unidadService.getBySimbolo("gCO2eq").get();
+        Cantidad hcTotal = new Cantidad(GCO2eq, 0);
+        for (int anio = ANIO_INICIO_CALCULOS; anio <= dateTimeService.getCurrentDate().getYear(); anio++) {
+            Cantidad hcAnual = hcAnualDatosActividadOrganizacion(organizacion, anio);
+            hcTotal = hcTotal.add(hcAnual);
+        }
+        return hcTotal;
+    }
+
     public Cantidad hcMensualTrayectosOrganizacion(Organizacion organizacion, LocalDate mes) {
         List<Trayecto> trayectosDelMes = organizacion.getTrayectosRealizadosPorMiembrosEnFecha(mes);
 
@@ -173,9 +187,24 @@ public class CalculadoraHC {
         return hcAnual;
     }
 
-    public Cantidad hcAnualTotalOrganizacion(Organizacion organizacion, int anio) {
+    public Cantidad hcTotalTrayectosOrganizacion(Organizacion organizacion) {
+        Unidad GCO2eq = unidadService.getBySimbolo("gCO2eq").get();
+        Cantidad hcTotal = new Cantidad(GCO2eq, 0);
+        for (int anio = ANIO_INICIO_CALCULOS; anio <= dateTimeService.getCurrentDate().getYear(); anio++) {
+            Cantidad hcAnual = hcAnualTrayectosOrganizacion(organizacion, anio);
+            hcTotal = hcTotal.add(hcAnual);
+        }
+        return hcTotal;
+    }
+
+    public Cantidad hcAnualOrganizacion(Organizacion organizacion, int anio) {
         return hcAnualDatosActividadOrganizacion(organizacion, anio)
                 .add(hcAnualTrayectosOrganizacion(organizacion, anio));
+    }
+
+    public Cantidad hcTotalOrganizacion(Organizacion organizacion) {
+        return hcTotalDatosActividadOrganizacion(organizacion)
+                .add(hcTotalTrayectosOrganizacion(organizacion));
     }
 
     public Cantidad hcMensualTrayectosMiembro(Miembro miembro, LocalDate mes) {
@@ -199,10 +228,22 @@ public class CalculadoraHC {
     public Map<Organizacion, Cantidad> hcAnualSectorTerritorialSeparadoPorOrganizacion(SectorTerritorial sectorTerritorial, int anio) {
         Map<Organizacion, Cantidad> hcsPorOrganizacion = new HashMap<>();
         for (Organizacion organizacion : sectorTerritorial.getOrganizaciones()) {
-            Cantidad hcOrganizacion = hcAnualTotalOrganizacion(organizacion, anio);
+            Cantidad hcOrganizacion = hcAnualOrganizacion(organizacion, anio);
             hcsPorOrganizacion.put(organizacion, hcOrganizacion);
         }
         return hcsPorOrganizacion;
+    }
+
+    public Map<Organizacion, Cantidad> hcTotalSectorTerritorialSeparadoPorOrganizacion(SectorTerritorial sectorTerritorial) {
+        Map<Organizacion, Cantidad> hcsTotalesPorOrganizacion = new HashMap<>();
+        for (int anio = ANIO_INICIO_CALCULOS; anio <= dateTimeService.getCurrentDate().getYear(); anio++) {
+            Map<Organizacion, Cantidad> hcsAnualesPorOrganizacion = hcAnualSectorTerritorialSeparadoPorOrganizacion(sectorTerritorial, anio);
+            hcsAnualesPorOrganizacion.forEach((organizacion, hcAnual) -> hcsTotalesPorOrganizacion.merge(
+                    organizacion,
+                    hcAnual,
+                    Cantidad::add));
+        }
+        return hcsTotalesPorOrganizacion;
     }
 
     public Cantidad hcAnualSectorTerritorial(SectorTerritorial sectorTerritorial, int anio) {
@@ -211,11 +252,21 @@ public class CalculadoraHC {
                 .reduce(Cantidad::add).get();
     }
 
+    public Cantidad hcTotalSectorTerritorial(SectorTerritorial sectorTerritorial) {
+        Unidad GCO2eq = unidadService.getBySimbolo("gCO2eq").get();
+        Cantidad hcTotal = new Cantidad(GCO2eq, 0);
+        for (int anio = ANIO_INICIO_CALCULOS; anio <= dateTimeService.getCurrentDate().getYear(); anio++) {
+            Cantidad hcAnual = hcAnualSectorTerritorial(sectorTerritorial, anio);
+            hcTotal = hcTotal.add(hcAnual);
+        }
+        return hcTotal;
+    }
+
     @Transactional
     public Cantidad hcAnualClasificacionDeOrganizacion(Clasificacion clasificacion, int anio) {
         List<Organizacion> organizacionesConClasificacion = organizacionRepository.getOrganizacionesConClasificacion(clasificacion);
         List<Cantidad> hcsOrganizaciones = organizacionesConClasificacion.stream()
-                .map(organizacion -> hcAnualTotalOrganizacion(organizacion, anio))
+                .map(organizacion -> hcAnualOrganizacion(organizacion, anio))
                 .collect(Collectors.toList());
         return unidadService.sumarCantidades(hcsOrganizaciones, "gCO2eq");
     }
@@ -227,6 +278,19 @@ public class CalculadoraHC {
             hcsPorClasificacion.put(clasificacion, hcClasificacion);
         }
         return hcsPorClasificacion;
+    }
+
+    public Map<Clasificacion, Cantidad> hcTotalSeparadoPorClasificacionDeOrganizacion() {
+        Map<Clasificacion, Cantidad> hcsTotalesPorClasificacion = new HashMap<>();
+        for (int anio = ANIO_INICIO_CALCULOS; anio <= dateTimeService.getCurrentDate().getYear(); anio++) {
+            Map<Clasificacion, Cantidad> hcsAnualesPorClasificacion = hcAnualSeparadoPorClasificacionDeOrganizacion(anio);
+            hcsAnualesPorClasificacion.forEach((clasificacion, hcAnual) -> hcsTotalesPorClasificacion.merge(
+                    clasificacion,
+                    hcAnual,
+                    Cantidad::add
+            ));
+        }
+        return hcsTotalesPorClasificacion;
     }
 
     /*
