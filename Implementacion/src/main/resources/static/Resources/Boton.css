@@ -1,0 +1,49 @@
+.botonAzul {
+    background: #1AA3FF;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    padding: 14px 30px;
+}
+
+.botonAzul:hover {
+    background: #3db1ff;
+}
+
+.botonGris {
+    border-radius: 3px;
+    padding: 14px 30px;
+    background-color: white;
+    color: #57565B;
+    border: 1px solid #57565B;
+}
+
+.botonGris:hover {
+    color: #C1C0C5;
+    border: 1px solid #C1C0C5;
+}
+
+.boton-mas {
+    text-decoration: underline;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    margin-bottom: 100px;
+}
+
+.boton-mas:hover {
+    cursor: pointer;
+}
+
+.boton-mostrar {
+	text-decoration: underline;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+}
+
+.boton-mostrar:hover {
+	cursor: pointer;
+}

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Iniciar Sesión</title>
+	<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;1,600&display=swap" rel="stylesheet">
+	<link rel="stylesheet" th:href="@{/Resources/Letras.css}">
+	<link rel="stylesheet" th:href="@{/Iniciar_Sesion/Iniciar_Sesion.css}">
+	<link rel="stylesheet" th:href="@{/Resources/Boton.css}">
+	<link rel="stylesheet" th:href="@{/Resources/normalize.css}">
+	<link rel="stylesheet" th:href="@{/Footer/Footer.css}">
+	<link rel="stylesheet" th:href="@{/Menu/Menu.css}">
+	<link rel="icon" th:href="@{/Resources/img/logo.png}" type="image/icon type">
+</head>
+
+<body>
+	<section th:replace="fragments/menu"></section>
+
+	<section class="main">
+			<div class="contenedor-base">
+				<div class="inicio-sesion">
+
+					<h3 class="sub-titulo">Iniciar Sesión</h3>
+
+					<form class="formulario" th:action="@{/cliente-liviano/iniciar-sesion}" th:object="${usuarioSigninDTO}" method="post" >
+
+						<div class="input">
+							<p class="texto-simple pregunta">Nombre de usuario</p>
+							<input type="text" class="input-completo texto-simple"  th:field="*{usuario}" required>
+						</div>
+
+						<div class="input">
+							<p class="texto-simple pregunta">Contraseña</p>
+							<input id="password" name="password" type="password" class="input-completo texto-simple" th:field="*{password}" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@#$/%!_*?¿-]).{8,64}$" title="La contraseña debe tener entre 8 y 64 caracteres y contener como mínimo una mayúscula, un número y un caracter especial." required>
+							<p onclick="mostrar()" id="mostrarContraseña" class="boton-mostrar texto-simple">Mostrar contraseña</p>
+						</div>
+
+						<input type="submit" class="botonAzul boton" value="Iniciar Sesión">
+
+					</form>
+
+					<p class="texto-sub">¿Olvidaste tu contraseña?</p>
+
+				</div>
+			</div>
+	</section>
+
+	<section th:replace="fragments/footer"></section>
+	<script  type = "text/javascript">
+		var contraseña;
+		var mostrarContraseña;
+		document.addEventListener('DOMContentLoaded', function() {
+			contraseña = document.getElementsByName("password")[0];
+			mostrarContraseña = document.getElementById("mostrarContraseña");
+			mostrarContraseña.innerHTML  = "Mostrar contraseña"
+		}, false);
+
+
+		function mostrar() {
+			if(contraseña.getAttribute("type") == "password"){
+				contraseña.setAttribute('type','text');
+				mostrarContraseña.innerHTML    = "Ocultar contraseña";
+			}else{
+				contraseña.setAttribute('type','password');
+				mostrarContraseña.innerHTML    = "Mostrar contraseña";
+			}
+		}
+
+	</script>
+</body>
+</html>

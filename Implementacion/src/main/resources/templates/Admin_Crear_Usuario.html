@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Usuario</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;1,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../static/Menu/Menu.css">
+    <link rel="stylesheet" href="../static/Resources/Letras.css">
+    <link rel="stylesheet" href="../static/Admin_Crear_Usuario/Admin_Crear_Usuario.css">
+    <link rel="stylesheet" href="../static/Footer/Footer.css">
+    <link rel="stylesheet" href="../static/Resources/normalize.css">
+    <link rel="stylesheet" href="../static/Resources/Boton.css">
+    <link rel="stylesheet" href="../static/Resources/Formulario.css">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
+    <link rel="icon" href="../static/Resources/img/logo.png" type="image/icon type">
+</head>
+
+<body>
+
+    <main-menu-admin></main-menu-admin>
+
+    <section class="main">
+        <div class="contenedor-base" id="app">
+            <br><br><br>
+            <h3 class="sub-titulo">Datos del Nuevo Usuario</h3>
+
+            <section class="formulario">
+
+                <div class="input">
+                    <p class="texto-simple pregunta">Nombre de Usuario</p>
+                    <input type="text" class="input-completo texto-simple" v-model="form.usuario" required>
+                </div>
+
+                <div class="input">
+                    <p class="texto-simple pregunta">Contraseña</p>
+                    <input id="password" type="password" class="input-completo texto-simple" v-model="form.password" required>
+
+                    <div v-if='passwordValidation.errors.length > 0 && !submitted && form.password!=""' class="hints">
+                        <p class="hint" v-for='error in passwordValidation.errors'>{{error}}</p>
+                    </div>
+
+                </div>
+
+                <div class="input">
+                    <p class="texto-simple pregunta">Repetir Contraseña</p>
+                    <input id="secondPassword" type="password" class="input-completo texto-simple" v-model='checkPassword' required>
+
+                    <div v-if='checkPassword!="" && notSamePasswords' class="hints">
+                        <p class="hint">Las contraseñas no coinciden</p>
+                    </div>
+                </div>
+
+                <p @click="mostrarContraseñas()" class="boton-mostrar mostrar-contraseña texto-simple">Mostrar contraseñas</p>
+
+                <div class="input">
+                    <p class="texto-simple pregunta titulo-inline">Rol del nuevo usuario</p>
+                    <div class="opciones-inline">
+                        <input type="radio" id="ADMINISTRADOR" name="ADMINISTRADOR" value="ADMINISTRADOR" v-model="rol">
+                        <label class="texto-simple option" for="ADMINISTRADOR">Administrador</label><br>
+                    </div>
+                </div>
+
+                <br>
+                <br>
+
+                <button @click="enviar" class="botonAzul boton">+ Crear Usuario</button>
+
+            </section>
+
+        </div>
+    </section>
+
+    <main-footer></main-footer>
+
+    <script src="../static/Footer/Footer.js"></script>
+    <script src="../static/Menu/Menu.js"></script>
+    <script src="../static/Admin_Crear_Usuario/Admin_Crear_Usuario.js"></script>
+
+</body>
+</html>

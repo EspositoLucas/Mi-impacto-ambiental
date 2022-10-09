@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Datos Personales</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;1,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../static/Menu/Menu.css">
+    <link rel="stylesheet" href="../static/Resources/Letras.css">
+    <link rel="stylesheet" href="../static/Formulario_Registrar_Mascota/Formulario_Registrar_Mascota.css">
+    <link rel="stylesheet" href="../static/Footer/Footer.css">
+    <link rel="stylesheet" href="../static/Resources/normalize.css">
+    <link rel="stylesheet" href="../static/Resources/Boton.css">
+    <link rel="icon" href="../static/Resources/img/logo.png" type="image/icon type">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+
+    <main-menu-usuario></main-menu-usuario>
+
+    <section class="main">
+        <div class="contenedor-base" id="app">
+            <br><br><br>
+            <h3 class="sub-titulo">Datos Personales</h3>
+
+            <section class="formulario">
+                <section>
+                    <div class="input misma-linea">
+                        <p class="texto-simple pregunta">Nombre</p>
+                        <input type="text" class="input-completo texto-simple" v-model="duenio.nombre" id="duenioNombre" required>
+                    </div>
+
+                    <div class="input misma-linea">
+                        <p class="texto-simple pregunta">Apellido</p>
+                        <input type="text" class="input-completo" v-model="duenio.apellido" id="duenioApellido" required>
+                    </div>
+
+                    <div class="input misma-linea">
+                        <p class="texto-simple pregunta">Teléfono</p>
+                        <input type="text" class="input-completo" v-model="duenio.telefono" required>
+                    </div>
+
+                    <div class="input misma-linea">
+                        <p class="texto-simple pregunta">Email</p>
+                        <input type="text" class="input-completo" v-model="duenio.email" required>
+                    </div>
+
+                    <div class="input misma-linea">
+                        <p class="texto-simple pregunta">Número de documento</p>
+                        <input type="number" class="input-completo" v-model="duenio.nroDocumento" required>
+                    </div>
+
+                    <div class="input misma-linea">
+                        <label class="texto-simple">Tipo de documento</label>
+                        <select class="texto-simple tipoDoc pregunta" v-model="duenio.tipoDocumento" required>
+                            <option>DNI</option>
+                            <option>PASAPORTE</option>
+                            <option>CUIT</option>
+                            <option>CUIL</option>
+                        </select>
+                    </div>
+
+                    <div class="input">
+                        <p class="texto-simple pregunta">Domicilio</p>
+                        <input type="text" class="input-completo" v-model="duenio.domicilio" required>
+                    </div>
+
+                    <div class="input">
+                        <p class="texto-simple pregunta titulo-inline">Quiero ser notificado por</p>
+                        <div class="opciones-inline">
+                            <p class="texto-simple"><input type="checkbox" v-model="duenio.formasNotificacion1" value="WPP">  WhatsApp</p>
+                            <p class="texto-simple"><input type="checkbox" v-model="duenio.formasNotificacion1" value="SMS">  SMS</p>
+                            <p class="texto-simple"><input type="checkbox" v-model="duenio.formasNotificacion1" value="EMAIL">  EMAIL</p>
+                        </div>
+                    </div>
+
+                    <div class="input">
+                        <p class="texto-simple pregunta fecha-inline">Fecha de nacimiento</p>
+                        <input type="date" class="fecha texto-simple pregunta" v-model="duenio.fechaDeNacimiento" required>
+                    </div>
+
+                    <div v-if="errorsDuenio.length">
+                        <div class="tarjeta-error">
+                            <img src="../static/Crear_Publicacion/img/error.png" alt="Error" height="100">
+                            <b class="texto-error">¡Atención! Tienes datos personales incorrectos:</b>
+                            <br>
+                            <br>
+                            <ul>
+                                <li v-for="error in errorsDuenio" class="texto-simple">{{ error }}</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </section>
+
+                <!-- CONTACTOS -->
+
+                <div> <!-- Este div tiene que estar encerrando al for porque sino la :key interfiere con la key de la seccion de abajo-->
+                    <h3 class="sub-titulo contactos">Mis Contactos</h3>
+                    <div v-for="(contacto, counter) in duenio.otrosContactos" :key="counter" class="nuevo-cuadro">
+
+                        <h2 class="texto-simple contacto-numero">Contacto #{{counter+1}}</h2>
+                        <span @click="deleteContacto(counter)">Eliminar</span>
+
+                        <br>
+
+                        <div class="input misma-linea">
+                            <p class="texto-simple pregunta">Nombre</p>
+                            <input type="text" class="input-completo" v-model="contacto.nombre" required>
+                        </div>
+
+                        <div class="input misma-linea">
+                            <p class="texto-simple pregunta">Apellido</p>
+                            <input type="text" class="input-completo" v-model="contacto.apellido" required>
+                        </div>
+
+                        <div class="input misma-linea">
+                            <p class="texto-simple pregunta">Teléfono</p>
+                            <input type="text" class="input-completo" v-model="contacto.telefono" required>
+                        </div>
+
+                        <div class="input misma-linea">
+                            <p class="texto-simple pregunta">Email</p>
+                            <input type="text" class="input-completo" v-model="contacto.email" required>
+                        </div>
+
+                        <div class="input">
+                            <p class="texto-simple pregunta titulo-inline">Quiere ser notificado por</p>
+                            <div class="opciones-inline">
+                                <p class="texto-simple"><input type="checkbox" v-model="contacto.formasNotificacion1" value="WPP">  WhatsApp</p>
+                                <p class="texto-simple"><input type="checkbox" v-model="contacto.formasNotificacion1" value="SMS">  SMS</p>
+                                <p class="texto-simple"><input type="checkbox" v-model="contacto.formasNotificacion1" value="EMAIL">  EMAIL</p>
+                            </div>
+                        </div>
+
+                        <div v-if="contacto.errorContacto.length">
+                            <div class="tarjeta-error">
+                                <img src="../static/Crear_Publicacion/img/error.png" alt="Error" height="100">
+                                <b class="texto-error">¡Atención! Tu contacto tiene datos incorrectos:</b>
+                                <br>
+                                <br>
+                                <ul>
+                                    <li v-for="error in contacto.errorContacto" class="texto-simple">{{ error }}</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <button class="botonGris gris" @click="addContacto">+ Agregar más contactos</button>
+                </div>
+
+            </section>
+
+            <button @click="enviar" class="botonAzul boton">Enviar</button>
+
+        </div>
+    </section>
+
+    <main-footer></main-footer>
+
+    <script src="../static/Footer/Footer.js"></script>
+    <script src="../static/Menu/Menu.js"></script>
+    <script src="../static/Resources/ValidarUsuario.js"></script>
+    <script src="../static/Registrar_Datos_Personales/Registrar_Datos_Personales.js"></script>
+
+</body>
+</html>

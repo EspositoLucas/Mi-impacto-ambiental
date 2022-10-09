@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Mi Usuario</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;1,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../static/Resources/Letras.css">
+    <link rel="stylesheet" href="../static/Resources/normalize.css">
+    <link rel="stylesheet" href="../static/Footer/Footer.css">
+    <link rel="stylesheet" href="../static/Menu/Menu.css">
+    <link rel="stylesheet" href="../static/Mi_Usuario/Mi_Usuario.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <link rel="icon" href="../static/Resources/img/logo.png" type="image/icon type">
+</head>
+
+<body>
+
+    <main-menu-usuario></main-menu-usuario>
+
+    <div id="app">
+        <header>
+            <div class="contenedor-base">
+                <div class="contenedor-texto-header">
+                    <div class="texto">
+                        <h1 class="titulo-principal">¡Hola, {{usuario.usuario}}!</h1>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <section class="acerca-de">
+            <div class="contenedor-base">
+
+                <div class="logo">
+                    <img src="../static/Registrar_Mascota/img/usuario.png" width="115" alt="Logo Usuario">
+                </div>
+
+                <div class="texto">
+                    <h3 class="sub-titulo">Acerca De</h3>
+                    <p class="texto-simple">Tratamos su información y datos personales como confidenciales y mantenemos medidas preventivas dirigidas a protegerlos contra pérdida o alteración. Sus datos no serán divulgados para otro propósito que no sea el acordado.</p>
+                </div>
+            </div>
+        </section>
+
+
+        <section class="main contenedor-base">
+            <section class="datos-personales">
+                <h3 class="sub-titulo" v-if="">Mis Datos Personales</h3>
+                <p class="texto-simple">Nombre: {{usuario.duenioAsociado.nombre}}</p>
+                <p class="texto-simple">Apellido: {{usuario.duenioAsociado.apellido}}</p>
+                <p class="texto-simple">Teléfono: {{usuario.duenioAsociado.telefono}}</p>
+                <p class="texto-simple">Email: {{usuario.duenioAsociado.email}}</p>
+                <p class="texto-simple">Número de documento: {{usuario.duenioAsociado.nroDocumento}}</p>
+                <p class="texto-simple">Tipo de documento: {{usuario.duenioAsociado.tipoDocumento}}</p>
+                <p class="texto-simple">Domicilio: {{usuario.duenioAsociado.domicilio}}</p>
+                <p class="texto-simple">Medios de notificacion: {{usuario.duenioAsociado.formasNotificacion}}</p>
+                <p class="texto-simple">Fecha de nacimiento: {{usuario.duenioAsociado.fechaDeNacimiento}}</p>
+            </section>
+
+            <section class="datos-mascotas">
+                <h3 class="sub-titulo" v-if="">Mis Mascotas</h3>
+                <div class="contenedor-grande">
+                    <div class="contenedor-mascotas">
+                        <div v-for="mascota in usuario.duenioAsociado.mascotas">
+                            <div class="contenedor-mascota">
+                                <p class="texto-simple">Nombre: {{mascota.nombre}}</p>
+                                <p class="texto-simple">Apodo: {{mascota.apodo}}</p>
+                                <p class="texto-simple">Edad: {{mascota.edad}}</p>
+                                <p class="texto-simple">Tipo: {{mascota.tipo}}</p>
+                                <p class="texto-simple">Sexo: {{mascota.sexo}}</p>
+                                <div class="imagen">
+                                    <img :src="mascota.id_QR" alt="QR">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </section>
+
+        <section class="cerrar-sesion">
+            <button @click="cerrarSesion" class="botonRojo boton">Cerrar Sesión</button>
+        </section>
+    </div>
+
+    <main-footer></main-footer>
+    <script src="../static/Menu/Menu.js"></script>
+    <script src="../static/Footer/Footer.js"></script>
+    <script src="../static/Resources/ValidarUsuario.js"></script>
+    <script src="../static/Mi_Usuario/Mi_Usuario.js"></script>
+
+</body>
+</html>

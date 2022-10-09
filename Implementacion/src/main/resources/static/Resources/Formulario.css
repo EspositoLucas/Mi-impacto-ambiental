@@ -1,0 +1,106 @@
+/* Hide arrows in number type submit */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Same but for Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+/* MAIN - DATOS PERSONALES */
+
+.main .contenedor-base {
+    padding: 80px 0 100px 0;
+}
+
+.input {
+    margin-bottom: 20px;
+}
+
+.input-completo {
+    width: 575px;
+    height: 60px;
+    border: 1px solid #C1C0C5;
+    box-sizing: border-box;
+    border-radius: 5px;
+    padding-left: 10px;
+    margin-bottom: 10px;
+}
+
+.input-chico {
+    width: 150px;
+    height: 60px;
+    border: 1px solid #C1C0C5;
+    box-sizing: border-box;
+    border-radius: 5px;
+    padding-left: 10px;
+    margin-bottom: 10px;
+}
+
+textarea {
+    width: 575px;
+    height: 150px;
+    border: 1px solid #C1C0C5;
+    box-sizing: border-box;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.sub-titulo {
+    margin-bottom: 50px;
+}
+
+.pregunta {
+    margin-bottom: 10px;
+}
+
+/* VENTANA PARA AGREGAR NUEVO */
+
+.nuevo-cuadro {
+    padding: 40px;
+    display: inline-block;
+    border: dashed 2px #A4B1D1;
+    border-radius: 10px;
+    margin-bottom: 50px;
+}
+
+.nuevo-cuadro:hover {
+    border: 2px solid #A4B1D1;
+    border-radius: 10px;
+}
+
+span {
+    width: 30px;
+    float: right;
+    cursor: pointer;
+    display: inline-block;
+    color: #A4B1D1;
+}
+
+/* CENTRADO DE BOTONES */
+
+.boton {
+    display: block;
+    margin: 0 auto;
+}
+
+.gris {
+    display: block;
+    margin-bottom: 50px;
+}
+
+/* Para que las opciones esten en la misma linea que su titulo */
+.opciones-inline {
+    margin-left: 30px;
+    display: inline-block;
+}
+
+.titulo-inline {
+    display: inline-block;
+    vertical-align: top;
+}
+

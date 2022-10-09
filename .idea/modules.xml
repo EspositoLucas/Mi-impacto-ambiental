@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/miImpactoAmbiental-DDS.iml" filepath="$PROJECT_DIR$/.idea/miImpactoAmbiental-DDS.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/miimpactoambiental-DDS.iml" filepath="$PROJECT_DIR$/.idea/miimpactoambiental-DDS.iml" />
       <module fileurl="file://$PROJECT_DIR$/Implementacion/tpimpacto.iml" filepath="$PROJECT_DIR$/Implementacion/tpimpacto.iml" />
     </modules>
   </component>

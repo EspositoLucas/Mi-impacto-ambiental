@@ -1,0 +1,17 @@
+.hint {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 19px;
+    color: red;
+    text-align: right;
+}
+
+.hints {
+    max-width: 575px;
+}
+
+.mostrar-contraseña {
+	padding-left: 420px;
+	margin-bottom: 50px;
+}

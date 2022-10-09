@@ -1,0 +1,106 @@
+/*----------------FILTROS------------------------------*/
+.filtro .contenedor-base {
+    overflow: visible;
+}
+.texto-boton {
+	margin: 0 7px;
+}
+
+/* Style The Dropdown Button */
+.dropbtn {
+    background-color: white;
+    text-align: center;
+    border: solid 2px #C1C0C5;
+    border-radius: 5px;
+    justify-content: center;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 10px;
+    margin-left: 30px;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 500px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  left: -200px;
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {
+  background-color: #EFEFEF;
+}
+
+.seccion-filtro{
+  display: flex;
+  padding: 5px;
+  margin: 30px;
+  border-bottom: solid grey 1px;
+  text-align: left;
+}
+.seccion-filtro .texto-simple{
+  margin-left: 5px;
+  margin-right: 30px;
+  font-size: 12px;
+}
+.titulo-check{
+  width: 200px;
+}
+
+.opciones-check{
+  width: 350px;
+  float: right;
+}
+
+.opciones-radius{
+  display: flex;
+  flex-direction: column;
+  width: 350px;
+}
+
+.reset-filtros{
+  padding: 30px;
+  width: 100%;
+  display: flex;
+}
+
+.texto-borrar{
+  text-align: left;
+  width: 250px;
+}
+
+.texto-fin{
+  width: 150px;
+}
+
+.boton-filtro{
+    border: none;
+    background: transparent;
+    padding-bottom: 10px;
+    border-bottom: 2px solid transparent;
+}
+.boton-filtro:hover{
+  border-bottom: 2px solid black;
+}
+
+[type="checkbox"] {
+    vertical-align: middle;
+}

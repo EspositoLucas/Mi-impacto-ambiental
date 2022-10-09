@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Registrarse</title>
+	<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;1,600&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="../static/Resources/Letras.css">
+	<link rel="stylesheet" href="../static/Menu/Menu.css">
+	<link rel="stylesheet" href="../static/Registrarse/Registrarse.css">
+	<link rel="stylesheet" href="../static/Resources/Boton.css">
+	<link rel="stylesheet" href="../static/Resources/normalize.css">
+	<link rel="stylesheet" href="../static/Footer/Footer.css">
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
+	<link rel="icon" href="../static/Resources/img/logo.png" type="image/icon type">
+</head>
+
+<body>
+
+	<main-menu-usuario></main-menu-usuario>
+
+	<section class="main">
+		<div class="contenedor-base" id="app">
+			<div class="inicio-sesion">
+				
+				<h3 class="sub-titulo">Registrarse</h3>
+
+				<section class="formulario">
+				
+					<div class="input">
+						<p class="texto-simple pregunta">Nombre de usuario</p>
+						<input type="text" class="input-completo texto-simple" v-model="form.usuario" required>
+					</div>
+									
+					<div class="input">
+						<p class="texto-simple pregunta">Contraseña</p>
+						<input id="password" type="password" class="input-completo texto-simple" v-model="form.password" required>
+
+						<div v-if='passwordValidation.errors.length > 0 && !submitted && form.password!=""' class="hints">
+							<p class="hint" v-for='error in passwordValidation.errors'>{{error}}</p>
+						</div>
+
+					</div>
+
+					<div class="input">
+						<p class="texto-simple pregunta">Repetir Contraseña</p>
+						<input id="secondPassword" type="password" class="input-completo texto-simple" v-model='checkPassword' required>
+
+						<div v-if='checkPassword!="" && notSamePasswords' class="hints">
+							<p class="hint">Las contraseñas no coinciden</p>
+						</div>
+
+						<p @click="mostrarContraseñas()" class="boton-mostrar texto-simple">Mostrar contraseñas</p>
+					</div>
+
+					<button @click="enviar" class="botonAzul boton">Registrarse</button>
+
+				</section>
+
+			</div>
+		</div>
+	</section>
+
+	<main-footer></main-footer>
+
+	<script src="../static/Footer/Footer.js"></script>
+	<script src="../static/Menu/Menu.js"></script>
+	<script src="../static/Resources/ValidarUsuario.js"></script>
+	<script src="../static/Registrarse/Registrarse.js"></script>
+
+</body>
+</html>

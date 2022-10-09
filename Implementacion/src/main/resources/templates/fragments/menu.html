@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<section th:fragment="menu">
+    <div class="menu-bar" >
+        <div class="contenedor-base">
+
+            <nav class="menu">
+                <th:block th:if="${session.idSesion} == null">
+                    <a th:href="'http://localhost:8080/cliente-liviano/inicio_sesion'">Iniciar Sesión</a>
+                </th:block>
+
+                <th:block th:if="${session.idSesion} != null">
+                    <a th:href="'http://localhost:8080/cliente-liviano/Mi_Usuario'">Mi usuario</a>
+                </th:block>
+
+                <a th:href="'http://localhost:8080/cliente-liviano/'">Página Principal</a>
+            </nav>
+
+            <a href="http://localhost:8080/cliente-liviano/adoptar/publicacion/index.html">
+                <div class="logo-menu">
+                    <img th:src="@{/Menu/img/logo_blanco.png}" alt="Logo">
+                </div>
+            </a>
+
+        </div>
+    </div>
+</section>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Iniciar Sesión</title>
+	<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;1,600&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="../static/Resources/Letras.css">
+	<link rel="stylesheet" href="../static/Iniciar_Sesion/Iniciar_Sesion.css">
+	<link rel="stylesheet" href="../static/Resources/Boton.css">
+	<link rel="stylesheet" href="../static/Resources/normalize.css">
+	<link rel="stylesheet" href="../static/Footer/Footer.css">
+	<link rel="stylesheet" href="../static/Menu/Menu.css">
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
+	<link rel="icon" href="../static/Resources/img/logo.png" type="image/icon type">
+</head>
+
+<body>
+
+	<main-menu-usuario></main-menu-usuario>
+
+	<section class="main">
+			<div class="contenedor-base">
+				<div class="inicio-sesion">
+
+					<h3 class="sub-titulo">Iniciar Sesión</h3>
+
+					<section class="formulario" id="app">
+
+						<div class="input">
+							<p class="texto-simple pregunta">Nombre de usuario</p>
+							<input type="text" class="input-completo texto-simple" v-model="usuario" required>
+						</div>
+
+						<div class="input">
+							<p class="texto-simple pregunta">Contraseña</p>
+							<input id="password" type="password" class="input-completo texto-simple" v-model="password" required>
+							<p @click="mostrarContraseña()" class="boton-mostrar texto-simple">Mostrar contraseña</p>
+						</div>
+
+						<button @click="login" class="botonAzul boton">Iniciar Sesion</button>
+
+					</section>
+
+					<p class="texto-sub">¿Olvidaste tu contraseña?</p>
+
+				</div>
+			</div>
+	</section>
+
+	<main-footer></main-footer>
+
+	<script src="../static/Footer/Footer.js"></script>
+	<script src="../static/Menu/Menu.js"></script>
+	<script src="../static/Resources/ValidarUsuario.js"></script>
+	<script src="../static/Iniciar_Sesion/Iniciar_Sesion.js"></script>
+
+</body>
+</html>

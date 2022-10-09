@@ -1,0 +1,45 @@
+/* MAIN */
+
+.main .inicio-sesion {
+  margin: 164px auto;
+  padding: 20px 23px;
+  border: 1px solid #C1C0C5;
+  box-sizing: border-box;
+  border-radius: 5px;
+  width: 490px;
+}
+
+.main .inicio-sesion .sub-titulo {
+  margin-bottom: 50px;
+}
+
+.main .inicio-sesion .input {
+  margin-bottom: 30px;
+  padding-right: 123px;
+}
+
+.main .inicio-sesion .input .input-completo {
+  width: 320px;
+  height: 60px;
+  border: 1px solid #C1C0C5;
+  box-sizing: border-box;
+  border-radius: 5px;
+  padding-left: 10px;
+}
+
+.main .inicio-sesion .input .input-completo:focus {
+  color: #57565B;
+}
+
+.main .inicio-sesion .input .texto-sub {
+  text-align: right;
+}
+
+.boton {
+    margin-top: 20px;
+    margin-bottom: 50px;
+}
+
+.pregunta {
+    margin-bottom: 10px;
+}

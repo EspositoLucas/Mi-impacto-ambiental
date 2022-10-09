@@ -1,0 +1,135 @@
+/* Letras */
+
+.sub-titulo {
+  align-items: center;
+  text-align: center;
+  color: #C04335;
+}
+
+.texto-simple {
+  align-items: center;
+  text-align: center;
+  color: black;
+}
+
+/* HEADER */
+
+header {
+  background: url("img/header2.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 550px;
+}
+
+header .contenedor-texto-header {
+  display: flex;
+  justify-content: left;
+  margin-top: 160px;
+}
+
+header .contenedor-texto-header .texto {
+  text-align: left;
+  max-width: 490px;
+}
+
+header .contenedor-texto-header .texto .titulo-principal {
+  color: #F2F2F2;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 55px;
+  margin: 0;
+}
+
+header .contenedor-texto-header .texto .descripcion-sistema {
+  font-style: normal;
+  font-weight: 300;
+  font-size: 20px;
+  line-height: 30px;
+  display: flex;
+  color: #AE9F9F;
+  margin-top: 55px;
+}
+
+/* MAIN - ACERCA DE */
+
+.main .contenedor-base {
+  overflow: visible;
+}
+
+.main .acerca-de {
+  text-align: center;
+  align-content: center;
+}
+
+.main .acerca-de .contenedor-base .logo {
+  margin-top: -60px;
+}
+
+.main .acerca-de .contenedor-base .logo img {
+  vertical-align: top;
+  border-radius: 50%;
+  border: 7px solid rgba(255, 255, 255, 0.2);
+  width: 150px;
+  height: 150px;
+}
+
+.main .acerca-de .contenedor-base .texto {
+  padding-top: 40px;
+  padding-bottom: 80px;
+  padding-right: 85px;
+  padding-left: 85px;
+}
+
+.main .acerca-de .contenedor-base .texto .texto-simple {
+  margin-top: 40px;
+}
+
+
+/* MAIN - OPCIONES */
+
+.main .opciones {
+  background-color: #f2f2f2;
+  padding-top: 40px;
+  padding-bottom: 100px;
+}
+
+.main .opciones .contenedor-base {
+  overflow: hidden;
+}
+
+.main .opciones .contenedor-base .sub-titulo {
+  margin-bottom: 40px;
+}
+
+.main .opciones .contenedor-base .contenedor-opciones {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding-right: 64px;
+  padding-left: 64px;
+}
+
+.main .opciones .contenedor-base .contenedor-opciones .opcion {
+  width: 27%;
+}
+
+.main .opciones .contenedor-base .contenedor-opciones .opcion .foto-opcion {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.main .opciones .contenedor-base .contenedor-opciones .opcion .foto-opcion img {
+  width: 100%;
+  vertical-align: top;
+  border-radius: 5px;
+}
+
+.main .opciones .contenedor-base .contenedor-opciones .opcion .foto-opcion img:hover {
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.main .opciones .contenedor-base .contenedor-opciones .opcion .texto-opcion .texto-simple {
+  color: #331A00;
+  margin-bottom: 60px;
+}

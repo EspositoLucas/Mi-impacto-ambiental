@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrador</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;1,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../static/Menu/Menu.css">
+    <link rel="stylesheet" href="../static/Resources/Letras.css">
+    <link rel="stylesheet" href="../static/Admin_Pantalla_Principal/Admin_Pantalla_Principal.css">
+    <link rel="stylesheet" href="../static/Footer/Footer.css">
+    <link rel="stylesheet" href="../static/Resources/normalize.css">
+    <link rel="stylesheet" href="../static/Resources/Boton.css">
+    <link rel="stylesheet" href="../static/Resources/Formulario.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link rel="icon" href="../static/Resources/img/logo.png" type="image/icon type">
+</head>
+
+<body>
+
+    <main-menu-admin></main-menu-admin>
+
+    <section class="main">
+        <div class="contenedor-base" id="app">
+
+            <!-- PARAMETROS DE LA ORGANIZACION -->
+            <br><br><br>
+            <h3 class="sub-titulo">Parámetros Generales de la Organización</h3>
+
+            <section class="parametros">
+
+                <section class="caracteristicas">
+                    <p class="sub-titulo texto-titulo">Características</p>
+                    <div class="contenedor-caracteristicas">
+                        <div v-for="caracteristica in caracteristicasGlobales">
+                            <div class="caracteristica-div">
+                                <p class="texto-simple caracteristica"><input type="checkbox" :checked="laCaracteristicaEstaEnLaOrg(caracteristica)" @change="agregarOSacarDeLista(caracteristica)">  {{caracteristica.caracteristica}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="imagenes">
+                    <p class="sub-titulo texto-titulo">Formato de Imágenes</p>
+                    <div class="contenedor-formato-imagenes">
+                        <div class="contenedor-item">
+                            <p class="texto-simple texto-item">Calidad:  </p>
+                            <select name="calidad" class="texto-simple input-chico" id="calidad">
+                                <option selected :value="this.administrador.organizacion.calidad">{{this.administrador.organizacion.calidad}}</option>
+                                <option v-show="this.administrador.organizacion.calidad != 'png'" value="png">png</option>
+                                <option v-show="this.administrador.organizacion.calidad != 'jpg'" value="jpg">jpg</option>
+                                <option v-show="this.administrador.organizacion.calidad != 'jpeg'" value="jpeg">jpeg</option>
+                            </select>
+                        </div>
+                        <div class="contenedor-item">
+                            <p class="texto-simple texto-item">Pixeles Alto:  </p><input type="number" class="pixeles input-chico" id="pixelesAlto" :value="this.administrador.organizacion.resolucion.pixelesAlto">
+                        </div>
+                        <div class="contenedor-item">
+                            <p class="texto-simple texto-item">Pixeles Ancho:  </p><input type="number" class="pixeles input-chico" id="pixelesAncho" :value="this.administrador.organizacion.resolucion.pixelesAncho">
+                        </div>
+
+                    </div>
+                </section>
+
+            </section>
+
+            <button class="botonGris editar" @click="guardarCambios()">Guardar Cambios</button>
+
+
+
+
+            <div class="usuario-fotos">
+                <!-- CREACION DE USUARIOS -->
+                <section class="recuadro">
+                    <h3 class="sub-titulo">Creación de Usuarios</h3>
+
+                    <a class="botones" href="Admin_Crear_Usuario.html">
+                        <button class="botonAzul">+ Crear Usuario</button>
+                    </a>
+                </section>
+
+                <!-- NORMALIZACION DE FOTOS -->
+                <section class="recuadro">
+                    <h3 class="sub-titulo">Normalización de Fotos</h3>
+
+                    <a class="botones" @click="normalizarFotos()">
+                        <button class="botonAzul">Normalizar Fotos</button>
+                    </a>
+                </section>
+            </div>
+
+        </div>
+    </section>
+
+    <main-footer></main-footer>
+
+    <script src="../static/Footer/Footer.js"></script>
+    <script src="../static/Menu/Menu.js"></script>
+    <script src="../static/Admin_Pantalla_Principal/Admin_Pantalla_Principal.js"></script>
+    <script src="../static/Resources/ValidarUsuario.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,88 @@
+/* BOTONES */
+
+.botones {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 50px;
+}
+
+.botonAzul {
+    margin: 0 50px;
+}
+
+.editar {
+    margin-bottom: 50px;
+}
+
+/* */
+
+.main .contenedor-base {
+    padding: 80px 0 100px 0;
+}
+
+.parametros {
+    width: 100%;
+    margin: 50px 0 10px 0;
+    padding: 0 20px;
+    border: dashed 2px #78909C;
+}
+
+/* CARACTERISTICAS */
+
+.contenedor-caracteristicas {
+    display: flex;
+    justify-content: flex-start;
+    justify-items: start;
+    flex-direction: row;
+    flex-wrap: wrap;
+    background-color: #f2f2f2;
+    padding: 0 20px;
+    border: 2px solid #f2f2f2;
+    border-radius: 20px;
+    margin-bottom: 50px;
+}
+
+.caracteristica-div {
+    width: 175px;
+    margin: 20px 0;
+}
+
+.texto-titulo {
+    margin: 20px 0;
+    background-color: #f2f2f2;
+    border-radius: 20px;
+    padding: 10px;
+}
+
+.contenedor-formato-imagenes {
+	display: flex;
+    justify-content: space-between;
+    background-color: #f2f2f2;
+    padding: 0 30px;
+    border: 2px solid #f2f2f2;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    padding: 20px 20px 10px 20px;
+}
+
+.contenedor-item {
+	display: flex;
+	align-items: center;
+}
+
+.texto-item {
+	padding-right: 10px;
+}
+
+/* CREACION DE USUARIOS Y NORMALIZACION DE FOTOS */
+
+.usuario-fotos {
+	display: flex;
+	justify-content: space-between;
+}
+
+.recuadro {
+	padding: 10px 20px;
+    border: dashed 2px #78909C;
+}
