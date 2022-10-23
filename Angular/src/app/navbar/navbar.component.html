@@ -1,0 +1,15 @@
+<nav class="navbar navbar-expand-lg bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" routerLink="/" routerLinkActive="active">Home</a>
+        <div class="collapse navbar-collapse">
+            <ul ngbNav class="nav-tabs">
+                <li [ngbNavItem]="1">
+                  <a ngbNavLink routerLink="/login" routerLinkActive="active">Login</a>
+                </li>
+                <li [ngbNavItem]="2">
+                    <a ngbNavLink routerLink="/register" routerLinkActive="active">Register</a>
+                  </li>
+              </ul>
+        </div>
+    </div>
+</nav>

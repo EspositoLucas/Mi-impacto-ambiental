@@ -1,0 +1,13 @@
+<div class="m-3">
+    <div *ngIf="estaLogeado">
+        <p>Hola <b>{{ username }}</b></p>
+        <p>Navegá a una de las rutas para usar la app</p>
+    </div>
+    <div *ngIf="!estaLogeado">
+        <p>
+            Hace click
+            <a routerLink="/login">aca</a>
+            para logearte
+        </p>
+    </div>
+</div>
