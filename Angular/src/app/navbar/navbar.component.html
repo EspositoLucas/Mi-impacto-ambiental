@@ -2,14 +2,19 @@
     <div class="container-fluid">
         <a class="navbar-brand" routerLink="/" routerLinkActive="active">Home</a>
         <div class="collapse navbar-collapse">
-            <ul ngbNav class="nav-tabs">
-                <li [ngbNavItem]="1">
-                  <a ngbNavLink routerLink="/login" routerLinkActive="active">Login</a>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/register" routerLinkActive="active">Register</a>
                 </li>
-                <li [ngbNavItem]="2">
-                    <a ngbNavLink routerLink="/register" routerLinkActive="active">Register</a>
-                  </li>
-              </ul>
+            </ul>
+            <ul class="navbar-nav ms-auto">
+                <li *ngIf="!authService.isAuthenticated" class="nav-item">
+                    <a class="nav-link" routerLink="/login" routerLinkActive="active">Login</a>
+                </li>
+                <li *ngIf="authService.isAuthenticated" class="nav-item">
+                    <a class="nav-link" routerLink="/logout" routerLinkActive="active">Logout</a>
+                </li>
+            </ul>
         </div>
     </div>
 </nav>

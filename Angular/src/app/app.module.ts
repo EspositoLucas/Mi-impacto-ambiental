@@ -11,9 +11,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { httpInterceptorProviders } from './httpInterceptors';
 import { NavbarComponent } from './navbar/navbar.component';
 import { HomeComponent } from './home/home.component';
+import { LogoutComponent } from './logout/logout.component';
 
 @NgModule({
-    declarations: [AppComponent, LoginComponent, NavbarComponent, HomeComponent],
+    declarations: [AppComponent, LoginComponent, NavbarComponent, HomeComponent, LogoutComponent],
     imports: [
         BrowserModule,
         AppRoutingModule,
