@@ -12,7 +12,7 @@ export class AuthApiService extends ApiService {
     }
 
     login(request: LoginRequest): Observable<HttpResponse<LoginResponse>> {
-        return this.post<LoginResponse>('login', request);
+        return this.post<LoginResponse>('auth/login', request);
     }
 }
 

@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -25,14 +26,21 @@ export class LoginComponent implements OnInit {
     onSubmit() {
         this.authService
             .login(this.username?.value, this.password?.value)
-            .subscribe((response) => {
-                if (response.success) {
-                    this.router.navigate(['/']);
-                } else {
+            .subscribe({
+                next: (response) => {
+                    if (response.success) {
+                        this.router.navigate(['/']);
+                    } else {
+                        this.loginForm.setErrors({
+                            loginError: response.errorMessage,
+                        });
+                    }
+                },
+                error: (error: HttpErrorResponse) => {
                     this.loginForm.setErrors({
-                        loginError: response.errorMessage,
+                        loginError: error.error.message,
                     });
-                }
+                },
             });
     }
 
