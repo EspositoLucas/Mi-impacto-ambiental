@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { map, Observable, tap } from 'rxjs';
 import { AuthApiService } from './authapi.service';
-import { User } from './user.model';
+import { User } from '../models/user.model';
 
 @Injectable({
     providedIn: 'root',
