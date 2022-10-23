@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LoginComponent } from './login/login.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { httpInterceptorProviders } from './httpInterceptors';
@@ -19,6 +20,8 @@ import { LogoutComponent } from './logout/logout.component';
         BrowserModule,
         AppRoutingModule,
         NgbModule,
+        NgSelectModule,
+        FormsModule,
         ReactiveFormsModule,
         HttpClientModule,
     ],
