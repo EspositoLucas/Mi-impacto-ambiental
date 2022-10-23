@@ -1,9 +1,9 @@
 <div class="m-3">
-    <div *ngIf="estaLogeado">
+    <div *ngIf="isLoggedIn">
         <p>Hola <b>{{ username }}</b></p>
         <p>Navegá a una de las rutas para usar la app</p>
     </div>
-    <div *ngIf="!estaLogeado">
+    <div *ngIf="!isLoggedIn">
         <p>
             Hace click
             <a routerLink="/login">aca</a>

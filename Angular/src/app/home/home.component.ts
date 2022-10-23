@@ -8,10 +8,10 @@ import { AuthService } from '../auth/auth.service';
 })
 export class HomeComponent implements OnInit {
     username?: string;
-    estaLogeado: boolean;
+    isLoggedIn: boolean;
 
     constructor(private authService: AuthService) {
-        this.estaLogeado = authService.isAuthenticated;
+        this.isLoggedIn = authService.isAuthenticated;
         this.username = authService.loggedUser?.username;
     }
 
