@@ -85,6 +85,15 @@ public class OrganizacionService extends BaseService<Organizacion, OrganizacionR
     }
 
     @Transactional
+    public ResponseWithResults<IdTextPair> listarTiposDeOrganizacion() {
+        List<IdTextPair> tiposDeOrganizacion = Arrays.stream(TipoOrganizacion.values()).map(tipo -> {
+            int index = tipo.ordinal();
+            return new IdTextPair(index + 1, tipo.toString());
+        }).collect(Collectors.toList());
+        return new ResponseWithResults<>(HttpStatus.OK, tiposDeOrganizacion);
+    }
+
+    @Transactional
     public ResponseWithResults<MiembroDto> listarMiembros(long idOrganizacion) {
         Organizacion organizacion = this.getById(idOrganizacion);
         List<MiembroDto> miembrosDtos = organizacion.getMiembros().stream()

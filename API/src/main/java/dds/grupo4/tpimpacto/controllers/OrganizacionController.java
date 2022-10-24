@@ -31,6 +31,11 @@ public class OrganizacionController {
         return ResponseEntityUtils.toResponseEntity(organizacionService.listarOrganizaciones());
     }
 
+    @GetMapping("/tipos")
+    public ResponseEntity<ResponseWithResults<IdTextPair>> listarTiposDeOrganizacion() {
+        return ResponseEntityUtils.toResponseEntity(organizacionService.listarTiposDeOrganizacion());
+    }
+
     @PostMapping("/aceptar-solicitud")
     public ResponseEntity<BaseResponse> aceptarSolicitud(@RequestBody AceptarSolicitudRequest request) {
         return ResponseEntityUtils.toResponseEntity(organizacionService.aceptarSolicitud(request));

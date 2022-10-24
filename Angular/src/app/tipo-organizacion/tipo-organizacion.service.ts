@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { ApiService } from '../api/api.service';
+import { map, Observable } from 'rxjs';
+import { ApiService, ResponseWithResults } from '../api/api.service';
 import { IdTextPair } from '../models/idtextpair.model';
 
 @Injectable({
@@ -13,17 +13,11 @@ export class TipoOrganizacionService extends ApiService {
     }
 
     getTiposOrganizacion(): Observable<IdTextPair[]> {
-        // TODO: implementacion usando la API
-        const mockData = [
-            {
-                id: 1,
-                text: 'Text: 1',
-            },
-            {
-                id: 2,
-                text: 'Text: 2',
-            },
-        ];
-        return of(mockData);
+        return this.get<GetTiposDeOrganizacionResponse>(
+            'organizacion/tipos'
+        ).pipe(map((httpResponse) => httpResponse.body!.results));
     }
 }
+
+export interface GetTiposDeOrganizacionResponse
+    extends ResponseWithResults<IdTextPair> {}
