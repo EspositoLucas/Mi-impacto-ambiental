@@ -13,9 +13,21 @@ import { httpInterceptorProviders } from './httpInterceptors';
 import { NavbarComponent } from './navbar/navbar.component';
 import { HomeComponent } from './home/home.component';
 import { LogoutComponent } from './logout/logout.component';
+import { CrearOrganizacionComponent } from './organizacion/crear-organizacion/crear-organizacion.component';
+import { TipoOrganizacionSelectComponent } from './selects/tipo-organizacion-select/tipo-organizacion-select.component';
+import { BaseSelectComponent } from './selects/base-select/base-select.component';
 
 @NgModule({
-    declarations: [AppComponent, LoginComponent, NavbarComponent, HomeComponent, LogoutComponent],
+    declarations: [
+        AppComponent,
+        LoginComponent,
+        NavbarComponent,
+        HomeComponent,
+        LogoutComponent,
+        CrearOrganizacionComponent,
+        TipoOrganizacionSelectComponent,
+        BaseSelectComponent,
+    ],
     imports: [
         BrowserModule,
         AppRoutingModule,

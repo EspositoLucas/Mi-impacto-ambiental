@@ -1,0 +1,8 @@
+<!-- (change)="onChange($event)" -->
+<ng-select
+    [items]="items$ | async"
+    bindLabel="text"
+    [ngModel]="selected"
+    (ngModelChange)="onNgModelChange($event)"
+>
+</ng-select>

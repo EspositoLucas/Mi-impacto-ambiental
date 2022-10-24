@@ -1,0 +1,34 @@
+<div class="m-3">
+    <!-- [formGroup]="crearOrganizacionForm" -->
+    <form (ngSubmit)="onSubmit()" class="mb-3">
+        <div class="row">
+            <div class="col">
+                <label for="razonSocial" class="form-label"
+                    >Razon social:
+                </label>
+                <!-- formControlName="razonSocial" -->
+                <input
+                    type="text"
+                    id="razonSocial"
+                    class="form-control"
+                    required
+                    [(ngModel)]="organizacion.razonSocial"
+                    name="razonSocial"
+                />
+            </div>
+
+            <div class="col">
+                <label for="tipoOrganizacion" class="form-label"
+                    >Tipo organizacion:
+                </label>
+                <app-tipo-organizacion-select
+                    [(selected)]="organizacion.tipoOrganizacion"
+                    id="tipoOrganizacion"
+                ></app-tipo-organizacion-select>
+            </div>
+        </div>
+
+        <!-- [disabled]="!crearOrganizacionForm.valid" -->
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
