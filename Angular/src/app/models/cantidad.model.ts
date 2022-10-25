@@ -1,5 +1,5 @@
 import { Base } from './base.model';
-import { IdTextPair, newIdTextPair } from './idtextpair.model';
+import { IdTextPair } from './idtextpair.model';
 import { newUnidad, Unidad } from './unidad.model';
 
 export interface Cantidad extends Base {
@@ -10,6 +10,7 @@ export interface Cantidad extends Base {
 export interface CantidadComoIdTextPair extends Base {
     unidad: IdTextPair | null;
     valor: number;
+    text?: string;
 }
 
 export const newCantidad = (valores?: {
@@ -29,9 +30,15 @@ export const newCantidadComoIdTextPair = (valores?: {
     unidad?: IdTextPair;
     valor?: number;
 }): CantidadComoIdTextPair => {
-    return {
+    const cantidad = {
         id: valores?.id ?? null,
         unidad: valores?.unidad ?? null,
         valor: valores?.valor ?? 0,
     };
+    cantidadFormatTextMessage(cantidad);
+    return cantidad;
 };
+
+export function cantidadFormatTextMessage(cantidad: CantidadComoIdTextPair) {
+    cantidad.text = `${cantidad.valor} ${cantidad.unidad?.text}`;
+}

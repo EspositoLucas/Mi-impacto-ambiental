@@ -17,6 +17,7 @@ import { CrearOrganizacionComponent } from './organizacion/crear-organizacion/cr
 import { TipoOrganizacionSelectComponent } from './selects/tipo-organizacion-select/tipo-organizacion-select.component';
 import { BaseSelectComponent } from './selects/base-select/base-select.component';
 import { UnidadSelectComponent } from './selects/unidad-select/unidad-select.component';
+import { IndexOrganizacionComponent } from './organizacion/index-organizacion/index-organizacion.component';
 
 @NgModule({
     declarations: [
@@ -29,6 +30,7 @@ import { UnidadSelectComponent } from './selects/unidad-select/unidad-select.com
         TipoOrganizacionSelectComponent,
         BaseSelectComponent,
         UnidadSelectComponent,
+        IndexOrganizacionComponent,
     ],
     imports: [
         BrowserModule,
