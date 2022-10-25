@@ -7,13 +7,21 @@
   </div>
   
 <div class="container">
-  <h2>Cargar recomendacion</h2>
+  <h2>Enviar recomendacion</h2>
   <form action="">
     <div class="form-group">
-      <label for="email">Ingrese recomendacion:</label>
-      <input type="string" class="form-control" id="recomendacion" name="recomendacion" required>
+      <label for="email">Ingrese mail de contacto:</label>
+      <input type="string" class="form-control" id="mail" name="mail" required>
     </div>
-    <button type="submit" class="btn btn-primary">Cargar medicion</button>
+    <div class="form-group">
+      <label for="email">Ingrese telefono de contacto:</label>
+      <input type="string" class="form-control" id="telefono" name="telefono" required>
+    </div>
+    <div class="form-group">
+      <label for="email">Seleccione recomendacion:</label>
+      <input type="file" class="form-control" id="recomendacion" name="recomendacion" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Enviar recomendacion</button>
   </form>
 </div>
 </template>

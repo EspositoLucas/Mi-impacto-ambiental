@@ -11,7 +11,9 @@
   <form action="">
     <div class="form-group">
       <label for="email">Ingrese Id de la organizacion:</label>
-      <input type="number" class="form-control" id="idOrganizaion" placeholder="1234" name="idOrganizaion" required>
+      <select type="number" class="form-control" id="idOrganizaion" placeholder="1234" name="idOrganizaion" required>
+        <option value="0000">0000</option>
+        </select>
     </div>
     <button type="submit" class="btn btn-primary">Cargar medicion</button>
   </form>

@@ -7,7 +7,7 @@
   </div>
 </div>
 <div class="container">
-    <h2>Enviar recomendacion</h2>
+    <h2>Trayectos</h2>
      <form action="">
         <div class="form-group">
           <label for="email">Lugar inicio:</label>

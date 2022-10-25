@@ -1,4 +1,7 @@
-<script lang="ts">import { RouterLink, RouterView } from 'vue-router'</script>
+<script lang="ts">import { RouterLink, RouterView } from 'vue-router'
+</script>
+
+
 <template>
 
  <div class="jumbotron">
@@ -6,6 +9,9 @@
     <h1>Impacto ambiental - DDS</h1>
     <RouterLink to="/">Inicio</RouterLink>
   </div>
+ <div class="container text-right">
+  <RouterLink to="/iniciar_sesion">iniciar sesion</RouterLink>
+ </div>
 </div>
  <div class="container" style="margin-top: 10px;">    
   <div class="row">
@@ -35,7 +41,7 @@
     <div class="col-sm-4">
       <div class="panel panel-primary">
         <RouterLink to="/trayectos">Trayectos</RouterLink>
-        <div class="panel-body"><a href="/calculadoraHC.html"><img src="https://i0.wp.com/nte.mx/wp-content/uploads/2021/11/B64-IMG-2hJ15yc9zE-7b76BGdKjT.png?w=1200&ssl=1" class="img-responsive" style="width:100%" alt="Image"></a></div>
+        <div class="panel-body"><img src="https://i0.wp.com/nte.mx/wp-content/uploads/2021/11/B64-IMG-2hJ15yc9zE-7b76BGdKjT.png?w=1200&ssl=1" class="img-responsive" style="width:100%" alt="Image"></div>
       </div>
     </div>
     <div class="col-sm-4"> 
