@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Organizacion } from 'src/app/models/organizacion.model';
+import {
+    newOrganizacion,
+    Organizacion,
+} from 'src/app/models/organizacion.model';
 
 @Component({
     selector: 'app-crear-organizacion',
@@ -7,9 +10,11 @@ import { Organizacion } from 'src/app/models/organizacion.model';
     styleUrls: ['./crear-organizacion.component.css'],
 })
 export class CrearOrganizacionComponent implements OnInit {
-    organizacion: Organizacion = {} as Organizacion;
+    organizacion: Organizacion;
 
-    constructor() {}
+    constructor() {
+        this.organizacion = newOrganizacion();
+    }
 
     ngOnInit(): void {}
 
