@@ -15,6 +15,7 @@ export class OrganizacionService extends BaseService<Organizacion> {
     }
 
     override getAll(): Observable<Organizacion[]> {
+        console.log('Buscando Organizaciones a la API...');
         return of([
             newOrganizacion({
                 id: 1,
