@@ -11,7 +11,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let organizacion of organizaciones$ | async">
+            <tr *ngFor="let organizacion of results$ | async">
                 <td>{{ organizacion.razonSocial }}</td>
                 <td>{{ organizacion.tipoOrganizacion!.text }}</td>
                 <td>{{ organizacion.clasificacion!.text }}</td>
@@ -27,7 +27,7 @@
                     </button>
                     <button
                         type="button"
-                        (click)="deleteOrganizacion(organizacion.id!)"
+                        (click)="onDelete(organizacion)"
                         class="btn btn-danger"
                     >
                         Eliminar

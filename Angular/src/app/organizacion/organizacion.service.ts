@@ -52,4 +52,8 @@ export class OrganizacionService extends BaseService<Organizacion> {
             )
         );
     }
+
+    override delete(id: number): Observable<void> {
+        return of(undefined);
+    }
 }

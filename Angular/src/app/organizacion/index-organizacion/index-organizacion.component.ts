@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, startWith, Subject, switchMap, tap } from 'rxjs';
+import { tap } from 'rxjs';
 import { cantidadFormatTextMessage } from 'src/app/models/cantidad.model';
 import { Organizacion } from 'src/app/models/organizacion.model';
 import { BaseIndexComponent } from 'src/app/templates/base-index/base-index.component';
@@ -12,23 +12,16 @@ import { OrganizacionService } from '../organizacion.service';
     styleUrls: ['./index-organizacion.component.css'],
 })
 export class IndexOrganizacionComponent
-    extends BaseIndexComponent
+    extends BaseIndexComponent<Organizacion>
     implements OnInit
 {
-    organizacionesSubject$ = new Subject<void>();
-    organizaciones$!: Observable<Organizacion[]>;
-
-    constructor(
-        private organizacionService: OrganizacionService,
-        router: Router
-    ) {
-        super(router, 'organizacion');
+    constructor(router: Router, service: OrganizacionService) {
+        super(router, 'organizacion', service);
     }
 
     ngOnInit(): void {
-        this.organizaciones$ = this.organizacionesSubject$.asObservable().pipe(
-            startWith(null),
-            switchMap(() => this.organizacionService.getAll()),
+        super.onInit();
+        this.results$ = this.results$.pipe(
             tap((organizaciones) => {
                 organizaciones.forEach((organizacion) =>
                     cantidadFormatTextMessage(organizacion.factorK)
@@ -37,8 +30,8 @@ export class IndexOrganizacionComponent
         );
     }
 
-    deleteOrganizacion(id: number) {
-        console.log(`Borrando organizacion ${id}`);
-        this.organizacionesSubject$.next();
+    onDelete(organizacion: Organizacion) {
+        const message = `"Organizacion ${organizacion.razonSocial}"`;
+        super.deleteEntidad(organizacion, message);
     }
 }
