@@ -36,7 +36,7 @@ export class IndexOrganizacionComponent
 
     private fetchData() {
         this.organizaciones$ = this.organizacionService
-            .getAllOrganizaciones()
+            .getAll()
             .pipe(
                 tap((organizaciones) =>
                     organizaciones.forEach((organizacion) =>

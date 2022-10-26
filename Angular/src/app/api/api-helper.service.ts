@@ -6,10 +6,10 @@ import { Observable } from 'rxjs';
 @Injectable({
     providedIn: 'root',
 })
-export abstract class ApiService {
+export class ApiHelperService {
     constructor(protected httpClient: HttpClient) {}
 
-    protected post<TResponse extends BaseResponse>(
+    post<TResponse extends BaseResponse>(
         url: string,
         body: any,
         headers?: HttpHeaders
@@ -22,7 +22,7 @@ export abstract class ApiService {
         return this.httpClient.post<TResponse>(apiUrl, body, options);
     }
 
-    protected get<TResponse extends BaseResponse>(
+    get<TResponse extends BaseResponse>(
         url: string,
         headers?: HttpHeaders
     ): Observable<HttpResponse<TResponse>> {
@@ -32,6 +32,31 @@ export abstract class ApiService {
             observe: 'response';
         } = { headers, observe: 'response' };
         return this.httpClient.get<TResponse>(apiUrl, options);
+    }
+
+    put<TResponse extends BaseResponse>(
+        url: string,
+        body: any,
+        headers?: HttpHeaders
+    ): Observable<HttpResponse<TResponse>> {
+        const apiUrl = this.getUrl(url);
+        const options: {
+            headers?: HttpHeaders;
+            observe: 'response';
+        } = { headers, observe: 'response' };
+        return this.httpClient.put<TResponse>(apiUrl, body, options);
+    }
+
+    delete<TResponse extends BaseResponse>(
+        url: string,
+        headers?: HttpHeaders
+    ): Observable<HttpResponse<TResponse>> {
+        const apiUrl = this.getUrl(url);
+        const options: {
+            headers?: HttpHeaders;
+            observe: 'response';
+        } = { headers, observe: 'response' };
+        return this.httpClient.delete<TResponse>(apiUrl, options);
     }
 
     private getUrl(url: string): string {
@@ -45,4 +70,8 @@ export interface BaseResponse {
 
 export interface ResponseWithResults<TResult> extends BaseResponse {
     results: TResult[];
+}
+
+export interface ResponseWithSingleResult<TResult> extends BaseResponse {
+    result: TResult;
 }

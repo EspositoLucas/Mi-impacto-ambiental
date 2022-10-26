@@ -1,23 +1,20 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable, of } from 'rxjs';
-import { ApiService, ResponseWithResults } from '../api/api.service';
+import { ApiHelperService } from '../api/api-helper.service';
+import { BaseService } from '../base/base.service';
 import { newCantidadComoIdTextPair } from '../models/cantidad.model';
-import { IdTextPair, newIdTextPair } from '../models/idtextpair.model';
+import { newIdTextPair } from '../models/idtextpair.model';
 import { newOrganizacion, Organizacion } from '../models/organizacion.model';
 
 @Injectable({
     providedIn: 'root',
 })
-export class OrganizacionService extends ApiService {
-    constructor(httpClient: HttpClient) {
-        super(httpClient);
+export class OrganizacionService extends BaseService<Organizacion> {
+    constructor(apiHelperService: ApiHelperService) {
+        super(apiHelperService, 'organizacion');
     }
 
-    getAllOrganizaciones(): Observable<Organizacion[]> {
-        // return this.get<GetTiposDeOrganizacionResponse>(
-        //     'organizacion/tipos'
-        // ).pipe(map((httpResponse) => httpResponse.body!.results));
+    override getAll(): Observable<Organizacion[]> {
         return of([
             newOrganizacion({
                 id: 1,
@@ -44,11 +41,8 @@ export class OrganizacionService extends ApiService {
         ]);
     }
 
-    getOrganizacionById(id: number): Observable<Organizacion> {
-        // return this.get<GetTiposDeOrganizacionResponse>(
-        //     'organizacion/tipos'
-        // ).pipe(map((httpResponse) => httpResponse.body!.results));
-        return this.getAllOrganizaciones().pipe(
+    override getById(id: number): Observable<Organizacion> {
+        return this.getAll().pipe(
             map(
                 (organizaciones) =>
                     organizaciones.find(
@@ -58,6 +52,3 @@ export class OrganizacionService extends ApiService {
         );
     }
 }
-
-export interface GetTiposDeOrganizacionResponse
-    extends ResponseWithResults<IdTextPair> {}

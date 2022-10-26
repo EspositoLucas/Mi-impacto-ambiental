@@ -15,7 +15,7 @@ export class UnidadSelectComponent
 {
     constructor(private unidadService: UnidadService) {
         super(
-            unidadService.getUnidades().pipe(
+            unidadService.getAll().pipe(
                 map((results) =>
                     results.map((unidad) =>
                         newIdTextPair({

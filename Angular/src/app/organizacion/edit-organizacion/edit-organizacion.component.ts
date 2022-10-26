@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { switchMap } from 'rxjs';
 import { Organizacion } from 'src/app/models/organizacion.model';
+import { BaseEditComponent } from 'src/app/templates/base-edit/base-edit.component';
 import { OrganizacionService } from '../organizacion.service';
 
 @Component({
@@ -9,27 +9,25 @@ import { OrganizacionService } from '../organizacion.service';
     templateUrl: '../organizacion-details.html',
     styleUrls: ['./edit-organizacion.component.css'],
 })
-export class EditOrganizacionComponent implements OnInit {
+export class EditOrganizacionComponent
+    extends BaseEditComponent<Organizacion>
+    implements OnInit
+{
     organizacion!: Organizacion;
 
-    constructor(
-        private route: ActivatedRoute,
-        private organizacionService: OrganizacionService
-    ) {}
-
-    ngOnInit(): void {
-        this.route.paramMap
-            .pipe(
-                switchMap((params) =>
-                    this.organizacionService.getOrganizacionById(
-                        Number(params.get('id'))
-                    )
-                )
-            )
-            .subscribe((organizacion) => (this.organizacion = organizacion));
+    constructor(route: ActivatedRoute, service: OrganizacionService) {
+        super(route, service);
     }
 
-    onSubmit() {
-        console.log(this.organizacion);
+    ngOnInit(): void {
+        this.loadEntity();
+    }
+
+    get entity(): Organizacion {
+        return this.organizacion;
+    }
+
+    set entity(organizacion: Organizacion) {
+        this.organizacion = organizacion;
     }
 }

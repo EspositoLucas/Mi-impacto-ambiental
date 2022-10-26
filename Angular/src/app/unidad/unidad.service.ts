@@ -1,27 +1,21 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { ApiService, ResponseWithResults } from '../api/api.service';
-import { IdTextPair } from '../models/idtextpair.model';
+import { ApiHelperService } from '../api/api-helper.service';
+import { BaseService } from '../base/base.service';
 import { newUnidad, Unidad } from '../models/unidad.model';
 
 @Injectable({
     providedIn: 'root',
 })
-export class UnidadService extends ApiService {
-    constructor(httpClient: HttpClient) {
-        super(httpClient);
+export class UnidadService extends BaseService<Unidad> {
+    constructor(apiHelperService: ApiHelperService) {
+        super(apiHelperService, 'unidad');
     }
 
-    getUnidades(): Observable<Unidad[]> {
-        // return this.get<GetUnidadesResponse>(
-        //     'unidad'
-        // ).pipe(map((httpResponse) => httpResponse.body!.results));
+    override getAll(): Observable<Unidad[]> {
         return of([
             newUnidad({ id: 1, simbolo: 'KG' }),
             newUnidad({ id: 2, simbolo: 'G' }),
         ]);
     }
 }
-
-export interface GetUnidadesResponse extends ResponseWithResults<IdTextPair> {}

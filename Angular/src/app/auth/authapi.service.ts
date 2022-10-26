@@ -1,18 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
-import { ApiService, BaseResponse } from '../api/api.service';
+import { ApiHelperService, BaseResponse } from '../api/api-helper.service';
 import { Observable } from 'rxjs';
 
 @Injectable({
     providedIn: 'root',
 })
-export class AuthApiService extends ApiService {
-    constructor(httpClient: HttpClient) {
-        super(httpClient);
-    }
+export class AuthApiService {
+    constructor(private apiHelperService: ApiHelperService) {}
 
     login(request: LoginRequest): Observable<HttpResponse<LoginResponse>> {
-        return this.post<LoginResponse>('auth/login', request);
+        return this.apiHelperService.post<LoginResponse>('auth/login', request);
     }
 }
 
