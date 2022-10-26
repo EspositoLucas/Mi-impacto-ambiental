@@ -19,7 +19,7 @@ export class UnidadSelectComponent
                 map((results) =>
                     results.map((unidad) =>
                         newIdTextPair({
-                            id: unidad.id!,
+                            id: unidad.id,
                             text: unidad.simbolo,
                         })
                     )

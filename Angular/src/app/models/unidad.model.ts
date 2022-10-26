@@ -14,7 +14,7 @@ export const newUnidad = (valores?: {
     tipoUnidad?: string;
 }): Unidad => {
     const unidad = {
-        id: valores?.id ?? null,
+        id: valores?.id ?? 0,
         nombre: valores?.nombre ?? '',
         simbolo: valores?.simbolo ?? '',
         tipoUnidad: valores?.tipoUnidad ?? '',

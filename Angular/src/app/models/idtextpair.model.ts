@@ -1,5 +1,6 @@
-export interface IdTextPair {
-    id: number;
+import { Base } from './base.model';
+
+export interface IdTextPair extends Base {
     text: string;
 }
 

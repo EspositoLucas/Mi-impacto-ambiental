@@ -1,11 +1,11 @@
+import { Base } from './base.model';
 import {
     CantidadComoIdTextPair,
     newCantidadComoIdTextPair,
 } from './cantidad.model';
 import { IdTextPair } from './idtextpair.model';
 
-export interface Organizacion {
-    id: number | null;
+export interface Organizacion extends Base {
     razonSocial: string;
     tipoOrganizacion: IdTextPair | null;
     clasificacion: IdTextPair | null;
@@ -22,7 +22,7 @@ export const newOrganizacion = (valores?: {
     factorK?: CantidadComoIdTextPair;
 }): Organizacion => {
     return {
-        id: valores?.id ?? null,
+        id: valores?.id ?? 0,
         razonSocial: valores?.razonSocial ?? '',
         tipoOrganizacion: valores?.tipoOrganizacion ?? null,
         clasificacion: valores?.clasificacion ?? null,

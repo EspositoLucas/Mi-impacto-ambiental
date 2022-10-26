@@ -31,7 +31,7 @@ export abstract class BaseIndexComponent<T extends Base> {
         if (eliminar) {
             console.log(`Borrando ${message} (ID ${entity.id})`);
             this.service
-                .delete(entity.id!)
+                .delete(entity.id)
                 .subscribe(() => this.resultsSubject$.next());
         }
     }

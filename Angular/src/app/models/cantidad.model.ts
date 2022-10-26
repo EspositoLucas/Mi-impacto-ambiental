@@ -19,7 +19,7 @@ export const newCantidad = (valores?: {
     valor?: number;
 }): Cantidad => {
     return {
-        id: valores?.id ?? null,
+        id: valores?.id ?? 0,
         unidad: valores?.unidad ?? newUnidad(),
         valor: valores?.valor ?? 0,
     };
@@ -31,7 +31,7 @@ export const newCantidadComoIdTextPair = (valores?: {
     valor?: number;
 }): CantidadComoIdTextPair => {
     const cantidad = {
-        id: valores?.id ?? null,
+        id: valores?.id ?? 0,
         unidad: valores?.unidad ?? null,
         valor: valores?.valor ?? 0,
     };
