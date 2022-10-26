@@ -18,6 +18,8 @@ import { TipoOrganizacionSelectComponent } from './selects/tipo-organizacion-sel
 import { BaseSelectComponent } from './selects/base-select/base-select.component';
 import { UnidadSelectComponent } from './selects/unidad-select/unidad-select.component';
 import { IndexOrganizacionComponent } from './organizacion/index-organizacion/index-organizacion.component';
+import { IndexTemplateComponent } from './templates/index-template/index-template.component';
+import { EditOrganizacionComponent } from './organizacion/edit-organizacion/edit-organizacion.component';
 
 @NgModule({
     declarations: [
@@ -31,6 +33,8 @@ import { IndexOrganizacionComponent } from './organizacion/index-organizacion/in
         BaseSelectComponent,
         UnidadSelectComponent,
         IndexOrganizacionComponent,
+        IndexTemplateComponent,
+        EditOrganizacionComponent,
     ],
     imports: [
         BrowserModule,

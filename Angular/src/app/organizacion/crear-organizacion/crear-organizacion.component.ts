@@ -6,7 +6,7 @@ import {
 
 @Component({
     selector: 'app-crear-organizacion',
-    templateUrl: './crear-organizacion.component.html',
+    templateUrl: '../organizacion-details.html',
     styleUrls: ['./crear-organizacion.component.css'],
 })
 export class CrearOrganizacionComponent implements OnInit {

@@ -1,7 +1,4 @@
-<div class="m-3">
-    <button type="button" (click)="crearOrganizacion()" class="btn btn-primary">
-        Crear
-    </button>
+<app-index-template entity="organizacion">
     <table class="table">
         <thead>
             <tr>
@@ -23,7 +20,7 @@
                 <td>
                     <button
                         type="button"
-                        (click)="editOrganizacion(organizacion.id!)"
+                        (click)="editEntidad(organizacion.id!)"
                         class="btn btn-info"
                     >
                         Editar
@@ -39,4 +36,4 @@
             </tr>
         </tbody>
     </table>
-</div>
+</app-index-template>

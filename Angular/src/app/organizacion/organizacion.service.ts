@@ -43,6 +43,20 @@ export class OrganizacionService extends ApiService {
             }),
         ]);
     }
+
+    getOrganizacionById(id: number): Observable<Organizacion> {
+        // return this.get<GetTiposDeOrganizacionResponse>(
+        //     'organizacion/tipos'
+        // ).pipe(map((httpResponse) => httpResponse.body!.results));
+        return this.getAllOrganizaciones().pipe(
+            map(
+                (organizaciones) =>
+                    organizaciones.find(
+                        (organizacion) => organizacion.id === id
+                    )!
+            )
+        );
+    }
 }
 
 export interface GetTiposDeOrganizacionResponse

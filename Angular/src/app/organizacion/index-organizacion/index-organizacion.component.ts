@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { map, Observable, tap } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { cantidadFormatTextMessage } from 'src/app/models/cantidad.model';
 import { Organizacion } from 'src/app/models/organizacion.model';
+import { BaseIndexComponent } from 'src/app/templates/base-index/base-index.component';
 import { OrganizacionService } from '../organizacion.service';
 
 @Component({
@@ -10,25 +11,22 @@ import { OrganizacionService } from '../organizacion.service';
     templateUrl: './index-organizacion.component.html',
     styleUrls: ['./index-organizacion.component.css'],
 })
-export class IndexOrganizacionComponent implements OnInit {
+export class IndexOrganizacionComponent
+    extends BaseIndexComponent
+    implements OnInit
+{
     organizaciones$!: Observable<Organizacion[]>;
     organizaciones!: Organizacion[];
 
     constructor(
         private organizacionService: OrganizacionService,
-        private router: Router
+        router: Router
     ) {
+        super(router, 'organizacion');
+    }
+
+    ngOnInit(): void {
         this.fetchData();
-    }
-
-    ngOnInit(): void {}
-
-    crearOrganizacion() {
-        this.router.navigate(['/organizacion/crear']);
-    }
-
-    editOrganizacion(id: number) {
-        this.router.navigate(['/organizacion/edit', { id }]);
     }
 
     deleteOrganizacion(id: number) {
