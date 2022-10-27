@@ -155,18 +155,25 @@ public class GeoService {
     }
 
     private List<LocalidadDto> getAllLocalidadesDesdeApi(int municipioId) {
-        try {
-            List<LocalidadDto> localidades = new ArrayList<>();
-            int offset = 1;
-            while (true) {
-                List<LocalidadDto> localidadesEnOffset = getLocalidades(offset, municipioId);
-                if (localidadesEnOffset.isEmpty())
-                    return localidades;
-                localidades.addAll(localidadesEnOffset);
-                offset++;
+        List<LocalidadDto> localidades = new ArrayList<>();
+        int offset = 1;
+        while (true) {
+            List<LocalidadDto> localidadesEnOffset = new ArrayList<>();
+
+            boolean localidadesCargadas = false;
+            while (!localidadesCargadas) {
+                try {
+                    localidadesEnOffset = getLocalidades(offset, municipioId);
+                    localidadesCargadas = true;
+                } catch (Exception e) {
+                    log.error("Error al cargar localidades del municipio " + municipioId + "(offset=" + offset + ")", e);
+                }
             }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+
+            if (localidadesEnOffset.isEmpty())
+                return localidades;
+            localidades.addAll(localidadesEnOffset);
+            offset++;
         }
     }
 
