@@ -32,14 +32,15 @@ public abstract class BaseServiceForHttp<TEntity extends BaseEntity, TRepo exten
     }
 
     @Transactional
-    public ResponseWithSingleResult<TEntity> saveFromDto(TDto dto) {
+    public ResponseWithSingleResult<TDto> saveFromDto(TDto dto) {
         TEntity entity = createEntity();
         updateEntityFieldsFromDto(entity, dto);
-        return new ResponseWithSingleResult<>(HttpStatus.CREATED, this.save(entity));
+        TEntity savedEntity = this.save(entity);
+        return new ResponseWithSingleResult<>(HttpStatus.CREATED, createDtoFromEntity(savedEntity));
     }
 
     @Transactional
-    public ResponseWithSingleResult<TEntity> editFromDto(long id, TDto dto) {
+    public ResponseWithSingleResult<TDto> editFromDto(long id, TDto dto) {
         if (id != dto.getId()) {
             return new ResponseWithSingleResult<>(
                     HttpStatus.BAD_REQUEST,
@@ -49,7 +50,7 @@ public abstract class BaseServiceForHttp<TEntity extends BaseEntity, TRepo exten
 
         TEntity entity = getById(dto.getId());
         updateEntityFieldsFromDto(entity, dto);
-        return new ResponseWithSingleResult<>(HttpStatus.OK, entity);
+        return new ResponseWithSingleResult<>(HttpStatus.OK, createDtoFromEntity(entity));
     }
 
     @Transactional

@@ -20,7 +20,7 @@ public class Sector extends BaseEntity {
 
     private String nombre;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "organizacion", nullable = false, foreignKey = @ForeignKey(name = "FK_Sectores_Organizacion"))
     private Organizacion organizacion;
 
@@ -37,7 +37,7 @@ public class Sector extends BaseEntity {
     )
     private Espacio espacio;
 
-    @OneToMany(mappedBy = "sector")
+    @OneToMany(mappedBy = "sector", cascade = CascadeType.ALL)
     private List<Miembro> miembros = new ArrayList<>();
 
     @OneToMany(mappedBy = "sector", cascade = CascadeType.ALL, orphanRemoval = true)
