@@ -4,6 +4,7 @@ import dds.grupo4.tpimpacto.entities.medicion.Actividad;
 import dds.grupo4.tpimpacto.entities.medicion.FactorDeEmision;
 import dds.grupo4.tpimpacto.entities.medicion.TipoConsumo;
 import dds.grupo4.tpimpacto.repositories.TipoConsumoRepository;
+import dds.grupo4.tpimpacto.services.base.BaseService;
 import dds.grupo4.tpimpacto.units.Cantidad;
 import dds.grupo4.tpimpacto.units.Unidad;
 import lombok.extern.slf4j.Slf4j;

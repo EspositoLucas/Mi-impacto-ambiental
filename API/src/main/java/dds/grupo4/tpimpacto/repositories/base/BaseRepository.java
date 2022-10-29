@@ -1,4 +1,4 @@
-package dds.grupo4.tpimpacto.repositories;
+package dds.grupo4.tpimpacto.repositories.base;
 
 import dds.grupo4.tpimpacto.entities.BaseEntity;
 import org.hibernate.metamodel.internal.MetamodelImpl;

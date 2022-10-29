@@ -1,5 +1,6 @@
 package dds.grupo4.tpimpacto.repositories;
 
+import dds.grupo4.tpimpacto.repositories.base.BaseRepository;
 import dds.grupo4.tpimpacto.units.Unidad;
 import org.springframework.stereotype.Repository;
 

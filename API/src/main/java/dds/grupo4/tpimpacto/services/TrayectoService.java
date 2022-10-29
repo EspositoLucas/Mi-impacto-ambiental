@@ -14,6 +14,7 @@ import dds.grupo4.tpimpacto.repositories.LugarRepository;
 import dds.grupo4.tpimpacto.repositories.MedioDeTransporteRepository;
 import dds.grupo4.tpimpacto.repositories.MiembroRepository;
 import dds.grupo4.tpimpacto.repositories.TrayectoRepository;
+import dds.grupo4.tpimpacto.services.base.BaseService;
 import dds.grupo4.tpimpacto.services.calculodistancias.CalculadoraDistancias;
 import dds.grupo4.tpimpacto.services.calculohc.CalculadoraHC;
 import dds.grupo4.tpimpacto.units.Cantidad;

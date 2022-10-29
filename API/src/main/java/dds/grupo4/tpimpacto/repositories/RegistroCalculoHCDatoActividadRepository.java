@@ -2,6 +2,7 @@ package dds.grupo4.tpimpacto.repositories;
 
 import dds.grupo4.tpimpacto.entities.medicion.Periodicidad;
 import dds.grupo4.tpimpacto.entities.medicion.RegistroCalculoHCDatoActividad;
+import dds.grupo4.tpimpacto.repositories.base.BaseRepository;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;

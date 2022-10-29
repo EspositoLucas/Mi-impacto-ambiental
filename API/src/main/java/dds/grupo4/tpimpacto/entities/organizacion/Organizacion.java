@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Getter
 @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 public class Organizacion extends BaseEntity {
 
     private String razonSocial;

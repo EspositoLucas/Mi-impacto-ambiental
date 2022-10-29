@@ -25,30 +25,30 @@ public class OrganizacionController {
 
     @GetMapping
     public ResponseEntity<ResponseWithResults<OrganizacionDto>> listarOrganizaciones() {
-        return ResponseEntityUtils.toResponseEntity(organizacionService.listarOrganizaciones());
+        return ResponseEntityUtils.toResponseEntity(organizacionService.getAllDtos());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<ResponseWithSingleResult<OrganizacionDto>> getOrganizacion(@PathVariable long id) {
-        return ResponseEntityUtils.toResponseEntity(organizacionService.getOrganizacion(id));
+        return ResponseEntityUtils.toResponseEntity(organizacionService.getDtoById(id));
     }
 
     @RequireAdminRole
     @PostMapping
     public ResponseEntity<BaseResponse> crearOrganizacion(@RequestBody OrganizacionDto request) {
-        return ResponseEntityUtils.toResponseEntity(organizacionService.crearOrganizacion(request));
+        return ResponseEntityUtils.toResponseEntity(organizacionService.saveFromDto(request));
     }
 
     @RequireAdminRole
     @PutMapping("/{id}")
     public ResponseEntity<BaseResponse> editarOrganizacion(@PathVariable long id, @RequestBody OrganizacionDto request) {
-        return ResponseEntityUtils.toResponseEntity(organizacionService.editarOrganizacion(id, request));
+        return ResponseEntityUtils.toResponseEntity(organizacionService.editFromDto(id, request));
     }
 
     @RequireAdminRole
     @DeleteMapping("/{id}")
     public ResponseEntity<BaseResponse> deleteOrganizacion(@PathVariable long id) {
-        return ResponseEntityUtils.toResponseEntity(organizacionService.deleteOrganizacion(id));
+        return ResponseEntityUtils.toResponseEntity(organizacionService.deleteEntity(id));
     }
 
     @GetMapping("/tipos")

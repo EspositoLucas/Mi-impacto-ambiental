@@ -1,6 +1,7 @@
 package dds.grupo4.tpimpacto.services;
 
 import dds.grupo4.tpimpacto.repositories.TipoUnidadRepository;
+import dds.grupo4.tpimpacto.services.base.BaseService;
 import dds.grupo4.tpimpacto.units.TipoUnidad;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

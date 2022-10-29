@@ -12,6 +12,7 @@ import dds.grupo4.tpimpacto.repositories.MiembroRepository;
 import dds.grupo4.tpimpacto.repositories.SectorRepository;
 import dds.grupo4.tpimpacto.repositories.UsuarioRepository;
 import dds.grupo4.tpimpacto.security.JwtUtils;
+import dds.grupo4.tpimpacto.services.base.BaseService;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

@@ -1,7 +1,7 @@
-package dds.grupo4.tpimpacto.services;
+package dds.grupo4.tpimpacto.services.base;
 
 import dds.grupo4.tpimpacto.entities.BaseEntity;
-import dds.grupo4.tpimpacto.repositories.BaseRepository;
+import dds.grupo4.tpimpacto.repositories.base.BaseRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -10,7 +10,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Slf4j
-public class BaseService<TEntity extends BaseEntity, TRepo extends BaseRepository<TEntity>> {
+public abstract class BaseService<TEntity extends BaseEntity, TRepo extends BaseRepository<TEntity>> {
 
     protected final TRepo repository;
 

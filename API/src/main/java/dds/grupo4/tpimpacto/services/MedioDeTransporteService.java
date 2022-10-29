@@ -4,6 +4,7 @@ import dds.grupo4.tpimpacto.dtos.MedioDeTransporteDto;
 import dds.grupo4.tpimpacto.dtos.base.ResponseWithResults;
 import dds.grupo4.tpimpacto.entities.medioTransporte.MedioDeTransporte;
 import dds.grupo4.tpimpacto.repositories.MedioDeTransporteRepository;
+import dds.grupo4.tpimpacto.services.base.BaseService;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

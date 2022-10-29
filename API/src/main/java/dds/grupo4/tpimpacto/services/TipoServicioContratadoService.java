@@ -4,6 +4,7 @@ import dds.grupo4.tpimpacto.dtos.CrearTipoServicioContratadoRequest;
 import dds.grupo4.tpimpacto.dtos.base.BaseResponse;
 import dds.grupo4.tpimpacto.entities.medioTransporte.TipoServicioContratado;
 import dds.grupo4.tpimpacto.repositories.TipoServicioContratadoRepository;
+import dds.grupo4.tpimpacto.services.base.BaseService;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
