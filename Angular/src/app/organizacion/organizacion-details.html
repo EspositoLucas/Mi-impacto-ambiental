@@ -1,6 +1,11 @@
 <div class="m-3">
     <div *ngIf="!organizacion">Cargando...</div>
-    <form (ngSubmit)="onSubmit()" *ngIf="organizacion" class="mb-3" #form="ngForm">
+    <form
+        (ngSubmit)="onSubmit()"
+        *ngIf="organizacion"
+        class="mb-3"
+        #form="ngForm"
+    >
         <div class="row mb-3">
             <div class="col-4">
                 <label for="razonSocial" class="form-label">
@@ -68,6 +73,10 @@
                 </div>
             </div>
         </div>
+
+        <app-grilla-contactos
+            [organizacion]="organizacion"
+        ></app-grilla-contactos>
 
         <div class="col-12">
             <button type="submit" class="btn btn-primary">Submit</button>

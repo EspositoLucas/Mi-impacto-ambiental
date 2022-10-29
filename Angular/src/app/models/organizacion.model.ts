@@ -3,6 +3,7 @@ import {
     CantidadComoIdTextPair,
     newCantidadComoIdTextPair,
 } from './cantidad.model';
+import { Contacto } from './contacto.model';
 import { IdTextPair } from './idtextpair.model';
 
 export interface Organizacion extends Base {
@@ -11,6 +12,7 @@ export interface Organizacion extends Base {
     clasificacion: IdTextPair | null;
     cantDiasHabilesPorSemana: number;
     factorK: CantidadComoIdTextPair;
+    contactos: Contacto[];
 }
 
 export const newOrganizacion = (valores?: {
@@ -20,6 +22,7 @@ export const newOrganizacion = (valores?: {
     clasificacion?: IdTextPair;
     cantDiasHabilesPorSemana?: number;
     factorK?: CantidadComoIdTextPair;
+    contactos?: Contacto[];
 }): Organizacion => {
     return {
         id: valores?.id ?? 0,
@@ -28,5 +31,6 @@ export const newOrganizacion = (valores?: {
         clasificacion: valores?.clasificacion ?? null,
         cantDiasHabilesPorSemana: valores?.cantDiasHabilesPorSemana ?? 5,
         factorK: valores?.factorK ?? newCantidadComoIdTextPair(),
+        contactos: valores?.contactos ?? [],
     };
 };

@@ -259,5 +259,28 @@ public class OrganizacionService extends BaseServiceForHttp<Organizacion, Organi
                 : null;
         Cantidad factorK = new Cantidad(unidadFactorK, dto.getFactorK().getValor());
         organizacion.setFactorK(factorK);
+
+        // Si un Contacto esta guardado en la BD y no esta en el DTO, es que se elimino
+        organizacion.getContactos().removeIf(contacto -> dto.getContactos().stream().noneMatch(contactoDto -> contacto.getId() == contactoDto.getId()));
+
+        for (ContactoDto contactoDto : dto.getContactos()) {
+            if (contactoDto.getId() != 0) {
+                Contacto contacto = organizacion.getContactos().stream().filter(c -> c.getId() == contactoDto.getId()).findFirst().get();
+                updateContactoFromDto(contacto, contactoDto);
+            } else {
+                Contacto contacto = new Contacto();
+                updateContactoFromDto(contacto, contactoDto);
+                organizacion.addContacto(contacto);
+            }
+        }
+    }
+
+    public void updateContactoFromDto(Contacto contacto, ContactoDto dto) {
+        contacto.setNombre(dto.getNombre());
+        contacto.setApellido(dto.getApellido());
+        contacto.setEmail(dto.getEmail());
+        contacto.setTelefono(dto.getTelefono());
+        contacto.setDeseaRecibirPorWhatsapp(dto.getDeseaRecibirPorWhatsapp());
+        contacto.setDeseaRecibirPorMail(dto.getDeseaRecibirPorMail());
     }
 }

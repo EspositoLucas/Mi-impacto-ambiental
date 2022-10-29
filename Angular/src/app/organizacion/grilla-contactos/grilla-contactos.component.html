@@ -1,0 +1,94 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Email</th>
+            <th>Telefono</th>
+            <th>Recibir por WhatsApp</th>
+            <th>Recibir por Mail</th>
+            <th>
+                <button
+                    type="button"
+                    (click)="agregarContacto()"
+                    class="btn btn-info"
+                >
+                    Agregar
+                </button>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let contacto of organizacion.contactos; let i = index">
+            <td>
+                <input
+                    type="text"
+                    id="contacto-{{ i }}-nombre"
+                    class="form-control"
+                    required
+                    [(ngModel)]="contacto.nombre"
+                    name="contacto-{{ i }}-nombre"
+                />
+            </td>
+            <td>
+                <input
+                    type="text"
+                    id="contacto-{{ i }}-apellido"
+                    class="form-control"
+                    required
+                    [(ngModel)]="contacto.apellido"
+                    name="contacto-{{ i }}-apellido"
+                />
+            </td>
+            <td>
+                <input
+                    type="email"
+                    id="contacto-{{ i }}-email"
+                    class="form-control"
+                    required
+                    [(ngModel)]="contacto.email"
+                    name="contacto-{{ i }}-email"
+                />
+            </td>
+            <td>
+                <input
+                    type="text"
+                    id="contacto-{{ i }}-telefono"
+                    class="form-control"
+                    required
+                    [(ngModel)]="contacto.telefono"
+                    name="contacto-{{ i }}-telefono"
+                />
+            </td>
+            <td>
+                <input
+                    type="checkbox"
+                    id="contacto-{{ i }}-whatsapp"
+                    class="form-check-input"
+                    required
+                    [(ngModel)]="contacto.deseaRecibirPorWhatsapp"
+                    name="contacto-{{ i }}-whatsapp"
+                />
+            </td>
+            <td>
+                <input
+                    type="checkbox"
+                    id="contacto-{{ i }}-email"
+                    class="form-check-input"
+                    required
+                    [(ngModel)]="contacto.deseaRecibirPorEmail"
+                    name="contacto-{{ i }}-email"
+                />
+            </td>
+            <td>
+                <button
+                    type="button"
+                    (click)="borrarContacto(i)"
+                    class="btn btn-danger"
+                >
+                    Eliminar
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>

@@ -8,9 +8,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Id;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -22,7 +22,7 @@ public class OrganizacionDto extends BaseEntityDto {
     private CantidadDto factorK;
     private int cantDiasHabilesPorSemana;
     private List<IdTextPair> sectores = new ArrayList<>();
-    private List<IdTextPair> contactos = new ArrayList<>();
+    private List<ContactoDto> contactos = new ArrayList<>();
     private List<IdTextPair> solicitudes = new ArrayList<>();
 
     private OrganizacionDto(Organizacion organizacion) {
@@ -37,8 +37,8 @@ public class OrganizacionDto extends BaseEntityDto {
         dto.setFactorK(CantidadDto.from(organizacion.getFactorK()));
         dto.setCantDiasHabilesPorSemana(organizacion.getCantDiasHabilesPorSemana());
         dto.setSectores(ListUtils.toIdTextPairList(organizacion.getSectores()));
-        dto.setContactos(ListUtils.toIdTextPairList(organizacion.getContactos()));
         dto.setSolicitudes(ListUtils.toIdTextPairList(organizacion.getSolicitudes()));
+        dto.setContactos(organizacion.getContactos().stream().map(ContactoDto::from).collect(Collectors.toList()));
         return dto;
     }
 

@@ -21,6 +21,7 @@ import { IndexOrganizacionComponent } from './organizacion/index-organizacion/in
 import { IndexTemplateComponent } from './templates/index-template/index-template.component';
 import { EditOrganizacionComponent } from './organizacion/edit-organizacion/edit-organizacion.component';
 import { ClasificacionOrganizacionSelectComponent } from './selects/clasificacion-organizacion-select/clasificacion-organizacion-select.component';
+import { GrillaContactosComponent } from './organizacion/grilla-contactos/grilla-contactos.component';
 
 @NgModule({
     declarations: [
@@ -37,6 +38,7 @@ import { ClasificacionOrganizacionSelectComponent } from './selects/clasificacio
         IndexTemplateComponent,
         EditOrganizacionComponent,
         ClasificacionOrganizacionSelectComponent,
+        GrillaContactosComponent,
     ],
     imports: [
         BrowserModule,

@@ -40,7 +40,7 @@ public class Organizacion extends BaseEntity {
     @OneToMany(mappedBy = "organizacion", cascade = CascadeType.ALL)
     private List<Sector> sectores = new ArrayList<>();
 
-    @OneToMany(mappedBy = "organizacion", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "organizacion", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Contacto> contactos = new ArrayList<>();
 
     @OneToMany(mappedBy = "organizacion", cascade = CascadeType.ALL)
