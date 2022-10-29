@@ -1,10 +1,12 @@
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap } from 'rxjs';
 import { IBaseService } from 'src/app/base/ibase.service';
 
 export abstract class BaseEditComponent<T> {
     constructor(
         protected route: ActivatedRoute,
+        protected router: Router,
+        protected entityName: string,
         protected service: IBaseService<T>
     ) {}
 
@@ -19,8 +21,9 @@ export abstract class BaseEditComponent<T> {
     }
 
     onSubmit() {
-        console.log(this.entity);
-        this.service.edit(this.entity);
+        this.service.edit(this.entity).subscribe(() => {
+            this.router.navigate([`/${this.entityName}`]);
+        });
     }
 
     abstract get entity(): T;

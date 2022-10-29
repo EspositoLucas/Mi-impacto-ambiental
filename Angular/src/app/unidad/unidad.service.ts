@@ -11,11 +11,4 @@ export class UnidadService extends BaseService<Unidad> {
     constructor(apiHelperService: ApiHelperService) {
         super(apiHelperService, 'unidad');
     }
-
-    override getAll(): Observable<Unidad[]> {
-        return of([
-            newUnidad({ id: 1, simbolo: 'KG' }),
-            newUnidad({ id: 2, simbolo: 'G' }),
-        ]);
-    }
 }

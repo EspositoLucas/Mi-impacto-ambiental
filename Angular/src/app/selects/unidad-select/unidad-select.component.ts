@@ -14,8 +14,12 @@ export class UnidadSelectComponent
     implements OnInit
 {
     constructor(private unidadService: UnidadService) {
-        super(
-            unidadService.getAll().pipe(
+        super();
+    }
+
+    ngOnInit(): void {
+        this.loadItems(
+            this.unidadService.getAll().pipe(
                 map((results) =>
                     results.map((unidad) =>
                         newIdTextPair({
@@ -26,9 +30,5 @@ export class UnidadSelectComponent
                 )
             )
         );
-    }
-
-    override ngOnInit(): void {
-        super.ngOnInit();
     }
 }

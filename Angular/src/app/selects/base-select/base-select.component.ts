@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IdTextPair } from 'src/app/models/idtextpair.model';
 
@@ -7,17 +7,17 @@ import { IdTextPair } from 'src/app/models/idtextpair.model';
     templateUrl: './base-select.component.html',
     styleUrls: ['./base-select.component.css'],
 })
-export class BaseSelectComponent implements OnInit {
+export class BaseSelectComponent {
     @Input() selected: IdTextPair | null = null;
     @Output() selectedChange = new EventEmitter<IdTextPair>();
 
-    items$: Observable<IdTextPair[]>;
+    items$?: Observable<IdTextPair[]>;
 
-    constructor(items$: Observable<IdTextPair[]>) {
+    constructor() {}
+
+    loadItems(items$: Observable<IdTextPair[]>): void {
         this.items$ = items$;
     }
-
-    ngOnInit(): void {}
 
     onNgModelChange(newSelected: IdTextPair): void {
         this.selected = newSelected;

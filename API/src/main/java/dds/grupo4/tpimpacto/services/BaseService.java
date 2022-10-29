@@ -19,6 +19,16 @@ public class BaseService<TEntity extends BaseEntity, TRepo extends BaseRepositor
     }
 
     @Transactional
+    public List<TEntity> getAll() {
+        return repository.getAll();
+    }
+
+    @Transactional
+    public TEntity getById(long id) {
+        return repository.getById(id);
+    }
+
+    @Transactional
     public TEntity save(TEntity obj) {
         try {
             repository.save(obj);
@@ -38,13 +48,9 @@ public class BaseService<TEntity extends BaseEntity, TRepo extends BaseRepositor
     }
 
     @Transactional
-    public List<TEntity> getAll() {
-        return repository.getAll();
-    }
-
-    @Transactional
-    public TEntity getById(long id) {
-        return repository.getById(id);
+    public void delete(long id) {
+        TEntity obj = this.getById(id);
+        this.repository.delete(obj);
     }
 
     @Transactional

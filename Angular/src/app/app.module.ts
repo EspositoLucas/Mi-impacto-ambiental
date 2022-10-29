@@ -20,6 +20,7 @@ import { UnidadSelectComponent } from './selects/unidad-select/unidad-select.com
 import { IndexOrganizacionComponent } from './organizacion/index-organizacion/index-organizacion.component';
 import { IndexTemplateComponent } from './templates/index-template/index-template.component';
 import { EditOrganizacionComponent } from './organizacion/edit-organizacion/edit-organizacion.component';
+import { ClasificacionOrganizacionSelectComponent } from './selects/clasificacion-organizacion-select/clasificacion-organizacion-select.component';
 
 @NgModule({
     declarations: [
@@ -35,6 +36,7 @@ import { EditOrganizacionComponent } from './organizacion/edit-organizacion/edit
         IndexOrganizacionComponent,
         IndexTemplateComponent,
         EditOrganizacionComponent,
+        ClasificacionOrganizacionSelectComponent,
     ],
     imports: [
         BrowserModule,

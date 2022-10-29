@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Organizacion } from 'src/app/models/organizacion.model';
 import { BaseEditComponent } from 'src/app/templates/base-edit/base-edit.component';
 import { OrganizacionService } from '../organizacion.service';
@@ -15,8 +15,12 @@ export class EditOrganizacionComponent
 {
     organizacion!: Organizacion;
 
-    constructor(route: ActivatedRoute, service: OrganizacionService) {
-        super(route, service);
+    constructor(
+        route: ActivatedRoute,
+        router: Router,
+        service: OrganizacionService
+    ) {
+        super(route, router, 'organizacion', service);
     }
 
     ngOnInit(): void {

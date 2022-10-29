@@ -12,10 +12,10 @@ export class TipoOrganizacionSelectComponent
     implements OnInit
 {
     constructor(private tipoOrganizacionService: TipoOrganizacionService) {
-        super(tipoOrganizacionService.getAll());
+        super();
     }
 
-    override ngOnInit(): void {
-        super.ngOnInit();
+    ngOnInit(): void {
+        this.loadItems(this.tipoOrganizacionService.getAll());
     }
 }

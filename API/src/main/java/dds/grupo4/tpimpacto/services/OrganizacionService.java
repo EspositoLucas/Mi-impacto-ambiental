@@ -4,6 +4,7 @@ import dds.grupo4.tpimpacto.cargamediciones.RowMedicionActividad;
 import dds.grupo4.tpimpacto.dtos.*;
 import dds.grupo4.tpimpacto.dtos.base.BaseResponse;
 import dds.grupo4.tpimpacto.dtos.base.ResponseWithResults;
+import dds.grupo4.tpimpacto.dtos.base.ResponseWithSingleResult;
 import dds.grupo4.tpimpacto.entities.geo.Localidad;
 import dds.grupo4.tpimpacto.entities.medicion.*;
 import dds.grupo4.tpimpacto.entities.medioTransporte.TipoMedioDeTransporte;
@@ -58,24 +59,6 @@ public class OrganizacionService extends BaseService<Organizacion, OrganizacionR
     }
 
     @Transactional
-    public BaseResponse crearOrganizacion(CrearOrganizacionRequest request) {
-        if (repository.getByRazonSocial(request.getRazonSocial()).isPresent()) {
-            return new BaseResponse(HttpStatus.BAD_REQUEST, "Ya existe una Organizacion con esa razon social");
-        }
-
-        TipoOrganizacion tipoOrganizacion = TipoOrganizacion.valueOf(request.getTipoOrganizacion());
-        Clasificacion clasificacion = Clasificacion.valueOf(request.getClasificacion());
-        Unidad unidadFactorK = request.getFactorK().getUnidad() != null
-                ? unidadService.getById(request.getFactorK().getUnidad().getId())
-                : null;
-        Cantidad factorK = new Cantidad(unidadFactorK, request.getFactorK().getValor());
-        Organizacion nuevaOrganizacion = new Organizacion(request.getRazonSocial(), tipoOrganizacion, clasificacion,
-                factorK, request.getCantDiasHabilesPorSemana());
-        this.save(nuevaOrganizacion);
-        return new BaseResponse(HttpStatus.OK);
-    }
-
-    @Transactional
     public ResponseWithResults<OrganizacionDto> listarOrganizaciones() {
         List<Organizacion> organizaciones = this.getAll();
         List<OrganizacionDto> dtos = organizaciones.stream()
@@ -85,12 +68,74 @@ public class OrganizacionService extends BaseService<Organizacion, OrganizacionR
     }
 
     @Transactional
+    public ResponseWithSingleResult<OrganizacionDto> getOrganizacion(long id) {
+        Organizacion organizacion = this.getById(id);
+        OrganizacionDto dto = OrganizacionDto.from(organizacion);
+        return new ResponseWithSingleResult<>(HttpStatus.OK, dto);
+    }
+
+    @Transactional
+    public BaseResponse crearOrganizacion(OrganizacionDto request) {
+        if (repository.getByRazonSocial(request.getRazonSocial()).isPresent()) {
+            return new BaseResponse(HttpStatus.BAD_REQUEST, "Ya existe una Organizacion con esa razon social");
+        }
+
+        TipoOrganizacion tipoOrganizacion = TipoOrganizacion.valueOf(request.getTipoOrganizacion().getText());
+        Clasificacion clasificacion = Clasificacion.valueOf(request.getClasificacion().getText());
+        Unidad unidadFactorK = request.getFactorK().getUnidad() != null
+                ? unidadService.getById(request.getFactorK().getUnidad().getId())
+                : null;
+        Cantidad factorK = new Cantidad(unidadFactorK, request.getFactorK().getValor());
+        Organizacion nuevaOrganizacion = new Organizacion(request.getRazonSocial(), tipoOrganizacion, clasificacion,
+                factorK, request.getCantDiasHabilesPorSemana());
+        this.save(nuevaOrganizacion);
+        return new BaseResponse(HttpStatus.CREATED);
+    }
+
+    @Transactional
+    public BaseResponse editarOrganizacion(long id, OrganizacionDto request) {
+        if (id != request.getId()) {
+            return new BaseResponse(HttpStatus.BAD_REQUEST, "El ID de la ruta debe coincidir con el del cuerpo");
+        }
+
+        Organizacion organizacion = this.getById(request.getId());
+
+        organizacion.setRazonSocial(request.getRazonSocial());
+        organizacion.setTipoOrganizacion(TipoOrganizacion.valueOf(request.getTipoOrganizacion().getText()));
+        organizacion.setClasificacion(Clasificacion.valueOf(request.getClasificacion().getText()));
+        organizacion.setCantDiasHabilesPorSemana(request.getCantDiasHabilesPorSemana());
+
+        Unidad unidadFactorK = request.getFactorK().getUnidad() != null
+                ? unidadService.getById(request.getFactorK().getUnidad().getId())
+                : null;
+        Cantidad factorK = new Cantidad(unidadFactorK, request.getFactorK().getValor());
+        organizacion.setFactorK(factorK);
+
+        return new BaseResponse(HttpStatus.OK);
+    }
+
+    @Transactional
+    public BaseResponse deleteOrganizacion(long id) {
+        this.delete(id);
+        return new BaseResponse(HttpStatus.OK);
+    }
+
+    @Transactional
     public ResponseWithResults<IdTextPair> listarTiposDeOrganizacion() {
         List<IdTextPair> tiposDeOrganizacion = Arrays.stream(TipoOrganizacion.values()).map(tipo -> {
             int index = tipo.ordinal();
             return new IdTextPair(index + 1, tipo.toString());
         }).collect(Collectors.toList());
         return new ResponseWithResults<>(HttpStatus.OK, tiposDeOrganizacion);
+    }
+
+    @Transactional
+    public ResponseWithResults<IdTextPair> listarClasificaciones() {
+        List<IdTextPair> clasificaciones = Arrays.stream(Clasificacion.values()).map(clasificacion -> {
+            int index = clasificacion.ordinal();
+            return new IdTextPair(index + 1, clasificacion.toString());
+        }).collect(Collectors.toList());
+        return new ResponseWithResults<>(HttpStatus.OK, clasificaciones);
     }
 
     @Transactional

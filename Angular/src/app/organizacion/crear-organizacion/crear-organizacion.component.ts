@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import {
     newOrganizacion,
     Organizacion,
 } from 'src/app/models/organizacion.model';
+import { OrganizacionService } from '../organizacion.service';
 
 @Component({
     selector: 'app-crear-organizacion',
@@ -12,13 +14,18 @@ import {
 export class CrearOrganizacionComponent implements OnInit {
     organizacion: Organizacion;
 
-    constructor() {
+    constructor(
+        private organizacionService: OrganizacionService,
+        private router: Router
+    ) {
         this.organizacion = newOrganizacion();
     }
 
     ngOnInit(): void {}
 
     onSubmit() {
-        console.log(this.organizacion);
+        this.organizacionService.create(this.organizacion).subscribe(() => {
+            this.router.navigate(['/organizacion']);
+        });
     }
 }

@@ -1,5 +1,6 @@
 <div class="m-3">
-    <form (ngSubmit)="onSubmit()" class="mb-3" #form="ngForm">
+    <div *ngIf="!organizacion">Cargando...</div>
+    <form (ngSubmit)="onSubmit()" *ngIf="organizacion" class="mb-3" #form="ngForm">
         <div class="row mb-3">
             <div class="col-4">
                 <label for="razonSocial" class="form-label">
@@ -25,12 +26,12 @@
             </div>
             <div class="col-4">
                 <label for="clasificacion" class="form-label">
-                    Clasificacion (TODO: cambiar DDL)
+                    Clasificacion
                 </label>
-                <app-tipo-organizacion-select
+                <app-clasificacion-organizacion-select
                     [(selected)]="organizacion.clasificacion"
                     id="clasificacion"
-                ></app-tipo-organizacion-select>
+                ></app-clasificacion-organizacion-select>
             </div>
         </div>
 

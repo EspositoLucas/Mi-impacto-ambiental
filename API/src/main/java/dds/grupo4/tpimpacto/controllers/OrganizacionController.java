@@ -3,6 +3,8 @@ package dds.grupo4.tpimpacto.controllers;
 import dds.grupo4.tpimpacto.dtos.*;
 import dds.grupo4.tpimpacto.dtos.base.BaseResponse;
 import dds.grupo4.tpimpacto.dtos.base.ResponseWithResults;
+import dds.grupo4.tpimpacto.dtos.base.ResponseWithSingleResult;
+import dds.grupo4.tpimpacto.security.RequireAdminRole;
 import dds.grupo4.tpimpacto.services.OrganizacionService;
 import dds.grupo4.tpimpacto.utils.ResponseEntityUtils;
 import org.springframework.http.HttpStatus;
@@ -21,14 +23,32 @@ public class OrganizacionController {
         this.organizacionService = organizacionService;
     }
 
-    @PostMapping
-    public ResponseEntity<BaseResponse> crearOrganizacion(@RequestBody CrearOrganizacionRequest request) {
-        return ResponseEntityUtils.toResponseEntity(organizacionService.crearOrganizacion(request));
-    }
-
     @GetMapping
     public ResponseEntity<ResponseWithResults<OrganizacionDto>> listarOrganizaciones() {
         return ResponseEntityUtils.toResponseEntity(organizacionService.listarOrganizaciones());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ResponseWithSingleResult<OrganizacionDto>> getOrganizacion(@PathVariable long id) {
+        return ResponseEntityUtils.toResponseEntity(organizacionService.getOrganizacion(id));
+    }
+
+    @RequireAdminRole
+    @PostMapping
+    public ResponseEntity<BaseResponse> crearOrganizacion(@RequestBody OrganizacionDto request) {
+        return ResponseEntityUtils.toResponseEntity(organizacionService.crearOrganizacion(request));
+    }
+
+    @RequireAdminRole
+    @PutMapping("/{id}")
+    public ResponseEntity<BaseResponse> editarOrganizacion(@PathVariable long id, @RequestBody OrganizacionDto request) {
+        return ResponseEntityUtils.toResponseEntity(organizacionService.editarOrganizacion(id, request));
+    }
+
+    @RequireAdminRole
+    @DeleteMapping("/{id}")
+    public ResponseEntity<BaseResponse> deleteOrganizacion(@PathVariable long id) {
+        return ResponseEntityUtils.toResponseEntity(organizacionService.deleteOrganizacion(id));
     }
 
     @GetMapping("/tipos")
@@ -36,6 +56,12 @@ public class OrganizacionController {
         return ResponseEntityUtils.toResponseEntity(organizacionService.listarTiposDeOrganizacion());
     }
 
+    @GetMapping("/clasificaciones")
+    public ResponseEntity<ResponseWithResults<IdTextPair>> listarClasificaciones() {
+        return ResponseEntityUtils.toResponseEntity(organizacionService.listarClasificaciones());
+    }
+
+    @RequireAdminRole
     @PostMapping("/aceptar-solicitud")
     public ResponseEntity<BaseResponse> aceptarSolicitud(@RequestBody AceptarSolicitudRequest request) {
         return ResponseEntityUtils.toResponseEntity(organizacionService.aceptarSolicitud(request));
@@ -46,6 +72,7 @@ public class OrganizacionController {
         return ResponseEntityUtils.toResponseEntity(organizacionService.listarMiembros(id));
     }
 
+    @RequireAdminRole
     @PostMapping("/cargar-mediciones")
     public ResponseEntity<BaseResponse> cargarMediciones(CargarMedicionesRequest request) throws IOException {
         organizacionService.cargarMediciones(request);
