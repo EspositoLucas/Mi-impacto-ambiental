@@ -9,7 +9,7 @@
 
     <logger name="dds.grupo4.tpimpacto" level="TRACE"/>
     <logger name="org.springframework.web" level="DEBUG"/>
-    <logger name="org.hibernate.SQL" level="DEBUG"/>
-    <logger name="org.hibernate.type.descriptor.sql" level="TRACE"/>
-    <logger name="org.hibernate.cache" level="DEBUG"/>
+    <logger name="org.hibernate.SQL" level="INFO"/>
+    <logger name="org.hibernate.type.descriptor.sql" level="INFO"/>
+    <logger name="org.hibernate.cache" level="INFO"/>
 </configuration>
