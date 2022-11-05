@@ -28,9 +28,10 @@ public class ExcelService {
 
             while (rowIterator.hasNext()) {
                 Row row = rowIterator.next();
-                if(cellIsEmpty(row.getCell(0))){
-                    break ;
+                if (cellIsEmpty(row.getCell(0))) {
+                    break;
                 }
+
                 T mappedRow = rowMapper.apply(row);
                 mappedRows.add(mappedRow);
                 log.debug("Row leida: " + mappedRow.toString());
