@@ -1,0 +1,35 @@
+<div class="m-3">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="mb-3">
+        <div class="mb-3">
+            <label for="username" class="form-label">Username: </label>
+            <input
+                type="text"
+                id="username"
+                class="form-control"
+                formControlName="username"
+                required
+            />
+        </div>
+    
+        <div class="mb-3">
+            <label for="password" class="form-label">Password: </label>
+            <input
+                type="password"
+                id="password"
+                class="form-control"
+                formControlName="password"
+                required
+            />
+        </div>
+    
+        <button type="submit" [disabled]="!loginForm.valid" class="btn btn-primary">
+            Submit
+        </button>
+    </form>
+    
+    <div *ngIf="loginForm.invalid && loginForm.dirty" class="alert alert-danger">
+        <div *ngIf="loginForm.errors?.['loginError']">
+            {{ loginForm.errors?.['loginError'] }}
+        </div>
+    </div>
+</div>

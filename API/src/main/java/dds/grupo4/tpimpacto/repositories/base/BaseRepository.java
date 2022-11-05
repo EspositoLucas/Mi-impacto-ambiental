@@ -1,4 +1,4 @@
-package dds.grupo4.tpimpacto.repositories;
+package dds.grupo4.tpimpacto.repositories.base;
 
 import dds.grupo4.tpimpacto.entities.BaseEntity;
 import org.hibernate.metamodel.internal.MetamodelImpl;
@@ -18,14 +18,6 @@ public abstract class BaseRepository<T extends BaseEntity> {
         this.entityManager = entityManager;
     }
 
-    public void save(T obj) {
-        entityManager.persist(obj);
-    }
-
-    public T merge(T obj) {
-        return entityManager.merge(obj);
-    }
-
     public List<T> getAll() {
         String query = "FROM " + getEntityName() + " e";
         return entityManager.createQuery(query, getEntityClass())
@@ -34,6 +26,18 @@ public abstract class BaseRepository<T extends BaseEntity> {
 
     public T getById(long id) {
         return entityManager.find(getEntityClass(), id);
+    }
+
+    public void save(T obj) {
+        entityManager.persist(obj);
+    }
+
+    public T merge(T obj) {
+        return entityManager.merge(obj);
+    }
+
+    public void delete(T obj) {
+        entityManager.remove(obj);
     }
 
     public boolean hasData() {

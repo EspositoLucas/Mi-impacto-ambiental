@@ -1,7 +1,7 @@
-package dds.grupo4.tpimpacto.services;
+package dds.grupo4.tpimpacto.services.base;
 
 import dds.grupo4.tpimpacto.entities.BaseEntity;
-import dds.grupo4.tpimpacto.repositories.BaseRepository;
+import dds.grupo4.tpimpacto.repositories.base.BaseRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -10,12 +10,22 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Slf4j
-public class BaseService<TEntity extends BaseEntity, TRepo extends BaseRepository<TEntity>> {
+public abstract class BaseService<TEntity extends BaseEntity, TRepo extends BaseRepository<TEntity>> {
 
     protected final TRepo repository;
 
     public BaseService(TRepo repository) {
         this.repository = repository;
+    }
+
+    @Transactional
+    public List<TEntity> getAll() {
+        return repository.getAll();
+    }
+
+    @Transactional
+    public TEntity getById(long id) {
+        return repository.getById(id);
     }
 
     @Transactional
@@ -38,13 +48,9 @@ public class BaseService<TEntity extends BaseEntity, TRepo extends BaseRepositor
     }
 
     @Transactional
-    public List<TEntity> getAll() {
-        return repository.getAll();
-    }
-
-    @Transactional
-    public TEntity getById(long id) {
-        return repository.getById(id);
+    public void delete(long id) {
+        TEntity obj = this.getById(id);
+        this.repository.delete(obj);
     }
 
     @Transactional

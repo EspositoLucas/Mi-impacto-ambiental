@@ -12,6 +12,7 @@ import dds.grupo4.tpimpacto.entities.trayecto.TipoEspacio;
 import dds.grupo4.tpimpacto.repositories.EspacioRepository;
 import dds.grupo4.tpimpacto.repositories.OrganizacionRepository;
 import dds.grupo4.tpimpacto.repositories.SectorRepository;
+import dds.grupo4.tpimpacto.services.base.BaseService;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

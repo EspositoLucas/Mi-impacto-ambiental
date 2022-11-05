@@ -5,6 +5,7 @@ import dds.grupo4.tpimpacto.entities.geo.Localidad;
 import dds.grupo4.tpimpacto.entities.trayecto.Direccion;
 import dds.grupo4.tpimpacto.repositories.DireccionRepository;
 import dds.grupo4.tpimpacto.repositories.LocalidadRepository;
+import dds.grupo4.tpimpacto.services.base.BaseService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

@@ -2,6 +2,7 @@ package dds.grupo4.tpimpacto.services;
 
 import dds.grupo4.tpimpacto.entities.geo.Localidad;
 import dds.grupo4.tpimpacto.repositories.LocalidadRepository;
+import dds.grupo4.tpimpacto.services.base.BaseService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

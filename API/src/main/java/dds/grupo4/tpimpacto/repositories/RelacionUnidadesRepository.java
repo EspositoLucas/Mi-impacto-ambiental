@@ -1,5 +1,6 @@
 package dds.grupo4.tpimpacto.repositories;
 
+import dds.grupo4.tpimpacto.repositories.base.BaseRepository;
 import dds.grupo4.tpimpacto.units.RelacionUnidades;
 import dds.grupo4.tpimpacto.units.RelacionUnidades_;
 import dds.grupo4.tpimpacto.units.Unidad;

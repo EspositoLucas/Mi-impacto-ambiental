@@ -1,6 +1,7 @@
 package dds.grupo4.tpimpacto.services;
 
 import dds.grupo4.tpimpacto.repositories.RelacionUnidadesRepository;
+import dds.grupo4.tpimpacto.services.base.BaseService;
 import dds.grupo4.tpimpacto.units.RelacionUnidades;
 import dds.grupo4.tpimpacto.units.Unidad;
 import org.javatuples.Pair;

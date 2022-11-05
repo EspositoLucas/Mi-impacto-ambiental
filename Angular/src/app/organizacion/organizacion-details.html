@@ -1,0 +1,85 @@
+<div class="m-3">
+    <div *ngIf="!organizacion">Cargando...</div>
+    <form
+        (ngSubmit)="onSubmit()"
+        *ngIf="organizacion"
+        class="mb-3"
+        #form="ngForm"
+    >
+        <div class="row mb-3">
+            <div class="col-4">
+                <label for="razonSocial" class="form-label">
+                    Razon social
+                </label>
+                <input
+                    type="text"
+                    id="razonSocial"
+                    class="form-control"
+                    required
+                    [(ngModel)]="organizacion.razonSocial"
+                    name="razonSocial"
+                />
+            </div>
+            <div class="col-4">
+                <label for="tipoOrganizacion" class="form-label">
+                    Tipo organizacion
+                </label>
+                <app-tipo-organizacion-select
+                    [(selected)]="organizacion.tipoOrganizacion"
+                    id="tipoOrganizacion"
+                ></app-tipo-organizacion-select>
+            </div>
+            <div class="col-4">
+                <label for="clasificacion" class="form-label">
+                    Clasificacion
+                </label>
+                <app-clasificacion-organizacion-select
+                    [(selected)]="organizacion.clasificacion"
+                    id="clasificacion"
+                ></app-clasificacion-organizacion-select>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-4">
+                <label for="cantDiasHabilesPorSemana" class="form-label">
+                    Cantidad de dias habiles
+                </label>
+                <input
+                    type="number"
+                    id="cantDiasHabilesPorSemana"
+                    class="form-control"
+                    required
+                    [(ngModel)]="organizacion.cantDiasHabilesPorSemana"
+                    name="cantDiasHabilesPorSemana"
+                />
+            </div>
+            <div class="col-3">
+                <label for="factorK" class="form-label"> Factor K </label>
+                <div class="input-group">
+                    <input
+                        type="number"
+                        id="factorK"
+                        class="form-control"
+                        required
+                        [(ngModel)]="organizacion.factorK.valor"
+                        name="factorK"
+                    />
+                    <app-unidad-select
+                        class="form-control"
+                        [(selected)]="organizacion.factorK.unidad"
+                        id="clasificacion"
+                    ></app-unidad-select>
+                </div>
+            </div>
+        </div>
+
+        <app-grilla-contactos
+            [organizacion]="organizacion"
+        ></app-grilla-contactos>
+
+        <div class="col-12">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+</div>

@@ -3,6 +3,7 @@ package dds.grupo4.tpimpacto.services;
 import dds.grupo4.tpimpacto.entities.medicion.Periodicidad;
 import dds.grupo4.tpimpacto.entities.medicion.RegistroCalculoHCDatoActividad;
 import dds.grupo4.tpimpacto.repositories.RegistroCalculoHCDatoActividadRepository;
+import dds.grupo4.tpimpacto.services.base.BaseService;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;

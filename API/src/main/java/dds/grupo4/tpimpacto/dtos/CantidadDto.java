@@ -10,8 +10,9 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class CantidadDto extends BaseEntityDto {
-    private UnidadDto unidad;
+    private IdTextPair unidad;
     private double valor;
+    private String text;
 
     private CantidadDto(Cantidad cantidad) {
         super(cantidad);
@@ -19,9 +20,17 @@ public class CantidadDto extends BaseEntityDto {
 
     public static CantidadDto from(Cantidad cantidad) {
         CantidadDto dto = new CantidadDto(cantidad);
-        if (cantidad.tieneUnidad())
-            dto.setUnidad(UnidadDto.from(cantidad.getUnidad()));
+        if (cantidad.tieneUnidad()) {
+            dto.setUnidad(new IdTextPair(cantidad.getUnidad()));
+        }
         dto.setValor(cantidad.getValor());
+        dto.setText();
         return dto;
+    }
+
+    private void setText() {
+        this.text = this.unidad != null
+                ? this.valor + " " + this.unidad.getText()
+                : String.valueOf(this.valor);
     }
 }

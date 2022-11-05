@@ -1,0 +1,39 @@
+<app-index-template entity="organizacion">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Razon social</th>
+                <th>Tipo</th>
+                <th>Clasificacion</th>
+                <th>Dias habiles</th>
+                <th>Factor K</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let organizacion of results$ | async">
+                <td>{{ organizacion.razonSocial }}</td>
+                <td>{{ organizacion.tipoOrganizacion!.text }}</td>
+                <td>{{ organizacion.clasificacion!.text }}</td>
+                <td>{{ organizacion.cantDiasHabilesPorSemana }}</td>
+                <td>{{ organizacion.factorK.text }}</td>
+                <td>
+                    <button
+                        type="button"
+                        (click)="editEntidad(organizacion.id)"
+                        class="btn btn-info"
+                    >
+                        Editar
+                    </button>
+                    <button
+                        type="button"
+                        (click)="onDelete(organizacion)"
+                        class="btn btn-danger"
+                    >
+                        Eliminar
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</app-index-template>

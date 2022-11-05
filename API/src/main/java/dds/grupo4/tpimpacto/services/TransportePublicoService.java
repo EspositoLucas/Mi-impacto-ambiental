@@ -7,6 +7,7 @@ import dds.grupo4.tpimpacto.entities.geo.Localidad;
 import dds.grupo4.tpimpacto.entities.medioTransporte.*;
 import dds.grupo4.tpimpacto.entities.trayecto.Direccion;
 import dds.grupo4.tpimpacto.repositories.*;
+import dds.grupo4.tpimpacto.services.base.BaseService;
 import dds.grupo4.tpimpacto.units.Cantidad;
 import dds.grupo4.tpimpacto.units.Unidad;
 import lombok.extern.slf4j.Slf4j;

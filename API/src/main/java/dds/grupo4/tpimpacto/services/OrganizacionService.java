@@ -15,6 +15,7 @@ import dds.grupo4.tpimpacto.repositories.LocalidadRepository;
 import dds.grupo4.tpimpacto.repositories.OrganizacionRepository;
 import dds.grupo4.tpimpacto.repositories.SolicitudRepository;
 import dds.grupo4.tpimpacto.repositories.TipoMedioDeTransporteRepository;
+import dds.grupo4.tpimpacto.services.base.BaseServiceForHttp;
 import dds.grupo4.tpimpacto.services.calculohc.CalculadoraHC;
 import dds.grupo4.tpimpacto.units.Cantidad;
 import dds.grupo4.tpimpacto.units.Unidad;
@@ -31,7 +32,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Slf4j
-public class OrganizacionService extends BaseService<Organizacion, OrganizacionRepository> {
+public class OrganizacionService extends BaseServiceForHttp<Organizacion, OrganizacionRepository, OrganizacionDto> {
 
     private final SolicitudRepository solicitudRepository;
     private final TipoConsumoService tipoConsumoService;
@@ -58,30 +59,21 @@ public class OrganizacionService extends BaseService<Organizacion, OrganizacionR
     }
 
     @Transactional
-    public BaseResponse crearOrganizacion(CrearOrganizacionRequest request) {
-        if (repository.getByRazonSocial(request.getRazonSocial()).isPresent()) {
-            return new BaseResponse(HttpStatus.BAD_REQUEST, "Ya existe una Organizacion con esa razon social");
-        }
-
-        TipoOrganizacion tipoOrganizacion = TipoOrganizacion.valueOf(request.getTipoOrganizacion());
-        Clasificacion clasificacion = Clasificacion.valueOf(request.getClasificacion());
-        Unidad unidadFactorK = request.getFactorK().getUnidad() != null
-                ? unidadService.getById(request.getFactorK().getUnidad().getId())
-                : null;
-        Cantidad factorK = new Cantidad(unidadFactorK, request.getFactorK().getValor());
-        Organizacion nuevaOrganizacion = new Organizacion(request.getRazonSocial(), tipoOrganizacion, clasificacion,
-                factorK, request.getCantDiasHabilesPorSemana());
-        this.save(nuevaOrganizacion);
-        return new BaseResponse(HttpStatus.OK);
+    public ResponseWithResults<IdTextPair> listarTiposDeOrganizacion() {
+        List<IdTextPair> tiposDeOrganizacion = Arrays.stream(TipoOrganizacion.values()).map(tipo -> {
+            int index = tipo.ordinal();
+            return new IdTextPair(index + 1, tipo.toString());
+        }).collect(Collectors.toList());
+        return new ResponseWithResults<>(HttpStatus.OK, tiposDeOrganizacion);
     }
 
     @Transactional
-    public ResponseWithResults<OrganizacionDto> listarOrganizaciones() {
-        List<Organizacion> organizaciones = this.getAll();
-        List<OrganizacionDto> dtos = organizaciones.stream()
-                .map(OrganizacionDto::from)
-                .collect(Collectors.toList());
-        return new ResponseWithResults<>(HttpStatus.OK, dtos);
+    public ResponseWithResults<IdTextPair> listarClasificaciones() {
+        List<IdTextPair> clasificaciones = Arrays.stream(Clasificacion.values()).map(clasificacion -> {
+            int index = clasificacion.ordinal();
+            return new IdTextPair(index + 1, clasificacion.toString());
+        }).collect(Collectors.toList());
+        return new ResponseWithResults<>(HttpStatus.OK, clasificaciones);
     }
 
     @Transactional
@@ -245,4 +237,50 @@ public class OrganizacionService extends BaseService<Organizacion, OrganizacionR
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public Organizacion createEntity() {
+        return new Organizacion();
+    }
+
+    @Override
+    public OrganizacionDto createDtoFromEntity(Organizacion organizacion) {
+        return OrganizacionDto.from(organizacion);
+    }
+
+    @Override
+    public void updateEntityFieldsFromDto(Organizacion organizacion, OrganizacionDto dto) {
+        organizacion.setRazonSocial(dto.getRazonSocial());
+        organizacion.setTipoOrganizacion(TipoOrganizacion.valueOf(dto.getTipoOrganizacion().getText()));
+        organizacion.setClasificacion(Clasificacion.valueOf(dto.getClasificacion().getText()));
+        organizacion.setCantDiasHabilesPorSemana(dto.getCantDiasHabilesPorSemana());
+
+        Unidad unidadFactorK = dto.getFactorK().getUnidad() != null
+                ? unidadService.getById(dto.getFactorK().getUnidad().getId())
+                : null;
+        Cantidad factorK = new Cantidad(unidadFactorK, dto.getFactorK().getValor());
+        organizacion.setFactorK(factorK);
+
+        // Si un Contacto esta guardado en la BD y no esta en el DTO, es que se elimino
+        organizacion.getContactos().removeIf(contacto -> dto.getContactos().stream().noneMatch(contactoDto -> contacto.getId() == contactoDto.getId()));
+
+        for (ContactoDto contactoDto : dto.getContactos()) {
+            if (contactoDto.getId() != 0) {
+                Contacto contacto = organizacion.getContactos().stream().filter(c -> c.getId() == contactoDto.getId()).findFirst().get();
+                updateContactoFromDto(contacto, contactoDto);
+            } else {
+                Contacto contacto = new Contacto();
+                updateContactoFromDto(contacto, contactoDto);
+                organizacion.addContacto(contacto);
+            }
+        }
+    }
+
+    public void updateContactoFromDto(Contacto contacto, ContactoDto dto) {
+        contacto.setNombre(dto.getNombre());
+        contacto.setApellido(dto.getApellido());
+        contacto.setEmail(dto.getEmail());
+        contacto.setTelefono(dto.getTelefono());
+        contacto.setDeseaRecibirPorWhatsapp(dto.getDeseaRecibirPorWhatsapp());
+        contacto.setDeseaRecibirPorMail(dto.getDeseaRecibirPorMail());
+    }
 }

@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Table(name = "contactos")
 @Getter
 @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 public class Contacto extends BaseEntity {
 
     private String nombre;

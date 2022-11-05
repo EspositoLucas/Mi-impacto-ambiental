@@ -11,6 +11,7 @@ import dds.grupo4.tpimpacto.entities.organizacion.TipoDocumento;
 import dds.grupo4.tpimpacto.entities.seguridad.Usuario;
 import dds.grupo4.tpimpacto.repositories.PersonaRepository;
 import dds.grupo4.tpimpacto.repositories.SectorRepository;
+import dds.grupo4.tpimpacto.services.base.BaseService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;

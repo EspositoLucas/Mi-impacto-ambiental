@@ -3,6 +3,7 @@ package dds.grupo4.tpimpacto.services;
 import dds.grupo4.tpimpacto.dtos.UnidadDto;
 import dds.grupo4.tpimpacto.dtos.base.ResponseWithResults;
 import dds.grupo4.tpimpacto.repositories.UnidadRepository;
+import dds.grupo4.tpimpacto.services.base.BaseService;
 import dds.grupo4.tpimpacto.units.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
