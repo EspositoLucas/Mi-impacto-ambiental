@@ -15,4 +15,6 @@ Trabajo Practico Anual 2022 de la materia Diseño de Sistemas de la UTN FRBA
 
 **Link a la sexta entrega parte 1:** https://drive.google.com/drive/folders/158G3XS0GlUJChY8631AcikWcQE0cs0kP
 
+**Link a la sexta entrega parte 2 y septima entrega:** https://drive.google.com/drive/folders/15tEk7J6QHkn0mRor0Ot2MT4SYnsHf8IU
+
 **Link del repositorio:** https://github.com/EspositoLucas/miImpactoAmbiental-DDS
