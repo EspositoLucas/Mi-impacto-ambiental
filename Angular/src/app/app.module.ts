@@ -8,6 +8,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LoginComponent } from './login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { httpInterceptorProviders } from './httpInterceptors';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -22,6 +23,7 @@ import { IndexTemplateComponent } from './templates/index-template/index-templat
 import { EditOrganizacionComponent } from './organizacion/edit-organizacion/edit-organizacion.component';
 import { ClasificacionOrganizacionSelectComponent } from './selects/clasificacion-organizacion-select/clasificacion-organizacion-select.component';
 import { GrillaContactosComponent } from './organizacion/grilla-contactos/grilla-contactos.component';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
     declarations: [
@@ -48,6 +50,8 @@ import { GrillaContactosComponent } from './organizacion/grilla-contactos/grilla
         FormsModule,
         ReactiveFormsModule,
         HttpClientModule,
+        BrowserAnimationsModule,
+        ToastrModule.forRoot(),
     ],
     providers: [httpInterceptorProviders],
     bootstrap: [AppComponent],
