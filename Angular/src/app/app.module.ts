@@ -24,6 +24,8 @@ import { EditOrganizacionComponent } from './organizacion/edit-organizacion/edit
 import { ClasificacionOrganizacionSelectComponent } from './selects/clasificacion-organizacion-select/clasificacion-organizacion-select.component';
 import { GrillaContactosComponent } from './organizacion/grilla-contactos/grilla-contactos.component';
 import { ToastrModule } from 'ngx-toastr';
+import { CargarMedicionesComponent } from './cargar-mediciones/cargar-mediciones.component';
+import { OrganizacionSelectComponent } from './selects/organizacion-select/organizacion-select.component';
 
 @NgModule({
     declarations: [
@@ -41,6 +43,8 @@ import { ToastrModule } from 'ngx-toastr';
         EditOrganizacionComponent,
         ClasificacionOrganizacionSelectComponent,
         GrillaContactosComponent,
+        CargarMedicionesComponent,
+        OrganizacionSelectComponent,
     ],
     imports: [
         BrowserModule,

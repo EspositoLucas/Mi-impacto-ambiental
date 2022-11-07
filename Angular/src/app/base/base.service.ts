@@ -10,8 +10,8 @@ import { IBaseService } from './ibase.service';
 
 export abstract class BaseService<T extends Base> implements IBaseService<T> {
     constructor(
-        private apiHelperService: ApiHelperService,
-        private entity: string
+        protected apiHelperService: ApiHelperService,
+        protected entity: string
     ) {}
 
     getAll(): Observable<T[]> {

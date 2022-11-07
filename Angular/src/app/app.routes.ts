@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { CargarMedicionesComponent } from './cargar-mediciones/cargar-mediciones.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
@@ -26,6 +27,10 @@ export const routes: Routes = [
     {
         path: 'organizacion/edit/:id',
         component: EditOrganizacionComponent,
+    },
+    {
+        path: 'medicion',
+        component: CargarMedicionesComponent,
     },
     {
         path: '',
