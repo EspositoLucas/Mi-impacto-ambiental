@@ -43,5 +43,7 @@ public class DbInitializer implements ApplicationRunner {
         tipoConsumoService.seedData();
         organizacionService.seedData();
         personaService.seedData();
+
+        log.info("DbInitializer finalizado");
     }
 }
