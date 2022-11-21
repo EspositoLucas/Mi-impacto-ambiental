@@ -1,13 +1,11 @@
 package dds.grupo4.tpimpacto.services;
 
 import dds.grupo4.tpimpacto.dtos.CrearPersonaRequest;
+import dds.grupo4.tpimpacto.dtos.IdTextPair;
 import dds.grupo4.tpimpacto.dtos.PersonaDto;
 import dds.grupo4.tpimpacto.dtos.base.BaseResponse;
 import dds.grupo4.tpimpacto.dtos.base.ResponseWithResults;
-import dds.grupo4.tpimpacto.entities.organizacion.Miembro;
-import dds.grupo4.tpimpacto.entities.organizacion.Persona;
-import dds.grupo4.tpimpacto.entities.organizacion.Sector;
-import dds.grupo4.tpimpacto.entities.organizacion.TipoDocumento;
+import dds.grupo4.tpimpacto.entities.organizacion.*;
 import dds.grupo4.tpimpacto.entities.seguridad.Usuario;
 import dds.grupo4.tpimpacto.repositories.PersonaRepository;
 import dds.grupo4.tpimpacto.repositories.SectorRepository;
@@ -37,7 +35,7 @@ public class PersonaService extends BaseService<Persona, PersonaRepository> {
 
     @Transactional
     public BaseResponse crearPersona(CrearPersonaRequest request) {
-        TipoDocumento tipoDocumento = TipoDocumento.valueOf(request.getTipoDocumento());
+        TipoDocumento tipoDocumento = TipoDocumento.getFromOrdinal(request.getTipoDocumento().getId());
         Persona persona = new Persona(request.getNombre(), request.getApellido(), tipoDocumento, request.getDocumento());
         this.save(persona);
         return new BaseResponse(HttpStatus.CREATED);
@@ -49,6 +47,14 @@ public class PersonaService extends BaseService<Persona, PersonaRepository> {
                 .map(PersonaDto::from)
                 .collect(Collectors.toList());
         return new ResponseWithResults<>(HttpStatus.OK, dtos);
+    }
+
+    @Transactional
+    public ResponseWithResults<IdTextPair> listarTiposDeDocumento() {
+        List<IdTextPair> tiposDeDocumento = Arrays.stream(TipoDocumento.values())
+                .map(tipo -> new IdTextPair(tipo.ordinal(), tipo.toString()))
+                .collect(Collectors.toList());
+        return new ResponseWithResults<>(HttpStatus.OK, tiposDeDocumento);
     }
 
     @Transactional

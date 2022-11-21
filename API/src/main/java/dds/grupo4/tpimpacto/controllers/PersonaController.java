@@ -1,6 +1,7 @@
 package dds.grupo4.tpimpacto.controllers;
 
 import dds.grupo4.tpimpacto.dtos.CrearPersonaRequest;
+import dds.grupo4.tpimpacto.dtos.IdTextPair;
 import dds.grupo4.tpimpacto.dtos.PersonaDto;
 import dds.grupo4.tpimpacto.dtos.base.BaseResponse;
 import dds.grupo4.tpimpacto.dtos.base.ResponseWithResults;
@@ -29,5 +30,10 @@ public class PersonaController {
     @GetMapping
     public ResponseEntity<ResponseWithResults<PersonaDto>> listarPersonas() {
         return ResponseEntityUtils.toResponseEntity(personaService.listarPersonas());
+    }
+
+    @GetMapping("/tipos-documento")
+    public ResponseEntity<ResponseWithResults<IdTextPair>> listarTiposDeDocumento() {
+        return ResponseEntityUtils.toResponseEntity(personaService.listarTiposDeDocumento());
     }
 }

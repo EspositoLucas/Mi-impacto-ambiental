@@ -1,0 +1,21 @@
+<app-index-template entity="persona">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Tipo documento</th>
+                <th>Documento</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let persona of results$ | async">
+                <td>{{ persona.nombre }}</td>
+                <td>{{ persona.apellido }}</td>
+                <td>{{ persona.tipoDocumento!.text }}</td>
+                <td>{{ persona.documento }}</td>
+            </tr>
+        </tbody>
+    </table>
+</app-index-template>

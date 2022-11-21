@@ -1,0 +1,67 @@
+<div class="m-3">
+    <div *ngIf="!persona">Cargando...</div>
+    <form
+        (ngSubmit)="onSubmit()"
+        *ngIf="persona"
+        class="mb-3"
+        #form="ngForm"
+    >
+        <div class="row mb-3">
+            <div class="col-6">
+                <label for="nombre" class="form-label">
+                    Nombre
+                </label>
+                <input
+                    type="text"
+                    id="nombre"
+                    class="form-control"
+                    required
+                    [(ngModel)]="persona.nombre"
+                    name="nombre"
+                />
+            </div>
+            <div class="col-6">
+                <label for="apellido" class="form-label">
+                    Apellido
+                </label>
+                <input
+                    type="text"
+                    id="apellido"
+                    class="form-control"
+                    required
+                    [(ngModel)]="persona.apellido"
+                    name="apellido"
+                />
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-6">
+                <label for="tipoDocumento" class="form-label">
+                    Tipo documento
+                </label>
+                <app-tipo-documento-select
+                    [(selected)]="persona.tipoDocumento"
+                    id="tipoDocumento"
+                ></app-tipo-documento-select>
+            </div>
+            <div class="col-6">
+                <label for="documento" class="form-label">
+                    Documento
+                </label>
+                <input
+                    type="text"
+                    id="documento"
+                    class="form-control"
+                    required
+                    [(ngModel)]="persona.documento"
+                    name="documento"
+                />
+            </div>
+        </div>
+
+        <div class="col-12">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+</div>

@@ -27,6 +27,9 @@ import { ToastrModule } from 'ngx-toastr';
 import { CargarMedicionesComponent } from './cargar-mediciones/cargar-mediciones.component';
 import { OrganizacionSelectComponent } from './selects/organizacion-select/organizacion-select.component';
 import { IndexSectorComponent } from './sector/index-sector/index-sector.component';
+import { IndexPersonaComponent } from './persona/index-persona/index-persona.component';
+import { TipoDocumentoSelectComponent } from './selects/tipo-documento-select/tipo-documento-select.component';
+import { CrearPersonaComponent } from './persona/crear-persona/crear-persona.component';
 
 @NgModule({
     declarations: [
@@ -47,6 +50,9 @@ import { IndexSectorComponent } from './sector/index-sector/index-sector.compone
         CargarMedicionesComponent,
         OrganizacionSelectComponent,
         IndexSectorComponent,
+        IndexPersonaComponent,
+        TipoDocumentoSelectComponent,
+        CrearPersonaComponent,
     ],
     imports: [
         BrowserModule,

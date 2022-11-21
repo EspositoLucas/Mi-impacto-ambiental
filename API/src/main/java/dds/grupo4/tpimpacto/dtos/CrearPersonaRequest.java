@@ -12,6 +12,6 @@ import lombok.Setter;
 public class CrearPersonaRequest {
     private String nombre;
     private String apellido;
-    private String tipoDocumento;
+    private IdTextPair tipoDocumento;
     private String documento;
 }
