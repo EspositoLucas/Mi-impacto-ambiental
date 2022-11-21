@@ -10,7 +10,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CrearMiembroRequest {
-    private long idPersona;
-    private long idOrganizacion;
-    private long idSector;
+    private IdTextPair persona;
+    private IdTextPair organizacion;
+    private IdTextPair sector;
 }

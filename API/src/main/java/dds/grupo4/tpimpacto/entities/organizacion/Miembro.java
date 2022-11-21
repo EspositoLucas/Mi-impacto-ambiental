@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Miembro extends BaseEntity {
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "persona", nullable = false, foreignKey = @ForeignKey(name = "FK_Miembros_Persona"))
     private Persona persona;
 
@@ -60,10 +60,6 @@ public class Miembro extends BaseEntity {
 
     public Organizacion getOrganizacion() {
         return sector.getOrganizacion();
-    }
-
-    public String getDocumento() {
-        return persona.getDocumento();
     }
 
     public void setUsuario(Usuario usuario) {

@@ -38,20 +38,20 @@ public class MiembroService extends BaseService<Miembro, MiembroRepository> {
 
     @Transactional
     public CrearMiembroResponse crearMiembro(CrearMiembroRequest request) {
-        Persona persona = personaRepository.getById(request.getIdPersona());
+        Persona persona = personaRepository.getById(request.getPersona().getId());
         if (persona == null) {
             return new CrearMiembroResponse(HttpStatus.BAD_REQUEST, "No existe ninguna Persona con el ID especificado", null);
         }
 
-        Sector sector = sectorRepository.getById(request.getIdSector());
-        if (sector == null || sector.getOrganizacion().getId() != request.getIdOrganizacion()) {
+        Sector sector = sectorRepository.getById(request.getSector().getId());
+        if (sector == null || sector.getOrganizacion().getId() != request.getOrganizacion().getId()) {
             throw new IllegalArgumentException(
                     "El sector no se encontro, o no pertenece a la organizacion especificada"
             );
         }
 
         Miembro miembro = new Miembro(persona);
-        this.save(miembro);
+        miembro = this.save(miembro);
         Solicitud solicitud = new Solicitud(miembro, sector);
         solicitudRepository.save(solicitud);
 

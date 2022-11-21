@@ -10,6 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class PersonaDto extends BaseEntityDto {
     private String nombre;
     private String apellido;

@@ -4,6 +4,7 @@ import dds.grupo4.tpimpacto.config.CustomTestAnnotation;
 import dds.grupo4.tpimpacto.config.FastTests;
 import dds.grupo4.tpimpacto.dtos.CrearMiembroRequest;
 import dds.grupo4.tpimpacto.dtos.CrearMiembroResponse;
+import dds.grupo4.tpimpacto.dtos.IdTextPair;
 import dds.grupo4.tpimpacto.entities.organizacion.*;
 import dds.grupo4.tpimpacto.repositories.MiembroRepository;
 import dds.grupo4.tpimpacto.repositories.PersonaRepository;
@@ -53,7 +54,7 @@ public class MiembroServiceTests {
     @Test
     @Transactional
     public void crearMiembro_cuandoExistenTodosLosDatos_creaAlMiembroYLaSolicitudDeVinculacion() {
-        CrearMiembroRequest request = new CrearMiembroRequest(1, 2, 3);
+        CrearMiembroRequest request = new CrearMiembroRequest(new IdTextPair(1, ""), new IdTextPair(2, ""), new IdTextPair(3, ""));
         ArgumentCaptor<Solicitud> captor = ArgumentCaptor.forClass(Solicitud.class);
 
         CrearMiembroResponse response = miembroService.crearMiembro(request);
@@ -75,7 +76,7 @@ public class MiembroServiceTests {
         Mockito.when(sectorRepository.getById(20)).thenReturn(sector);
         int idSector = 20, idOrganizacion = 99; // El idOrganizacion correcto seria el 10, lo pongo mal a proposito
 
-        CrearMiembroRequest request = new CrearMiembroRequest(1, idOrganizacion, idSector);
+        CrearMiembroRequest request = new CrearMiembroRequest(new IdTextPair(1, ""), new IdTextPair(idOrganizacion, ""), new IdTextPair(idSector, ""));
 
         Assertions.assertThrows(IllegalArgumentException.class, () -> miembroService.crearMiembro(request));
     }

@@ -68,18 +68,28 @@ public class PersonaService extends BaseService<Persona, PersonaRepository> {
         Miembro miembroMili = new Miembro(personaMili);
         personaMili.addMiembro(miembroMili);
 
+        Persona personaLucas = new Persona("Lucas", "Esposito", TipoDocumento.DNI, "11223344");
+        Miembro miembroLucas = new Miembro(personaLucas);
+        personaLucas.addMiembro(miembroLucas);
+
         Sector sector = sectorRepository.getByNombre("Sector TEST").get();
         sector.addMiembro(miembroEchi);
         miembroEchi.setFechaIngreso(LocalDate.now());
         sector.addMiembro(miembroMili);
         miembroMili.setFechaIngreso(LocalDate.now());
+        sector.addMiembro(miembroLucas);
+        miembroLucas.setFechaIngreso(LocalDate.now());
 
         Usuario usuarioEchi = usuarioService.crearUsuario("echisaidman", "echisaidman", true);
         miembroEchi.setUsuario(usuarioEchi);
 
         Usuario usuarioMili = usuarioService.crearUsuario("miliramos", "miliramos", true);
         miembroMili.setUsuario(usuarioMili);
-        this.saveAll(Arrays.asList(personaEchi, personaMili));
+
+        Usuario usuarioLucas = usuarioService.crearUsuario("lucasesposito", "lucasesposito", false);
+        miembroLucas.setUsuario(usuarioLucas);
+
+        this.saveAll(Arrays.asList(personaEchi, personaMili, personaLucas));
     }
 
 }

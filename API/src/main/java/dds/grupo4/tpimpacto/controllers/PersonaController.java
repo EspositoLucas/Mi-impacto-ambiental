@@ -4,6 +4,7 @@ import dds.grupo4.tpimpacto.dtos.CrearPersonaRequest;
 import dds.grupo4.tpimpacto.dtos.PersonaDto;
 import dds.grupo4.tpimpacto.dtos.base.BaseResponse;
 import dds.grupo4.tpimpacto.dtos.base.ResponseWithResults;
+import dds.grupo4.tpimpacto.security.RequireAdminRole;
 import dds.grupo4.tpimpacto.services.PersonaService;
 import dds.grupo4.tpimpacto.utils.ResponseEntityUtils;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,7 @@ public class PersonaController {
         this.personaService = personaService;
     }
 
+    @RequireAdminRole
     @PostMapping
     public ResponseEntity<BaseResponse> crearPersona(@RequestBody CrearPersonaRequest request) {
         return ResponseEntityUtils.toResponseEntity(personaService.crearPersona(request));
