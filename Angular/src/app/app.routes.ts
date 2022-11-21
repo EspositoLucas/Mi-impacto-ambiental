@@ -3,6 +3,8 @@ import { CargarMedicionesComponent } from './cargar-mediciones/cargar-mediciones
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
+import { CrearMiembroComponent } from './miembro/crear-miembro/crear-miembro.component';
+import { IndexMiembroComponent } from './miembro/index-miembro/index-miembro.component';
 import { CrearOrganizacionComponent } from './organizacion/crear-organizacion/crear-organizacion.component';
 import { EditOrganizacionComponent } from './organizacion/edit-organizacion/edit-organizacion.component';
 import { IndexOrganizacionComponent } from './organizacion/index-organizacion/index-organizacion.component';
@@ -46,6 +48,14 @@ export const routes: Routes = [
     {
         path: 'persona/crear',
         component: CrearPersonaComponent,
+    },
+    {
+        path: 'miembro',
+        component: IndexMiembroComponent,
+    },
+    {
+        path: 'miembro/crear',
+        component: CrearMiembroComponent,
     },
     {
         path: '',

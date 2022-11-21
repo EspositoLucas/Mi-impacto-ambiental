@@ -32,6 +32,8 @@ import { TipoDocumentoSelectComponent } from './selects/tipo-documento-select/ti
 import { CrearPersonaComponent } from './persona/crear-persona/crear-persona.component';
 import { PersonaSelectComponent } from './selects/persona-select/persona-select.component';
 import { SectorSelectComponent } from './selects/sector-select/sector-select.component';
+import { IndexMiembroComponent } from './miembro/index-miembro/index-miembro.component';
+import { CrearMiembroComponent } from './miembro/crear-miembro/crear-miembro.component';
 
 @NgModule({
     declarations: [
@@ -57,6 +59,8 @@ import { SectorSelectComponent } from './selects/sector-select/sector-select.com
         CrearPersonaComponent,
         PersonaSelectComponent,
         SectorSelectComponent,
+        IndexMiembroComponent,
+        CrearMiembroComponent,
     ],
     imports: [
         BrowserModule,

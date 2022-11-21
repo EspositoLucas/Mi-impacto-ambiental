@@ -33,21 +33,21 @@ export abstract class BaseService<T extends Base> implements IBaseService<T> {
             .pipe(map((httpResponse) => httpResponse.body!.result));
     }
 
-    create(obj: T): Observable<void> {
+    create(obj: T): Observable<BaseResponse | null> {
         return this.apiHelperService
             .post<BaseResponse>(this.entity, obj)
-            .pipe(map((_) => undefined));
+            .pipe(map((response) => response.body));
     }
 
-    edit(obj: T): Observable<void> {
+    edit(obj: T): Observable<BaseResponse | null> {
         return this.apiHelperService
             .put<BaseResponse>(`${this.entity}/${obj.id}`, obj)
-            .pipe(map((_) => undefined));
+            .pipe(map((response) => response.body));
     }
 
-    delete(id: number): Observable<void> {
+    delete(id: number): Observable<BaseResponse | null> {
         return this.apiHelperService
             .delete<BaseResponse>(`${this.entity}/${id}`)
-            .pipe(map((_) => undefined));
+            .pipe(map((response) => response.body));
     }
 }

@@ -1,0 +1,43 @@
+<div class="m-3">
+    <div *ngIf="!miembro">Cargando...</div>
+    <form
+        (ngSubmit)="onSubmit()"
+        *ngIf="miembro"
+        class="mb-3"
+        #form="ngForm"
+    >
+        <div class="row mb-3">
+            <div class="col-4">
+                <label for="persona" class="form-label">
+                    Persona
+                </label>
+                <app-persona-select
+                    [(selected)]="miembro.persona"
+                    id="persona"
+                ></app-persona-select>
+            </div>
+            <div class="col-4">
+                <label for="organizacion" class="form-label">
+                    Organizacion
+                </label>
+                <app-organizacion-select
+                    [(selected)]="miembro.organizacion"
+                    id="organizacion"
+                ></app-organizacion-select>
+            </div>
+            <div class="col-4">
+                <label for="sector" class="form-label">
+                    Sector
+                </label>
+                <app-sector-select
+                    [(selected)]="miembro.sector"
+                    id="sector"
+                ></app-sector-select>
+            </div>
+        </div>
+
+        <div class="col-12">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+</div>
