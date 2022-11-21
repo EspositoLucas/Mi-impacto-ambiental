@@ -4,5 +4,11 @@ public enum TipoOrganizacion {
     GUBERNAMENTAL,
     ONG,
     EMPRESA,
-    INSTITUCION
+    INSTITUCION;
+
+    private static final TipoOrganizacion[] values = values();
+
+    public static TipoOrganizacion getFromOrdinal(long ordinal) {
+        return values[(int)ordinal];
+    }
 }

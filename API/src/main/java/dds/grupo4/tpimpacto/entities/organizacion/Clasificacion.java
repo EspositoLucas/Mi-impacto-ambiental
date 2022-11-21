@@ -5,5 +5,11 @@ public enum Clasificacion {
     UNIVERSIDAD,
     ESCUELA,
     EMPRESA_SECTOR_PRIMARIO,
-    EMPRESA_SECTOR_SECUNDARIO
+    EMPRESA_SECTOR_SECUNDARIO;
+
+    private static final Clasificacion[] values = values();
+
+    public static Clasificacion getFromOrdinal(long ordinal) {
+        return values[(int) ordinal];
+    }
 }

@@ -60,19 +60,17 @@ public class OrganizacionService extends BaseServiceForHttp<Organizacion, Organi
 
     @Transactional
     public ResponseWithResults<IdTextPair> listarTiposDeOrganizacion() {
-        List<IdTextPair> tiposDeOrganizacion = Arrays.stream(TipoOrganizacion.values()).map(tipo -> {
-            int index = tipo.ordinal();
-            return new IdTextPair(index + 1, tipo.toString());
-        }).collect(Collectors.toList());
+        List<IdTextPair> tiposDeOrganizacion = Arrays.stream(TipoOrganizacion.values())
+                .map(tipo -> new IdTextPair(tipo.ordinal(), tipo.toString()))
+                .collect(Collectors.toList());
         return new ResponseWithResults<>(HttpStatus.OK, tiposDeOrganizacion);
     }
 
     @Transactional
     public ResponseWithResults<IdTextPair> listarClasificaciones() {
-        List<IdTextPair> clasificaciones = Arrays.stream(Clasificacion.values()).map(clasificacion -> {
-            int index = clasificacion.ordinal();
-            return new IdTextPair(index + 1, clasificacion.toString());
-        }).collect(Collectors.toList());
+        List<IdTextPair> clasificaciones = Arrays.stream(Clasificacion.values())
+                .map(clasificacion -> new IdTextPair(clasificacion.ordinal(), clasificacion.toString()))
+                .collect(Collectors.toList());
         return new ResponseWithResults<>(HttpStatus.OK, clasificaciones);
     }
 
@@ -250,8 +248,8 @@ public class OrganizacionService extends BaseServiceForHttp<Organizacion, Organi
     @Override
     public void updateEntityFieldsFromDto(Organizacion organizacion, OrganizacionDto dto) {
         organizacion.setRazonSocial(dto.getRazonSocial());
-        organizacion.setTipoOrganizacion(TipoOrganizacion.valueOf(dto.getTipoOrganizacion().getText()));
-        organizacion.setClasificacion(Clasificacion.valueOf(dto.getClasificacion().getText()));
+        organizacion.setTipoOrganizacion(TipoOrganizacion.getFromOrdinal(dto.getTipoOrganizacion().getId()));
+        organizacion.setClasificacion(Clasificacion.getFromOrdinal(dto.getClasificacion().getId()));
         organizacion.setCantDiasHabilesPorSemana(dto.getCantDiasHabilesPorSemana());
 
         Unidad unidadFactorK = dto.getFactorK().getUnidad() != null
