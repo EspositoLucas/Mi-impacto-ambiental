@@ -5,6 +5,7 @@ import dds.grupo4.tpimpacto.config.FastTests;
 import dds.grupo4.tpimpacto.dtos.AceptarSolicitudRequest;
 import dds.grupo4.tpimpacto.dtos.base.BaseResponse;
 import dds.grupo4.tpimpacto.entities.organizacion.*;
+import dds.grupo4.tpimpacto.entities.seguridad.Usuario;
 import dds.grupo4.tpimpacto.repositories.OrganizacionRepository;
 import dds.grupo4.tpimpacto.repositories.SolicitudRepository;
 import org.junit.jupiter.api.Assertions;
@@ -45,6 +46,7 @@ public class OrganizacionServiceTests {
 
         miembroTest = new Miembro(null);
         miembroTest.setId(1);
+        miembroTest.setUsuario(new Usuario("usernameTest", "passwordTest"));
         organizacionTest = new Organizacion("organizacionTest", TipoOrganizacion.EMPRESA, Clasificacion.EMPRESA_SECTOR_PRIMARIO, null, 5);
         organizacionTest.setId(2);
         sectorTest = new Sector("sectorTest", organizacionTest, null);

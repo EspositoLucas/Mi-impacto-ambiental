@@ -5,6 +5,7 @@ import dds.grupo4.tpimpacto.dtos.IdTextPair;
 import dds.grupo4.tpimpacto.dtos.SectorDto;
 import dds.grupo4.tpimpacto.dtos.base.BaseResponse;
 import dds.grupo4.tpimpacto.dtos.base.ResponseWithResults;
+import dds.grupo4.tpimpacto.security.RequireAdminRole;
 import dds.grupo4.tpimpacto.services.SectorService;
 import dds.grupo4.tpimpacto.utils.ResponseEntityUtils;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,7 @@ public class SectorController {
         this.sectorService = sectorService;
     }
 
+    @RequireAdminRole
     @PostMapping
     public ResponseEntity<BaseResponse> crearSector(@RequestBody CrearSectorRequest request) {
         return ResponseEntityUtils.toResponseEntity(sectorService.crearSector(request));

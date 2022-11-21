@@ -2,6 +2,7 @@ package dds.grupo4.tpimpacto.controllers;
 
 import dds.grupo4.tpimpacto.dtos.CrearTransportePublicoRequest;
 import dds.grupo4.tpimpacto.dtos.base.BaseResponse;
+import dds.grupo4.tpimpacto.security.RequireAdminRole;
 import dds.grupo4.tpimpacto.services.TransportePublicoService;
 import dds.grupo4.tpimpacto.utils.ResponseEntityUtils;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,7 @@ public class TransportePublicoController {
         this.transportePublicoService = transportePublicoService;
     }
 
+    @RequireAdminRole
     @PostMapping
     public ResponseEntity<BaseResponse> crearTransportePublico(@RequestBody CrearTransportePublicoRequest request) {
         return ResponseEntityUtils.toResponseEntity(transportePublicoService.crearTransportePublico(request));
