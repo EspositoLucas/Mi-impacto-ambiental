@@ -6,6 +6,7 @@ import { LogoutComponent } from './logout/logout.component';
 import { CrearOrganizacionComponent } from './organizacion/crear-organizacion/crear-organizacion.component';
 import { EditOrganizacionComponent } from './organizacion/edit-organizacion/edit-organizacion.component';
 import { IndexOrganizacionComponent } from './organizacion/index-organizacion/index-organizacion.component';
+import { IndexSectorComponent } from './sector/index-sector/index-sector.component';
 
 export const routes: Routes = [
     {
@@ -31,6 +32,10 @@ export const routes: Routes = [
     {
         path: 'medicion',
         component: CargarMedicionesComponent,
+    },
+    {
+        path: 'sector',
+        component: IndexSectorComponent,
     },
     {
         path: '',

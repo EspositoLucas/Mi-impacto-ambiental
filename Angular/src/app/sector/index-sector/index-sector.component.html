@@ -1,0 +1,18 @@
+<app-index-template entity="sector" [supportsCreate]="false">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Sector</th>
+                <th>Espacio</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let sector of results$ | async">
+                <td>{{ sector.nombre }}</td>
+                <td>{{ sector.organizacion!.text }}</td>
+                <td>{{ sector.espacio!.text }}</td>
+            </tr>
+        </tbody>
+    </table>
+</app-index-template>

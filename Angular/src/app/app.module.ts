@@ -26,6 +26,7 @@ import { GrillaContactosComponent } from './organizacion/grilla-contactos/grilla
 import { ToastrModule } from 'ngx-toastr';
 import { CargarMedicionesComponent } from './cargar-mediciones/cargar-mediciones.component';
 import { OrganizacionSelectComponent } from './selects/organizacion-select/organizacion-select.component';
+import { IndexSectorComponent } from './sector/index-sector/index-sector.component';
 
 @NgModule({
     declarations: [
@@ -45,6 +46,7 @@ import { OrganizacionSelectComponent } from './selects/organizacion-select/organ
         GrillaContactosComponent,
         CargarMedicionesComponent,
         OrganizacionSelectComponent,
+        IndexSectorComponent,
     ],
     imports: [
         BrowserModule,

@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 })
 export class IndexTemplateComponent implements OnInit {
     @Input() entity!: string;
+    @Input() supportsCreate: boolean = true;
 
     constructor(private router: Router) {}
 
