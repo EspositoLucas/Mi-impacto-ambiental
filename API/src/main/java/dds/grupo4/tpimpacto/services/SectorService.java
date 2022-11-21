@@ -1,6 +1,7 @@
 package dds.grupo4.tpimpacto.services;
 
 import dds.grupo4.tpimpacto.dtos.CrearSectorRequest;
+import dds.grupo4.tpimpacto.dtos.IdTextPair;
 import dds.grupo4.tpimpacto.dtos.SectorDto;
 import dds.grupo4.tpimpacto.dtos.base.BaseResponse;
 import dds.grupo4.tpimpacto.dtos.base.ResponseWithResults;
@@ -60,10 +61,17 @@ public class SectorService extends BaseService<Sector, SectorRepository> {
 
     @Transactional
     public ResponseWithResults<SectorDto> listarSectores() {
-        List<Sector> sectores = this.getAll();
-        List<SectorDto> sectoresDtos = sectores.stream()
+        List<SectorDto> sectoresDtos = this.getAll().stream()
                 .map(SectorDto::from)
                 .collect(Collectors.toList());
         return new ResponseWithResults<>(HttpStatus.OK, sectoresDtos);
+    }
+
+    @Transactional
+    public ResponseWithResults<IdTextPair> listarSectoresIdTextPair() {
+        List<IdTextPair> idTextPairs = this.getAll().stream()
+                .map(IdTextPair::new)
+                .collect(Collectors.toList());
+        return new ResponseWithResults<>(HttpStatus.OK, idTextPairs);
     }
 }

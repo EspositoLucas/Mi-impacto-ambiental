@@ -50,6 +50,14 @@ public class PersonaService extends BaseService<Persona, PersonaRepository> {
     }
 
     @Transactional
+    public ResponseWithResults<IdTextPair> listarPersonasIdTextPair() {
+        List<IdTextPair> idTextPairs = this.getAll().stream()
+                .map(IdTextPair::new)
+                .collect(Collectors.toList());
+        return new ResponseWithResults<>(HttpStatus.OK, idTextPairs);
+    }
+
+    @Transactional
     public ResponseWithResults<IdTextPair> listarTiposDeDocumento() {
         List<IdTextPair> tiposDeDocumento = Arrays.stream(TipoDocumento.values())
                 .map(tipo -> new IdTextPair(tipo.ordinal(), tipo.toString()))

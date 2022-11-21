@@ -6,6 +6,7 @@ import {
     ResponseWithSingleResult,
 } from '../api/api-helper.service';
 import { Base } from '../models/base.model';
+import { IdTextPair } from '../models/idtextpair.model';
 import { IBaseService } from './ibase.service';
 
 export abstract class BaseService<T extends Base> implements IBaseService<T> {
@@ -17,6 +18,12 @@ export abstract class BaseService<T extends Base> implements IBaseService<T> {
     getAll(): Observable<T[]> {
         return this.apiHelperService
             .get<ResponseWithResults<T>>(this.entity)
+            .pipe(map((httpResponse) => httpResponse.body!.results));
+    }
+
+    getAllIdTextPairs(): Observable<IdTextPair[]> {
+        return this.apiHelperService
+            .get<ResponseWithResults<IdTextPair>>(`${this.entity}/idtextpair`)
             .pipe(map((httpResponse) => httpResponse.body!.results));
     }
 

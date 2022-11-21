@@ -30,6 +30,8 @@ import { IndexSectorComponent } from './sector/index-sector/index-sector.compone
 import { IndexPersonaComponent } from './persona/index-persona/index-persona.component';
 import { TipoDocumentoSelectComponent } from './selects/tipo-documento-select/tipo-documento-select.component';
 import { CrearPersonaComponent } from './persona/crear-persona/crear-persona.component';
+import { PersonaSelectComponent } from './selects/persona-select/persona-select.component';
+import { SectorSelectComponent } from './selects/sector-select/sector-select.component';
 
 @NgModule({
     declarations: [
@@ -53,6 +55,8 @@ import { CrearPersonaComponent } from './persona/crear-persona/crear-persona.com
         IndexPersonaComponent,
         TipoDocumentoSelectComponent,
         CrearPersonaComponent,
+        PersonaSelectComponent,
+        SectorSelectComponent,
     ],
     imports: [
         BrowserModule,

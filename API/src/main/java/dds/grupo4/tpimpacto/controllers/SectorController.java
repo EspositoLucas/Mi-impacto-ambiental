@@ -1,6 +1,7 @@
 package dds.grupo4.tpimpacto.controllers;
 
 import dds.grupo4.tpimpacto.dtos.CrearSectorRequest;
+import dds.grupo4.tpimpacto.dtos.IdTextPair;
 import dds.grupo4.tpimpacto.dtos.SectorDto;
 import dds.grupo4.tpimpacto.dtos.base.BaseResponse;
 import dds.grupo4.tpimpacto.dtos.base.ResponseWithResults;
@@ -27,6 +28,11 @@ public class SectorController {
     @GetMapping
     public ResponseEntity<ResponseWithResults<SectorDto>> listarSectores() {
         return ResponseEntityUtils.toResponseEntity(sectorService.listarSectores());
+    }
+
+    @GetMapping("/idtextpair")
+    public ResponseEntity<ResponseWithResults<IdTextPair>> listarSectoresIdTextPair() {
+        return ResponseEntityUtils.toResponseEntity(sectorService.listarSectoresIdTextPair());
     }
 
 }

@@ -32,6 +32,11 @@ public class PersonaController {
         return ResponseEntityUtils.toResponseEntity(personaService.listarPersonas());
     }
 
+    @GetMapping("/idtextpair")
+    public ResponseEntity<ResponseWithResults<IdTextPair>> listarPersonasIdTextPair() {
+        return ResponseEntityUtils.toResponseEntity(personaService.listarPersonasIdTextPair());
+    }
+
     @GetMapping("/tipos-documento")
     public ResponseEntity<ResponseWithResults<IdTextPair>> listarTiposDeDocumento() {
         return ResponseEntityUtils.toResponseEntity(personaService.listarTiposDeDocumento());
