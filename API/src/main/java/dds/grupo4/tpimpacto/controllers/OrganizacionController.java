@@ -4,6 +4,8 @@ import dds.grupo4.tpimpacto.dtos.*;
 import dds.grupo4.tpimpacto.dtos.base.BaseResponse;
 import dds.grupo4.tpimpacto.dtos.base.ResponseWithResults;
 import dds.grupo4.tpimpacto.dtos.base.ResponseWithSingleResult;
+import dds.grupo4.tpimpacto.entities.seguridad.Usuario;
+import dds.grupo4.tpimpacto.security.CurrentUserService;
 import dds.grupo4.tpimpacto.security.RequireAdminRole;
 import dds.grupo4.tpimpacto.services.OrganizacionService;
 import dds.grupo4.tpimpacto.utils.ResponseEntityUtils;
@@ -18,9 +20,11 @@ import java.io.IOException;
 public class OrganizacionController {
 
     private final OrganizacionService organizacionService;
+    private final CurrentUserService currentUserService;
 
-    public OrganizacionController(OrganizacionService organizacionService) {
+    public OrganizacionController(OrganizacionService organizacionService, CurrentUserService currentUserService) {
         this.organizacionService = organizacionService;
+        this.currentUserService = currentUserService;
     }
 
     @GetMapping
@@ -59,6 +63,14 @@ public class OrganizacionController {
     @GetMapping("/clasificaciones")
     public ResponseEntity<ResponseWithResults<IdTextPair>> listarClasificaciones() {
         return ResponseEntityUtils.toResponseEntity(organizacionService.listarClasificaciones());
+    }
+
+    @RequireAdminRole
+    @GetMapping("/solicitudes")
+    public ResponseEntity<ResponseWithResults<SolicitudDto>> listarSolicitudes() {
+        Usuario currentUser = currentUserService.get();
+        long idOrganizacion = currentUser.getMiembro().getOrganizacion().getId();
+        return ResponseEntityUtils.toResponseEntity(organizacionService.listarSolicitudes(idOrganizacion));
     }
 
     @RequireAdminRole

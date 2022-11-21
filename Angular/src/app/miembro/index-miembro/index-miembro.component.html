@@ -11,9 +11,9 @@
         <tbody>
             <tr *ngFor="let miembro of results$ | async">
                 <td>{{ miembro.persona!.text }}</td>
-                <td>{{ miembro.usuario!.text }}</td>
+                <td>{{ miembro.usuario?.text }}</td>
                 <td>{{ miembro.fechaIngreso }}</td>
-                <td>{{ miembro.sector!.text }}</td>
+                <td>{{ miembro.sector?.text }}</td>
             </tr>
         </tbody>
     </table>

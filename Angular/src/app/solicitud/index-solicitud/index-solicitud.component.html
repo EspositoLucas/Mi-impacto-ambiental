@@ -1,0 +1,29 @@
+<app-index-template entity="solicitud" [supportsCreate]="false">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Miembro</th>
+                <th>Sector</th>
+                <th>Activa</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let solicitud of results$ | async">
+                <td>{{ solicitud.miembro.text }}</td>
+                <td>{{ solicitud.sector.text }}</td>
+                <td>{{ solicitud.activo ? 'SI' : 'NO' }}</td>
+                <td>
+                    <button
+                        type="button"
+                        *ngIf="solicitud.activo"
+                        (click)="onAccept(solicitud)"
+                        class="btn btn-success"
+                    >
+                        Aceptar
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</app-index-template>

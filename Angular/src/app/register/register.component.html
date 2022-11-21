@@ -1,0 +1,51 @@
+<div class="m-3">
+    <form (ngSubmit)="onSubmit()" class="mb-3">
+        <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            <input
+                type="text"
+                id="username"
+                class="form-control"
+                required
+                [(ngModel)]="registrarRequest.username"
+                name="username"
+            />
+        </div>
+    
+        <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input
+                type="password"
+                id="password"
+                class="form-control"
+                required
+                [(ngModel)]="registrarRequest.password"
+                name="password"
+            />
+        </div>
+
+        <div class="mb-3">
+            <label for="idSolicitud" class="form-label">ID Solicitud</label>
+            <input
+                type="text"
+                id="idSolicitud"
+                class="form-control"
+                required
+                [(ngModel)]="registrarRequest.idSolicitud"
+                name="idSolicitud"
+            />
+        </div>
+    
+        <button type="submit" class="btn btn-primary">
+            Submit
+        </button>
+    </form>
+
+    <div *ngIf="errores">
+        <ul>
+            <li *ngFor="let error of errores">
+                {{ error }}
+            </li>
+        </ul>
+    </div>
+</div>

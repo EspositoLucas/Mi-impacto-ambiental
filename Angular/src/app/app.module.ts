@@ -34,6 +34,8 @@ import { PersonaSelectComponent } from './selects/persona-select/persona-select.
 import { SectorSelectComponent } from './selects/sector-select/sector-select.component';
 import { IndexMiembroComponent } from './miembro/index-miembro/index-miembro.component';
 import { CrearMiembroComponent } from './miembro/crear-miembro/crear-miembro.component';
+import { RegisterComponent } from './register/register.component';
+import { IndexSolicitudComponent } from './solicitud/index-solicitud/index-solicitud.component';
 
 @NgModule({
     declarations: [
@@ -61,6 +63,8 @@ import { CrearMiembroComponent } from './miembro/crear-miembro/crear-miembro.com
         SectorSelectComponent,
         IndexMiembroComponent,
         CrearMiembroComponent,
+        RegisterComponent,
+        IndexSolicitudComponent,
     ],
     imports: [
         BrowserModule,

@@ -10,12 +10,18 @@ import { EditOrganizacionComponent } from './organizacion/edit-organizacion/edit
 import { IndexOrganizacionComponent } from './organizacion/index-organizacion/index-organizacion.component';
 import { CrearPersonaComponent } from './persona/crear-persona/crear-persona.component';
 import { IndexPersonaComponent } from './persona/index-persona/index-persona.component';
+import { RegisterComponent } from './register/register.component';
 import { IndexSectorComponent } from './sector/index-sector/index-sector.component';
+import { IndexSolicitudComponent } from './solicitud/index-solicitud/index-solicitud.component';
 
 export const routes: Routes = [
     {
         path: 'login',
         component: LoginComponent,
+    },
+    {
+        path: 'register',
+        component: RegisterComponent,
     },
     {
         path: 'logout',
@@ -56,6 +62,10 @@ export const routes: Routes = [
     {
         path: 'miembro/crear',
         component: CrearMiembroComponent,
+    },
+    {
+        path: 'solicitud',
+        component: IndexSolicitudComponent,
     },
     {
         path: '',

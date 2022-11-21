@@ -75,6 +75,14 @@ public class OrganizacionService extends BaseServiceForHttp<Organizacion, Organi
     }
 
     @Transactional
+    public ResponseWithResults<SolicitudDto> listarSolicitudes(long idOrganizacion) {
+        List<SolicitudDto> solicitudes = solicitudRepository.solicitudesParaOrganizacion(idOrganizacion).stream()
+                .map(SolicitudDto::from)
+                .collect(Collectors.toList());
+        return new ResponseWithResults<>(HttpStatus.OK, solicitudes);
+    }
+
+    @Transactional
     public ResponseWithResults<MiembroDto> listarMiembros(long idOrganizacion) {
         Organizacion organizacion = this.getById(idOrganizacion);
         List<MiembroDto> miembrosDtos = organizacion.getMiembros().stream()
@@ -95,6 +103,14 @@ public class OrganizacionService extends BaseServiceForHttp<Organizacion, Organi
             return new BaseResponse(
                     HttpStatus.BAD_REQUEST,
                     "No existe ninguna Solicitud con el ID ingresado"
+            );
+        }
+
+        Miembro miembro = solicitud.getMiembro();
+        if (miembro.getUsuario() == null) {
+            return new BaseResponse(
+                    HttpStatus.BAD_REQUEST,
+                    "El miembro todavia no se creo un Usuario, asi que no se puede aceptar la Solicitud"
             );
         }
 

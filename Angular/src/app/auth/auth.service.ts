@@ -1,6 +1,11 @@
 import { Injectable } from '@angular/core';
 import { map, Observable, tap } from 'rxjs';
-import { AuthApiService, LoginResponse } from './authapi.service';
+import {
+    AuthApiService,
+    LoginResponse,
+    RegistrarUsuarioRequest,
+    RegistrarUsuarioResponse,
+} from './authapi.service';
 import { User } from '../models/user.model';
 
 @Injectable({
@@ -45,6 +50,14 @@ export class AuthService {
                 };
             })
         );
+    }
+
+    register(
+        request: RegistrarUsuarioRequest
+    ): Observable<RegistrarUsuarioResponse> {
+        return this.authApiService
+            .register(request)
+            .pipe(map((response) => response.body!));
     }
 
     logout() {

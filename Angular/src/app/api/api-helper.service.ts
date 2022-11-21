@@ -1,13 +1,7 @@
 import { Injectable } from '@angular/core';
-import {
-    HttpClient,
-    HttpErrorResponse,
-    HttpHeaders,
-    HttpResponse,
-    HttpStatusCode,
-} from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { catchError, EMPTY, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
@@ -29,12 +23,7 @@ export class ApiHelperService {
             headers?: HttpHeaders;
             observe: 'response';
         } = { headers, observe: 'response' };
-        const response$ = this.httpClient.post<TResponse>(
-            apiUrl,
-            body,
-            options
-        );
-        return this.showToastMessage(response$);
+        return this.httpClient.post<TResponse>(apiUrl, body, options);
     }
 
     get<TResponse extends BaseResponse>(
@@ -46,8 +35,7 @@ export class ApiHelperService {
             headers?: HttpHeaders;
             observe: 'response';
         } = { headers, observe: 'response' };
-        const response$ = this.httpClient.get<TResponse>(apiUrl, options);
-        return this.showToastMessage(response$);
+        return this.httpClient.get<TResponse>(apiUrl, options);
     }
 
     put<TResponse extends BaseResponse>(
@@ -60,8 +48,7 @@ export class ApiHelperService {
             headers?: HttpHeaders;
             observe: 'response';
         } = { headers, observe: 'response' };
-        const response$ = this.httpClient.put<TResponse>(apiUrl, body, options);
-        return this.showToastMessage(response$);
+        return this.httpClient.put<TResponse>(apiUrl, body, options);
     }
 
     delete<TResponse extends BaseResponse>(
@@ -73,29 +60,11 @@ export class ApiHelperService {
             headers?: HttpHeaders;
             observe: 'response';
         } = { headers, observe: 'response' };
-        const response$ = this.httpClient.delete<TResponse>(apiUrl, options);
-        return this.showToastMessage(response$);
+        return this.httpClient.delete<TResponse>(apiUrl, options);
     }
 
     private getUrl(url: string): string {
         return `${environment.baseApiUrl}/api/${url}`;
-    }
-
-    private showToastMessage<TResponse>(
-        request: Observable<HttpResponse<TResponse>>
-    ): Observable<HttpResponse<TResponse>> {
-        return request.pipe(
-            catchError((err: HttpErrorResponse) => {
-                if (err.status === HttpStatusCode.Unauthorized) {
-                    this.toastr.error('No estas logeado!');
-                } else if (err.status === HttpStatusCode.Forbidden) {
-                    this.toastr.error(
-                        'No tenes los permisos suficientes para realizar esta operacion'
-                    );
-                }
-                return EMPTY;
-            })
-        );
     }
 }
 
