@@ -5,7 +5,6 @@
     <title>Miembros</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
     <link rel="stylesheet" href="./my-styles.css">
 </head>
 <body>
@@ -16,10 +15,10 @@
         {{#each listamiembros}}
             <tr>
                 <td>{{id}}</td>
-                <td>{{nombre}}</td>
-                <td>{{apellido}}</td>
-                <td>{{username}}</td>
-                <td>{{sector}}</td>
+                <td>{{persona.text}}</td>
+                <td>{{usuario.text}}</td>
+                <td>{{sector.text}}</td>
+                <td>{{organizacion.text}}</td>
                 <td>{{idSolicitud}}</td>
             </tr>
         {{/each}}

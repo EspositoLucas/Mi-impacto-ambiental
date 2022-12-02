@@ -5,11 +5,33 @@
         </p>
         <p>Navegá a una de las rutas para usar la app</p>
     </div>
+    <button type="button" onclick="prueba" class="btn btn-primary">
+        Submit
+    </button>
     <div *ngIf="!isLoggedIn">
         <p>
             Hace click
             <a routerLink="/login">aca</a>
             para logearte
+
         </p>
+
     </div>
 </div>
+
+
+<script lang="ts">
+    import { AuthService } from '../auth/auth.service';
+    async function prueba(){
+        return fetch("http://localhost:8080/miembroLiviano", {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: 'Bearer'  + this.authService.loggedUser.accessToken ,
+                'X-Custom-Header': 'header value'
+
+            }
+        })
+    }
+
+</script>

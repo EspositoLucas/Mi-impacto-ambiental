@@ -142,4 +142,3 @@ public class Cantidad extends BaseEntity {
         return unidad.toString();
     }
 }
-//comenatrio

@@ -24,7 +24,7 @@ import java.util.Map;
 public class MiembroController {
 
     private final MiembroService miembroService;
-    //private final Handlebars handlebars;
+
     public MiembroController(MiembroService miembroService) {
         this.miembroService = miembroService;
     }
@@ -41,24 +41,10 @@ public class MiembroController {
         return ResponseEntityUtils.toResponseEntity(miembroService.listarMiembros());
     }
 
-    //Cliente liviano
 
-    /*
-    @GetMapping(value = "/miembro", produces = MediaType.TEXT_HTML_VALUE) //-> importante en Spring
-    public ResponseEntity<String> obtenerVistaDeMiembros(@RequestParam("sesion") String idSesion) throws IOException {
 
-        //validar accion en capa modelo según roles o usuario asociados al idSesion
-        Template template = handlebars.compile("/templates/index");
-        ResponseWithResults miembros = miembroService.listarMiembros();
 
-        Map<String, Object> model = new HashMap<>();
-        model.put("listamiembros", miembros);
 
-        String html = template.apply(model);
 
-        return ResponseEntity.status(200).body(html);
-    }
-
-*/
 
 }
