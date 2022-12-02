@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Miembros</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <link rel="stylesheet" href="./my-styles.css">
+</head>
+<body>
+
+<div id="main-div">
+
+    <table class="table table-bordered table-striped">
+        {{#each listamiembros}}
+            <tr>
+                <td>{{id}}</td>
+                <td>{{nombre}}</td>
+                <td>{{apellido}}</td>
+                <td>{{username}}</td>
+                <td>{{sector}}</td>
+                <td>{{idSolicitud}}</td>
+            </tr>
+        {{/each}}
+    </table>
+
+</div>
+
+<!--    <script>-->
+</body>
+</html>
