@@ -1,0 +1,32 @@
+!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Organizaciones</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="./my-styles.css">
+</head>
+<body>
+
+<div id="main-div">
+
+    <table class="table table-bordered table-striped">
+        {{#each listaorganizaciones}}
+            <tr>
+                <td>{{id}}</td>
+                <td>{{cantDiasHabilesPorSemana}}</td>
+                <td>{{clasificacion.text}}</td>
+                <td>{{razonSocial}}</td>
+                <td>{{tipoOrganizacion.text}}</td>
+                <td>{{factorK.unidad}}</td>
+                <td>{{factorK.text}}</td>
+            </tr>
+        {{/each}}
+    </table>
+
+</div>
+
+<!--    <script>-->
+</body>
+</html>
