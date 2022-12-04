@@ -34,7 +34,7 @@ public class MiembroControllerLiviano {
         ResponseWithResults<MiembroDto> miembros = miembroService.listarMiembros();
 
         Map<String, Object> model = new HashMap<>();
-        model.put("listamiembros", miembros.getResults());
+        model.put("listaMiembros", miembros.getResults());
 
         String html = template.apply(model);
 

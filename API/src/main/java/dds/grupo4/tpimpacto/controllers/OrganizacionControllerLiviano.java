@@ -29,12 +29,11 @@ public class OrganizacionControllerLiviano {
 
     @GetMapping(produces = MediaType.TEXT_HTML_VALUE)
     public ResponseEntity<String> obtenerVistaDeOrganizaciones() throws IOException {
-        //validar accion en capa modelo según roles o usuario asociados al idSesion
         Template template = handlebars.compile("/templates/cliente_liviano_listar_organizaciones");
         ResponseWithResults<OrganizacionDto> organizaciones = organizacionService.getAllDtos();
 
         Map<String, Object> model = new HashMap<>();
-        model.put("listaorganizaciones", organizaciones.getResults());
+        model.put("listaOrganizaciones", organizaciones.getResults());
 
         String html = template.apply(model);
 
