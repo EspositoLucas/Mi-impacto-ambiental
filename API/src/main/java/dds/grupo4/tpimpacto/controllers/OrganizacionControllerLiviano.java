@@ -2,6 +2,7 @@ package dds.grupo4.tpimpacto.controllers;
 
 import com.github.jknack.handlebars.Handlebars;
 import com.github.jknack.handlebars.Template;
+import dds.grupo4.tpimpacto.dtos.OrganizacionDto;
 import dds.grupo4.tpimpacto.dtos.base.ResponseWithResults;
 import dds.grupo4.tpimpacto.services.OrganizacionService;
 import org.springframework.http.MediaType;
@@ -21,14 +22,15 @@ public class OrganizacionControllerLiviano {
 
     public OrganizacionControllerLiviano(OrganizacionService organizacionService) {
         this.organizacionService = organizacionService;
-        this.handlebars = new Handlebars() ;
+        this.handlebars = new Handlebars();
     }
+
     @GetMapping(value = "/organizacionLiviano", produces = MediaType.TEXT_HTML_VALUE)
     public ResponseEntity<String> obtenerVistaDeOrganizaciones() throws IOException {
 
         //validar accion en capa modelo según roles o usuario asociados al idSesion
         Template template = handlebars.compile("/templates/cliente_liviano_listar_organizaciones");
-        ResponseWithResults organizaciones = organizacionService.getAllDtos();
+        ResponseWithResults<OrganizacionDto> organizaciones = organizacionService.getAllDtos();
 
         Map<String, Object> model = new HashMap<>();
         model.put("listaorganizaciones", organizaciones.getResults());

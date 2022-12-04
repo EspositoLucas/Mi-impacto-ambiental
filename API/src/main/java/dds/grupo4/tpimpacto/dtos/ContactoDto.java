@@ -2,16 +2,9 @@ package dds.grupo4.tpimpacto.dtos;
 
 import dds.grupo4.tpimpacto.dtos.base.BaseEntityDto;
 import dds.grupo4.tpimpacto.entities.organizacion.Contacto;
-import dds.grupo4.tpimpacto.entities.organizacion.Organizacion;
-import dds.grupo4.tpimpacto.utils.EnumUtils;
-import dds.grupo4.tpimpacto.utils.ListUtils;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import javax.persistence.Id;
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @Setter

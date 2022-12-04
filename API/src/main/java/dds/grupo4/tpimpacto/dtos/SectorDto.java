@@ -3,7 +3,6 @@ package dds.grupo4.tpimpacto.dtos;
 import dds.grupo4.tpimpacto.dtos.base.BaseEntityDto;
 import dds.grupo4.tpimpacto.entities.organizacion.Sector;
 import dds.grupo4.tpimpacto.utils.ListUtils;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

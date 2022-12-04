@@ -1,9 +1,10 @@
 package dds.grupo4.tpimpacto.dtos;
 
 import dds.grupo4.tpimpacto.dtos.base.BaseEntityDto;
-import dds.grupo4.tpimpacto.entities.medioTransporte.*;
-import dds.grupo4.tpimpacto.entities.trayecto.Espacio;
-import dds.grupo4.tpimpacto.entities.trayecto.Lugar;
+import dds.grupo4.tpimpacto.entities.medioTransporte.MedioDeTransporte;
+import dds.grupo4.tpimpacto.entities.medioTransporte.TransportePublico;
+import dds.grupo4.tpimpacto.entities.medioTransporte.VehiculoNoContaminante;
+import dds.grupo4.tpimpacto.entities.medioTransporte.VehiculoParticular;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

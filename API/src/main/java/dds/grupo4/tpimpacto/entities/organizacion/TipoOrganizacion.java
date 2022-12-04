@@ -9,6 +9,6 @@ public enum TipoOrganizacion {
     private static final TipoOrganizacion[] values = values();
 
     public static TipoOrganizacion getFromOrdinal(long ordinal) {
-        return values[(int)ordinal];
+        return values[(int) ordinal];
     }
 }

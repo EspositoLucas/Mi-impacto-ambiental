@@ -9,7 +9,6 @@ import dds.grupo4.tpimpacto.dtos.RegistrarUsuarioResponse;
 import dds.grupo4.tpimpacto.entities.organizacion.Miembro;
 import dds.grupo4.tpimpacto.entities.organizacion.Solicitud;
 import dds.grupo4.tpimpacto.entities.seguridad.Usuario;
-import dds.grupo4.tpimpacto.repositories.MiembroRepository;
 import dds.grupo4.tpimpacto.repositories.SectorRepository;
 import dds.grupo4.tpimpacto.repositories.SolicitudRepository;
 import dds.grupo4.tpimpacto.repositories.UsuarioRepository;
