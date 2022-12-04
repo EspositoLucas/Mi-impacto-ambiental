@@ -1,34 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Organizaciones</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="./my-styles.css">
-</head>
-<body>
-    <div id="main-div">
-        <table class="table table-bordered table-striped">
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Razon social</th>
+            <th>Clasificacion</th>
+            <th>Tipo organizacion</th>
+            <th>Dias habiles por semana</th>
+            <th>Factor K</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each listaOrganizaciones}}
             <tr>
-                <th>Id</th>
-                <th>Razon social</th>
-                <th>Clasificacion</th>
-                <th>Tipo organizacion</th>
-                <th>Dias habiles por semana</th>
-                <th>Factor K</th>
+                <td>{{id}}</td>
+                <td>{{razonSocial}}</td>
+                <td>{{clasificacion.text}}</td>
+                <td>{{tipoOrganizacion.text}}</td>
+                <td>{{cantDiasHabilesPorSemana}}</td>
+                <td>{{factorK.text}}</td>
             </tr>
-            {{#each listaOrganizaciones}}
-                <tr>
-                    <td>{{id}}</td>
-                    <td>{{razonSocial}}</td>
-                    <td>{{clasificacion.text}}</td>
-                    <td>{{tipoOrganizacion.text}}</td>
-                    <td>{{cantDiasHabilesPorSemana}}</td>
-                    <td>{{factorK.text}}</td>
-                </tr>
-            {{/each}}
-        </table>
-    </div>
-</body>
-</html>
+        {{/each}}
+    </tbody>
+</table>

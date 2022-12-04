@@ -1,34 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Miembros</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="./my-styles.css">
-</head>
-<body>
-    <div id="main-div">
-        <table class="table table-bordered table-striped">
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Persona</th>
+            <th>Usuario</th>
+            <th>Sector</th>
+            <th>Organizacion</th>
+            <!-- <th>{{idSolicitud}}</th> -->
+        </tr>
+    </thead>
+    <tbody>
+        {{#each listaMiembros}}
             <tr>
-                <th>Id</th>
-                <th>Persona</th>
-                <th>Usuario</th>
-                <th>Sector</th>
-                <th>Organizacion</th>
-                <!-- <th>{{idSolicitud}}</th> -->
+                <td>{{id}}</td>
+                <td>{{persona.text}}</td>
+                <td>{{usuario.text}}</td>
+                <td>{{sector.text}}</td>
+                <td>{{organizacion.text}}</td>
+                <!-- <td>{{idSolicitud}}</td> -->
             </tr>
-            {{#each listaMiembros}}
-                <tr>
-                    <td>{{id}}</td>
-                    <td>{{persona.text}}</td>
-                    <td>{{usuario.text}}</td>
-                    <td>{{sector.text}}</td>
-                    <td>{{organizacion.text}}</td>
-                    <!-- <td>{{idSolicitud}}</td> -->
-                </tr>
-            {{/each}}
-        </table>
-    </div>
-</body>
-</html>
+        {{/each}}
+    </tbody>
+</table>
