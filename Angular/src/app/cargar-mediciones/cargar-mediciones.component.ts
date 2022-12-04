@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { IdTextPair } from '../models/idtextpair.model';
-import { OrganizacionService } from '../organizacion/organizacion.service';
+import { OrganizacionJsonService } from '../organizacion/organizacion-json.service';
 
 @Component({
     selector: 'app-cargar-mediciones',
@@ -13,7 +13,7 @@ export class CargarMedicionesComponent implements OnInit {
     request: CargarMedicionesRequest = {} as CargarMedicionesRequest;
 
     constructor(
-        private organizacionService: OrganizacionService,
+        private organizacionService: OrganizacionJsonService,
         private router: Router,
         private toastr: ToastrService
     ) {}

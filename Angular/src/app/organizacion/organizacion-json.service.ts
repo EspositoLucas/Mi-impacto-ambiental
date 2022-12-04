@@ -12,7 +12,7 @@ import { Organizacion } from '../models/organizacion.model';
 @Injectable({
     providedIn: 'root',
 })
-export class OrganizacionService extends BaseJsonService<Organizacion> {
+export class OrganizacionJsonService extends BaseJsonService<Organizacion> {
     constructor(apiHelperService: ApiJsonHelperService) {
         super(apiHelperService, 'organizacion');
     }

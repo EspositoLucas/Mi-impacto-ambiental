@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Organizacion } from 'src/app/models/organizacion.model';
 import { BaseEditComponent } from 'src/app/templates/base-edit/base-edit.component';
-import { OrganizacionService } from '../organizacion.service';
+import { OrganizacionJsonService } from '../organizacion-json.service';
 
 @Component({
     selector: 'app-edit-organizacion',
@@ -18,7 +18,7 @@ export class EditOrganizacionComponent
     constructor(
         route: ActivatedRoute,
         router: Router,
-        service: OrganizacionService
+        service: OrganizacionJsonService
     ) {
         super(route, router, 'organizacion', service);
     }

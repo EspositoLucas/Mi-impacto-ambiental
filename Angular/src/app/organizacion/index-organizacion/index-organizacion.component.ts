@@ -4,7 +4,7 @@ import { tap } from 'rxjs';
 import { cantidadFormatTextMessage } from 'src/app/models/cantidad.model';
 import { Organizacion } from 'src/app/models/organizacion.model';
 import { BaseIndexComponent } from 'src/app/templates/base-index/base-index.component';
-import { OrganizacionService } from '../organizacion.service';
+import { OrganizacionJsonService } from '../organizacion-json.service';
 
 @Component({
     selector: 'app-index-organizacion',
@@ -15,7 +15,7 @@ export class IndexOrganizacionComponent
     extends BaseIndexComponent<Organizacion>
     implements OnInit
 {
-    constructor(router: Router, service: OrganizacionService) {
+    constructor(router: Router, service: OrganizacionJsonService) {
         super(router, 'organizacion', service);
     }
 

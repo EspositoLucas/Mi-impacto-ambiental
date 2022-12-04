@@ -4,7 +4,7 @@ import {
     newOrganizacion,
     Organizacion,
 } from 'src/app/models/organizacion.model';
-import { OrganizacionService } from '../organizacion.service';
+import { OrganizacionJsonService } from '../organizacion-json.service';
 
 @Component({
     selector: 'app-crear-organizacion',
@@ -15,7 +15,7 @@ export class CrearOrganizacionComponent implements OnInit {
     organizacion: Organizacion;
 
     constructor(
-        private organizacionService: OrganizacionService,
+        private organizacionService: OrganizacionJsonService,
         private router: Router
     ) {
         this.organizacion = newOrganizacion();
