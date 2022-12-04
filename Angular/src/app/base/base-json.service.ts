@@ -1,17 +1,19 @@
 import { map, Observable } from 'rxjs';
 import {
-    ApiHelperService,
+    ApiJsonHelperService,
     BaseResponse,
     ResponseWithResults,
     ResponseWithSingleResult,
-} from '../api/api-helper.service';
+} from '../api/api-json-helper.service';
 import { Base } from '../models/base.model';
 import { IdTextPair } from '../models/idtextpair.model';
-import { IBaseService } from './ibase.service';
+import { IBaseJsonService } from './ibase-json.service';
 
-export abstract class BaseService<T extends Base> implements IBaseService<T> {
+export abstract class BaseJsonService<T extends Base>
+    implements IBaseJsonService<T>
+{
     constructor(
-        protected apiHelperService: ApiHelperService,
+        protected apiHelperService: ApiJsonHelperService,
         protected entity: string
     ) {}
 

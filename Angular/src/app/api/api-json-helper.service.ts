@@ -2,16 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
-import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
     providedIn: 'root',
 })
-export class ApiHelperService {
-    constructor(
-        protected httpClient: HttpClient,
-        protected toastr: ToastrService
-    ) {}
+export class ApiJsonHelperService {
+    constructor(protected httpClient: HttpClient) {}
 
     post<TResponse extends BaseResponse>(
         url: string,

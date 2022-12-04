@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
-import { ApiHelperService } from '../api/api-helper.service';
-import { BaseService } from '../base/base.service';
+import { ApiJsonHelperService } from '../api/api-json-helper.service';
+import { BaseJsonService } from '../base/base-json.service';
 import { IdTextPair } from '../models/idtextpair.model';
 
 @Injectable({
     providedIn: 'root',
 })
-export class ClasificacionOrganizacionService extends BaseService<IdTextPair> {
-    constructor(apiHelperService: ApiHelperService) {
+export class ClasificacionOrganizacionService extends BaseJsonService<IdTextPair> {
+    constructor(apiHelperService: ApiJsonHelperService) {
         super(apiHelperService, 'organizacion/clasificaciones');
     }
 }

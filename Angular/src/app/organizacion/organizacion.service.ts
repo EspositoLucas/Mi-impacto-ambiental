@@ -1,16 +1,19 @@
 import { HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ApiHelperService, BaseResponse } from '../api/api-helper.service';
-import { BaseService } from '../base/base.service';
+import {
+    ApiJsonHelperService,
+    BaseResponse,
+} from '../api/api-json-helper.service';
+import { BaseJsonService } from '../base/base-json.service';
 import { CargarMedicionesRequest } from '../cargar-mediciones/cargar-mediciones.component';
 import { Organizacion } from '../models/organizacion.model';
 
 @Injectable({
     providedIn: 'root',
 })
-export class OrganizacionService extends BaseService<Organizacion> {
-    constructor(apiHelperService: ApiHelperService) {
+export class OrganizacionService extends BaseJsonService<Organizacion> {
+    constructor(apiHelperService: ApiJsonHelperService) {
         super(apiHelperService, 'organizacion');
     }
 

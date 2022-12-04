@@ -9,7 +9,7 @@ import {
 } from '@angular/common/http';
 import { catchError, Observable, throwError } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
-import { BaseResponse } from '../api/api-helper.service';
+import { BaseResponse } from '../api/api-json-helper.service';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {

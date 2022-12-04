@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs';
-import { BaseResponse } from '../api/api-helper.service';
+import { BaseResponse } from '../api/api-json-helper.service';
 
-export interface IBaseService<T> {
+export interface IBaseJsonService<T> {
     getAll(): Observable<T[]>;
     getById(id: number): Observable<T>;
     create(obj: T): Observable<BaseResponse | null>;

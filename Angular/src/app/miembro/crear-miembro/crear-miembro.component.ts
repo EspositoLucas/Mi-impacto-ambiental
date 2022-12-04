@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { newMiembro, Miembro } from 'src/app/models/miembro.model';
-import { MiembroService } from '../miembro.service';
+import { MiembroJsonService } from '../miembro-json.service';
 
 @Component({
     selector: 'app-crear-miembro',
@@ -12,7 +12,7 @@ export class CrearMiembroComponent implements OnInit {
     miembro: Miembro;
 
     constructor(
-        private miembroService: MiembroService,
+        private miembroService: MiembroJsonService,
         private router: Router
     ) {
         this.miembro = newMiembro();

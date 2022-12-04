@@ -1,6 +1,6 @@
 import { Router } from '@angular/router';
 import { Observable, startWith, Subject, switchMap } from 'rxjs';
-import { IBaseService } from 'src/app/base/ibase.service';
+import { IBaseJsonService } from 'src/app/base/ibase-json.service';
 import { Base } from 'src/app/models/base.model';
 
 export abstract class BaseIndexComponent<T extends Base> {
@@ -10,7 +10,7 @@ export abstract class BaseIndexComponent<T extends Base> {
     constructor(
         protected router: Router,
         private entity: string,
-        private service: IBaseService<T>
+        private service: IBaseJsonService<T>
     ) {}
 
     onInit(): void {

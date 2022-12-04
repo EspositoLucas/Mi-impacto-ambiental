@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
-import { ApiHelperService } from '../api/api-helper.service';
-import { BaseService } from '../base/base.service';
+import { ApiJsonHelperService } from '../api/api-json-helper.service';
+import { BaseJsonService } from '../base/base-json.service';
 import { Sector } from '../models/sector.model';
 
 @Injectable({
     providedIn: 'root',
 })
-export class SectorService extends BaseService<Sector> {
-    constructor(apiHelperService: ApiHelperService) {
+export class SectorService extends BaseJsonService<Sector> {
+    constructor(apiHelperService: ApiJsonHelperService) {
         super(apiHelperService, 'sector');
     }
 }

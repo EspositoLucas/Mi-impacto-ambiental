@@ -1,14 +1,17 @@
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
-import { ApiHelperService, BaseResponse } from '../api/api-helper.service';
-import { BaseService } from '../base/base.service';
+import {
+    ApiJsonHelperService,
+    BaseResponse,
+} from '../api/api-json-helper.service';
+import { BaseJsonService } from '../base/base-json.service';
 import { Solicitud } from '../models/solicitud.model';
 
 @Injectable({
     providedIn: 'root',
 })
-export class SolicitudService extends BaseService<Solicitud> {
-    constructor(apiHelperService: ApiHelperService) {
+export class SolicitudService extends BaseJsonService<Solicitud> {
+    constructor(apiHelperService: ApiJsonHelperService) {
         super(apiHelperService, 'organizacion/solicitudes');
     }
 

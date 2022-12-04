@@ -1,13 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
-import { ApiHelperService, BaseResponse } from '../api/api-helper.service';
+import {
+    ApiJsonHelperService,
+    BaseResponse,
+} from '../api/api-json-helper.service';
 import { Observable } from 'rxjs';
 
 @Injectable({
     providedIn: 'root',
 })
 export class AuthApiService {
-    constructor(private apiHelperService: ApiHelperService) {}
+    constructor(private apiHelperService: ApiJsonHelperService) {}
 
     login(request: LoginRequest): Observable<HttpResponse<LoginResponse>> {
         return this.apiHelperService.post<LoginResponse>('auth/login', request);

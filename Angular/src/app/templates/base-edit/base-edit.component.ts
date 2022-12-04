@@ -1,13 +1,13 @@
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap } from 'rxjs';
-import { IBaseService } from 'src/app/base/ibase.service';
+import { IBaseJsonService } from 'src/app/base/ibase-json.service';
 
 export abstract class BaseEditComponent<T> {
     constructor(
         protected route: ActivatedRoute,
         protected router: Router,
         protected entityName: string,
-        protected service: IBaseService<T>
+        protected service: IBaseJsonService<T>
     ) {}
 
     loadEntity() {
