@@ -1,4 +1,4 @@
-!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,25 +8,27 @@
     <link rel="stylesheet" href="./my-styles.css">
 </head>
 <body>
-
-<div id="main-div">
-
-    <table class="table table-bordered table-striped">
-        {{#each listaorganizaciones}}
+    <div id="main-div">
+        <table class="table table-bordered table-striped">
             <tr>
-                <td>{{id}}</td>
-                <td>{{cantDiasHabilesPorSemana}}</td>
-                <td>{{clasificacion.text}}</td>
-                <td>{{razonSocial}}</td>
-                <td>{{tipoOrganizacion.text}}</td>
-                <td>{{factorK.unidad}}</td>
-                <td>{{factorK.text}}</td>
+                <th>Id</th>
+                <th>Razon social</th>
+                <th>Clasificacion</th>
+                <th>Tipo organizacion</th>
+                <th>Dias habiles por semana</th>
+                <th>Factor K</th>
             </tr>
-        {{/each}}
-    </table>
-
-</div>
-
-<!--    <script>-->
+            {{#each listaorganizaciones}}
+                <tr>
+                    <td>{{id}}</td>
+                    <td>{{razonSocial}}</td>
+                    <td>{{clasificacion.text}}</td>
+                    <td>{{tipoOrganizacion.text}}</td>
+                    <td>{{cantDiasHabilesPorSemana}}</td>
+                    <td>{{factorK.text}}</td>
+                </tr>
+            {{/each}}
+        </table>
+    </div>
 </body>
 </html>

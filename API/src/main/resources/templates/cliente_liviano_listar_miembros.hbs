@@ -8,24 +8,27 @@
     <link rel="stylesheet" href="./my-styles.css">
 </head>
 <body>
-
-<div id="main-div">
-
-    <table class="table table-bordered table-striped">
-        {{#each listamiembros}}
+    <div id="main-div">
+        <table class="table table-bordered table-striped">
             <tr>
-                <td>{{id}}</td>
-                <td>{{persona.text}}</td>
-                <td>{{usuario.text}}</td>
-                <td>{{sector.text}}</td>
-                <td>{{organizacion.text}}</td>
-                <td>{{idSolicitud}}</td>
+                <th>Id</th>
+                <th>Persona</th>
+                <th>Usuario</th>
+                <th>Sector</th>
+                <th>Organizacion</th>
+                <!-- <th>{{idSolicitud}}</th> -->
             </tr>
-        {{/each}}
-    </table>
-
-</div>
-
-<!--    <script>-->
+            {{#each listamiembros}}
+                <tr>
+                    <td>{{id}}</td>
+                    <td>{{persona.text}}</td>
+                    <td>{{usuario.text}}</td>
+                    <td>{{sector.text}}</td>
+                    <td>{{organizacion.text}}</td>
+                    <!-- <td>{{idSolicitud}}</td> -->
+                </tr>
+            {{/each}}
+        </table>
+    </div>
 </body>
 </html>
