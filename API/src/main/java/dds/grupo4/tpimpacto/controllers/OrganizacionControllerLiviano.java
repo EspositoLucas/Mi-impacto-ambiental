@@ -7,14 +7,16 @@ import dds.grupo4.tpimpacto.dtos.base.ResponseWithResults;
 import dds.grupo4.tpimpacto.services.OrganizacionService;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-@Controller
+@RestController
+@RequestMapping("/liviano/organizacion")
 public class OrganizacionControllerLiviano {
     private final OrganizacionService organizacionService;
 
@@ -25,9 +27,8 @@ public class OrganizacionControllerLiviano {
         this.handlebars = new Handlebars();
     }
 
-    @GetMapping(value = "/organizacionLiviano", produces = MediaType.TEXT_HTML_VALUE)
+    @GetMapping(produces = MediaType.TEXT_HTML_VALUE)
     public ResponseEntity<String> obtenerVistaDeOrganizaciones() throws IOException {
-
         //validar accion en capa modelo según roles o usuario asociados al idSesion
         Template template = handlebars.compile("/templates/cliente_liviano_listar_organizaciones");
         ResponseWithResults<OrganizacionDto> organizaciones = organizacionService.getAllDtos();

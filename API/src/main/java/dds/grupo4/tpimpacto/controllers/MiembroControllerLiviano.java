@@ -7,14 +7,16 @@ import dds.grupo4.tpimpacto.dtos.base.ResponseWithResults;
 import dds.grupo4.tpimpacto.services.MiembroService;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-@Controller
+@RestController
+@RequestMapping("/liviano/miembro")
 public class MiembroControllerLiviano {
 
     private final MiembroService miembroService;
@@ -26,10 +28,8 @@ public class MiembroControllerLiviano {
         this.handlebars = new Handlebars();
     }
 
-    @GetMapping(value = "/miembroLiviano", produces = MediaType.TEXT_HTML_VALUE)
+    @GetMapping(produces = MediaType.TEXT_HTML_VALUE)
     public ResponseEntity<String> obtenerVistaDeMiembros() throws IOException {
-
-        //validar accion en capa modelo según roles o usuario asociados al idSesion
         Template template = handlebars.compile("/templates/cliente_liviano_listar_miembros");
         ResponseWithResults<MiembroDto> miembros = miembroService.listarMiembros();
 
