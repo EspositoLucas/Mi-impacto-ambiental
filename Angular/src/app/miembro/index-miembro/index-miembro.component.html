@@ -17,25 +17,4 @@
             </tr>
         </tbody>
     </table>
-
-    <button type="button" onclick="prueba" class="btn btn-primary">
-        Listar Miembros
-    </button>
-
 </app-index-template>
-
-<script lang="ts">
-    import { AuthService } from '../auth/auth.service';
-    async function prueba(){
-        return fetch("http://localhost:8080/miembroLiviano", {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: 'Bearer'  + this.authService.loggedUser.accessToken ,
-                'X-Custom-Header': 'header value'
-
-            }
-        })
-    }
-
-</script>

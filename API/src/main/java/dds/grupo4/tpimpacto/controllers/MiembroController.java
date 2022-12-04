@@ -30,5 +30,4 @@ public class MiembroController {
     public ResponseEntity<ResponseWithResults<MiembroDto>> listarMiembros() {
         return ResponseEntityUtils.toResponseEntity(miembroService.listarMiembros());
     }
-
 }
