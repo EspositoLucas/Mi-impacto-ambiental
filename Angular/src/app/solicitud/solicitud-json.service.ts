@@ -10,7 +10,7 @@ import { Solicitud } from '../models/solicitud.model';
 @Injectable({
     providedIn: 'root',
 })
-export class SolicitudService extends BaseJsonService<Solicitud> {
+export class SolicitudJsonService extends BaseJsonService<Solicitud> {
     constructor(apiHelperService: ApiJsonHelperService) {
         super(apiHelperService, 'organizacion/solicitudes');
     }

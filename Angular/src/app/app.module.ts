@@ -35,11 +35,13 @@ import { SectorSelectComponent } from './selects/sector-select/sector-select.com
 import { IndexMiembroContainer } from './miembro/index-miembro/index-miembro.container';
 import { CrearMiembroComponent } from './miembro/crear-miembro/crear-miembro.component';
 import { RegisterComponent } from './register/register.component';
-import { IndexSolicitudComponent } from './solicitud/index-solicitud/index-solicitud.component';
+import { IndexSolicitudContainer } from './solicitud/index-solicitud/index-solicitud.container';
 import { IndexMiembroPesadoComponent } from './miembro/index-miembro/index-miembro-pesado/index-miembro-pesado.component';
 import { IndexMiembroLivianoComponent } from './miembro/index-miembro/index-miembro-liviano/index-miembro-liviano.component';
 import { IndexOrganizacionLivianoComponent } from './organizacion/index-organizacion/index-organizacion-liviano/index-organizacion-liviano.component';
 import { IndexOrganizacionPesadoComponent } from './organizacion/index-organizacion/index-organizacion-pesado/index-organizacion-pesado.component';
+import { IndexSolicitudLivianoComponent } from './solicitud/index-solicitud/index-solicitud-liviano/index-solicitud-liviano.component';
+import { IndexSolicitudPesadoComponent } from './solicitud/index-solicitud/index-solicitud-pesado/index-solicitud-pesado.component';
 
 @NgModule({
     declarations: [
@@ -68,11 +70,13 @@ import { IndexOrganizacionPesadoComponent } from './organizacion/index-organizac
         IndexMiembroContainer,
         CrearMiembroComponent,
         RegisterComponent,
-        IndexSolicitudComponent,
+        IndexSolicitudContainer,
         IndexMiembroPesadoComponent,
         IndexMiembroLivianoComponent,
         IndexOrganizacionLivianoComponent,
         IndexOrganizacionPesadoComponent,
+        IndexSolicitudLivianoComponent,
+        IndexSolicitudPesadoComponent,
     ],
     imports: [
         BrowserModule,

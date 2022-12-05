@@ -3,20 +3,20 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Solicitud } from 'src/app/models/solicitud.model';
 import { BaseIndexComponent } from 'src/app/templates/base-index/base-index.component';
-import { SolicitudService } from '../solicitud.service';
+import { SolicitudJsonService } from '../../solicitud-json.service';
 
 @Component({
-    selector: 'app-index-solicitud',
-    templateUrl: './index-solicitud.component.html',
-    styleUrls: ['./index-solicitud.component.css'],
+    selector: 'app-index-solicitud-pesado',
+    templateUrl: './index-solicitud-pesado.component.html',
+    styleUrls: ['./index-solicitud-pesado.component.css'],
 })
-export class IndexSolicitudComponent
+export class IndexSolicitudPesadoComponent
     extends BaseIndexComponent<Solicitud>
     implements OnInit
 {
     constructor(
         router: Router,
-        private solicitudService: SolicitudService,
+        private solicitudService: SolicitudJsonService,
         private toastr: ToastrService
     ) {
         super(router, 'solicitud', solicitudService);

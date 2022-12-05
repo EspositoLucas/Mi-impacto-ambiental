@@ -1,0 +1,34 @@
+<div class="m-3">
+    <div class="form-check form-check-inline">
+        <input
+            class="form-check-input"
+            type="radio"
+            name="cliente"
+            id="clientePesado"
+            value="clientePesado"
+            [(ngModel)]="clienteElegido"
+        />
+        <label class="form-check-label" for="clientePesado">
+            Cliente pesado
+        </label>
+    </div>
+    <div class="form-check form-check-inline">
+        <input
+            class="form-check-input"
+            type="radio"
+            name="cliente"
+            id="clienteLiviano"
+            value="clienteLiviano"
+            [(ngModel)]="clienteElegido"
+        />
+        <label class="form-check-label" for="clienteLiviano">
+            Cliente liviano
+        </label>
+    </div>
+</div>
+
+<ng-container *ngIf="(html$ | async) as html">
+    <app-index-solicitud-liviano *ngIf="clienteElegido === 'clienteLiviano'" [html]="html"></app-index-solicitud-liviano>
+</ng-container>
+
+<app-index-solicitud-pesado *ngIf="clienteElegido === 'clientePesado'"></app-index-solicitud-pesado>

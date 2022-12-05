@@ -12,7 +12,7 @@ import { CrearPersonaComponent } from './persona/crear-persona/crear-persona.com
 import { IndexPersonaComponent } from './persona/index-persona/index-persona.component';
 import { RegisterComponent } from './register/register.component';
 import { IndexSectorComponent } from './sector/index-sector/index-sector.component';
-import { IndexSolicitudComponent } from './solicitud/index-solicitud/index-solicitud.component';
+import { IndexSolicitudContainer } from './solicitud/index-solicitud/index-solicitud.container';
 
 export const routes: Routes = [
     {
@@ -65,7 +65,7 @@ export const routes: Routes = [
     },
     {
         path: 'solicitud',
-        component: IndexSolicitudComponent,
+        component: IndexSolicitudContainer,
     },
     {
         path: '',
