@@ -7,7 +7,7 @@ import java.util.*;
 @Component
 public class ValidadorContrasenia {
 
-    public static final String RUTA_ARCHIVO_CONTRASENIAS_INSEGURAS = "static/contraseniasInseguras.txt";
+    public static final String RUTA_ARCHIVO_CONTRASENIAS_INSEGURAS = "/static/contraseniasInseguras.txt";
 
     private static final int MIN_CARACTERES = 8;
     private static final int MIN_MINUSCULAS = 2;
