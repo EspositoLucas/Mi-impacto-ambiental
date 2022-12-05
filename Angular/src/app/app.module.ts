@@ -18,7 +18,7 @@ import { CrearOrganizacionComponent } from './organizacion/crear-organizacion/cr
 import { TipoOrganizacionSelectComponent } from './selects/tipo-organizacion-select/tipo-organizacion-select.component';
 import { BaseSelectComponent } from './selects/base-select/base-select.component';
 import { UnidadSelectComponent } from './selects/unidad-select/unidad-select.component';
-import { IndexOrganizacionComponent } from './organizacion/index-organizacion/index-organizacion.component';
+import { IndexOrganizacionContainer } from './organizacion/index-organizacion/index-organizacion.container';
 import { IndexTemplateComponent } from './templates/index-template/index-template.component';
 import { EditOrganizacionComponent } from './organizacion/edit-organizacion/edit-organizacion.component';
 import { ClasificacionOrganizacionSelectComponent } from './selects/clasificacion-organizacion-select/clasificacion-organizacion-select.component';
@@ -38,6 +38,8 @@ import { RegisterComponent } from './register/register.component';
 import { IndexSolicitudComponent } from './solicitud/index-solicitud/index-solicitud.component';
 import { IndexMiembroPesadoComponent } from './miembro/index-miembro/index-miembro-pesado/index-miembro-pesado.component';
 import { IndexMiembroLivianoComponent } from './miembro/index-miembro/index-miembro-liviano/index-miembro-liviano.component';
+import { IndexOrganizacionLivianoComponent } from './organizacion/index-organizacion/index-organizacion-liviano/index-organizacion-liviano.component';
+import { IndexOrganizacionPesadoComponent } from './organizacion/index-organizacion/index-organizacion-pesado/index-organizacion-pesado.component';
 
 @NgModule({
     declarations: [
@@ -50,7 +52,7 @@ import { IndexMiembroLivianoComponent } from './miembro/index-miembro/index-miem
         TipoOrganizacionSelectComponent,
         BaseSelectComponent,
         UnidadSelectComponent,
-        IndexOrganizacionComponent,
+        IndexOrganizacionContainer,
         IndexTemplateComponent,
         EditOrganizacionComponent,
         ClasificacionOrganizacionSelectComponent,
@@ -69,6 +71,8 @@ import { IndexMiembroLivianoComponent } from './miembro/index-miembro/index-miem
         IndexSolicitudComponent,
         IndexMiembroPesadoComponent,
         IndexMiembroLivianoComponent,
+        IndexOrganizacionLivianoComponent,
+        IndexOrganizacionPesadoComponent,
     ],
     imports: [
         BrowserModule,

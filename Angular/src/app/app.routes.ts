@@ -7,7 +7,7 @@ import { CrearMiembroComponent } from './miembro/crear-miembro/crear-miembro.com
 import { IndexMiembroContainer } from './miembro/index-miembro/index-miembro.container';
 import { CrearOrganizacionComponent } from './organizacion/crear-organizacion/crear-organizacion.component';
 import { EditOrganizacionComponent } from './organizacion/edit-organizacion/edit-organizacion.component';
-import { IndexOrganizacionComponent } from './organizacion/index-organizacion/index-organizacion.component';
+import { IndexOrganizacionContainer } from './organizacion/index-organizacion/index-organizacion.container';
 import { CrearPersonaComponent } from './persona/crear-persona/crear-persona.component';
 import { IndexPersonaComponent } from './persona/index-persona/index-persona.component';
 import { RegisterComponent } from './register/register.component';
@@ -29,7 +29,7 @@ export const routes: Routes = [
     },
     {
         path: 'organizacion',
-        component: IndexOrganizacionComponent,
+        component: IndexOrganizacionContainer,
     },
     {
         path: 'organizacion/crear',

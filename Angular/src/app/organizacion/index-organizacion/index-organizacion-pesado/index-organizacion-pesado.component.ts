@@ -4,14 +4,14 @@ import { tap } from 'rxjs';
 import { cantidadFormatTextMessage } from 'src/app/models/cantidad.model';
 import { Organizacion } from 'src/app/models/organizacion.model';
 import { BaseIndexComponent } from 'src/app/templates/base-index/base-index.component';
-import { OrganizacionJsonService } from '../organizacion-json.service';
+import { OrganizacionJsonService } from '../../organizacion-json.service';
 
 @Component({
-    selector: 'app-index-organizacion',
-    templateUrl: './index-organizacion.component.html',
-    styleUrls: ['./index-organizacion.component.css'],
+    selector: 'app-index-organizacion-pesado',
+    templateUrl: './index-organizacion-pesado.component.html',
+    styleUrls: ['./index-organizacion-pesado.component.css'],
 })
-export class IndexOrganizacionComponent
+export class IndexOrganizacionPesadoComponent
     extends BaseIndexComponent<Organizacion>
     implements OnInit
 {
