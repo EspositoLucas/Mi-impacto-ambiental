@@ -13,19 +13,19 @@ services:
     restart: always
     networks:
       - app-db
-  mysql-db:
-    image: mysql
-    ports:
-      - 3306:3306
-    container_name: dds-mysql-container
-    volumes:
-      - dds-mysql-volume:/var/lib/mysql
-    restart: always
-    networks:
-      - app-db
-    environment:
-      MYSQL_ROOT_PASSWORD: secret
-      MYSQL_DATABASE: bdgrupo4
+  # mysql-db:
+  #   image: mysql
+  #   ports:
+  #     - 3306:3306
+  #   container_name: dds-mysql-container
+  #   volumes:
+  #     - dds-mysql-volume:/var/lib/mysql
+  #   restart: always
+  #   networks:
+  #     - app-db
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: secret
+  #     MYSQL_DATABASE: bdgrupo4
   db:
     image: postgres
     ports:
