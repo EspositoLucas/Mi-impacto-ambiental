@@ -20,18 +20,20 @@ services:
     container_name: dds-mysql-container
     volumes:
       - dds-mysql-volume:/var/lib/mysql
+    restart: always
+    networks:
+      - app-db
     environment:
       MYSQL_ROOT_PASSWORD: secret
       MYSQL_DATABASE: bdgrupo4
-    restart: always
   db:
     image: postgres
-    expose:
-      - 5432
+    ports:
+      - 5432:5432
     container_name: dds-postgres-container
-    restart: always
     volumes:
-      - db-data:/var/lib/postgresql/data
+      - dds-postgres-volume:/var/lib/postgresql/data
+    restart: always
     networks:
       - app-db
     environment:
@@ -41,6 +43,6 @@ services:
 
 volumes:
   dds-mysql-volume:
-  db-data:
+  dds-postgres-volume:
 networks:
   app-db:
