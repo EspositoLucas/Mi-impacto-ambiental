@@ -29,7 +29,7 @@ public class OrganizacionControllerLiviano {
 
     @GetMapping(produces = MediaType.TEXT_HTML_VALUE)
     public ResponseEntity<String> obtenerVistaDeOrganizaciones() throws IOException {
-        Template template = handlebars.compile("/templates/cliente_liviano_listar_organizaciones");
+        Template template = handlebars.compile("/templates/listar_organizaciones");
         ResponseWithResults<OrganizacionDto> organizaciones = organizacionService.getAllDtos();
 
         Map<String, Object> model = new HashMap<>();

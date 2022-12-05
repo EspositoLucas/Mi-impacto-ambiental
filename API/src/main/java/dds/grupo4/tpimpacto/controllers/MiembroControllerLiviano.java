@@ -30,7 +30,7 @@ public class MiembroControllerLiviano {
 
     @GetMapping(produces = MediaType.TEXT_HTML_VALUE)
     public ResponseEntity<String> obtenerVistaDeMiembros() throws IOException {
-        Template template = handlebars.compile("/templates/cliente_liviano_listar_miembros");
+        Template template = handlebars.compile("/templates/listar_miembros");
         ResponseWithResults<MiembroDto> miembros = miembroService.listarMiembros();
 
         Map<String, Object> model = new HashMap<>();
