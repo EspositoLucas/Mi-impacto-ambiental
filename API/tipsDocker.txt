@@ -1,0 +1,11 @@
+CORRER MYSQL
+docker run -dp 3306:3306 --name mysql-db -e MYSQL_ROOT_PASSWORD=secret --mount src=mysql-db-data,dst=/var/lib/mysql mysql
+
+ENTRAR AL CONTAINER DE MYSQL
+docker exec -it mysql-db mysql -u root -p
+
+BUILDEAR LA IMAGEN DE LA API
+docker build -t dds-api-image .
+
+CORRER API
+docker run -dp 8080:8080 --name dds-api-container dds-api-image

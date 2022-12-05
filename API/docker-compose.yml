@@ -1,0 +1,46 @@
+services:
+  app:
+    build: .
+    image: dds-api-image
+    ports:
+      - 8080:8080
+    container_name: dds-api-container
+    # volumes:
+    #   - ./:/app
+    # environment:
+    depends_on:
+      - db
+    restart: always
+    networks:
+      - app-db
+  mysql-db:
+    image: mysql
+    ports:
+      - 3306:3306
+    container_name: dds-mysql-container
+    volumes:
+      - dds-mysql-volume:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: bdgrupo4
+    restart: always
+  db:
+    image: postgres
+    expose:
+      - 5432
+    container_name: dds-postgres-container
+    restart: always
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    networks:
+      - app-db
+    environment:
+      POSTGRES_PASSWORD: secret
+      POSTGRES_USER: grupo4
+      POSTGRES_DB: bdgrupo4
+
+volumes:
+  dds-mysql-volume:
+  db-data:
+networks:
+  app-db:
