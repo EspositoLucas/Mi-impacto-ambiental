@@ -11,11 +11,10 @@ export class ApiHtmlHelperService {
 
     get(url: string, headers?: HttpHeaders): Observable<HttpResponse<string>> {
         const apiUrl = this.getUrl(url);
-        const options: {
-            headers?: HttpHeaders;
-            observe: 'response';
-        } = { headers, observe: 'response' };
-        return this.httpClient.get<string>(apiUrl, options);
+        return this.httpClient.get(apiUrl, {
+            observe: 'response',
+            responseType: 'text',
+        });
     }
 
     private getUrl(url: string): string {

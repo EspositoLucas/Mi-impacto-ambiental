@@ -4,7 +4,7 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
 import { CrearMiembroComponent } from './miembro/crear-miembro/crear-miembro.component';
-import { IndexMiembroComponent } from './miembro/index-miembro/index-miembro.component';
+import { IndexMiembroContainer } from './miembro/index-miembro/index-miembro.container';
 import { CrearOrganizacionComponent } from './organizacion/crear-organizacion/crear-organizacion.component';
 import { EditOrganizacionComponent } from './organizacion/edit-organizacion/edit-organizacion.component';
 import { IndexOrganizacionComponent } from './organizacion/index-organizacion/index-organizacion.component';
@@ -57,7 +57,7 @@ export const routes: Routes = [
     },
     {
         path: 'miembro',
-        component: IndexMiembroComponent,
+        component: IndexMiembroContainer,
     },
     {
         path: 'miembro/crear',

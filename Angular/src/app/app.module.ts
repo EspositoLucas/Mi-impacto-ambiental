@@ -32,10 +32,12 @@ import { TipoDocumentoSelectComponent } from './selects/tipo-documento-select/ti
 import { CrearPersonaComponent } from './persona/crear-persona/crear-persona.component';
 import { PersonaSelectComponent } from './selects/persona-select/persona-select.component';
 import { SectorSelectComponent } from './selects/sector-select/sector-select.component';
-import { IndexMiembroComponent } from './miembro/index-miembro/index-miembro.component';
+import { IndexMiembroContainer } from './miembro/index-miembro/index-miembro.container';
 import { CrearMiembroComponent } from './miembro/crear-miembro/crear-miembro.component';
 import { RegisterComponent } from './register/register.component';
 import { IndexSolicitudComponent } from './solicitud/index-solicitud/index-solicitud.component';
+import { IndexMiembroPesadoComponent } from './miembro/index-miembro/index-miembro-pesado/index-miembro-pesado.component';
+import { IndexMiembroLivianoComponent } from './miembro/index-miembro/index-miembro-liviano/index-miembro-liviano.component';
 
 @NgModule({
     declarations: [
@@ -61,10 +63,12 @@ import { IndexSolicitudComponent } from './solicitud/index-solicitud/index-solic
         CrearPersonaComponent,
         PersonaSelectComponent,
         SectorSelectComponent,
-        IndexMiembroComponent,
+        IndexMiembroContainer,
         CrearMiembroComponent,
         RegisterComponent,
         IndexSolicitudComponent,
+        IndexMiembroPesadoComponent,
+        IndexMiembroLivianoComponent,
     ],
     imports: [
         BrowserModule,
