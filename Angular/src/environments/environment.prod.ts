@@ -1,4 +1,4 @@
 export const environment = {
     production: true,
-    baseApiUrl: 'TODO',
+    baseApiUrl: '3.232.10.243:8080',
 };
