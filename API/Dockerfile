@@ -1,15 +1,16 @@
-FROM eclipse-temurin:8-jdk-ubi9-minimal
+FROM openjdk:17
 
-WORKDIR /app
+ADD target/tpimpacto-0.0.1-SNAPSHOT.jar /opt/target/tpimpacto-0.0.1-SNAPSHOT.jar
 
-COPY target/*.jar app.jar
-# COPY .mvn/ .mvn
-# COPY mvnw pom.xml ./
-# RUN ./mvnw dependency:resolve
+ENV DB_HOST ${DB_HOST}    
+ENV DB_USER ${DB_USER}       
+ENV DB_PASS ${DB_PASS}     
+ENV SEC_ORDER ${SEC_ORDER}
+ENV JWT_KEY ${JWT_KEY}
+ENV MAIL_HOST ${MAIL_HOST}
+ENV MAIL_PORT ${MAIL_PORT}
+ENV MAIL_USERNAME ${MAIL_USERNAME}
+ENV MAIL_PASSWORD ${MAIL_PASSWORD}
 
-# COPY src ./src
+ENTRYPOINT ["java", "-jar","/opt/target/tpimpacto-0.0.1-SNAPSHOT.jar"]
 
-ENTRYPOINT ["java","-jar","/app/app.jar"]
-
-# ENTRYPOINT ["./mvnw", "spring-boot:run"]
-# CMD ["./mvnw", "spring-boot:run"]

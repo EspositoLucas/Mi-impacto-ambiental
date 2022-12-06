@@ -1,0 +1,52 @@
+version: '3.8'
+services:
+        mysql:
+                image: mysql:8.0
+                container_name: mysql_dds
+                environment:
+                        MYSQL_DATABASE: bdgrupo4
+                        MYSQL_ROOT_PASSWORD: ThePassword
+
+                ports: 
+                        - "3306:3306"
+
+                volumes:
+                        - "/home/ebloemer/mmysql_dds:/var/lib/mysql"
+
+        pma:
+                image: phpmyadmin:5
+                container_name: phpmyadmin_rp
+
+                environment:
+                        PMA_HOST: mysql
+                        PMA_PORT: 3306
+                        PMA_ARBITRARY: 1
+
+                ports:
+                        - "8081:80"
+
+                volumes:
+                        - "/opt/phpmyadmin/sessions:/sessions"
+                        - "/opt/phpmyadmin/config.user.inc.php:/etc/phpmyadmin/config.user.inc.php"
+        api: 
+                image: ${IMAGE_API} 
+                container_name: api_miImp
+
+                environment:
+                        - DB_HOST=${DB_HOST}
+                        #- DB_NAME=${DB_NAME}
+                        - DB_USER=${DB_USER}
+                        - DB_PASS=${DB_PASS}
+                        - SEC_ORDER=${SEC_ORDER}
+                        - JWT_KEY=${JWT_KEY}
+                        - MAIL_HOST=${MAIL_HOST}
+                        - MAIL_PORT=${MAIL_PORT}
+                        - MAIL_USERNAME=${MAIL_USERNAME}
+                        - MAIL_PASSWORD=${MAIL_PASSWORD}
+
+                env_file:
+                        - .env
+
+                ports:
+                        - "8080:8080"
+                restart: always

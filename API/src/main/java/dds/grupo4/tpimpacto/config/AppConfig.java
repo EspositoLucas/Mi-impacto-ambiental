@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 @Getter
 public class AppConfig {
 
-    @Value("${server.url}")
-    private String apiUrl;
+   // @Value("${server.url}")
+    //private String apiUrl;
 
 }
