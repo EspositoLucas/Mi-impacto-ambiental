@@ -1,3 +1,4 @@
+#deploy del backend con image 
 FROM openjdk:17
 
 ADD target/tpimpacto-0.0.1-SNAPSHOT.jar /opt/target/tpimpacto-0.0.1-SNAPSHOT.jar
