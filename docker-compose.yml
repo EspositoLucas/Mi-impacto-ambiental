@@ -34,7 +34,6 @@ services:
 
                 environment:
                         - DB_HOST=${DB_HOST}
-                        #- DB_NAME=${DB_NAME}
                         - DB_USER=${DB_USER}
                         - DB_PASS=${DB_PASS}
                         - SEC_ORDER=${SEC_ORDER}
@@ -50,3 +49,14 @@ services:
                 ports:
                         - "8080:8080"
                 restart: always
+        ui:
+                image: ${IMAGE_UI}
+                container_name: ui_cont
+
+                env_file:
+                        - .env
+                ports:
+                        - "3000:80"
+                restart: always
+
+
