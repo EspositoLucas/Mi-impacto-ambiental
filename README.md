@@ -1,5 +1,5 @@
 # miImpactoAmbiental-DDS
-[Trabajo Practico](Catedra-Diseno-de-Sistemas-TPA-2022-v3.0.pdf) Anual 2022 de la materia Diseño de Sistemas de la UTN FRBA
+[Trabajo Practico Anual 2022](Catedra-Diseno-de-Sistemas-TPA-2022-v3.0.pdf) de la materia Diseño de Sistemas de la UTN FRBA
 
 **Link a la primera entrega:** https://drive.google.com/drive/folders/1ijyV6ojHAbxNwrvBCY0gBLvaj0BnxdAA?usp=sharing
 
