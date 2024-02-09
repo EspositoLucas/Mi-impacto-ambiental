@@ -1,5 +1,5 @@
 # Trabajo Practico Anual Diseño de Sistemas UTN FRBA
-[Trabajo Practico Anual ](Catedra-Diseno-de-Sistemas-TPA-2022-v3.0.pdf) de la materia Diseño de Sistemas de la UTN FRBA
+[Trabajo Práctico Anual ](Catedra-Diseno-de-Sistemas-TPA-2022-v3.0.pdf) de la materia Diseño de Sistemas de la UTN FRBA
 
 **Link a la primera entrega:** https://drive.google.com/drive/folders/1ijyV6ojHAbxNwrvBCY0gBLvaj0BnxdAA?usp=sharing
 
